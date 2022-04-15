@@ -4,10 +4,10 @@
  *
  * This file contains any general functions
  *
- * @package      SC_Custom_Functionality
- * @since        1.0.0
- * @link         https://github.com/ucsc/ucsc-main-core-functionality-plugin.git
- * @author       UCSC
+ * @package      ucsc
+ * @since        0.1.0
+ * @link         https://github.com/ucsc/ucsc-custom-functionality.git
+ * @author       UC Santa Cruz
  * @license      http://opensource.org/licenses/gpl-2.0.php GNU Public License
  */
 
@@ -17,7 +17,7 @@
  *
  * @return void
  */
-function sc_site_admin_role() {
+function ucsc_custom_functionality_site_admin_role() {
 
 	$admin_role = get_role( 'administrator' );
 
@@ -38,4 +38,4 @@ function sc_site_admin_role() {
 
 }
 
-add_action( 'after_setup_theme', 'sc_site_admin_role' );
+add_action( 'after_setup_theme', 'ucsc_custom_functionality_site_admin_role' );
