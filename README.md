@@ -4,4 +4,4 @@ This is WordPress plugin contains custom functionality for UCSC websites. The co
 
 ## Features
 
-* `roles.php` -- for additional user roles beyond WordPress core
+* `roles.php` - additional user roles beyond WordPress core
