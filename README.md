@@ -1,7 +1,7 @@
-# Core Functionality Plugin
+# UCSC functionality for WordPress sites
 
-This is a WordPress plugin that contains UCSC Main WordPress site's core functionality. The concept is to keep structural features of a site that are theme independent, such as custom post-types, taxonomies and roles out of the theme's code. This will ensure that a future theme change does not affect a site's core functionality.
+This is WordPress plugin contains custom functionality for UCSC websites. The concept is to keep features of a site that are theme independent, such as custom post-types, taxonomies, and roles separate from the [UCSC theme code](https://github.com/ucsc/theme-ucsc). This will ensure that future theme changes do not affect a site's functionality.
 
-This plugin is a work in progress, so far it includes
+## Features
 
 * `roles.php` -- for additional user roles beyond WordPress core
