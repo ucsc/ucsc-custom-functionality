@@ -1,5 +1,36 @@
 {
-  "devDependencies": {
-    "standard-version": "^9.3.2"
-  }
+    "name": "ucsc-custom-functionality",
+    "version": "1.0.0",
+    "description": "Contains custom functionality for UCSC WordPress Websites.",
+    "scripts": {
+        "release": "standard-version",
+        "zip": "wp-scripts plugin-zip",
+        "packages-update": "wp-scripts packages-update"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ucsc/ucsc-custom-functionality.git"
+    },
+    "keywords": [
+        "WordPress",
+        "plugin"
+    ],
+    "author": "UC Santa Cruz",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/ucsc/ucsc-custom-functionality/issues"
+    },
+    "homepage": "https://github.com/ucsc/ucsc-custom-functionality#readme",
+    "devDependencies": {
+        "@wordpress/scripts": "^22.3.0",
+        "standard-version": "^9.3.2"
+    },
+    "files": [
+        "!vendor",
+        "lib",
+        "plugin.php",
+        "README.md",
+        "CHANGELOG.md",
+        "LICENSE"
+    ]
 }
