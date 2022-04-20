@@ -16,12 +16,12 @@
  * Copyright shortcode
  * returns copyright symbol and current year
  */
-function ucsc_copyright() {
+function ucsc_custom_functionality_copyright() {
 	$copyright = '&#169;';
 	$year      = gmdate( 'Y' );
 	return $copyright . $year;
 }
-add_shortcode( 'copyright', 'ucsc_copyright' );
+add_shortcode( 'copyright', 'ucsc_custom_functionality_copyright' );
 
 /**
  * Last Modified Callback Function
@@ -30,9 +30,9 @@ add_shortcode( 'copyright', 'ucsc_copyright' );
  *
  * @return String
  */
-function ucsc_last_modified_helper() {
-	$ucsc_modified_time = get_the_modified_time( 'U' );
-	if ( $ucsc_modified_time > 0 ) {
+function ucsc_custom_functionality_last_modified_helper() {
+	$ucsc_custom_functionality_modified_time = get_the_modified_time( 'U' );
+	if ( $ucsc_custom_functionality_modified_time > 0 ) {
 		return the_modified_time( 'F jS, Y' );
 	} else {
 		return the_time( 'F jS, Y' );
@@ -48,9 +48,9 @@ function ucsc_last_modified_helper() {
  *
  * @return String
  */
-function ucsc_last_modified() {
+function ucsc_custom_functionality_last_modified() {
 	ob_start();
-	ucsc_last_modified_helper();
+	ucsc_custom_functionality_last_modified_helper();
 	return ob_get_clean();
 }
-add_shortcode( 'last-modified', 'ucsc_last_modified' );
+add_shortcode( 'last-modified', 'ucsc_custom_functionality_last_modified' );
