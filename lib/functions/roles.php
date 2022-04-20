@@ -23,10 +23,10 @@ function ucsc_custom_functionality_site_manager_role() {
 
 	// Array of capabilities you do not want the new role to have.
 	$remove_caps = array(
-		'switch_themes'             => 0,
-		'edit_themes'               => 0,
-        'edit_theme_options'        => 0,
-		'edit_plugins'              => 0
+		'switch_themes'      => 0,
+		'edit_themes'        => 0,
+		'edit_theme_options' => 0,
+		'edit_plugins'       => 0,
 	);
 
 	// Run a diff on the admin role capabilities and the removed rules.

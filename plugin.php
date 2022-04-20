@@ -52,18 +52,18 @@ define( 'UCSC_DIR', dirname( __FILE__ ) );
 // Include Customization files.
 // Roles.
 if ( file_exists( UCSC_DIR . '/lib/functions/roles.php' ) ) {
-	
-    include_once UCSC_DIR . '/lib/functions/roles.php';
 
-    function ucsc_custom_functionality_remove_role() {
-        wp_roles()->remove_role( "ucsc_site_manager" );
-    }   
+	include_once UCSC_DIR . '/lib/functions/roles.php';
 
-    register_deactivation_hook( __FILE__, 'ucsc_custom_functionality_remove_role' );
+	function ucsc_custom_functionality_remove_role() {
+		wp_roles()->remove_role( 'ucsc_site_manager' );
+	}
+
+	register_deactivation_hook( __FILE__, 'ucsc_custom_functionality_remove_role' );
 }
 
 // Shortcodes.
 if ( file_exists( UCSC_DIR . '/lib/functions/shortcodes.php' ) ) {
-	
-    include_once UCSC_DIR . '/lib/functions/shortcodes.php';
+
+	include_once UCSC_DIR . '/lib/functions/shortcodes.php';
 }

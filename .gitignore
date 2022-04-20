@@ -168,3 +168,7 @@ pip-log.txt
 # Mac crap
 .DS_Store
 /nbproject/private/
+
+# ignore node  and composer dependency directories
+node_modules/
+vendor/
