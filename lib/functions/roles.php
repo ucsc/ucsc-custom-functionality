@@ -2,7 +2,7 @@
 /**
  * Roles
  *
- * This file contains any general functions
+ * This file contains any function to add new user roles
  *
  * @package      ucsc
  * @since        0.1.0
