@@ -38,3 +38,10 @@ function ucsc_custom_functionality_site_manager_role() {
 }
 
 add_action( 'after_setup_theme', 'ucsc_custom_functionality_site_manager_role' );
+
+
+function ucsc_custom_functionality_remove_role() {
+	wp_roles()->remove_role( 'ucsc_site_manager' );
+}
+
+register_deactivation_hook( UCSC_DIR . '/plugin.php', 'ucsc_custom_functionality_remove_role' );

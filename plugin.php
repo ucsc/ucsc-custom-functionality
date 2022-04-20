@@ -3,19 +3,13 @@
  * Plugin Name: UCSC Custom Functionality
  * Plugin URI: https://github.com/ucsc/ucsc-custom-functionality.git
  * Description: Contains custom functionality for UCSC WordPress Websites.
- * Version: 0.1.0
+ * Version: 1.0.0
  * Author: UC Santa Cruz
  * Author URI: https://github.com/ucsc
  * License: GPL2
  *
- * @package ucsc
+ * @package ucsc-custom-functionality
  *
- * This program is free software; you can redistribute it and/or modify it under the terms of the GNU
- * General Public License version 2, as published by the Free Software Foundation.  You may NOT assume
- * that you can use any other version of the GPL.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
- * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
 /**
@@ -46,24 +40,17 @@ function ucsc_custom_functionality_hidden( $r, $url ) {
 }
 add_filter( 'http_request_args', 'ucsc_custom_functionality_hidden', 5, 2 );
 
-// Plugin Directory.
+// Set plugin directory.
 define( 'UCSC_DIR', dirname( __FILE__ ) );
 
 // Include Customization files.
+
 // Roles.
 if ( file_exists( UCSC_DIR . '/lib/functions/roles.php' ) ) {
-
 	include_once UCSC_DIR . '/lib/functions/roles.php';
-
-	function ucsc_custom_functionality_remove_role() {
-		wp_roles()->remove_role( 'ucsc_site_manager' );
-	}
-
-	register_deactivation_hook( __FILE__, 'ucsc_custom_functionality_remove_role' );
 }
 
 // Shortcodes.
 if ( file_exists( UCSC_DIR . '/lib/functions/shortcodes.php' ) ) {
-
 	include_once UCSC_DIR . '/lib/functions/shortcodes.php';
 }
