@@ -9,7 +9,6 @@
  * License: GPL2
  *
  * @package ucsc-custom-functionality
- *
  */
 
 /**
@@ -53,4 +52,9 @@ if ( file_exists( UCSC_DIR . '/lib/functions/roles.php' ) ) {
 // Shortcodes.
 if ( file_exists( UCSC_DIR . '/lib/functions/shortcodes.php' ) ) {
 	include_once UCSC_DIR . '/lib/functions/shortcodes.php';
+}
+
+// Admin options.
+if ( file_exists( UCSC_DIR . '/lib/functions/admin-menus.php' ) ) {
+	include_once UCSC_DIR . '/lib/functions/admin-menus.php';
 }
