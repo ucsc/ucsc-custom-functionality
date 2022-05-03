@@ -172,3 +172,6 @@ pip-log.txt
 # ignore node  and composer dependency directories
 node_modules/
 vendor/
+
+# Ignore build artifacts
+*.zip
