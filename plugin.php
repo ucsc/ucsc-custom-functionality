@@ -58,3 +58,8 @@ if ( file_exists( UCSC_DIR . '/lib/functions/shortcodes.php' ) ) {
 if ( file_exists( UCSC_DIR . '/lib/functions/admin-menus.php' ) ) {
 	include_once UCSC_DIR . '/lib/functions/admin-menus.php';
 }
+
+// Scripts.
+if ( file_exists( UCSC_DIR . '/lib/functions/scripts.php' ) ) {
+	include_once UCSC_DIR . '/lib/functions/scripts.php';
+}
