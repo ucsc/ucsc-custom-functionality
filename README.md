@@ -7,3 +7,4 @@ This is WordPress plugin contains custom functionality for UCSC websites. The co
 * `admin-menus.php` - Customizes the admin area to remove unwanted menus from the Dashboard and front-facing Admin menu.
 * `roles.php` - Additional user roles beyond WordPress core.
 * `shortcodes.php` - Custom short codes.
+* `scripts.php` - Google Analytics, SiteImprove, Security Headers, and Disable XMLRPC
