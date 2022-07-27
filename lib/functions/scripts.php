@@ -1,21 +1,16 @@
 <?php
 /** Scripts */
 
-//disable xmlrpc
+// Disable XMLRPC
 if ( file_exists( UCSC_DIR . '/lib/functions/scripts/disable-xmlrpc.php' ) ) {
 	include_once UCSC_DIR . '/lib/functions/scripts/disable-xmlrpc.php';
 }
-//UCSC Gogle Analytics
+// Add Google TagManager
 if ( file_exists( UCSC_DIR . '/lib/functions/scripts/ga.php' ) ) {
 	include_once UCSC_DIR . '/lib/functions/scripts/ga.php';
 }
 
-//Security headers
-if ( file_exists( UCSC_DIR . '/lib/functions/scripts/security-headers.php' ) ) {
-	include_once UCSC_DIR . '/lib/functions/scripts/security-headers.php';
-}
-
-//Site Improve
+// Add SiteImprove script
 if ( file_exists( UCSC_DIR . '/lib/functions/scripts/site-improve.php' ) ) {
 	include_once UCSC_DIR . '/lib/functions/scripts/site-improve.php';
 }
