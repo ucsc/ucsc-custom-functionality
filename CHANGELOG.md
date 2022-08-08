@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/ucsc/ucsc-custom-functionality/compare/v1.1.4...v1.2.0) (2022-08-08)
+
+
+### Features
+
+* :sparkles: Add GA, SiteImprove, Security Headers and other scripts to functionality. ([024accc](https://github.com/ucsc/ucsc-custom-functionality/commit/024accc55a722a2a95dfa243b29d932c86842352))
+
+
+### Bug Fixes
+
+* 🐛 Remove Content-Security-Policy header ([70aa81a](https://github.com/ucsc/ucsc-custom-functionality/commit/70aa81aa0d3866d56df3abbb8e6fb29005cedc75))
+* 📝 Remove additional security headers ([#9](https://github.com/ucsc/ucsc-custom-functionality/issues/9)) ([c8538fa](https://github.com/ucsc/ucsc-custom-functionality/commit/c8538fadac3d90c96ab5785c98826d0f2b075e9e))
+* Bump plugin version to match last release ([924212b](https://github.com/ucsc/ucsc-custom-functionality/commit/924212b4e64497530741231ebb9b38838e2e3b0c))
+
 ### [1.1.4](https://github.com/ucsc/ucsc-custom-functionality/compare/v1.1.3...v1.1.4) (2022-05-03)
 
 ### [1.1.3](https://github.com/ucsc/ucsc-custom-functionality/compare/v1.1.2...v1.1.3) (2022-04-20)
