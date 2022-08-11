@@ -36,7 +36,7 @@ function ucsc_custom_functionality_site_manager_role() {
 
 }
 
-add_action( 'after_setup_theme', 'ucsc_custom_functionality_site_manager_role' );
+add_action( 'init', 'ucsc_custom_functionality_site_manager_role' );
 
 
 function ucsc_custom_functionality_remove_role() {
@@ -44,3 +44,27 @@ function ucsc_custom_functionality_remove_role() {
 }
 
 register_deactivation_hook( UCSC_DIR . '/plugin.php', 'ucsc_custom_functionality_remove_role' );
+
+
+/**
+ * Deny access to 'administrator' for other roles
+ * so others with edit_users capability, cannot edit others
+ * to be administrators
+ * see: https://wordpress.stackexchange.com/questions/43260/prevent-or-disable-creating-new-users-or-changing-roles-of-existing-users-to-adm
+ * 
+ * @since   0.1
+ * @param   (array) $all_roles
+ * @return  (array) $all_roles
+ */
+function ucsc_deny_change_to_admin( $all_roles )
+{
+    if ( ! current_user_can('administrator') )
+        unset( $all_roles['administrator'] );
+
+    return $all_roles;
+}
+function ucsc_deny_rolechange()
+{
+    add_filter( 'editable_roles', 'ucsc_deny_change_to_admin' );
+}
+add_action( 'after_setup_theme', 'ucsc_deny_rolechange' );
