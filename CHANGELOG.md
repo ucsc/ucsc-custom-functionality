@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.1](https://github.com/ucsc/ucsc-custom-functionality/compare/v1.2.0...v1.2.1) (2022-08-17)
+
+
+### Bug Fixes
+
+* :lock: Function to prevent Site Manager from elevating a user to Administrator. Fixes [#7](https://github.com/ucsc/ucsc-custom-functionality/issues/7) ([52b631c](https://github.com/ucsc/ucsc-custom-functionality/commit/52b631c3e8815cd5a6437d3cfd38d4de785efdc4))
+
 ## [1.2.0](https://github.com/ucsc/ucsc-custom-functionality/compare/v1.1.4...v1.2.0) (2022-08-08)
 
 
