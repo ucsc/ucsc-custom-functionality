@@ -44,11 +44,6 @@ define( 'UCSC_DIR', dirname( __FILE__ ) );
 
 // Include Customization files.
 
-// Roles.
-if ( file_exists( UCSC_DIR . '/lib/functions/roles.php' ) ) {
-	include_once UCSC_DIR . '/lib/functions/roles.php';
-}
-
 // Shortcodes.
 if ( file_exists( UCSC_DIR . '/lib/functions/shortcodes.php' ) ) {
 	include_once UCSC_DIR . '/lib/functions/shortcodes.php';
