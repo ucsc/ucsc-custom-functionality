@@ -33,9 +33,9 @@ add_shortcode( 'copyright', 'ucsc_custom_functionality_copyright' );
 function ucsc_custom_functionality_last_modified_helper() {
 	$ucsc_custom_functionality_modified_time = get_the_modified_time( 'U' );
 	if ( $ucsc_custom_functionality_modified_time > 0 ) {
-		return the_modified_time( 'F jS, Y' );
+		return the_modified_time( 'M d, Y' );
 	} else {
-		return the_time( 'F jS, Y' );
+		return the_time( 'M d, Y' );
 	}
 }
 
