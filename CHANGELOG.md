@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/ucsc/ucsc-custom-functionality/compare/v1.2.2...v1.3.0) (2022-12-09)
+
+
+### Features
+
+* ⚡️ Update date format in last-modified shortcode ([05c9b9a](https://github.com/ucsc/ucsc-custom-functionality/commit/05c9b9a3bdea34fcaef9bfdde446c71608c09ac8))
+
 ### [1.2.2](https://github.com/ucsc/ucsc-custom-functionality/compare/v1.2.1...v1.2.2) (2022-10-19)
 
 ### [1.2.1](https://github.com/ucsc/ucsc-custom-functionality/compare/v1.2.0...v1.2.1) (2022-08-17)
