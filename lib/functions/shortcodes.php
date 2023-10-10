@@ -19,11 +19,15 @@
 function ucsc_custom_functionality_google_search() {
 
     // Configuration params to be added to the output string
-	$site_url = parse_url( get_site_url(), PHP_URL_HOST );
     $script_source = "https://cse.google.com/cse.js?cx=012090462228956765947:d0ywvq7bxee";
+	$site_url = parse_url( get_site_url(), PHP_URL_HOST );
     
-    // Search ucsc.edu if in site is in development
-    if (preg_match("/wordpress(-dev)?/usmx", $site_url)) {
+    /**
+     * Search ucsc.edu if the site is in development:
+     *  1. domain contains .wordpress or .wordpress-dev
+     *  2. domain contains .local (which captures .localhost too)
+     */ 
+    if (preg_match("/\.wordpress(\-dev)?|\.local/usmx", $site_url)) {
         $search_url = 'ucsc.edu';
     } else {
         $search_url = $site_url;
