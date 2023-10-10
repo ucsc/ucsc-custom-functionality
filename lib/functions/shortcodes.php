@@ -11,9 +11,37 @@
  * @license      http://opensource.org/licenses/gpl-2.0.php GNU Public License
  */
 
+/**
+ * Google Site Search: [site-search]
+ * returns the HTML script tag and properly configured <div> element
+ * to display site search results on a WordPress page
+ */
+function ucsc_custom_functionality_google_search() {
+
+    // Configuration params to be added to the output string
+    $script_source = "https://cse.google.com/cse.js?cx=012090462228956765947:d0ywvq7bxee";
+	$site_url = parse_url( get_site_url(), PHP_URL_HOST );
+    
+    /**
+     * Search ucsc.edu if the site is in development:
+     *  1. domain contains .wordpress or .wordpress-dev
+     *  2. domain contains .local (which captures .localhost too)
+     */ 
+    if (preg_match("/\.wordpress(\-dev)?|\.local/usmx", $site_url)) {
+        $search_url = 'ucsc.edu';
+    } else {
+        $search_url = $site_url;
+    }
+    
+    // Return the configured string for Google Search results to display on the page
+    return sprintf('<script async src="%s"></script><div class="gcse-searchresults-only" data-queryParameterName="s" data-as_sitesearch="%s"></div>', $script_source, $search_url);
+}
+add_shortcode( 'site-search', 'ucsc_custom_functionality_google_search' );
+
+
 
 /**
- * Copyright shortcode
+ * Copyright: [copyright]
  * returns copyright symbol and current year
  */
 function ucsc_custom_functionality_copyright() {
@@ -23,12 +51,13 @@ function ucsc_custom_functionality_copyright() {
 }
 add_shortcode( 'copyright', 'ucsc_custom_functionality_copyright' );
 
+
+
 /**
- * Last Modified Callback Function
- *
- * Create a callback to build the last modified date
- *
- * @return String
+ * Last Modified: [last-modified]
+ * This is called by a short code `last-modified`. It looks at the
+ * modified time and if that time is greater than zero it returns it
+ * as a formatted date. Otherwise, it returns the date the page was created.
  */
 function ucsc_custom_functionality_last_modified_helper() {
 	$ucsc_custom_functionality_modified_time = get_the_modified_time( 'U' );
@@ -40,13 +69,7 @@ function ucsc_custom_functionality_last_modified_helper() {
 }
 
 /**
- * Return the last page modification in a readable format
- *
- * This is called by a short code `last-modified`. It looks at the
- * modified time and if that time is greater than zero it returns it
- * as a formatted date. Otherwise, it returns the date the page was created.
- *
- * @return String
+ * Process the last-modified shortcode
  */
 function ucsc_custom_functionality_last_modified() {
 	ob_start();
