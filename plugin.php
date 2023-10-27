@@ -58,3 +58,21 @@ if ( file_exists( UCSC_DIR . '/lib/functions/admin-menus.php' ) ) {
 if ( file_exists( UCSC_DIR . '/lib/functions/scripts.php' ) ) {
 	include_once UCSC_DIR . '/lib/functions/scripts.php';
 }
+
+// General functions.
+
+/**
+ * Add Taxonomies to Pages
+ *
+ * Adds taxonomies to pages in addition to posts
+ * @since 1.4.0
+ * @author UC Santa Cruz
+ * @license GNU General Public License 2.0+
+ */
+
+add_action( 'init', 'ucsc_custom_functionality_add_taxonomies_to_pages' );
+
+function ucsc_custom_functionality_add_taxonomies_to_pages() {
+	register_taxonomy_for_object_type( 'post_tag', 'page' );
+	register_taxonomy_for_object_type( 'category', 'page' );
+}
