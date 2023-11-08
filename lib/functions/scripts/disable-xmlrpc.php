@@ -15,3 +15,7 @@ add_filter(
 	},
 	PHP_INT_MAX
 );
+
+// Removes the link from the <head>.
+// Avoids a11y issue with broken link
+remove_action('wp_head', 'rsd_link');
