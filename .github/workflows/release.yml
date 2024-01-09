@@ -1,0 +1,39 @@
+name: Build and release
+
+on:
+    push:
+        tags:
+            - 'v*.*.*'
+            - 'v*.*.*-rc.*'
+
+permissions:
+    contents: write
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v3
+            - uses: actions/setup-node@v4.0.1
+              with:
+                  node-version: lts
+                  cache: 'npm'
+
+            - name: Install Node dependencies
+              run: npm install
+
+            - name: Validate composer.json and composer.lock
+              run: composer validate --strict
+
+            - name: Install PHP dependencies
+              run: composer install --no-progress
+
+            - name: Package theme
+              run: ./node_modules/.bin/wp-scripts plugin-zip
+
+            - name: Release
+              uses: softprops/action-gh-release@v1
+              with:
+                  files: ucsc-custom-functionality.zip
+                  generate_release_notes: true
