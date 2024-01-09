@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://github.com/ucsc/ucsc-custom-functionality/compare/v1.4.0...v1.5.0) (2024-01-09)
+
+
+### Features
+
+* ✨ Add Github deployment workflow ([#20](https://github.com/ucsc/ucsc-custom-functionality/issues/20)) ([444eea2](https://github.com/ucsc/ucsc-custom-functionality/commit/444eea26689a0c4f045749f90ea16860660bb2a7))
+
+
+### Bug Fixes
+
+* 🐛 Remove xmlrpc link from wp_head since we've disabled the functionality in WordPress ([#18](https://github.com/ucsc/ucsc-custom-functionality/issues/18)) ([56e2a7f](https://github.com/ucsc/ucsc-custom-functionality/commit/56e2a7fe9189863d60815fa96197075043ab4651))
+
 ## [1.4.0](https://github.com/ucsc/ucsc-custom-functionality/compare/v1.3.0...v1.4.0) (2023-10-10)
 
 
