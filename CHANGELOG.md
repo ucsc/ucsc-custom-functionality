@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.1](https://github.com/ucsc/ucsc-custom-functionality/compare/v1.5.0...v1.5.1) (2024-01-09)
+
+
+### Bug Fixes
+
+* 🐛 Fix for Node version so we always use lts ([898d934](https://github.com/ucsc/ucsc-custom-functionality/commit/898d93428bd80c5e91e93b3b761f4d6d87865c39))
+* 🐛 Setup action node version to numeric value ([5b6a9fe](https://github.com/ucsc/ucsc-custom-functionality/commit/5b6a9fe26181cd4fc300afa227db56fced4b6b76))
+* 🐛 Wrap release node version in quotes ([899f836](https://github.com/ucsc/ucsc-custom-functionality/commit/899f836d0822297ce00482cd17bb03cc5314be6e))
+
 ## [1.5.0](https://github.com/ucsc/ucsc-custom-functionality/compare/v1.4.0...v1.5.0) (2024-01-09)
 
 
