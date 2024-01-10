@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.2](https://github.com/ucsc/ucsc-custom-functionality/compare/v1.5.1...v1.5.2) (2024-01-10)
+
+
+### Bug Fixes
+
+* 🐛 Numeric node version it is :-( ([a250457](https://github.com/ucsc/ucsc-custom-functionality/commit/a2504573b19f0675bc5a1559a1cc3de9f5fbd11f))
+
 ### [1.5.1](https://github.com/ucsc/ucsc-custom-functionality/compare/v1.5.0...v1.5.1) (2024-01-09)
 
 
