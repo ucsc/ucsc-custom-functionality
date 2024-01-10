@@ -3,7 +3,7 @@
  * Plugin Name: UCSC Custom Functionality
  * Plugin URI: https://github.com/ucsc/ucsc-custom-functionality.git
  * Description: Contains custom functionality for UCSC WordPress Websites.
- * Version: 1.5.1
+ * Version: 1.5.2
  * Author: UC Santa Cruz
  * Author URI: https://github.com/ucsc
  * License: GPL2
