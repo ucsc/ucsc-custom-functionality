@@ -42,7 +42,6 @@ add_action( 'admin_menu', 'ucsc_custom_functionality_customize_dash' );
 function ucsc_custom_functionality_remove_from_admin_bar( $wp_admin_bar ) {
 	if ( ! current_user_can( 'edit_themes' ) ) {
 		$wp_admin_bar->remove_node( 'customize' );
-		$wp_admin_bar->remove_node( 'site-editor' );
 	}
 }
 add_action( 'admin_bar_menu', 'ucsc_custom_functionality_remove_from_admin_bar', 999 );
