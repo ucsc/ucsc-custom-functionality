@@ -21,52 +21,59 @@
  * @author UC Santa Cruz
  * @license GNU General Public License 2.0+
  */
-function ucsc_custom_functionality_customize_dash() {
+
+if ( ! function_exists( 'ucsc_custom_functionality_customize_dash' ) ) {
+	function ucsc_custom_functionality_customize_dash() {
 
 		remove_menu_page( 'link-manager.php' );
 
+	}
 }
 add_action( 'admin_menu', 'ucsc_custom_functionality_customize_dash' );
 
-/**
- * Remove items from Admin Bar
- *
- * @param mixed $wp_admin_bar
- * @return void
- * Removes unwanted items from the WP Admin bar
- * @package
- * @since
- * @author UC Santa Cruz
- * @license GNU General Public License 2.0+
- */
-function ucsc_custom_functionality_remove_from_admin_bar( $wp_admin_bar ) {
-	if ( ! current_user_can( 'edit_themes' ) ) {
-		$wp_admin_bar->remove_node( 'customize' );
-		$wp_admin_bar->remove_node( 'site-editor' );
+if ( ! function_exists( 'ucsc_custom_functionality_remove_from_admin_bar' ) ) {
+	/**
+	* Remove items from Admin Bar
+	*
+	* @param mixed $wp_admin_bar
+	* @return void
+	* Removes unwanted items from the WP Admin bar
+	* @package
+	* @since
+	* @author UC Santa Cruz
+	* @license GNU General Public License 2.0+
+	*/
+	function ucsc_custom_functionality_remove_from_admin_bar( $wp_admin_bar ) {
+		if ( ! current_user_can( 'edit_themes' ) ) {
+			$wp_admin_bar->remove_node( 'customize' );
+			$wp_admin_bar->remove_node( 'site-editor' );
+		}
 	}
 }
 add_action( 'admin_bar_menu', 'ucsc_custom_functionality_remove_from_admin_bar', 999 );
 
+if ( ! function_exists( 'ucsc_custom_functionality_remove_from_dash_panel' ) ) {
+	/**
+	* Remove items from Dashboard panel
+	*
+	* @return void
+	* Remove left-hand dashboard items
+	* @package
+	* @since
+	* @author UC Santa Cruz
+	* @license GNU General Public License 2.0+
+	*/
 
-/**
- * Remove items from Dashboard panel
- *
- * @return void
- * Remove left-hand dashboard items, currently only removes Customize
- * @package
- * @since
- * @author UC Santa Cruz
- * @license GNU General Public License 2.0+
- */
-function ucsc_custom_functionality_remove_from_dash_panel() {
-	global $submenu;
-	foreach ( $submenu as $name => $items ) {
-		if ( $name === 'themes.php' ) {
-			foreach ( $items as $i => $data ) {
-				if ( in_array( 'customize', $data, true ) ) {
-					unset( $submenu[ $name ][ $i ] );
+	function ucsc_custom_functionality_remove_from_dash_panel() {
+		global $submenu;
+		foreach ( $submenu as $name => $items ) {
+			if ( $name === 'themes.php' ) {
+				foreach ( $items as $i => $data ) {
+					if ( in_array( 'customize', $data, true ) ) {
+						unset( $submenu[ $name ][ $i ] );
 
-					return;
+						return;
+					}
 				}
 			}
 		}
