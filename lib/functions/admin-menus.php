@@ -31,6 +31,20 @@ if ( ! function_exists( 'ucsc_custom_functionality_customize_dash' ) ) {
 }
 add_action( 'admin_menu', 'ucsc_custom_functionality_customize_dash' );
 
+/**
+ * Remove items from Admin Bar
+ *
+ * @param mixed $wp_admin_bar
+ * @return void
+ * Removes unwanted items from the WP Admin bar
+ * @package
+ * @since
+ * @author UC Santa Cruz
+ * @license GNU General Public License 2.0+
+ */
+function ucsc_custom_functionality_remove_from_admin_bar( $wp_admin_bar ) {
+	if ( ! current_user_can( 'edit_themes' ) ) {
+		$wp_admin_bar->remove_node( 'customize' );
 if ( ! function_exists( 'ucsc_custom_functionality_remove_from_admin_bar' ) ) {
 	/**
 	* Remove items from Admin Bar
