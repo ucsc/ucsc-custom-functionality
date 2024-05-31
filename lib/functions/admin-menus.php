@@ -11,18 +11,19 @@
  * @license      http://opensource.org/licenses/gpl-2.0.php GNU Public License
  */
 
-/**
- * Remove Link Manager from Dash Sidebar
- *
- * @return void
- * Removes deprecated link manager from dashboard sidebar
- * @package
- * @since
- * @author UC Santa Cruz
- * @license GNU General Public License 2.0+
- */
-
 if ( ! function_exists( 'ucsc_custom_functionality_customize_dash' ) ) {
+	/**
+	 * Remove Link Manager from Dash Sidebar
+	 *
+	 * @return void
+	 * Removes deprecated link manager from dashboard sidebar
+	 * @package
+	 * @since
+	 * @author UC Santa Cruz
+	 * @license GNU General Public License 2.0+
+	 */
+
+
 	function ucsc_custom_functionality_customize_dash() {
 
 		remove_menu_page( 'link-manager.php' );
@@ -31,21 +32,9 @@ if ( ! function_exists( 'ucsc_custom_functionality_customize_dash' ) ) {
 }
 add_action( 'admin_menu', 'ucsc_custom_functionality_customize_dash' );
 
-/**
- * Remove items from Admin Bar
- *
- * @param mixed $wp_admin_bar
- * @return void
- * Removes unwanted items from the WP Admin bar
- * @package
- * @since
- * @author UC Santa Cruz
- * @license GNU General Public License 2.0+
- */
-function ucsc_custom_functionality_remove_from_admin_bar( $wp_admin_bar ) {
-	if ( ! current_user_can( 'edit_themes' ) ) {
-		$wp_admin_bar->remove_node( 'customize' );
+
 if ( ! function_exists( 'ucsc_custom_functionality_remove_from_admin_bar' ) ) {
+
 	/**
 	* Remove items from Admin Bar
 	*
@@ -60,7 +49,6 @@ if ( ! function_exists( 'ucsc_custom_functionality_remove_from_admin_bar' ) ) {
 	function ucsc_custom_functionality_remove_from_admin_bar( $wp_admin_bar ) {
 		if ( ! current_user_can( 'edit_themes' ) ) {
 			$wp_admin_bar->remove_node( 'customize' );
-			$wp_admin_bar->remove_node( 'site-editor' );
 		}
 	}
 }
