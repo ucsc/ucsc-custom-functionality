@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0](https://github.com/ucsc/ucsc-custom-functionality/compare/v1.5.3...v1.6.0) (2024-06-10)
+
+
+### Features
+
+* ensure the plugin properly checks for functions before calling them ([ba4f8b4](https://github.com/ucsc/ucsc-custom-functionality/commit/ba4f8b4470feb4e4b87efded7392e91cd7de7c06)), closes [#21](https://github.com/ucsc/ucsc-custom-functionality/issues/21)
+
 ### [1.5.3](https://github.com/ucsc/ucsc-custom-functionality/compare/v1.5.2...v1.5.3) (2024-01-10)
 
 ### [1.5.2](https://github.com/ucsc/ucsc-custom-functionality/compare/v1.5.1...v1.5.2) (2024-01-10)
