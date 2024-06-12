@@ -32,8 +32,11 @@ add_action( 'admin_menu', 'ucsc_add_settings_page' );
 if ( ! function_exists( 'ucsc_render_plugin_settings_page' ) ) {
 	function ucsc_render_plugin_settings_page() {
 		$plugin_data = get_plugin_data( WP_PLUGIN_DIR . '/ucsc-custom-functionality/plugin.php');
-		?><h1>UCSC Custom Functionality Plugin</h1>
-		<h2>Version: <?php echo $plugin_data['Version']; ?></h2><?php
+		?>
+		<h1>UCSC Custom Functionality Plugin</h1>
+		<h2>Version: <?php echo $plugin_data['Version']; ?></h2>
+		<p>Custom functionality for UCSC WordPress Websites.</p>
+		<?php
 	}
 }
 
