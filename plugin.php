@@ -80,7 +80,7 @@ function ucsc_custom_functionality_plugin_action_links( $links ) {
 		get_admin_url() . 'options-general.php'
 	) );
 	// Create the link.
-	$settings_link = "<a href='$url'>" . __( 'Info' ) . '</a>';
+	$settings_link = "<a href='$url'>" . __( 'Settings' ) . '</a>';
 	// Adds the link to the end of the array.
 	array_push(
 		$links,
