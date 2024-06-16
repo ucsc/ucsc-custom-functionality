@@ -67,24 +67,3 @@ if ( file_exists( UCSC_DIR . '/lib/functions/settings.php' ) ) {
 	include_once UCSC_DIR . '/lib/functions/settings.php';
 }
 
-/** 
- * Add link to Settings page from Plugins
- */
-add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), 'ucsc_custom_functionality_plugin_action_links' );
-
-function ucsc_custom_functionality_plugin_action_links( $links ) {
-	// Build and escape the URL.
-	$url = esc_url( add_query_arg(
-		'page',
-		'ucsc-custom-functionality-settings',
-		get_admin_url() . 'options-general.php'
-	) );
-	// Create the link.
-	$settings_link = "<a href='$url'>" . __( 'Settings' ) . '</a>';
-	// Adds the link to the end of the array.
-	array_push(
-		$links,
-		$settings_link
-	);
-	return $links;
-}
