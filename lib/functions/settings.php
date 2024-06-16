@@ -15,7 +15,7 @@
 
 if ( ! function_exists( 'ucsc_add_settings_page' ) ) {
 	function ucsc_add_settings_page() {
-		add_options_page( 'UCSC Custom Functionality plugin page', 'UCSC Custom Functionality Settings', 'manage_options', 'ucsc-custom-functionality-settings', 'ucsc_render_plugin_settings_page' );
+		add_options_page( 'UCSC Custom Functionality plugin page', 'UCSC Custom Functionality', 'manage_options', 'ucsc-custom-functionality-settings', 'ucsc_render_plugin_settings_page' );
 	}
 }
 add_action( 'admin_menu', 'ucsc_add_settings_page' );
