@@ -34,7 +34,7 @@ if ( ! function_exists( 'ucsc_render_plugin_settings_page' ) ) {
 	function ucsc_render_plugin_settings_page() {
 		$plugin_data = get_plugin_data( WP_PLUGIN_DIR . '/ucsc-custom-functionality/plugin.php');
 		?>
-		<h1>UCSC Custom Functionality Plugin</h1>
+		<h1><?php echo $plugin_data['Name']; ?></h1>
 		<h2>Version: <?php echo $plugin_data['Version']; ?> <a href="https://github.com/ucsc/ucsc-custom-functionality/releases">(release notes)</a></h2>
 		<p><?php echo $plugin_data['Description']; ?></p>
 		<?php
