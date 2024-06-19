@@ -40,8 +40,8 @@ if ( ! function_exists( 'ucsc_render_plugin_settings_page' ) ) {
 		<p><?php echo $plugin_data['Description']; ?></p>
 		<h3>Features added by this plugin:</h3>
 		<ul>
-			<li><strong>Google Analytics 4 script</strong></li>
-			<li><strong>Site Improve script</strong></li>
+			<li><strong>Google Analytics 4</strong> script to site footer</li>
+			<li><strong>Site Improve</strong> script to site footer</li>
 			<li><strong>Custom Shortcodes:</strong>
 				<ul>
 					<li><code>[site-search]</code>: Returns the HTML script tag to display <strong>Google Site Search</strong> results on a page</li>
