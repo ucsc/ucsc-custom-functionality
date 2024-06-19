@@ -34,19 +34,19 @@ if ( ! function_exists( 'ucsc_render_plugin_settings_page' ) ) {
 	function ucsc_render_plugin_settings_page() {
 		$plugin_data = get_plugin_data( WP_PLUGIN_DIR . '/ucsc-custom-functionality/plugin.php');
 		?>
-        <div class="custom-functionality-settings">
+		<div class="wrap cf-admin-settings-page">
 		<h1><?php echo $plugin_data['Name']; ?></h1>
 		<h2>Version: <?php echo $plugin_data['Version']; ?> <a href="https://github.com/ucsc/ucsc-custom-functionality/releases">(release notes)</a></h2>
 		<p><?php echo $plugin_data['Description']; ?></p>
 		<h3>Features added by this plugin:</h3>
 		<ul>
-			<li>Google Analytics 4</li>
-			<li>Site Improve</li>
-			<li>Custom Shortcodes:
+			<li><strong>Google Analytics 4 script</strong></li>
+			<li><strong>Site Improve script</strong></li>
+			<li><strong>Custom Shortcodes:</strong>
 				<ul>
 					<li><code>[site-search]</code>: Returns the HTML script tag to display <strong>Google Site Search</strong> results on a page</li>
 					<li><code>[copyright]</code>: Returns copyright symbol and year (<?php echo do_shortcode('[copyright]')?>)</li>
-					<li><code>[last-modified]</code>: Returns the "Last modified" date in the site footer</li>
+					<li><code>[last-modified]</code>: Returns the <strong><i>Last modified</i></strong> date in the site footer</li>
 				</ul>
 			</li>
 		</ul>
