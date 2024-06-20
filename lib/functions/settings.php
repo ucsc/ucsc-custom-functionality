@@ -44,7 +44,7 @@ if ( ! function_exists( 'ucsc_render_plugin_settings_page' ) ) {
 			<li><strong>Google Analytics 4</strong> and <strong>Site Improve</strong> scripts to site footer</li>
 			<li><strong>Shortcodes:</strong>
 				<ul>
-					<li><code>[site-search]</code>: Displays the HTML script tag to display <strong>Google Site Search</strong> results on a page</li>
+					<li><code>[site-search]</code>: Inserts the HTML script tag to display <strong>Google Site Search</strong> results on a page</li>
 					<li><code>[copyright]</code>: Displays copyright symbol and year (<?php echo do_shortcode('[copyright]')?>)</li>
 					<li><code>[last-modified]</code>: Displays the <i>last modified</i> date of a page</li>
 				</ul>
