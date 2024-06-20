@@ -41,13 +41,12 @@ if ( ! function_exists( 'ucsc_render_plugin_settings_page' ) ) {
 		<hr>
 		<h3>Features added by this plugin:</h3>
 		<ul>
-			<li><strong>Google Analytics 4</strong> script to site footer</li>
-			<li><strong>Site Improve</strong> script to site footer</li>
+			<li><strong>Google Analytics 4</strong> and <strong>Site Improve</strong> scripts to site footer</li>
 			<li><strong>Custom Shortcodes:</strong>
 				<ul>
-					<li><code>[site-search]</code>: Returns the HTML script tag to display <strong>Google Site Search</strong> results on a page</li>
-					<li><code>[copyright]</code>: Returns copyright symbol and year (<?php echo do_shortcode('[copyright]')?>)</li>
-					<li><code>[last-modified]</code>: Returns the <strong><i>Last modified</i></strong> date in the site footer</li>
+					<li><code>[site-search]</code>: Displays the HTML script tag to display <strong>Google Site Search</strong> results on a page</li>
+					<li><code>[copyright]</code>: Displays copyright symbol and year (<?php echo do_shortcode('[copyright]')?>)</li>
+					<li><code>[last-modified]</code>: Displays the <i>last modified</i> date of a page</li>
 				</ul>
 			</li>
 		</ul>
