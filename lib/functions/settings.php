@@ -42,7 +42,7 @@ if ( ! function_exists( 'ucsc_render_plugin_settings_page' ) ) {
 		<h3>Features added by this plugin:</h3>
 		<ul>
 			<li><strong>Google Analytics 4</strong> and <strong>Site Improve</strong> scripts to site footer</li>
-			<li><strong>Custom Shortcodes:</strong>
+			<li><strong>Shortcodes:</strong>
 				<ul>
 					<li><code>[site-search]</code>: Displays the HTML script tag to display <strong>Google Site Search</strong> results on a page</li>
 					<li><code>[copyright]</code>: Displays copyright symbol and year (<?php echo do_shortcode('[copyright]')?>)</li>
