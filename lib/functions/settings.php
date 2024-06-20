@@ -38,6 +38,7 @@ if ( ! function_exists( 'ucsc_render_plugin_settings_page' ) ) {
 		<h1><?php echo $plugin_data['Name']; ?></h1>
 		<h2>Version: <?php echo $plugin_data['Version']; ?> <a href="https://github.com/ucsc/ucsc-custom-functionality/releases">(release notes)</a></h2>
 		<p><?php echo $plugin_data['Description']; ?></p>
+		<hr>
 		<h3>Features added by this plugin:</h3>
 		<ul>
 			<li><strong>Google Analytics 4</strong> script to site footer</li>
