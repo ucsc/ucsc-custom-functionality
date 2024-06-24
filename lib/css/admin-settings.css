@@ -1,0 +1,16 @@
+.cf-admin-settings-page {
+    line-height: 1.5;
+}
+.cf-admin-settings-page p, .cf-admin-settings-page ul {
+    font-size: 1rem;
+}
+.cf-admin-settings-page ul {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+    unicode-bidi: isolate;
+}
