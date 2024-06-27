@@ -67,6 +67,11 @@ if ( file_exists( UCSC_DIR . '/lib/functions/settings.php' ) ) {
 	include_once UCSC_DIR . '/lib/functions/settings.php';
 }
 
+// Custom Post Types.
+if ( file_exists( UCSC_DIR . '/lib/functions/post-types.php' ) ) {
+	include_once UCSC_DIR . '/lib/functions/post-types.php';
+}
+
 if ( ! function_exists( 'ucsc_enqueue_admin_styles' ) ) {
 	/**
 	* Enqueue admin settings styles
