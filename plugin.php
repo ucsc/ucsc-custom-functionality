@@ -116,7 +116,8 @@ if ( ! function_exists( 'ucsc_link_filter' ) ){
 				return $safe_url;
 			}
 		}
-			return $post_link;
+		return $post_link;
 	}
 }
-	add_filter('post_type_link', 'ucsc_link_filter', 10, 2);
+
+add_filter('post_type_link', 'ucsc_link_filter', 10, 2);
