@@ -100,3 +100,23 @@ if ( ! function_exists( 'ucsc_enqueue_admin_styles' ) ) {
 	}
 }
 add_action( 'admin_enqueue_scripts', 'ucsc_enqueue_admin_styles' );
+
+/*
+ *  Filter Media Coverage posts
+ *  Set permalinks to the external URL
+ *  
+ */
+
+if ( ! function_exists( 'ucsc_link_filter' ) ){
+	function ucsc_link_filter($post_link, $post) {
+		if ( ( 'media_coverage' === $post->post_type ) ) {
+			$external_url = get_field('article_url');
+			if(!empty ($external_url)){
+				$safe_url = esc_attr($external_url);
+				return $safe_url;
+			}
+		}
+			return $post_link;
+	}
+}
+	add_filter('post_type_link', 'ucsc_link_filter', 10, 2);
