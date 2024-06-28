@@ -32,7 +32,7 @@ if ( ! function_exists( 'ucsc_register_media_coverage_post_type' ) ) {
 		'not_found' =>  'No Media Coverage Items found',
 		'not_found_in_trash' => 'No Media Coverage Items found in trash',
 		'parent_item_colon' => '',
-		'menu_name' => 'Media Coverage Items',
+		'menu_name' => 'Media Coverage',
 		'menu_icon' => 'dashicons-testimonial'
 
 		);
