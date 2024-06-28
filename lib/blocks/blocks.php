@@ -1,6 +1,6 @@
 <?php
 
-add_action( 'init', 'ucsc_register_custom_blocks');
+add_action( 'init', 'ucsc_register_custom_blocks' );
 
 function ucsc_register_custom_blocks(){
 	// Register custom blocks from Advanced Custom Fields
