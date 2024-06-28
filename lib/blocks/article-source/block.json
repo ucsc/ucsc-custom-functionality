@@ -1,0 +1,20 @@
+{
+    "name": "acf/article-source",
+    "title": "Article Source",
+    "description": "Displays source of an Article (ACF field) inside a query block.",
+    "category": "query",
+    "icon": "text",
+    "keywords": [
+        "media source"
+    ],
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "index.php"
+    },
+    "supports": {
+        "jsx": true
+    },
+    "style": [
+        "acf/article-source-styles"
+    ]
+}
