@@ -50,7 +50,8 @@ if ( ! function_exists( 'ucsc_register_media_coverage_post_type' ) ) {
 		'has_archive' => true,
 		'hierarchical' => false,
 		'menu_position' => null,
-		'supports' => array('title', 'page-attributes', 'thumbnail')
+		'supports' => array('title', 'editor', 'excerpt', 'thumbnail'),
+		'taxonomies' => array( 'post_tag', 'category')
 		);
 
 		register_post_type('media_coverage', $args);
