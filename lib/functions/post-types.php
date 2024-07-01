@@ -33,8 +33,6 @@ if ( ! function_exists( 'ucsc_register_media_coverage_post_type' ) ) {
 		'not_found_in_trash' => 'No Media Coverage Posts found in trash',
 		'parent_item_colon' => '',
 		'menu_name' => 'Media Coverage',
-		'menu_icon' => 'dashicons-testimonial'
-
 		);
 
 		$args = array(
@@ -49,7 +47,8 @@ if ( ! function_exists( 'ucsc_register_media_coverage_post_type' ) ) {
 		'capability_type' => 'post',
 		'has_archive' => true,
 		'hierarchical' => false,
-		'menu_position' => null,
+        'menu_icon' => 'dashicons-admin-links',
+		'menu_position' => 23,
 		'supports' => array('title', 'editor', 'excerpt', 'thumbnail'),
 		'taxonomies' => array( 'post_tag', 'category')
 		);
