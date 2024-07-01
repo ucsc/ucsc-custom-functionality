@@ -47,7 +47,7 @@ if ( ! function_exists( 'ucsc_register_media_coverage_post_type' ) ) {
 		'capability_type' => 'post',
 		'has_archive' => true,
 		'hierarchical' => false,
-        'menu_icon' => 'dashicons-admin-links',
+		'menu_icon' => 'dashicons-admin-links',
 		'menu_position' => 23,
 		'supports' => array('title', 'editor', 'excerpt', 'thumbnail'),
 		'taxonomies' => array( 'post_tag', 'category')
