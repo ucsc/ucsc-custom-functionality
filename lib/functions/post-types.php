@@ -22,15 +22,15 @@ if ( ! function_exists( 'ucsc_register_media_coverage_post_type' ) ) {
 	{
 		$labels = array(
 		'name' => 'Media Coverage',
-		'singular_name' => 'Media Coverage Item',
+		'singular_name' => 'Media Coverage Post',
 		'add_new' => 'Add New',
 		'add_new_item' => 'Add New Media Coverage',
-		'edit_item' => 'Edit Media Coverage Item',
-		'new_item' => 'New Media Coverage Item',
-		'view_item' => 'View Media Coverage Item',
-		'search_items' => 'Search Media Coverage Items',
-		'not_found' =>  'No Media Coverage Items found',
-		'not_found_in_trash' => 'No Media Coverage Items found in trash',
+		'edit_item' => 'Edit Media Coverage Post',
+		'new_item' => 'New Media Coverage Post',
+		'view_item' => 'View Media Coverage Post',
+		'search_items' => 'Search Media Coverage Posts',
+		'not_found' =>  'No Media Coverage Posts found',
+		'not_found_in_trash' => 'No Media Coverage Posts found in trash',
 		'parent_item_colon' => '',
 		'menu_name' => 'Media Coverage',
 		'menu_icon' => 'dashicons-testimonial'
