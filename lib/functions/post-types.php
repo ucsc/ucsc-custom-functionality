@@ -24,7 +24,7 @@ if ( ! function_exists( 'ucsc_register_media_coverage_post_type' ) ) {
 		'name' => 'Media Coverage',
 		'singular_name' => 'Media Coverage Item',
 		'add_new' => 'Add New',
-		'add_new_item' => 'Add New Media Coverage Item',
+		'add_new_item' => 'Add New Media Coverage',
 		'edit_item' => 'Edit Media Coverage Item',
 		'new_item' => 'New Media Coverage Item',
 		'view_item' => 'View Media Coverage Item',
