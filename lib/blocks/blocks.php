@@ -8,17 +8,16 @@ function ucsc_register_custom_blocks(){
 }
 
 function ucsc_article_source_block( $block ) {
-	$id = 'article-source-' . $block['id'];
-	if( !empty($block['anchor']) ) {
-		$id = $block['anchor'];
-	}
+	
+	// Create ID and attach to an anchor
+	// $id = 'article-source-' . $block['id'];
+	// if( !empty($block['anchor']) ) {
+	// 	$id = $block['anchor'];
+	// }
 	// Create Class attribute allowing custom "className" and "align" values
-	$className = 'article-source';
+	$className = 'acf-block-article-source';
 	if( !empty($block['className']) ) {
 		$className .= ' ' . $block['className'];
-	}
-	if(!empty($block['align']) ) {
-		$className .= ' align' . $block['align'];
 	}
 	// Get the post ID
 	$post_id = get_the_ID();
@@ -28,5 +27,6 @@ function ucsc_article_source_block( $block ) {
 
 	// Display the article source
 	?>
-	<p id="<?php echo esc_attr($id); ?>" class="<?php echo esc_attr($className); ?>"><?php echo $article_source; ?></p><?php
+	<div class="<?php echo esc_attr($className); ?>"><p><?php echo $article_source; ?></p></div>
+	<?php
 }
