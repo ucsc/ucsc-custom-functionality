@@ -12,13 +12,10 @@
         "renderTemplate": "index.php"
     },
     "supports": {
-        "jsx": true,
-        "color": {
-            "text": true
-        },
-        "align": true
+        "jsx": true
     },
     "style": [
-        "acf/article-source-styles"
+        "file:./article-source.css",
+        "article-source-style"
     ]
 }
