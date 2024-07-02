@@ -77,6 +77,11 @@ if ( file_exists( UCSC_DIR . '/lib/blocks/blocks.php' ) ) {
 	include_once UCSC_DIR . '/lib/blocks/blocks.php';
 }
 
+// Advanced Custom Fields.
+if ( file_exists( UCSC_DIR . '/lib/functions/acf.php' ) ) {
+	include_once UCSC_DIR . '/lib/functions/acf.php';
+}
+
 if ( ! function_exists( 'ucsc_enqueue_admin_styles' ) ) {
 	/**
 	* Enqueue admin settings styles
