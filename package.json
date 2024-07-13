@@ -27,6 +27,8 @@
     },
     "files": [
         "!vendor",
+        "!node_modules",
+        "!package.json",
         "lib",
         "plugin.php",
         "README.md",
