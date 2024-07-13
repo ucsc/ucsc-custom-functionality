@@ -6,7 +6,8 @@
  * Version: 1.6.0
  * Author: UC Santa Cruz
  * Author URI: https://github.com/ucsc
- * Update URI: https://github.com/ucsc
+ * Update URI: https://github.com/ucsc/ucsc-custom-functionality.git
+ * Network: true
  * License: GPL2
  *
  * @package ucsc-custom-functionality
