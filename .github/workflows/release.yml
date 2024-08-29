@@ -19,6 +19,10 @@ jobs:
               with:
                   node-version: 14
                   cache: 'npm'
+                  
+            - name: Install Composer dependencies
+              run: |
+                  composer install --optimize-autoloader --ignore-platform-reqs --no-dev
 
             - name: Install Node dependencies
               run: npm install

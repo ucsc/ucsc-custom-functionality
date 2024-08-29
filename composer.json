@@ -11,5 +11,10 @@
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true
         }
+    },
+    "autoload": {
+        "psr-4": {
+            "UCSC\\Blocks\\": "src"
+        }
     }
 }

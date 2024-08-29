@@ -1,0 +1,16 @@
+{
+	"name": "ucsc-custom-functionality/news-block",
+	"title": "News Block",
+	"description": "Custom block for displaying posts from news.ucsc.edu.",
+	"category": "theme",
+	"icon": "text",
+	"keywords": ["news", "query", "post"],
+	"acf": {
+		"mode": "preview",
+		"renderTemplate": "index.php"
+	},
+	"supports": {
+		"jsx": true
+	},
+	"style": ["ucsc-custom-functionality/news-block-styles"]
+}
