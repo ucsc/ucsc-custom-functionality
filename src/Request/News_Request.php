@@ -42,7 +42,7 @@ class News_Request {
 	}
 
 	protected function get_endpoint_url( string $endpoint ): string {
-		$env = ! defined( 'WP_ENVIRONMENT_TYPE' ) ? 'dev' : WP_ENVIRONMENT_TYPE;
+		$env = wp_get_environment_type();
 
 		switch ( $env ) {
 			case 'test':
