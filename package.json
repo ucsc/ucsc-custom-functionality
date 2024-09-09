@@ -4,6 +4,10 @@
     "description": "Contains custom functionality for UCSC WordPress Websites.",
     "scripts": {
         "build": "wp-scripts build",
+        "dev": "wp-scripts start",
+        "lint:css": "wp-scripts lint-style 'src/**/*.scss' --fix",
+        "lint:js": "wp-scripts lint-style 'src/**/*.js'",
+        "lint": "wp-scripts lintcss lint:js",
         "release": "standard-version",
         "zip": "wp-scripts plugin-zip",
         "packages-update": "wp-scripts packages-update"
@@ -23,7 +27,9 @@
     },
     "homepage": "https://github.com/ucsc/ucsc-custom-functionality#readme",
     "devDependencies": {
+        "@stylelint/postcss-css-in-js": "^0.38.0",
         "@wordpress/scripts": "^29.0.0",
+        "@wordpress/stylelint-config": "^22.7.0",
         "standard-version": "^9.3.2"
     },
     "files": [
