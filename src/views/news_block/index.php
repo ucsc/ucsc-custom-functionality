@@ -11,7 +11,7 @@ if ( empty( $items ) ) {
 	return;
 }
 ?>
-<section>
+<section <?php echo wp_kses_data( get_block_wrapper_attributes() ); ?>>
 	<h2><?php echo $c->get_title(); ?></h2>
 	<div><?php echo $c->get_description(); ?></div>
 	<?php foreach ( $items as $item ) : ?>

@@ -3,6 +3,7 @@
     "version": "1.6.0",
     "description": "Contains custom functionality for UCSC WordPress Websites.",
     "scripts": {
+        "build": "wp-scripts build",
         "release": "standard-version",
         "zip": "wp-scripts plugin-zip",
         "packages-update": "wp-scripts packages-update"

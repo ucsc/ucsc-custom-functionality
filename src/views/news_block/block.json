@@ -1,10 +1,11 @@
 {
 	"name": "ucsc-custom-functionality/news-block",
 	"title": "News Block",
-	"description": "Custom block for displaying posts from news.ucsc.edu.",
+	"description": "Custom block for displaying posts from news.ucsc.edu. NOTE: You must select a Taxonomy and then Type of Taxonomy to display posts from from this feed.",
 	"category": "theme",
 	"icon": "text",
 	"keywords": ["news", "query", "post"],
+    "example": {},
 	"acf": {
 		"mode": "preview",
 		"renderTemplate": "index.php"
@@ -12,5 +13,7 @@
 	"supports": {
 		"jsx": true
 	},
-	"style": ["ucsc-custom-functionality/news-block-styles"]
+    "editorStyle": [ "file:./style-index.css", "file:./index.css" ],
+    "style": [ "file:./style-index.css" ],
+    "viewScript": [ "file:./index.js" ]
 }
