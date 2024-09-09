@@ -26,6 +26,9 @@ jobs:
 
             - name: Install Node dependencies
               run: npm install
+              
+            - name: Build plugin assets
+              run: ./node_modules/.bin/wp-scripts build
 
             - name: Package theme
               run: ./node_modules/.bin/wp-scripts plugin-zip

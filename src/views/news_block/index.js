@@ -2,5 +2,5 @@
  * @module newsFeedBlock
  */
 
-import './style.pcss';
-import './editor.pcss';
+import './style.scss';
+import './editor.scss';

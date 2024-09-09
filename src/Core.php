@@ -2,6 +2,7 @@
 
 namespace UCSC\Blocks;
 
+use UCSC\Blocks\Assets\Assets_Subscriber;
 use UCSC\Blocks\Blocks\News_Block;
 use UCSC\Blocks\Hooks\News_Blocks_Hooks;
 
@@ -17,6 +18,7 @@ class Core {
 			register_block_type( UCSC_DIR . '/src/views/news_block' );
 			( new News_Block() )->init();
 			( new News_Blocks_Hooks() )->hooks();
+			( new Assets_Subscriber() )->register();
 		}, 10, 0 );
 	}
 	

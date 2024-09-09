@@ -48,6 +48,7 @@ add_filter( 'http_request_args', 'ucsc_custom_functionality_hidden', 5, 2 );
 
 // Set plugin directory.
 define( 'UCSC_DIR', dirname( __FILE__ ) );
+define( 'UCSC_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
 // Include Customization files.
 
