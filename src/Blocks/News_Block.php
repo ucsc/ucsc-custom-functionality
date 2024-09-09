@@ -79,13 +79,14 @@ class News_Block extends ACF_Group {
 			'choices'       => [],
 			'ui'       		=> 1,
 			'return_format' => 'value',
+            'instructions'  => esc_html__( 'Select a taxonomy to query.', 'ucsc' ),
 		];
 	}
 
 	private function get_taxonomies_items(): array {
 		return [
 			'key'           => $this->get_field_key( self::TAX_ITEMS, self::NAME ),
-			'label'         => esc_html__( 'Taxonomy', 'ucsc' ),
+			'label'         => esc_html__( 'Taxonomy terms', 'ucsc' ),
 			'name'          => self::TAX_ITEMS,
 			'type'          => 'select',
 			'multiple'      => 1,
@@ -93,6 +94,7 @@ class News_Block extends ACF_Group {
 			'ajax'			=> 1,
 			'choices'       => [],
 			'return_format' => 'value',
+            'instructions'  => esc_html__( 'Select the taxonomy term(s) to query.', 'ucsc' ),
 		];
 	}
 

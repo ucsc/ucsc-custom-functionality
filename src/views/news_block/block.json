@@ -1,7 +1,7 @@
 {
 	"name": "ucsc-custom-functionality/news-block",
 	"title": "News Block",
-	"description": "Custom block for displaying posts from news.ucsc.edu. NOTE: You must select a Taxonomy and then Type of Taxonomy to display posts from from this feed.",
+	"description": "Custom block for displaying posts from news.ucsc.edu. YOU MUST SELECT A TYPE OF TAXONOMY AND TAXONOMY TERM(S).",
 	"category": "theme",
 	"icon": "text",
 	"keywords": ["news", "query", "post"],
