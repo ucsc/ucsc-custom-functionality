@@ -196,7 +196,8 @@ class News_Block_Controller {
 		$items = get_transient( $this->get_cache_key( $this->taxonomy . '_' . $item['id'] ) );
 		if ( empty( $items ) ) {
 			$items = (new News_Request())->request($endpoint, [
-				'post' => $item['id'],
+                'post'     => $item['id'],
+                'per_page' => 3,
 			]);
 		}
 
