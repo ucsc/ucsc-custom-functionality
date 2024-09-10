@@ -11,6 +11,8 @@ class News_Block extends ACF_Group {
 	public const LAYOUT        = 'layout';
 	public const LAYOUT_LEFT   = 'layout_left';
 	public const LAYOUT_CENTRE = 'layout_centre';
+    
+    public const MORE_NEWS_LINK = 'more_news_link';
 
 	public const TAXONOMIES = 'taxonomies';
 	public const TAX_ITEMS  = 'taxonomy_items';
@@ -66,9 +68,10 @@ class News_Block extends ACF_Group {
 		}
 
 		return array_merge( [
-			$this->get_layout_field(),
 			$this->get_title_field(),
 			$this->get_desc_field(),
+			$this->get_layout_field(),
+            $this->get_more_news_link_field(),
 			$this->get_taxonomies_list(),
 			$this->get_taxonomies_items(),
 		], $fields );
@@ -145,5 +148,14 @@ class News_Block extends ACF_Group {
 			'type'  => 'textarea',
 		];
 	}
+    
+    private function get_more_news_link_field(): array {
+        return [
+            'key'   => $this->get_field_key( self::MORE_NEWS_LINK, self::NAME ),
+            'label' => esc_html__( 'More News Link', 'ucsc' ),
+            'name'  => self::MORE_NEWS_LINK,
+            'type'  => 'link',
+        ];
+    }
 
 }

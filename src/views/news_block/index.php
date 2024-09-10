@@ -80,5 +80,13 @@ if ( empty( $items ) ) {
             </a>
         <?php endforeach; ?>
         </div>
+
+        <?php if ( ! empty( $c->get_more_news_link() ) ) : ?>
+            <div class="more-news-link-wrapper">
+                <a href="<?php echo esc_url( $c->get_more_news_link()['url'] ); ?>" target="<?php echo esc_attr( $c->get_more_news_link()['target'] ); ?>" class="more-news-link a-btn">
+                    <?php echo esc_html( $c->get_more_news_link()['title'] ); ?>
+                </a>
+            </div>
+        <?php endif; ?>
     <?php } ?>
 </section>
