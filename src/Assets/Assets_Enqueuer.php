@@ -14,7 +14,7 @@ class Assets_Enqueuer {
 		$this->assets_path_uri = trailingslashit( UCSC_PLUGIN_URL ) . $assets_folder;
 	}
 
-	public function register( string $assets_file, string $handle_file ): void {
+	public function register( string $assets_file, string $handle_file, string $css_handle ): void {
 		$ucsc_custom_blocks = array_filter( \WP_Block_Type_Registry::get_instance()->get_all_registered(), static function ( $block ) {
 			return stripos( $block->name, 'ucsc-custom-functionality/' ) !== false;
 		} );
@@ -30,8 +30,8 @@ class Assets_Enqueuer {
 			$args = $this->get_asset_file_args( $this->assets_path . $block_name . '/' .$assets_file );
 
 			wp_enqueue_style(
-				$handle_file,
-				$this->assets_path_uri . $block_name . '/' . $handle_file . '.css',
+                $css_handle,
+				$this->assets_path_uri . $block_name . '/' . $css_handle . '.css',
 				[],
 				$args['version'] ?? false,
 				'all',
