@@ -22,14 +22,14 @@ class News_Block_Controller {
 	private string $title;
 	private string $description;
 	private string $layout;
-	private array $more_news_link;
+	private array|string $more_news_link;
 
 	public function __construct($block) {
         $this->block          = (array) $block;
         $this->title          = get_field( News_Block::TITLE ) ?? '';
         $this->description    = get_field( News_Block::DESCRIPTION ) ?? '';
         $this->layout         = get_field( News_Block::LAYOUT ) ?? News_Block::LAYOUT_CENTRE;
-        $this->more_news_link = get_field( News_Block::MORE_NEWS_LINK ) ?? '';
+        $this->more_news_link = get_field( News_Block::MORE_NEWS_LINK ) ?? [];
         $this->taxonomy       = get_field( News_Block::TAXONOMIES ) ?? '';
         $this->taxonomy_ids   = get_field( News_Block::TAX_ITEMS ) ?? [];
         $this->hide_excerpt   = (bool) get_field( News_Block::HIDE_EXCERPT );
@@ -53,11 +53,15 @@ class News_Block_Controller {
 	}
 
     public function get_more_news_link(): array {
-        return [
-            'title'  => $this->more_news_link['title'] ?? '',
-            'url'    => $this->more_news_link['url'] ?? '',
-            'target' => $this->more_news_link['target'] ?? '',
-        ];
+        $link = [];
+
+        if ( ! empty( $this->more_news_link['url'] ) ) {
+            $link['url']    = $this->more_news_link['url'];
+            $link['title']  = $this->more_news_link['title'] ?? __( 'More News', 'ucsc' );
+            $link['target'] = $this->more_news_link['target'] ?? '';
+        }
+
+        return $link;
     }
 
 	public function build_srcset(array $sizes = []): string {
