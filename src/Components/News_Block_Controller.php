@@ -21,11 +21,13 @@ class News_Block_Controller {
 	private bool $hide_category;
 	private string $title;
 	private string $description;
+	private string $layout;
 
 	public function __construct($block) {
 		$this->block         = (array) $block;
 		$this->title         = get_field( News_Block::TITLE ) ?? '';
 		$this->description   = get_field( News_Block::DESCRIPTION ) ?? '';
+		$this->layout        = get_field( News_Block::LAYOUT ) ?? News_Block::LAYOUT_CENTRE;
 		$this->taxonomy      = get_field( News_Block::TAXONOMIES ) ?? '';
 		$this->taxonomy_ids  = get_field( News_Block::TAX_ITEMS ) ?? [];
 		$this->hide_excerpt  = (bool) get_field( News_Block::HIDE_EXCERPT );
@@ -42,6 +44,10 @@ class News_Block_Controller {
 
 	public function get_description(): string {
 		return $this->description;
+	}
+	
+	public function get_alignment(): string {
+		return $this->layout === News_Block::LAYOUT_CENTRE ? 'center' : 'left';
 	}
 
 	public function build_srcset(array $sizes = []): string {
@@ -85,7 +91,7 @@ class News_Block_Controller {
 				'image'        => ! $this->hide_image ? $this->get_item_attachment( $item ) : [],
 				'raw_date'     => ! $this->hide_date ? $item['date'] : '',
 				'publish_date' => ! $this->hide_date ? wp_date( get_option( 'date_format', 'F j, Y' ), strtotime( $item['date'] ) ) : '',
-				'author'       => ! $this->hide_author ? $this->get_authors( $item ) : '',
+				'authors'      => ! $this->hide_author ? $this->get_authors( $item ) : '',
 				'tags'         => ! $this->hide_tags ? $this->get_taxonomies( $item, true ) : [],
 				'categories'   => ! $this->hide_category ? $this->get_taxonomies( $item ) : [],
 			];
