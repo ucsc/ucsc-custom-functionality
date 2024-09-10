@@ -6,8 +6,11 @@ class News_Block extends ACF_Group {
 
 	public const NAME = 'news_query_block';
 
-	public const TITLE 		 = 'news_title';
-	public const DESCRIPTION = 'news_desc';
+	public const TITLE 		   = 'news_title';
+	public const DESCRIPTION   = 'news_desc';
+	public const LAYOUT        = 'layout';
+	public const LAYOUT_LEFT   = 'layout_left';
+	public const LAYOUT_CENTRE = 'layout_centre';
 
 	public const TAXONOMIES = 'taxonomies';
 	public const TAX_ITEMS  = 'taxonomy_items';
@@ -63,6 +66,7 @@ class News_Block extends ACF_Group {
 		}
 
 		return array_merge( [
+			$this->get_layout_field(),
 			$this->get_title_field(),
 			$this->get_desc_field(),
 			$this->get_taxonomies_list(),
@@ -79,7 +83,7 @@ class News_Block extends ACF_Group {
 			'choices'       => [],
 			'ui'       		=> 1,
 			'return_format' => 'value',
-            'instructions'  => esc_html__( 'Select a taxonomy to query.', 'ucsc' ),
+			'instructions'  => esc_html__( 'Select a taxonomy to query.', 'ucsc' ),
 		];
 	}
 
@@ -94,7 +98,7 @@ class News_Block extends ACF_Group {
 			'ajax'			=> 1,
 			'choices'       => [],
 			'return_format' => 'value',
-            'instructions'  => esc_html__( 'Select the taxonomy term(s) to query.', 'ucsc' ),
+			'instructions'  => esc_html__( 'Select the taxonomy term(s) to query.', 'ucsc' ),
 		];
 	}
 
@@ -115,6 +119,21 @@ class News_Block extends ACF_Group {
 			'label' => esc_html__( 'Title', 'ucsc' ),
 			'name'  => self::TITLE,
 			'type'  => 'text',
+		];
+	}
+
+	private function get_layout_field(): array {
+		return [
+			'key'           => $this->get_field_key( self::LAYOUT, self::NAME ),
+			'label'         => esc_html__( 'Header Alignment', 'ucsc' ),
+			'name'          => self::LAYOUT,
+			'type'          => 'radio',
+			'ui'            => 1,
+			'default_value' => self::LAYOUT_CENTRE,
+			'choices'       => [
+				self::LAYOUT_CENTRE => esc_html__( 'Center', 'ucsc' ),
+				self::LAYOUT_LEFT   => esc_html__( 'Left', 'ucsc' ),
+			],
 		];
 	}
 
