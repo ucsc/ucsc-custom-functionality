@@ -82,8 +82,8 @@ if ( empty( $items ) ) {
         </div>
 
         <?php if ( ! empty( $c->get_more_news_link() ) ) : ?>
-            <div class="more-news-link-wrapper">
-                <a href="<?php echo esc_url( $c->get_more_news_link()['url'] ); ?>" target="<?php echo esc_attr( $c->get_more_news_link()['target'] ); ?>" class="more-news-link a-btn">
+            <div class="ucsc-news-block__more-news wp-block-button is-style-ucsc-blue">
+                <a href="<?php echo esc_url( $c->get_more_news_link()['url'] ); ?>" target="<?php echo esc_attr( $c->get_more_news_link()['target'] ); ?>" class="ucsc-news-block__more-news-link wp-block-button__link wp-element-button">
                     <?php echo esc_html( $c->get_more_news_link()['title'] ); ?>
                 </a>
             </div>

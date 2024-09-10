@@ -158,3 +158,9 @@
     color: var(--wp--preset--color--dark-gray);
     font-size: var(--wp--preset--font-size--small);
 }
+
+.ucsc-news-block__more-news {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+}
