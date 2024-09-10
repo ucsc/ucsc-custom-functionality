@@ -79,14 +79,15 @@ class News_Block_Controller {
 
 		foreach ( $response as $item ) {
 			$items[] = [
-				'title'        => $item['title']['rendered'] ?? '',
-				'excerpt'      => ! $this->hide_excerpt ? $item['excerpt']['rendered'] ?? '' : '',
-				'permalink'    => $item['link'] ?? '',
-				'image'        => ! $this->hide_image ? $this->get_item_attachment( $item ) : [],
-				'publish_date' => ! $this->hide_date ? wp_date( get_option( 'date_format', 'F j, Y' ), strtotime( $item['date'] ) ) : '',
-				'author'       => ! $this->hide_author ? $this->get_authors( $item ) : '',
-				'tags'         => ! $this->hide_tags ? $this->get_taxonomies( $item, true ) : [],
-				'categories'   => ! $this->hide_category ? $this->get_taxonomies( $item ) : [],
+                'title'        => $item['title']['rendered'] ?? '',
+                'excerpt'      => ! $this->hide_excerpt ? $item['excerpt']['rendered'] ?? '' : '',
+                'permalink'    => $item['link'] ?? '',
+                'image'        => ! $this->hide_image ? $this->get_item_attachment( $item ) : [],
+                'raw_date'     => ! $this->hide_date ? $item['date'] : '',
+                'publish_date' => ! $this->hide_date ? wp_date( get_option( 'date_format', 'F j, Y' ), strtotime( $item['date'] ) ) : '',
+                'author'       => ! $this->hide_author ? $this->get_authors( $item ) : '',
+                'tags'         => ! $this->hide_tags ? $this->get_taxonomies( $item, true ) : [],
+                'categories'   => ! $this->hide_category ? $this->get_taxonomies( $item ) : [],
 			];
 		}
 
