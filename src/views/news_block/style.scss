@@ -164,4 +164,28 @@
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
+
+    &.wp-block-button {
+        font-weight: 400;
+
+        .wp-block-button__link {
+            transition: 0.5s;
+            padding: calc(0.32em + 2px) calc(2.5em + 2px);
+            font-size: var(--wp--preset--font-size--base);
+        }
+        
+        &.is-style-ucsc-blue .wp-block-button__link {
+            border-radius: 20px;
+            color: var(--wp--preset--color--white);
+            background-color: var(--wp--preset--color--ucsc-primary-blue);
+            border: 2px solid var(--wp--preset--color--ucsc-primary-blue);
+            
+            &:hover,
+            &:focus-visible {
+                text-decoration: none !important;
+                color: var(--wp--preset--color--ucsc-primary-blue);
+                background-color: var(--wp--preset--color--white);
+            }
+        }
+    }
 }
