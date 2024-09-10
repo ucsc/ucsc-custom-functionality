@@ -26,7 +26,7 @@ class Core {
 		add_action( 'admin_enqueue_scripts', static function (): void {
 			wp_register_script(
 				'ucsc-news-block-scripts',
-				plugin_dir_url( dirname( __FILE__ ) . '/..' ) . '/assets/js/news-block.js',
+                UCSC_PLUGIN_URL . '/assets/js/news-block.js',
 				[],
 				false,
 				true

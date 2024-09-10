@@ -2,6 +2,190 @@
  * News Feed Block Styles
  */
 
+:root {
+    --news-block-spacer-10: 8px;
+    --news-block-spacer-20: 16px;
+    --news-block-spacer-30: 24px;
+}
+
 .wp-block-ucsc-custom-functionality-news-block {
-	background-color: #0e7b17;
+	padding: 0;
+    margin-top: var(--wp--preset--spacing--50);
+    margin-bottom: var(--wp--preset--spacing--50);
+    
+    * {
+        box-sizing: border-box;
+    }
+}
+
+.ucsc-news-block__header {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    gap: var(--news-block-spacer-20);
+    max-width: 640px;
+    margin: 0 auto;
+    text-align: center;
+    
+    &.align-header-left {
+        align-items: flex-start;
+        max-width: 960px;
+        text-align: left;
+        margin: 0;
+    }
+}
+
+.ucsc-news-block__header-title {
+    margin: 0;
+}
+
+.ucsc-news-block__header-description {
+    margin: 0;
+    color: var(--wp--preset--color--dark-gray);
+    line-height: 28px;
+}
+
+.ucsc-news-block__cards-wrapper {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 64px;
+    padding: var(--wp--preset--spacing--50) 0;
+
+    @media (min-width: 600px) {
+        grid-gap: var(--wp--preset--spacing--40) 56px;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: 960px) {
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: var(--wp--preset--spacing--40);
+    }
+}
+
+.ucsc-news-block__card {
+    text-decoration: none;
+    display: flex;
+    flex-flow: column nowrap;
+    gap: var(--news-block-spacer-20);
+    
+    @media (min-width: 1024px) {
+        gap: var(--news-block-spacer-30);
+    }
+    
+    &:hover,
+    &:focus {
+        text-decoration: none;
+        outline-color: var(--wp--preset--color--ucsc-secondary-blue);
+        
+        .ucsc-news-block__card-title--inner {
+            color: var(--wp--preset--color--ucsc-primary-blue);
+            background-size: 100% 4px;
+        }
+    }
+}
+
+.ucsc-news-block__card-image {
+    display: flex;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+}
+
+.ucsc-news-block__card-title {
+    margin: 0;
+}
+
+.ucsc-news-block__card-title--inner {
+    display: inline;
+    background-image: linear-gradient(45deg, var(--wp--preset--color--ucsc-primary-yellow), var(--wp--preset--color--ucsc-primary-yellow));
+    background-size: 0 4px;
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    transition: background-size 0.5s;
+}
+
+.ucsc-news-block__card-categories {
+    text-transform: uppercase;
+    color: var(--wp--preset--color--ucsc-secondary-blue);
+    font-weight: 600;
+}
+
+.ucsc-news-block__card-excerpt {
+    
+    p {
+        color: var(--wp--preset--color--ucsc-primary-blue);
+        display: -webkit-box;
+        margin: 0;
+        -webkit-line-clamp: 4;
+        line-clamp: 4;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-box-orient: vertical;
+    }
+}
+
+.ucsc-news-block__card-meta {
+    display: grid;
+    grid-template-areas: "date author"
+                        "tags tags";
+    grid-gap: var(--news-block-spacer-20) var(--news-block-spacer-10) ;
+    border-top: var(--wp--preset--color--light-gray) 1px solid;
+    padding-top: var(--news-block-spacer-30);
+}
+
+.ucsc-news-block__card-date {
+    grid-area: date;
+    color: var(--wp--preset--color--black);
+    font-size: var(--wp--preset--font-size--base);
+}
+
+.ucsc-news-block__card-authors {
+    grid-area: author;
+    color: var(--wp--preset--color--black);
+    font-size: var(--wp--preset--font-size--base); 
+}
+
+.ucsc-news-block__card-tags {
+    grid-area: tags;
+    display: flex;
+    flex-flow: row wrap;
+    gap: 12px;
+}
+
+.ucsc-news-block__card-tag {
+    padding: 2px var(--news-block-spacer-10);
+    background-color: var(--wp--preset--color--lightest-gray);
+    color: var(--wp--preset--color--dark-gray);
+    font-size: var(--wp--preset--font-size--small);
+}
+
+.ucsc-news-block__more-news {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+
+    &.wp-block-button {
+        font-weight: 400;
+
+        .wp-block-button__link {
+            transition: 0.5s;
+            padding: calc(0.32em + 2px) calc(2.5em + 2px);
+            font-size: var(--wp--preset--font-size--base);
+        }
+        
+        &.is-style-ucsc-blue .wp-block-button__link {
+            border-radius: 20px;
+            color: var(--wp--preset--color--white);
+            background-color: var(--wp--preset--color--ucsc-primary-blue);
+            border: 2px solid var(--wp--preset--color--ucsc-primary-blue);
+            
+            &:hover,
+            &:focus-visible {
+                text-decoration: none !important;
+                color: var(--wp--preset--color--ucsc-primary-blue);
+                background-color: var(--wp--preset--color--white);
+            }
+        }
+    }
 }
