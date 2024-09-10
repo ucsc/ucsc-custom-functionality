@@ -49,7 +49,7 @@ class News_Block_Controller {
 	}
 	
 	public function get_alignment(): string {
-		return $this->layout === News_Block::LAYOUT_CENTRE ? 'center' : 'left';
+		return $this->layout !== News_Block::LAYOUT_CENTRE ? ' align-header-left' : '';
 	}
 
     public function get_more_news_link(): array {

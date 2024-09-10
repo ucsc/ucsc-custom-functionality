@@ -13,7 +13,7 @@ if ( empty( $items ) ) {
 ?>
 <section <?php echo wp_kses_data( get_block_wrapper_attributes() ); ?>>
     <?php if ( ! empty( $c->get_title() ) || ! empty( $c->get_description() ) ) : ?>
-        <div class="ucsc-news-block__header">
+        <div class="ucsc-news-block__header<?php echo esc_attr( $c->get_alignment() ); ?>">
             <?php if ( ! empty( $c->get_title() ) ) : ?>
                 <h2 class="ucsc-news-block__header-title"><?php echo $c->get_title(); ?></h2>
             <?php endif; ?>
