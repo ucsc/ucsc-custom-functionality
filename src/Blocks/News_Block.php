@@ -54,12 +54,12 @@ class News_Block extends ACF_Group {
 
 	protected function get_fields(): array {
 		$toggle_fields = [
-			self::HIDE_TAGS 	=> esc_html__( 'Hide Tags', 'ucsc' ),
-			self::HIDE_EXCERPT  => esc_html__( 'Hide Excerpt', 'ucsc' ),
-			self::HIDE_CATEGORY => esc_html__( 'Hide Category', 'ucsc' ),
-			self::HIDE_DATE 	=> esc_html__( 'Hide Published Date', 'ucsc' ),
 			self::HIDE_IMAGE 	=> esc_html__( 'Hide Featured Image', 'ucsc' ),
+			self::HIDE_CATEGORY => esc_html__( 'Hide Category', 'ucsc' ),
+			self::HIDE_EXCERPT  => esc_html__( 'Hide Excerpt', 'ucsc' ),
+			self::HIDE_DATE 	=> esc_html__( 'Hide Published Date', 'ucsc' ),
 			self::HIDE_AUTHOR 	=> esc_html__( 'Hide Author', 'ucsc' ),
+			self::HIDE_TAGS 	=> esc_html__( 'Hide Tags', 'ucsc' ),
 		];
 
 		$fields = [];

@@ -59,6 +59,10 @@ if ( empty( $items ) ) {
                                 <?php echo esc_html( $item['publish_date'] ); ?>
                             </time>
                         <?php endif; ?>
+
+                        <?php if ( ! empty( $item['publish_date'] ) && ! empty( $item['authors'] ) ) : ?>
+                        <span class="ucsc-news-block__meta-separator"></span>
+                        <?php endif; ?>
             
                         <?php if ( ! empty( $item['authors'] ) ) : ?>
                             <span class="ucsc-news-block__card-authors">
