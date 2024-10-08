@@ -7,6 +7,15 @@ $c = new \UCSC\Blocks\Components\News_Block_Controller( $block );
 
 $items = $c->get_items();
 
+if ( is_admin() && empty( $items ) ) {
+    ?>
+    <section <?php echo wp_kses_data( get_block_wrapper_attributes() ); ?>>
+        <h3 class="ucsc-news-block__header-title"><?php echo esc_html__( 'Please configure the News Block in order to populate content', 'ucsc' ); ?></h3>
+    </section>
+    <?php
+    return;
+}
+
 if ( empty( $items ) ) {
 	return;
 }
