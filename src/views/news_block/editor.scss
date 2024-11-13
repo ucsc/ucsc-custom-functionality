@@ -1,0 +1,11 @@
+/**
+ * News Feed Block Editor Styles
+ */
+
+.wp-block-ucsc-custom-functionality-news-block {}
+
+.ucsc-news-block__card,
+.ucsc-news-block__more-news-link {
+    text-decoration: none !important;
+    pointer-events: none;
+}

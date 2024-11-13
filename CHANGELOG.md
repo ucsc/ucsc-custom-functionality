@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.1]
+
+### Features
+* Add new News Block 
+
 ## [1.6.0](https://github.com/ucsc/ucsc-custom-functionality/compare/v1.5.3...v1.6.0) (2024-06-10)
 
 
