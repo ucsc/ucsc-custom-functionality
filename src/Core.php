@@ -16,7 +16,6 @@ class Core {
 	
 	protected function blocks(): void {
 		add_action( 'init', function (): void {
-			register_block_type( UCSC_DIR . '/src/views/news_block' );
 			$this->init_blocks();
 			( new News_Blocks_Hooks() )->hooks();
 			( new Assets_Subscriber() )->register();
@@ -27,7 +26,7 @@ class Core {
 		add_action( 'admin_enqueue_scripts', static function (): void {
 			wp_register_script(
 				'ucsc-news-block-scripts',
-                UCSC_PLUGIN_URL . '/assets/js/news-block.js',
+				UCSC_PLUGIN_URL . '/assets/js/news-block.js',
 				[],
 				false,
 				true
@@ -35,16 +34,17 @@ class Core {
 			wp_enqueue_script( 'ucsc-news-block-scripts' );
 		}, 10, 0 );
 	}
-    
-    protected function init_blocks(): void {
-        $blocks = [
-            News_Block::class,
-            Featured_Block::class,
-        ];
-        
-        foreach ( $blocks as $block ) {
-            ( new $block )->init();
-        }
-    }
+	
+	protected function init_blocks(): void {
+		$blocks = [
+			News_Block::class     => '/src/views/news_block',
+			Featured_Block::class => '/src/views/featured_block',
+		];
+		
+		foreach ( $blocks as $block_class => $block_path ) {
+			register_block_type( UCSC_DIR . $block_path );
+			( new $block_class )->init();
+		}
+	}
 
 }
