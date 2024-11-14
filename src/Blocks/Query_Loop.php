@@ -147,7 +147,6 @@ abstract class Query_Loop extends ACF_Group {
 			'sub_fields'        => [
 				$this->get_manual_card(),
 			],
-			'collapsed'         => self::MANUAL_CARD,
 			'button_label'      => sprintf( 'Add %s', $this->default_manual_card_label ),
 			'min'               => $this->min_manual_cards,
 			'max'               => $this->max_manual_cards,
