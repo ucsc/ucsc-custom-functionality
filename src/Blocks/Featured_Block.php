@@ -6,6 +6,8 @@ class Featured_Block extends Query_Loop {
 
 	public const NAME = 'ucsc_featured_block';
 	
+	protected string $default_manual_card_label = 'Article';
+	
 	protected function get_locations(): array {
 		return [
 			[
@@ -28,8 +30,8 @@ class Featured_Block extends Query_Loop {
 
 	protected function get_fields(): array {
 		return [
-            $this->get_query_loop_group( self::NAME )
-        ];
+			$this->get_query_loop_group( self::NAME ),
+		];
 	}
 	
 }
