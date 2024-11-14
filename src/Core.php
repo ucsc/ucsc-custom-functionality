@@ -3,6 +3,7 @@
 namespace UCSC\Blocks;
 
 use UCSC\Blocks\Assets\Assets_Subscriber;
+use UCSC\Blocks\Blocks\Featured_Block;
 use UCSC\Blocks\Blocks\News_Block;
 use UCSC\Blocks\Hooks\News_Blocks_Hooks;
 
@@ -14,9 +15,9 @@ class Core {
 	}
 	
 	protected function blocks(): void {
-		add_action( 'init', static function (): void {
+		add_action( 'init', function (): void {
 			register_block_type( UCSC_DIR . '/src/views/news_block' );
-			( new News_Block() )->init();
+			$this->init_blocks();
 			( new News_Blocks_Hooks() )->hooks();
 			( new Assets_Subscriber() )->register();
 		}, 10, 0 );
@@ -34,5 +35,16 @@ class Core {
 			wp_enqueue_script( 'ucsc-news-block-scripts' );
 		}, 10, 0 );
 	}
+    
+    protected function init_blocks(): void {
+        $blocks = [
+            News_Block::class,
+            Featured_Block::class,
+        ];
+        
+        foreach ( $blocks as $block ) {
+            ( new $block )->init();
+        }
+    }
 
 }
