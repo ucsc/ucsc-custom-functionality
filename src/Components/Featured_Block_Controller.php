@@ -30,11 +30,15 @@ class Featured_Block_Controller {
 	}
 	
 	protected function get_automatic_query_items(): array {
-		$category_id = $this->query_loop[ Query_Loop::QUERY_LOOP ][ Query_Loop::CATEGORIES ];
+		$category_id = $this->query_loop[ Query_Loop::QUERY_LOOP ][ Query_Loop::TAX_ITEMS ];
 		
         if ( (int) $category_id < 1 ) {
 			return [];
 		}
+        
+        if ( is_array( $category_id ) ) {
+            $category_id = reset( $category_id );
+        }
 		
 		$posts = get_posts( [
             'fields'      => 'ids',

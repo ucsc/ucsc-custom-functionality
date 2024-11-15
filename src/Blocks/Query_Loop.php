@@ -2,7 +2,12 @@
 
 namespace UCSC\Blocks\Blocks;
 
-abstract class Query_Loop extends ACF_Group {
+use UCSC\Blocks\Blocks\Contracts\Taxonomies;
+use UCSC\Blocks\Blocks\Traits\With_Taxonomies;
+
+abstract class Query_Loop extends ACF_Group implements Taxonomies {
+    
+    use With_Taxonomies;
 	
 	public const QUERY_LOOP = 'query_loop';
 	public const QUERY_TYPE = 'query_type';
@@ -83,7 +88,8 @@ abstract class Query_Loop extends ACF_Group {
 			'label'             => esc_html__( '', 'ucsc' ),
 			'name'              => self::QUERY_LOOP,
 			'sub_fields'        => [
-				$this->get_categories_field(),
+				$this->get_taxonomies_list( $this->block_name ),
+				$this->get_taxonomies_items( $this->block_name ),
 			],
 			'conditional_logic' => [
 				[
