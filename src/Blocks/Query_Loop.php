@@ -12,7 +12,6 @@ abstract class Query_Loop extends ACF_Group {
 	public const AUTOMATIC_GROUP = 'automatic_group';
 	public const CATEGORIES      = 'categories';
 	
-	public const MANUAL_GROUP = 'manual_group';
 	public const MANUAL_CARDS = 'manual_cards';
 	public const MANUAL_CARD  = 'manual_card';
 
@@ -114,34 +113,10 @@ abstract class Query_Loop extends ACF_Group {
 			'instructions'  => esc_html__( 'Select the category to query.', 'ucsc' ),
 		];
 	}
-
+	
 	protected function get_manual_query(): array {
 		return [
-			'key'               => $this->get_field_key( self::MANUAL_GROUP, $this->block_name ),
-			'type'              => 'group',
-			'label'             => esc_html__( '', 'ucsc' ),
-			'name'              => self::MANUAL_GROUP,
-			'sub_fields'        => [
-				$this->get_cards(),
-			],
-			'conditional_logic' => [
-				[
-					[
-						'field'    => $this->get_field_key( self::QUERY_TYPE, $this->block_name ),
-						'operator' => '!=',
-						'value'    => self::AUTOMATIC,
-					],
-				],
-			],
-			'wrapper'           => [
-				'class' => 'acf-no-style',
-			],
-		];
-	}
-	
-	protected function get_cards(): array {
-		return [
-			'key'               => $this->get_field_key( self::MANUAL_CARDS, self::MANUAL_GROUP ),
+			'key'               => $this->get_field_key( self::MANUAL_CARDS, $this->block_name ),
 			'type'              => 'repeater',
 			'name'              => self::MANUAL_CARDS,
 			'sub_fields'        => [
@@ -166,7 +141,7 @@ abstract class Query_Loop extends ACF_Group {
 	
 	protected function get_manual_card(): array {
 		return [
-			'key'           => $this->get_field_key( self::MANUAL_CARD, self::MANUAL_CARDS ),
+			'key'           => $this->get_field_key( self::MANUAL_CARD, $this->block_name ),
 			'label'         => $this->default_manual_card_label,
 			'post_type'     => [
 				'post',
