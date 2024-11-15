@@ -21,7 +21,7 @@ class Featured_Block extends Query_Loop {
 	}
 
 	protected function get_title(): string {
-		return esc_html__( 'Featured Block', 'ucsc' );
+		return esc_html__( 'Featured Stories', 'ucsc' );
 	}
 
 	protected function get_key(): string {
