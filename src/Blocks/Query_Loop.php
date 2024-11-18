@@ -22,25 +22,25 @@ abstract class Query_Loop extends ACF_Group implements Taxonomies {
 
 	/**
 	 * Default label for single card on Manual Query
-	 * Add/Change in Block clack in order to override
+	 * Add/Change in Block class in order to override
 	 */
 	protected string $default_manual_card_label = 'Card';
 
 	/**
 	 * Default max amount of cards applied to the manual query
-	 * Add/Change in Block clack in order to override
+	 * Add/Change in Block class in order to override
 	 */
 	protected int $max_manual_cards = 4;
 
 	/**
 	 * Default min amount of cards applied to the manual query
-	 * Add/Change in Block clack in order to override
+	 * Add/Change in Block class in order to override
 	 */
 	protected int $min_manual_cards = 0;
 
 	/**
 	 * Default instructions for cards
-	 * Add/Change in Block clack in order to override
+	 * Add/Change in Block class in order to override
 	 */
 	protected string $instructions = '';
 	
