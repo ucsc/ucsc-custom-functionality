@@ -1,18 +1,18 @@
 <?php declare(strict_types=1);
 
-use UCSC\Blocks\Components\Featured_Block_Controller;
+use UCSC\Blocks\Components\Featured_News_Block_Controller;
 
 /**
  * @var array $block current block attributes
  */
-$c = new Featured_Block_Controller( $block );
+$c = new Featured_News_Block_Controller( $block );
 
 $items = $c->get_items();
 
 if ( empty( $items ) && is_admin() ) {
 	?>
 	<section <?php echo wp_kses_data( get_block_wrapper_attributes() ); ?>>
-		<h3 class="ucsc-featured-block__header-title">
+		<h3 class="ucsc-featured-news-block__header-title">
 			<?php echo esc_html__( 'Please configure the Featured Block in order to populate content', 'ucsc' ); ?>
 		</h3>
 	</section>
@@ -29,7 +29,7 @@ if ( empty( $items ) && is_admin() ) {
 			<img 
 				src="<?php echo esc_url( $item['image']['url'] );?>" 
 				srcset="<?php echo $c->build_srcset( $item['image'] );?>" 
-				class="ucsc-featured-block__card-image"
+				class="ucsc-featured-news-block__card-image"
 				alt="<?php echo ! empty( $image_alt ) ? esc_attr( get_post_meta( $item['image']['id'], '_wp_attachment_image_alt' )[0] ) : $item['title']; ?>"
 			/>
 		<?php endif; ?>
