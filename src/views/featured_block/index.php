@@ -44,4 +44,5 @@ if ( empty( $items ) && is_admin() ) {
 			<?php echo $item['excerpt']; ?>
 		<?php endif; ?>
 	<?php endforeach; ?>
+    <?php echo $c->get_cta(); ?>
 </section>
