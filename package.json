@@ -6,8 +6,8 @@
         "build": "wp-scripts build",
         "dev": "wp-scripts start --webpack-src-dir=./src/views",
         "lint:css": "wp-scripts lint-style 'src/**/*.scss' --fix",
-        "lint:js": "wp-scripts lint-style 'src/**/*.js'",
-        "lint": "wp-scripts lintcss lint:js",
+        "lint:js": "wp-scripts lint-js 'src/**/*.js' --fix",
+        "lint": "npm run lint:css lint:js",
         "release": "standard-version",
         "zip": "wp-scripts plugin-zip",
         "packages-update": "wp-scripts packages-update"
