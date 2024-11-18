@@ -29,7 +29,7 @@ class Core {
 			( new News_Blocks_Hooks() )->hooks();
 			( new Assets_Subscriber() )->register();
 
-			if ( ! defined( 'UCSC_NEWS_SITE' ) && ! UCSC_NEWS_SITE ) {
+			if ( ! defined( 'UCSC_NEWS_SITE' ) || ! UCSC_NEWS_SITE ) {
 				return;
 			}
 
