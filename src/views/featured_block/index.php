@@ -25,10 +25,12 @@ if ( empty( $items ) && is_admin() ) {
 <section <?php echo wp_kses_data( get_block_wrapper_attributes() ); ?>>
 	<?php foreach ( $items as $key => $item ) :  ?>
 		<?php if ( ! empty( $item['image'] ) && $item['image']['id'] > 0 ) : ?>
+			<?php $image_alt = get_post_meta( $item['image']['id'], '_wp_attachment_image_alt', true ); ?>
 			<img 
 				src="<?php echo esc_url( $item['image']['url'] );?>" 
 				srcset="<?php echo $c->build_srcset( $item['image'] );?>" 
-				class="ucsc-featured-block__card-image" 
+				class="ucsc-featured-block__card-image"
+				alt="<?php echo ! empty( $image_alt ) ? esc_attr( get_post_meta( $item['image']['id'], '_wp_attachment_image_alt' )[0] ) : $item['title']; ?>"
 			/>
 		<?php endif; ?>
 		<?php if ( ! empty( $item['category'] ) ) : ?>
@@ -44,5 +46,5 @@ if ( empty( $items ) && is_admin() ) {
 			<?php echo $item['excerpt']; ?>
 		<?php endif; ?>
 	<?php endforeach; ?>
-    <?php echo $c->get_cta(); ?>
+	<?php echo $c->get_cta(); ?>
 </section>
