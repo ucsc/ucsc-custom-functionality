@@ -41,16 +41,14 @@ class Photo_Of_The_Week_Archive_Controller {
 	}
 
 	public function get_pagination( \WP_Query $query, int $paged ) {
-		return paginate_links(
-			[
-				'total'     => $query->max_num_pages,
-				'current'   => $paged,
-				'format'    => 'page/%#%',
-				'base'      => get_pagenum_link( 1 ) . '%_%',
-				'prev_text' => __( 'Previous', 'ucsc' ),
-				'next_text' => __( 'Next', 'ucsc' ),
-			]
-		);
+		return paginate_links([
+			'total'     => $query->max_num_pages,
+			'current'   => $paged,
+			'format'    => 'page/%#%',
+			'base'      => get_pagenum_link( 1 ) . '%_%',
+			'prev_text' => __( 'Previous', 'ucsc' ),
+			'next_text' => __( 'Next', 'ucsc' ),
+		]);
 	}
 
 }
