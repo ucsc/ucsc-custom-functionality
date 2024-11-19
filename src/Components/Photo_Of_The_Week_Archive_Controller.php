@@ -47,8 +47,8 @@ class Photo_Of_The_Week_Archive_Controller {
 				'current'   => $paged,
 				'format'    => 'page/%#%',
 				'base'      => get_pagenum_link( 1 ) . '%_%',
-				'prev_text' => __( '&lt;' ),
-				'next_text' => __( '&gt;' ),
+				'prev_text' => __( 'Previous', 'ucsc' ),
+				'next_text' => __( 'Next', 'ucsc' ),
 			]
 		);
 	}

@@ -44,9 +44,19 @@ $posts = $c->get_query( $paged );
 	
 			<!-- Pagination -->
 			<nav class="wp-block-query-pagination is-content-justification-center is-layout-flex wp-container-core-query-pagination-is-layout-1 wp-block-query-pagination-is-layout-flex">
-				<?php
-				echo $c->get_pagination( $posts, $paged );
-				?>
+				<?php if ( $paged === 1 ) : ?>
+					<span class="page-numbers prev">
+						<?php echo esc_html__( 'Previous', 'ucsc' ); ?>
+					</span>
+				<?php endif; ?>
+				
+				<?php echo $c->get_pagination( $posts, $paged ); ?>
+
+				<?php if ( $paged === $posts->max_num_pages ) : ?>
+					<span class="page-numbers next">
+						<?php echo esc_html__( 'Next', 'ucsc' ); ?>
+					</span>
+				<?php endif; ?>
 			</nav>
 		<?php else : ?>
 			<p>Not found</p>
