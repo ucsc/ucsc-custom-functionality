@@ -95,10 +95,10 @@ class Taxonomies_Hooks {
 
 		$terms = get_terms( [
 			'taxonomy'   => $selected_taxonomy,
-			'hide_empty' => true,
+			'hide_empty' => false,
+            'search'     => isset( $_POST['s'] ) ? sanitize_title_for_query( $_POST['s'] ) : '',
 		] );
         
-       
 		if ( empty( $terms ) || is_wp_error( $terms ) ) {
             $shortcut['results'] = [];
             

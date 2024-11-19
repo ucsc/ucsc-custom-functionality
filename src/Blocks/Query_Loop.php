@@ -6,8 +6,8 @@ use UCSC\Blocks\Blocks\Contracts\Taxonomies;
 use UCSC\Blocks\Blocks\Traits\With_Taxonomies;
 
 abstract class Query_Loop extends ACF_Group implements Taxonomies {
-    
-    use With_Taxonomies;
+	
+	use With_Taxonomies;
 	
 	public const QUERY_LOOP = 'query_loop';
 	public const QUERY_TYPE = 'query_type';
@@ -43,11 +43,23 @@ abstract class Query_Loop extends ACF_Group implements Taxonomies {
 	 * Add/Change in Block class in order to override
 	 */
 	protected string $instructions = '';
-	
+
+	/**
+	 * Default post_type for manual cards
+	 * Add/Change in Block class in order to override
+	 */
 	protected string $block_name = '';
 	
-	public function get_query_loop_group( string $name ): array {
+	protected array $allowed_post_types = [
+		'post',
+	];
+	
+	public function get_query_loop_group( string $name, array $allowed_post_types = [] ): array {
 		$this->block_name = $name;
+		
+		if ( ! empty( $allowed_post_types ) ) {
+			$this->allowed_post_types = $allowed_post_types;
+		}
 		
 		return [
 			'key'        => $this->get_field_key( self::QUERY_LOOP, $name ),
@@ -70,7 +82,7 @@ abstract class Query_Loop extends ACF_Group implements Taxonomies {
 		return [
 			'key'           => $this->get_field_key( self::QUERY_TYPE, $this->block_name ),
 			'type'          => 'button_group',
-            'layout'        => 'vertical',
+			'layout'        => 'vertical',
 			'name'          => self::QUERY_TYPE,
 			'label'         => esc_html__( 'Curated Content', 'ucsc' ),
 			'choices'       => [
@@ -149,9 +161,7 @@ abstract class Query_Loop extends ACF_Group implements Taxonomies {
 		return [
 			'key'           => $this->get_field_key( self::MANUAL_CARD, $this->block_name ),
 			'label'         => $this->default_manual_card_label,
-			'post_type'     => [
-				'post',
-			],
+			'post_type'     => $this->allowed_post_types,
 			'type'          => 'post_object',
 			'name'          => self::MANUAL_CARD,
 			'return_format' => 'id',
