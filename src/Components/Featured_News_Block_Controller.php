@@ -27,7 +27,7 @@ class Featured_News_Block_Controller {
         if ( empty( $this->cta ) || empty( $this->cta['title'] ) || empty( $this->cta['url'] ) ) {
             return '';
         }
-        return sprintf( '<a href="%s" target="%s">%s</a>', $this->cta['url'], $this->cta['target'] ?: '_self', $this->cta['title'] );
+        return sprintf( '<a href="%s" class="wp-block-button__link wp-element-button" target="%s">%s</a>', $this->cta['url'], $this->cta['target'] ?: '_self', $this->cta['title'] );
     }
 
 	public function get_items(): array {

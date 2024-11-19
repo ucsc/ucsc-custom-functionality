@@ -14,6 +14,7 @@
     position: relative;
     max-width: 100% !important;
     padding-top: var(--featured-news-block-spacer-20);
+    padding-bottom: var(--featured-news-block-spacer-50);
     
     &:before {
         content: "";
@@ -33,6 +34,7 @@
 
     @media (min-width: 1060px) {
         padding-top: var(--featured-news-block-spacer-60);
+        padding-bottom: var(--featured-news-block-spacer-60);
     }
 }
 
@@ -173,4 +175,11 @@
     display: block;
     margin: 0;
     color: var(--wp--preset--color--dark-gray);
+}
+
+.ucsc-featured-news-block__cta {
+    @media (min-width: 1060px) {
+        grid-area: cards;
+        grid-row: 4 / 5;
+    }
 }
