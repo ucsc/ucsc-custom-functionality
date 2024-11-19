@@ -30,7 +30,10 @@ class Photo_Of_The_Week_Archive_Controller {
 
 		$image_meta = wp_get_attachment_metadata( $image['ID'] );
 
-		$image_data = array_merge( [ 'id'  => $image['ID'], 'url' => $image['url'] ], $image_meta );
+		$image_data = array_merge( [ 
+			'id'  => $image['ID'], 
+			'url' => $image['url'],
+		], $image_meta );
 
 		return sprintf(
 			'<img src="%s" srcset="%s" alt="%s" class="photo-of-the-week__image" />',
