@@ -4,7 +4,7 @@
     "description": "Contains custom functionality for UCSC WordPress Websites.",
     "scripts": {
         "build": "wp-scripts build",
-        "dev": "wp-scripts start --webpack-src-dir=./src/views",
+        "dev": "wp-scripts start",
         "lint:css": "wp-scripts lint-style 'src/**/*.scss' --fix",
         "lint:js": "wp-scripts lint-js 'src/**/*.js' --fix",
         "lint": "npm run lint:css lint:js",

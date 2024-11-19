@@ -2,6 +2,12 @@
  * Featured News Block Styles
  */
 
+:root {
+    --featured-news-block-spacer-10: 8px;
+    --featured-news-block-spacer-20: 16px;
+    --featured-news-block-spacer-30: 24px;
+}
+
 .wp-block-ucsc-custom-functionality-featured-news-block {
     max-width: var(--wp--style--global--content-size);
     margin-left: auto;
@@ -48,7 +54,7 @@
 }
 
 .ucsc-featured-news-block__card-image {
-    margin-bottom: 16px;
+    margin-bottom: var(--featured-news-block-spacer-20);
     
     img {
         width: 100%;
@@ -58,16 +64,16 @@
     }
     
     .ucsc-featured-news-block__card--sticky {
-        margin-bottom: 24px;
+        margin-bottom: var(--featured-news-block-spacer-30);
     }
 }
 
 .ucsc-featured-news-block__category {
-    margin-bottom: 8px;
+    margin-bottom: var(--featured-news-block-spacer-10);
 }
 
 .ucsc-featured-news-block__card-title {
-    margin-bottom: 16px;
+    margin-bottom: var(--featured-news-block-spacer-20);
 }
 
 .ucsc-featured-news-block__card-title--inner {
