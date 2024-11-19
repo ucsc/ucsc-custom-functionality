@@ -24,27 +24,34 @@ if ( empty( $items ) && is_admin() ) {
 ?>
 <section <?php echo wp_kses_data( get_block_wrapper_attributes() ); ?>>
 	<?php foreach ( $items as $key => $item ) :  ?>
-		<?php if ( ! empty( $item['image'] ) && $item['image']['id'] > 0 ) : ?>
-			<?php $image_alt = get_post_meta( $item['image']['id'], '_wp_attachment_image_alt', true ); ?>
-			<img 
-				src="<?php echo esc_url( $item['image']['url'] );?>" 
-				srcset="<?php echo $c->build_srcset( $item['image'] );?>" 
-				class="ucsc-featured-news-block__card-image"
-				alt="<?php echo ! empty( $image_alt ) ? esc_attr( get_post_meta( $item['image']['id'], '_wp_attachment_image_alt' )[0] ) : $item['title']; ?>"
-			/>
-		<?php endif; ?>
-		<?php if ( ! empty( $item['category'] ) ) : ?>
-			<a href="<?php echo get_category_link( $item['category'] ); ?>">
-				<?php echo $item['category']->name ?>
-			</a>
-		<?php endif; ?>
-		<h2>
-			<?php echo $item['title']; ?>
-		</h2>
+		<a href="<?php echo esc_url( get_the_permalink( $item['id'] ) ); ?>" class="ucsc-featured-news-block__card<?php echo $key === 0 ? esc_attr( ' ucsc-featured-news-block__card--sticky' ) : ''; ?>">
+			<?php if ( ! empty( $item['image'] ) && $item['image']['id'] > 0 ) : ?>
+				<div class="ucsc-featured-news-block__card-image">
+					<?php $image_alt = get_post_meta( $item['image']['id'], '_wp_attachment_image_alt', true ); ?>
+					<img 
+						src="<?php echo esc_url( $item['image']['url'] );?>" 
+						srcset="<?php echo $c->build_srcset( $item['image'] );?>" 
+						class="ucsc-featured-news-block__card-image"
+						alt="<?php echo ! empty( $image_alt ) ? esc_attr( get_post_meta( $item['image']['id'], '_wp_attachment_image_alt' )[0] ) : $item['title']; ?>"
+					/>
+				</div>
+			<?php endif; ?>
+			<?php if ( ! empty( $item['category'] ) ) : ?>
+				<span class="ucsc-featured-news-block__category">
+                    <?php echo $item['category']->name ?>
+                </span>
+			<?php endif; ?>
 
-		<?php if ( $key === 0 && ! empty( $item['excerpt'] ) ) : ?>
-			<?php echo $item['excerpt']; ?>
-		<?php endif; ?>
+			<h2 class="ucsc-featured-news-block__card-title">
+				<span class="ucsc-featured-news-block__card-title--inner">
+                    <?php echo $item['title']; ?>
+                </span>
+			</h2>
+
+			<?php if ( $key === 0 && ! empty( $item['excerpt'] ) ) : ?>
+				<?php echo $item['excerpt']; ?>
+			<?php endif; ?>
+		</a>
 	<?php endforeach; ?>
 	<?php echo $c->get_cta(); ?>
 </section>
