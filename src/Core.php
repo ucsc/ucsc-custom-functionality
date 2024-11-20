@@ -3,7 +3,7 @@
 namespace UCSC\Blocks;
 
 use UCSC\Blocks\Assets\Assets_Subscriber;
-use UCSC\Blocks\Blocks\Featured_Block;
+use UCSC\Blocks\Blocks\Featured_News_Block;
 use UCSC\Blocks\Blocks\Media_Coverage_Block;
 use UCSC\Blocks\Blocks\News_Block;
 use UCSC\Blocks\Hooks\News_Blocks_Hooks;
@@ -14,6 +14,8 @@ use UCSC\Blocks\Post_Types\Photo_Of_The_Week\Photo_Of_The_Week;
 use UCSC\Blocks\Query\Query_Subscriber;
 
 class Core {
+    
+    public const PHOTOS_LOOP = 'photos_week_loop';
 
 	public const BLOCKS_PUBLIC = [
 		News_Block::class => '/src/views/news_block',
@@ -22,7 +24,7 @@ class Core {
 	public const BLOCKS_NEWS_ONLY = [
 		Featured_Block::class       => '/src/views/featured_block',
 		Media_Coverage_Block::class => '/src/views/media_coverage_block',
-		'photos_week_loop'          => '/src/views/photos_week_loop',
+        self::PHOTOS_LOOP           => '/src/views/photos_week_loop',
 	];
 	
 	public function init(): void {
