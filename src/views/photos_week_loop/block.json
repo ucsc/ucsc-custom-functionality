@@ -1,0 +1,20 @@
+{
+	"version": "1.0.0",
+    "name": "ucsc-custom-functionality/photos-week-loop",
+	"title": "Photos Of The Week Loop",
+	"description": "Displays Photos of the week posts loop",
+	"category": "theme",
+	"icon": "text",
+	"keywords": ["photos", "week", "loop"],
+    "example": {},
+	"acf": {
+		"mode": "preview",
+		"renderTemplate": "index.php"
+	},
+	"supports": {
+		"jsx": true
+	},
+    "editorStyle": [ "file:./style-index.css", "file:./index.css" ],
+    "style": [ "file:./style-index.css" ],
+    "viewScript": [ "file:./index.js" ]
+}
