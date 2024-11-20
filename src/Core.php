@@ -3,7 +3,7 @@
 namespace UCSC\Blocks;
 
 use UCSC\Blocks\Assets\Assets_Subscriber;
-use UCSC\Blocks\Blocks\Featured_Block;
+use UCSC\Blocks\Blocks\Featured_News_Block;
 use UCSC\Blocks\Blocks\News_Block;
 use UCSC\Blocks\Hooks\News_Blocks_Hooks;
 use UCSC\Blocks\Hooks\Taxonomies_Hooks;
@@ -20,7 +20,7 @@ class Core {
 	];
 	
 	public const BLOCKS_NEWS_ONLY = [
-		Featured_Block::class => '/src/views/featured_block',
+        Featured_News_Block::class => '/src/views/featured_news_block',
         self::PHOTOS_LOOP     => '/src/views/photos_week_loop',
 	];
 	

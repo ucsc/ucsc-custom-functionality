@@ -2,12 +2,12 @@
 
 namespace UCSC\Blocks\Components;
 
-use UCSC\Blocks\Blocks\Featured_Block;
+use UCSC\Blocks\Blocks\Featured_News_Block;
 use UCSC\Blocks\Blocks\Query_Loop;
 use UCSC\Blocks\Components\Traits\With_Image_Size;
 use UCSC\Blocks\Components\Traits\With_Primary_Term;
 
-class Featured_Block_Controller {
+class Featured_News_Block_Controller {
 	
 	use With_Image_Size;
 	use With_Primary_Term;
@@ -20,14 +20,14 @@ class Featured_Block_Controller {
 	public function __construct( $block ) {
 		$this->block      = (array) $block;
 		$this->query_loop = (array) get_field( Query_Loop::QUERY_LOOP );
-		$this->cta        = (array) get_field( Featured_Block::CTA_FIELD );
+		$this->cta        = (array) get_field( Featured_News_Block::CTA_FIELD );
 	}
     
     public function get_cta(): string {
         if ( empty( $this->cta ) || empty( $this->cta['title'] ) || empty( $this->cta['url'] ) ) {
             return '';
         }
-        return sprintf( '<a href="%s" target="%s">%s</a>', $this->cta['url'], $this->cta['target'] ?: '_self', $this->cta['title'] );
+        return sprintf( '<a href="%s" class="wp-block-button__link wp-element-button" target="%s">%s</a>', $this->cta['url'], $this->cta['target'] ?: '_self', $this->cta['title'] );
     }
 
 	public function get_items(): array {
