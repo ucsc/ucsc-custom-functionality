@@ -22,7 +22,7 @@ class Core {
 	];
 	
 	public const BLOCKS_NEWS_ONLY = [
-		Featured_Block::class       => '/src/views/featured_block',
+		Featured_News_Block::class  => '/src/views/featured_news_block',
 		Media_Coverage_Block::class => '/src/views/media_coverage_block',
         self::PHOTOS_LOOP           => '/src/views/photos_week_loop',
 	];
