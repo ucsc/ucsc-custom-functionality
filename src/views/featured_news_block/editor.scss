@@ -1,0 +1,34 @@
+/**
+ * Featured Block Editor Styles
+ */
+
+.wp-block-ucsc-custom-functionality-featured-news-block {
+    position: relative;
+    
+    &:before {
+        z-index: 0 !important;
+    }
+    
+    .ucsc-featured-news-block__inner {
+        position: relative;
+        grid-template-columns: 1fr;
+
+        @media (min-width: 1060px) {
+            grid-template-columns: minmax(626px, 1fr) minmax(auto, 395px);
+        }
+    }
+    
+    .ucsc-featured-news-block__card {
+        text-decoration: none !important;
+        pointer-events: none;
+        
+        &:hover,
+        &:focus {
+            text-decoration: none;
+        }
+    }
+}
+
+.block-editor .edit-post-sidebar .acf-fields > .acf-field.acf-no-style {
+    padding: 0;
+}
