@@ -105,10 +105,10 @@ if ( ! function_exists( 'ucsc_enqueue_admin_styles' ) ) {
 }
 add_action( 'admin_enqueue_scripts', 'ucsc_enqueue_admin_styles' );
 
-add_action( 'plugins_loaded', function () {
-    if ( ! function_exists( 'acf_add_local_field_group' ) ) {
-        return;
-    }
+add_action( 'plugins_loaded', static function (): void {
+	if ( ! function_exists( 'acf_add_local_field_group' ) ) {
+		return;
+	}
 
-    ( new \UCSC\Blocks\Core() )->init();
+	( new \UCSC\Blocks\Core() )->init();
 }, 100, 0 );
