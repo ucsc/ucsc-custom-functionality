@@ -18,7 +18,7 @@ class Photo_Of_The_Week_Archive {
 			$template_contents = file_get_contents( $theme->theme_root . '/' . $theme->stylesheet . '/templates/photo-of-the-week-archive.html' );
 			$block_source      = 'theme';
 		} else {
-			$template_contents = file_get_contents( UCSC_DIR . '/src/views/archives/photo-of-the-week-archive.html' );
+			$template_contents = file_get_contents( UCSC_DIR . '/src/views/templates/photo-of-the-week-archive.html' );
 		}
 
 		$new_block                 = new \WP_Block_Template();

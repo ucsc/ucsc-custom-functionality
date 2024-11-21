@@ -13,10 +13,11 @@ use UCSC\Blocks\Integrations\Integrations_Subscriber;
 use UCSC\Blocks\Object_Meta\Object_Meta_Definer;
 use UCSC\Blocks\Post_Types\Photo_Of_The_Week\Photo_Of_The_Week;
 use UCSC\Blocks\Query\Query_Subscriber;
+use UCSC\Blocks\Template\Default_Image_Header_Template;
 
 class Core {
-    
-    public const PHOTOS_LOOP = 'photos_week_loop';
+	
+	public const PHOTOS_LOOP = 'photos_week_loop';
 
 	public const BLOCKS_PUBLIC = [
 		News_Block::class => '/src/views/news_block',
@@ -25,8 +26,8 @@ class Core {
 	public const BLOCKS_NEWS_ONLY = [
 		Featured_News_Block::class  => '/src/views/featured_news_block',
 		Media_Coverage_Block::class => '/src/views/media_coverage_block',
-        self::PHOTOS_LOOP           => '/src/views/photos_week_loop',
-        Magazine_Block::class       => '/src/views/magazine_block',
+		self::PHOTOS_LOOP           => '/src/views/photos_week_loop',
+		Magazine_Block::class       => '/src/views/magazine_block',
 	];
 	
 	public function init(): void {
@@ -35,6 +36,17 @@ class Core {
 		$this->post_types();
 		$this->object_meta();
 		$this->subscribers();
+		$this->templates();
+	}
+	
+	protected function templates(): void {
+		if ( ! $this->is_news_site() ) {
+			return;
+		}
+
+		add_filter( 'get_block_templates', static function ( $query_result, $query, $template_type ) {
+			return ( new Default_Image_Header_Template() )->register_template( $query_result, $query, $template_type );
+		}, 10, 3 );
 	}
 	
 	protected function subscribers(): void {
