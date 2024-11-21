@@ -3,6 +3,7 @@
 namespace UCSC\Blocks\Query;
 
 use UCSC\Blocks\Post_Types\Photo_Of_The_Week\Photo_Of_The_Week;
+use UCSC\Blocks\Template\Photo_Of_The_Week_Archive;
 
 class Query_Subscriber {
 	
@@ -14,10 +15,6 @@ class Query_Subscriber {
 
 			( new Download_Photo() )->download_photo_of_the_week_single();
 		}, 10, 0 );
-
-		add_filter( 'get_block_templates', static function ( $query_result, $query, $template_type ) {
-			return ( new Photo_Of_The_Week_Archive() )->handle_archive_path( $query_result );
-		}, 10, 3 );
 	}
 
 }
