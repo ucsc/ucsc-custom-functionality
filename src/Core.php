@@ -4,6 +4,7 @@ namespace UCSC\Blocks;
 
 use UCSC\Blocks\Assets\Assets_Subscriber;
 use UCSC\Blocks\Blocks\Featured_News_Block;
+use UCSC\Blocks\Blocks\Magazine_Block;
 use UCSC\Blocks\Blocks\Media_Coverage_Block;
 use UCSC\Blocks\Blocks\News_Block;
 use UCSC\Blocks\Hooks\News_Blocks_Hooks;
@@ -25,6 +26,7 @@ class Core {
 		Featured_News_Block::class  => '/src/views/featured_news_block',
 		Media_Coverage_Block::class => '/src/views/media_coverage_block',
         self::PHOTOS_LOOP           => '/src/views/photos_week_loop',
+        Magazine_Block::class       => '/src/views/magazine_block',
 	];
 	
 	public function init(): void {
@@ -36,9 +38,9 @@ class Core {
 	}
 	
 	protected function subscribers(): void {
-        if ( ! $this->is_news_site() ) {
-            return;
-        }
+		if ( ! $this->is_news_site() ) {
+			return;
+		}
 		( new Query_Subscriber() )->init();
 		( new Integrations_Subscriber() )->init();
 	}
