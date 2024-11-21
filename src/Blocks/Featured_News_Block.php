@@ -5,11 +5,11 @@ namespace UCSC\Blocks\Blocks;
 use UCSC\Blocks\Blocks\Contracts\CTA_Field;
 use UCSC\Blocks\Blocks\Traits\With_CTA_Field;
 
-class Featured_Block extends Query_Loop implements CTA_Field {
+class Featured_News_Block extends Query_Loop implements CTA_Field {
     
     use With_CTA_Field;
 
-	public const NAME = 'ucsc_featured_block';
+	public const NAME = 'ucsc_featured_news_block';
 
     public const CTA_FIELD = 'featured_cta';
 	
@@ -21,7 +21,7 @@ class Featured_Block extends Query_Loop implements CTA_Field {
 				[
 					'param'    => 'block',
 					'operator' => '==',
-					'value'    => 'ucsc-custom-functionality/featured-block',
+					'value'    => 'ucsc-custom-functionality/featured-news-block',
 				],
 			],
 		];

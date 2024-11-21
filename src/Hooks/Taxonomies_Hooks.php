@@ -3,7 +3,7 @@
 namespace UCSC\Blocks\Hooks;
 
 use UCSC\Blocks\Blocks\Contracts\Taxonomies;
-use UCSC\Blocks\Blocks\Featured_Block;
+use UCSC\Blocks\Blocks\Featured_News_Block;
 use UCSC\Blocks\Traits\With_Get_Field_Key;
 
 class Taxonomies_Hooks {
@@ -27,7 +27,7 @@ class Taxonomies_Hooks {
         add_filter('acf/load_field/name=' . Taxonomies::TAX_ITEMS, [$this, 'load_tax_items']);
 
         $query_blocks_search_key = [
-            $this->get_field_key(Taxonomies::TAX_ITEMS, Featured_Block::NAME),
+            $this->get_field_key(Taxonomies::TAX_ITEMS, Featured_News_Block::NAME),
         ];
 
         foreach ($query_blocks_search_key as $key) {
@@ -95,10 +95,10 @@ class Taxonomies_Hooks {
 
 		$terms = get_terms( [
 			'taxonomy'   => $selected_taxonomy,
-			'hide_empty' => true,
+			'hide_empty' => false,
+            'search'     => isset( $_POST['s'] ) ? sanitize_title_for_query( $_POST['s'] ) : '',
 		] );
         
-       
 		if ( empty( $terms ) || is_wp_error( $terms ) ) {
             $shortcut['results'] = [];
             
