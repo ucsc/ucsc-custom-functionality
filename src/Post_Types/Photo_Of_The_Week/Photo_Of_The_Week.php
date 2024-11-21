@@ -5,7 +5,7 @@ namespace UCSC\Blocks\Post_Types\Photo_Of_The_Week;
 use UCSC\Blocks\Post_Types\Post_Types;
 
 class Photo_Of_The_Week extends Post_Types {
-	
+
 	public const NAME = 'photo_of_the_week';
 
 	public function get_args(): array {
@@ -20,13 +20,13 @@ class Photo_Of_The_Week extends Post_Types {
 			'public'          => true,
 			'capability_type' => 'post',
 			'show_in_rest'    => true,
-			'has_archive'     => 'photos-of-the-week',
+			'has_archive'     => true,
 			'rewrite'         => [
 				'slug' => 'photo-of-the-week',
 			],
 		];
 	}
-	
+
 	protected function get_labels(): array {
 		return [
 			'name'         => esc_html__( 'Photo Of The Week', 'ucsc' ),
