@@ -13,7 +13,8 @@ class Query_Subscriber {
 				return;
 			}
 
-			( new Download_Photo() )->download_photo_of_the_week_single();
+			wp_safe_redirect( get_post_type_archive_link( Photo_Of_The_Week::NAME ) );
+            exit;
 		}, 10, 0 );
 	}
 

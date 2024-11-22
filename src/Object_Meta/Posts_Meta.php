@@ -108,7 +108,7 @@ class Posts_Meta extends ACF_Group {
 			'key'           => self::MEDIA_FILE,
 			'type'          => 'file',
 			'required'      => 0,
-			'return_format' => 'array',
+			'return_format' => 'url',
 		];
 	}
 
@@ -119,7 +119,7 @@ class Posts_Meta extends ACF_Group {
 			'key'           => self::MEDIA_IMAGE,
 			'type'          => 'image',
 			'required'      => 0,
-			'return_format' => 'array',
+			'return_format' => 'url',
 		];
 	}
 

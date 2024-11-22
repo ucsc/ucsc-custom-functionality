@@ -19,8 +19,9 @@ use UCSC\Blocks\Template\Template_Subscriber;
 
 class Core {
 	
-	public const PHOTOS_LOOP   = 'photos_week_loop';
-	public const POST_OVERLINE = 'post_overline_block';
+	public const PHOTOS_LOOP           = 'photos_week_loop';
+	public const POST_OVERLINE         = 'post_overline_block';
+	public const PRESS_INQUIRIES_BLOCk = 'press_inquiries_block';
 
 	public const BLOCKS_PUBLIC = [
 		News_Block::class => '/src/views/news_block',
@@ -32,6 +33,7 @@ class Core {
 		self::PHOTOS_LOOP           => '/src/views/photos_week_loop',
 		Magazine_Block::class       => '/src/views/magazine_block',
 		self::POST_OVERLINE         => '/src/views/post_overline_block',
+		self::PRESS_INQUIRIES_BLOCk => '/src/views/press_inquiries_block',
 	];
 
 	private static self $instance;

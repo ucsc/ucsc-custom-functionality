@@ -2,6 +2,9 @@
  
 namespace UCSC\Blocks\Template;
 
+use UCSC\Blocks\Template\Patterns\Home_Link;
+use UCSC\Blocks\Template\Patterns\Post_Inquiry;
+
 class Template_Subscriber {
 
 	public function init(): void {
@@ -13,6 +16,10 @@ class Template_Subscriber {
 			
 			return $block_content;
 		}, 100, 2 );
+		
+		add_action( 'init', static function (): void {
+			( new Home_Link() )->register();
+		}, 10, 0 );
 	}
 
 }
