@@ -7,6 +7,7 @@ use UCSC\Blocks\Blocks\Featured_News_Block;
 use UCSC\Blocks\Blocks\Magazine_Block;
 use UCSC\Blocks\Blocks\Media_Coverage_Block;
 use UCSC\Blocks\Blocks\News_Block;
+use UCSC\Blocks\Blocks\Photo_Of_The_Week_Block;
 use UCSC\Blocks\Hooks\News_Blocks_Hooks;
 use UCSC\Blocks\Hooks\Taxonomies_Hooks;
 use UCSC\Blocks\Integrations\Integrations_Subscriber;
@@ -15,18 +16,19 @@ use UCSC\Blocks\Post_Types\Photo_Of_The_Week\Photo_Of_The_Week;
 use UCSC\Blocks\Query\Query_Subscriber;
 
 class Core {
-    
-    public const PHOTOS_LOOP = 'photos_week_loop';
+	
+	public const PHOTOS_LOOP = 'photos_week_loop';
 
 	public const BLOCKS_PUBLIC = [
 		News_Block::class => '/src/views/news_block',
 	];
 	
 	public const BLOCKS_NEWS_ONLY = [
-		Featured_News_Block::class  => '/src/views/featured_news_block',
-		Media_Coverage_Block::class => '/src/views/media_coverage_block',
-        self::PHOTOS_LOOP           => '/src/views/photos_week_loop',
-        Magazine_Block::class       => '/src/views/magazine_block',
+		Featured_News_Block::class     => '/src/views/featured_news_block',
+		Media_Coverage_Block::class    => '/src/views/media_coverage_block',
+		self::PHOTOS_LOOP              => '/src/views/photos_week_loop',
+		Magazine_Block::class          => '/src/views/magazine_block',
+		Photo_Of_The_Week_Block::class => '/src/views/photo_of_the_week_block',
 	];
 	
 	public function init(): void {
