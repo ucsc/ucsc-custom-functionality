@@ -37,14 +37,6 @@ class Media_Coverage_Controller extends Query_Loop_Controller {
 		
 		return stripos( $url, $current_site ) !== false;
 	}
-	
-	public function get_cta(): string {
-		if ( empty( $this->cta ) || empty( $this->cta['title'] ) || empty( $this->cta['url'] ) ) {
-				return '';
-		}
-
-			return sprintf( '<a href="%s" class="wp-element-button" target="%s">%s</a>', $this->cta['url'], $this->cta['target'] ?: '_self', $this->cta['title'] );
-	}
 
 	protected function prepare_posts_for_display( array $posts = [], bool $is_auto_query = false ): array {
 		$items = [];

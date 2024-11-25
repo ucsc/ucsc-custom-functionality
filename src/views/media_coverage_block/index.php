@@ -43,7 +43,7 @@ $title = $c->get_title();
 
 	<?php if ( $c->get_cta() ) : ?>
 		<div class="ucsc-media-coverage-block__cta is-style-ucsc-blue">
-			<?php echo $c->get_cta(); ?>
+			<?php echo $c->get_cta( [ 'wp-element-button' ] ); ?>
 		</div>
 	<?php endif; ?>
 </section>
