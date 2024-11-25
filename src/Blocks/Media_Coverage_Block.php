@@ -42,7 +42,7 @@ class Media_Coverage_Block extends Query_Loop implements CTA_Field {
 		return [
 			$this->get_block_title_field(),
 			$this->get_query_loop_group( self::NAME ),
-			$this->get_cta_field( self::NAME, 'All Coverage CTA', self::CTA_FIELD ),
+			$this->get_cta_field( self::NAME, 'All Coverage Link', self::CTA_FIELD ),
 		];
 	}
 	
