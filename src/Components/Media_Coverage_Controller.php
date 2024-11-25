@@ -14,6 +14,12 @@ class Media_Coverage_Controller extends Query_Loop_Controller {
 	protected int $number_of_posts_display = 6;
 	protected array $post_types            = [ 'media_coverage', ];
 	
+	public function __construct($block) {
+		parent::__construct( $block );
+
+		$this->cta = (array) get_field( Media_Coverage_Block::CTA_FIELD ) ?: [];
+	}
+
 	public function get_attributes(): string {
 		return wp_kses_data( get_block_wrapper_attributes([
 			'class' => implode(' ', [

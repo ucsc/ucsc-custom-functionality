@@ -2,8 +2,6 @@
 
 namespace UCSC\Blocks\Components;
 
-use UCSC\Blocks\Blocks\Featured_News_Block;
-use UCSC\Blocks\Blocks\Media_Coverage_Block;
 use UCSC\Blocks\Blocks\Query_Loop;
 use UCSC\Blocks\Components\Traits\With_CTA;
 
@@ -23,9 +21,7 @@ abstract class Query_Loop_Controller {
 	public function __construct( $block ) {
 		$this->block      = (array) $block;
 		$this->query_loop = (array) get_field( Query_Loop::QUERY_LOOP );
-		$this->cta        = (array) get_field( Featured_News_Block::CTA_FIELD )
-			?: get_field( Media_Coverage_Block::CTA_FIELD )
-				?: [];
+		$this->cta        = [];
 	}
 
 	public function get_items(): array {
