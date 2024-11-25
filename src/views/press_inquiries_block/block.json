@@ -1,0 +1,20 @@
+{
+	"version": "1.0.0",
+    "name": "ucsc-custom-functionality/press-inquiries",
+	"title": "UCSC Press Inquiries Block",
+	"description": "",
+	"category": "theme",
+	"icon": "text",
+	"keywords": ["press", "inquiries", "post"],
+    "example": {},
+	"acf": {
+		"mode": "preview",
+		"renderTemplate": "index.php"
+	},
+	"supports": {
+		"jsx": true
+	},
+    "editorStyle": [ "file:./style-index.css", "file:./index.css" ],
+    "style": [ "file:./style-index.css" ],
+    "viewScript": [ "file:./index.js" ]
+}

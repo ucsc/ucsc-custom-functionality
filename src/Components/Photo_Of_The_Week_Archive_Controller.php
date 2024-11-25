@@ -20,9 +20,19 @@ class Photo_Of_The_Week_Archive_Controller {
 			'paged'          => $paged,
 		]);
 	}
-
-	public function get_image() {
+	
+	public function get_image(): array {
 		$image = get_field( Photo_Of_The_Week_Meta::IMAGE, get_the_ID() );
+
+		if ( empty( $image ) || $image['ID'] < 1 ) {
+			return [];
+		}
+		
+		return $image;
+	}
+
+	public function render_image(): string {
+		$image = $this->get_image();
 
 		if ( empty( $image ) || $image['ID'] < 1 ) {
 			return '';

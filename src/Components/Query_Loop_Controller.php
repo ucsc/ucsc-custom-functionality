@@ -2,7 +2,6 @@
 
 namespace UCSC\Blocks\Components;
 
-use UCSC\Blocks\Blocks\Featured_News_Block;
 use UCSC\Blocks\Blocks\Query_Loop;
 use UCSC\Blocks\Components\Traits\With_CTA;
 
@@ -22,7 +21,7 @@ abstract class Query_Loop_Controller {
 	public function __construct( $block ) {
 		$this->block      = (array) $block;
 		$this->query_loop = (array) get_field( Query_Loop::QUERY_LOOP );
-		$this->cta        = (array) get_field( Featured_News_Block::CTA_FIELD );
+		$this->cta        = [];
 	}
 
 	public function get_items(): array {
@@ -50,8 +49,8 @@ abstract class Query_Loop_Controller {
 			'fields'      => 'ids',
 			'post_type'   => $this->post_types,
 			'post_status' => 'published',
-            'order'       => 'DESC',
-            'orderby'     => 'date',
+			'order'       => 'DESC',
+			'orderby'     => 'date',
 			'numberposts' => $this->number_of_posts_display,
 			'tax_query'   => [
 				[
@@ -67,7 +66,7 @@ abstract class Query_Loop_Controller {
 
 		return $this->prepare_posts_for_display( $posts );
 	}
-    
+	
 	protected function get_manual_query_items(): array {
 		$posts = $this->query_loop[ Query_Loop::MANUAL_CARDS ];
 

@@ -110,5 +110,5 @@ add_action( 'plugins_loaded', static function (): void {
 		return;
 	}
 
-	( new \UCSC\Blocks\Core() )->init();
+	\UCSC\Blocks\Core::instance()->init();
 }, 100, 0 );
