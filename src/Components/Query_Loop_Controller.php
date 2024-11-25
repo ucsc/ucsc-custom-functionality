@@ -23,7 +23,9 @@ abstract class Query_Loop_Controller {
 	public function __construct( $block ) {
 		$this->block      = (array) $block;
 		$this->query_loop = (array) get_field( Query_Loop::QUERY_LOOP );
-		$this->cta        = (array) get_field( Featured_News_Block::CTA_FIELD ) ?: get_field( Media_Coverage_Block::CTA_FIELD );
+		$this->cta        = (array) get_field( Featured_News_Block::CTA_FIELD )
+			?: get_field( Media_Coverage_Block::CTA_FIELD )
+				?: [];
 	}
 
 	public function get_items(): array {
