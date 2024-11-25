@@ -10,7 +10,7 @@ $photo = $c->get_photo();
 if ( empty( $photo ) && is_admin() ) {
 	?>
 	<section <?php echo wp_kses_data( get_block_wrapper_attributes() ); ?>>
-		<h3 class="ucsc-featured-news-block__header-title">
+		<h3 class="ucsc-photo-of-the-week-block__header-title">
 			<?php echo esc_html__( 'Please select photo in order to populate content', 'ucsc' ); ?>
 		</h3>
 	</section>
@@ -36,7 +36,7 @@ if ( empty( $photo ) ) {
 		</a>
 		<?php echo $c->get_cta(); ?>
 	</div>
-    <div>
-        <?php echo $photo['image'];?>
-    </div>
+	<div>
+		<?php echo $photo['image'];?>
+	</div>
 </section>
