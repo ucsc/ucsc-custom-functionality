@@ -3,6 +3,7 @@
 namespace UCSC\Blocks\Components;
 
 use UCSC\Blocks\Blocks\Contracts\Taxonomies;
+use UCSC\Blocks\Blocks\Featured_News_Block;
 use UCSC\Blocks\Blocks\Query_Loop;
 use UCSC\Blocks\Components\Traits\With_Image_Size;
 use UCSC\Blocks\Components\Traits\With_Primary_Term;
@@ -14,12 +15,18 @@ class Featured_News_Block_Controller extends Query_Loop_Controller {
 
 	protected int $number_of_posts_display = 4;
 
+	public function __construct($block) {
+		parent::__construct( $block );
+
+		$this->cta = (array) get_field( Featured_News_Block::CTA_FIELD ) ?: [];
+	}
+
 	public function get_cta(): string {
 		if ( empty( $this->cta ) || empty( $this->cta['title'] ) || empty( $this->cta['url'] ) ) {
-			return '';
+				return '';
 		}
 
-		return sprintf( '<a href="%s" class="wp-element-button" target="%s">%s</a>', $this->cta['url'], $this->cta['target'] ?: '_self', $this->cta['title'] );
+			return sprintf( '<a href="%s" class="wp-element-button" target="%s">%s</a>', $this->cta['url'], $this->cta['target'] ?: '_self', $this->cta['title'] );
 	}
 	
 	protected function prepare_posts_for_display( array $posts = [], bool $is_auto_query = false ): array {
