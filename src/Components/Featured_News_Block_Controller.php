@@ -14,13 +14,6 @@ class Featured_News_Block_Controller extends Query_Loop_Controller {
 	use With_Primary_Term;
 
 	protected int $number_of_posts_display = 4;
-
-    public function get_cta(): string {
-        if ( empty( $this->cta ) || empty( $this->cta['title'] ) || empty( $this->cta['url'] ) ) {
-            return '';
-        }
-        return sprintf( '<a href="%s" class="wp-block-button__link wp-element-button" target="%s">%s</a>', $this->cta['url'], $this->cta['target'] ?: '_self', $this->cta['title'] );
-    }
 	
 	protected function prepare_posts_for_display( array $posts = [], bool $is_auto_query = false ): array {
 		$items = [];
