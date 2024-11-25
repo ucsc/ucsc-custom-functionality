@@ -13,7 +13,7 @@ $subtitle  = $c->get_subtitle();
 $magazines = $c->get_magazines();
 ?>
 <section <?php echo $c->get_attributes(); ?>>
-	<div>
+	<header class="ucsc-magazine-block__header">
 		<?php if ( ! empty( $title_1 ) || ! empty( $title_2 ) ) : ?>
 		<h2>
 			<?php if ( ! empty( $title_1 ) ) : ?>
@@ -31,32 +31,40 @@ $magazines = $c->get_magazines();
 		<?php endif; ?>
 
 		<?php if ( ! empty( $subtitle ) ) : ?>
-			<p><?php echo $subtitle; ?></p>
+		<p><?php echo $subtitle; ?></p>
 		<?php endif; ?>
-		<?php if ( ! empty( $magazines ) ) : ?>
+
+		<div role="tablist">
 			<?php foreach ( $magazines as $index => $magazine ) : ?>
-				<?php if ( ! is_array( $magazine ) ) :?>
-					<?php continue; ?>
-				<?php endif; ?>
-				<div data-key="<?php echo $c->make_tab_key( $magazine[ Magazine_Block::ITEM_TITLE ], $index )?>">
-					<h4><?php echo $magazine[ Magazine_Block::ITEM_TITLE ];?></h4>
-					<p><?php echo $magazine[ Magazine_Block::ITEM_BYLINE ];?></p>
-				</div>
+			<button
+				role="tab"
+				data-key="<?php echo $c->make_tab_key( $magazine, $index )?>"
+				aria-labelledby="<?php echo $c->make_tab_key( $magazine, $index, 'label' )?>"
+				aria-selected="false"
+				aria-controls="<?php echo $c->make_tab_key( $magazine, $index, 'panel' )?>"
+			>
+				<span id="<?php echo $c->make_tab_key( $magazine, $index, 'label' )?>">
+					<?php echo $magazine[ Magazine_Block::ITEM_TITLE ];?>
+				</span>
+				<span>
+					<?php echo $magazine[ Magazine_Block::ITEM_BYLINE ];?>
+				</span>
+			</button>
 			<?php endforeach; ?>
-		<?php endif; ?>
-	</div>
-	<?php if ( ! empty( $magazines ) ) : ?>
-		<div>
-			<?php foreach ( $magazines as $index => $magazine ) : ?>
-				<?php if ( ! is_array( $magazine ) ) :?>
-					<?php continue; ?>
-				<?php endif; ?>
-				<div id="<?php echo $c->make_tab_key( $magazine[ Magazine_Block::ITEM_TITLE ], $index )?>">
-					<?php echo $c->get_image( $magazine ); ?>
-					<?php echo $c->get_description( $magazine ); ?>
-					<?php echo $c->get_cta( $magazine ); ?>
-				</div>
-			<?php endforeach; ?>
+		</tablist>
+	</header>
+
+	<div class="ucsc-magazine-block__content">
+		<?php foreach ( $magazines as $index => $magazine ) : ?>
+		<div
+			id="<?php echo $c->make_tab_key( $magazine, $index, 'panel' )?>"
+			role="tabpanel"
+			aria-labelledby="<?php echo $c->make_tab_key( $magazine, $index, 'label' )?>"
+		>
+			<?php echo $c->get_image( $magazine ); ?>
+			<?php echo $c->get_description( $magazine ); ?>
+			<?php echo $c->get_cta( $magazine ); ?>
 		</div>
-	<?php endif; ?>
+		<?php endforeach; ?>
+	</div>
 </section>

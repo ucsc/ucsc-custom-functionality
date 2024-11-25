@@ -52,11 +52,18 @@ class Magazine_Block_Controller {
 			return [];
 		}
 		
-		return $magazines;
+		return array_filter($magazines, static function ($magazine) {
+			return is_array( $magazine );
+		});
 	}
 	
-	public function make_tab_key( string $item, int $index ): string {
-		return sprintf( '%s-%s', sanitize_title( $item ), $index + 1 );
+	public function make_tab_key( array $magazine, int $index, string $element = '' ): string {
+		return sprintf( 
+			'%s-%s%s',
+			sanitize_title( $magazine[ Magazine_Block::ITEM_TITLE ] ),
+			$index + 1,
+			$element ? '__' . esc_html( $element ) : ''
+		);
 	}
 	
 	public function get_cta( array $magazine ): string {

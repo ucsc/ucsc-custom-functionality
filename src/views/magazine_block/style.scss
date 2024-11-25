@@ -5,4 +5,10 @@
 .ucsc-magazine-block {
   padding-top: var(--wp--preset--spacing--50);
   padding-bottom: var(--wp--preset--spacing--50);
+  display: flex;
+  column-gap: 48px;
+}
+
+.ucsc-magazine-block__content {
+  width: 75%;
 }
