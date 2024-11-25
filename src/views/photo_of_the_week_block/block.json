@@ -1,0 +1,20 @@
+{
+	"version": "1.0.0",
+    "name": "ucsc-custom-functionality/photo-of-the-week-block",
+	"title": "UCSC Photo of the week block",
+	"description": "",
+	"category": "theme",
+	"icon": "text",
+	"keywords": ["photo", "week", "block"],
+    "example": {},
+	"acf": {
+		"mode": "preview",
+		"renderTemplate": "index.php"
+	},
+	"supports": {
+		"jsx": true
+	},
+    "editorStyle": [ "file:./style-index.css", "file:./index.css" ],
+    "style": [ "file:./style-index.css" ],
+    "viewScript": [ "file:./index.js" ]
+}
