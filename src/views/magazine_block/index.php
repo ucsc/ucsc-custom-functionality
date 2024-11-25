@@ -7,17 +7,31 @@ use UCSC\Blocks\Components\Magazine_Block_Controller;
  * @var array $block current block attributes
  */
 $c         = new Magazine_Block_Controller( $block );
-$title     = $c->get_title();
-$overline  = $c->get_overline();
+$title_1   = $c->get_title_line_1();
+$title_2   = $c->get_title_line_2();
+$subtitle  = $c->get_subtitle();
 $magazines = $c->get_magazines();
 ?>
-<section <?php echo wp_kses_data( get_block_wrapper_attributes() ); ?>>
+<section <?php echo $c->get_attributes(); ?>>
 	<div>
-		<?php if ( ! empty( $title ) ) : ?>
-			<h2><?php echo $title; ?></h2>
+		<?php if ( ! empty( $title_1 ) || ! empty( $title_2 ) ) : ?>
+		<h2>
+			<?php if ( ! empty( $title_1 ) ) : ?>
+			<span class="ucsc-magazine-block__title-line-1">
+				<?php echo $title_1; ?>
+			</span>
+			<?php endif; ?>
+
+			<?php if ( ! empty( $title_2 ) ) : ?>
+			<span class="ucsc-magazine-block__title-line-2">
+				<?php echo $title_2; ?>
+			</span>
+			<?php endif; ?>
+		</h2>
 		<?php endif; ?>
-		<?php if ( ! empty( $overline ) ) : ?>
-			<p><?php echo $overline; ?></p>
+
+		<?php if ( ! empty( $subtitle ) ) : ?>
+			<p><?php echo $subtitle; ?></p>
 		<?php endif; ?>
 		<?php if ( ! empty( $magazines ) ) : ?>
 			<?php foreach ( $magazines as $index => $magazine ) : ?>

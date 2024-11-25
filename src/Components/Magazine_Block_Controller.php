@@ -20,25 +20,31 @@ class Magazine_Block_Controller {
 			'class' => implode(' ', [
 				'ucsc-magazine-block',
 				'alignfull',
-				'has-light-gray-background-color',
+				'has-lightest-gray-background-color',
 				'has-global-padding',
 				'is-layout-constrained',
 			]),
 		]) );
 	}
-	
-	public function get_title(): string {
-		$title = (string) get_field( Magazine_Block::TITLE );
-		
-		return strlen( $title ) < 1 ? '' : $title;
-	}
 
-	public function get_overline(): string {
-		$overline = (string) get_field( Magazine_Block::OVERLINE );
+	public function get_title_line_1(): string {
+		$overline = (string) get_field( Magazine_Block::TITLE_LINE_1 );
 
 		return strlen( $overline ) < 1 ? '' : $overline;
 	}
 	
+	public function get_title_line_2(): string {
+		$title = (string) get_field( Magazine_Block::TITLE_LINE_2 );
+		
+		return strlen( $title ) < 1 ? '' : $title;
+	}
+	
+	public function get_subtitle(): string {
+		$subtitle = (string) get_field( Magazine_Block::SUBTITLE );
+		
+		return strlen( $subtitle ) < 1 ? '' : $subtitle;
+	}
+
 	public function get_magazines(): array {
 		$magazines = (array) get_field( Magazine_Block::ITEMS );
 		

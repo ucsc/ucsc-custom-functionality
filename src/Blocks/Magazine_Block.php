@@ -8,17 +8,28 @@ class Magazine_Block extends ACF_Group {
 	
 	use With_CTA_Field;
 
-	public const NAME = 'ucsc_magazine';
+	public const NAME = 'ucsc_magazine_block';
 	
-	public const TITLE       = 'title';
-	public const OVERLINE    = 'overline';
-	public const ITEMS       = 'items';
-	public const ITEM_TITLE  = 'item_title';
-	public const ITEM_BYLINE = 'item_byline';
-	public const ITEM_IMAGE  = 'item_image';
-	public const ITEM_DESC   = 'item_description';
+	public const TITLE_LINE_1 = 'title_1';
+	public const TITLE_LINE_2 = 'title_2';
+	public const SUBTITLE     = 'subtitle';
+	public const ITEMS        = 'items';
+	public const ITEM_TITLE   = 'item_title';
+	public const ITEM_BYLINE  = 'item_byline';
+	public const ITEM_IMAGE   = 'item_image';
+	public const ITEM_DESC    = 'item_description';
 
 	public const ITEM_CTA_FIELD = 'item_cta';
+
+	public function get_image_field(): array {
+		return [
+			'label'         => esc_html__( 'Image', 'ucsc' ),
+			'key'           => $this->get_field_key( self::ITEM_IMAGE, self::ITEMS ),
+			'name'          => self::ITEM_IMAGE,
+			'type'          => 'image',
+			'return_format' => 'id',
+		];
+	}
 
 	protected function get_locations(): array {
 		return [
@@ -42,27 +53,37 @@ class Magazine_Block extends ACF_Group {
 
 	protected function get_fields(): array {
 		return [
-			$this->get_title_field(),
-			$this->get_overline_field(),
+			$this->get_title_line_1_field(),
+			$this->get_title_line_2_field(),
+			$this->get_subtitle_field(),
 			$this->get_items(),
 		];
 	}
 
-	protected function get_title_field(): array {
+	protected function get_title_line_1_field(): array {
 		return [
 			'type'  => 'text',
-			'name'  => self::TITLE,
-			'key'   => $this->get_field_key( self::TITLE, self::NAME ),
-			'label' => esc_html__( 'Title', 'ucsc' ),
+			'name'  => self::TITLE_LINE_1,
+			'key'   => $this->get_field_key( self::TITLE_LINE_1, self::NAME ),
+			'label' => esc_html__( 'Title Line 1', 'ucsc' ),
 		];
 	}
 
-	protected function get_overline_field(): array {
+	protected function get_title_line_2_field(): array {
 		return [
 			'type'  => 'text',
-			'name'  => self::OVERLINE,
-			'key'   => $this->get_field_key( self::OVERLINE, self::NAME ),
-			'label' => esc_html__( 'Overline', 'ucsc' ),
+			'name'  => self::TITLE_LINE_2,
+			'key'   => $this->get_field_key( self::TITLE_LINE_2, self::NAME ),
+			'label' => esc_html__( 'Title Line 2 Bold', 'ucsc' ),
+		];
+	}
+
+	protected function get_subtitle_field(): array {
+		return [
+			'type'  => 'text',
+			'name'  => self::SUBTITLE,
+			'key'   => $this->get_field_key( self::SUBTITLE, self::NAME ),
+			'label' => esc_html__( 'Subtitle', 'ucsc' ),
 		];
 	}
 
@@ -71,7 +92,7 @@ class Magazine_Block extends ACF_Group {
 			'key'          => $this->get_field_key( self::ITEMS, self::NAME ),
 			'type'         => 'repeater',
 			'name'         => self::ITEMS,
-            'collapsed'    => $this->get_field_key( self::ITEM_TITLE, self::ITEMS ),
+			'collapsed'    => $this->get_field_key( self::ITEM_TITLE, self::ITEMS ),
 			'sub_fields'   => [
 				$this->get_item_title(),
 				$this->get_item_byline(),
@@ -101,16 +122,6 @@ class Magazine_Block extends ACF_Group {
 			'label' => esc_html__( 'Byline', 'ucsc' ),
 		];
 	}
-    
-    public function get_image_field(): array {
-        return [
-            'label'         => esc_html__( 'Image', 'ucsc' ),
-            'key'           => $this->get_field_key( self::ITEM_IMAGE, self::ITEMS ),
-            'name'          => self::ITEM_IMAGE,
-            'type'          => 'image',
-            'return_format' => 'id',
-        ];
-    }
 
 	protected function get_item_desc(): array {
 		return [
