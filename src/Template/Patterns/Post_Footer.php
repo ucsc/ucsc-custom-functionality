@@ -2,10 +2,10 @@
 
 namespace UCSC\Blocks\Template\Patterns;
 
-class Home_Link extends Pattern {
+class Post_Footer extends Pattern {
 
 	
-	public const SLUG = 'home-link';
+	public const SLUG = 'post-footer';
 
     public function register(): void {
         register_block_pattern( $this->build_pattern_name(), $this->get_args() );
@@ -13,9 +13,9 @@ class Home_Link extends Pattern {
 
 	public function get_args(): array {
 		return [
-			'title'       => esc_html__( 'Home Link', 'ucsc' ),
-			'filePath'    => UCSC_DIR . '/src/views/patterns/home-link.php',
-			'description' => esc_html__( 'Display homepage link', 'ucsc' ),
+			'title'       => esc_html__( 'Post Footer', 'ucsc' ),
+			'filePath'    => UCSC_DIR . '/src/views/patterns/post-footer.php',
+			'description' => esc_html__( 'Display post taxonomies, social links and related posts', 'ucsc' ),
 			'categories'  => [
 				'theme',
 			],

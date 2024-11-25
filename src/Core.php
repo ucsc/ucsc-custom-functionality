@@ -7,6 +7,7 @@ use UCSC\Blocks\Blocks\Featured_News_Block;
 use UCSC\Blocks\Blocks\Magazine_Block;
 use UCSC\Blocks\Blocks\Media_Coverage_Block;
 use UCSC\Blocks\Blocks\News_Block;
+use UCSC\Blocks\Blocks\Related_Stories_Block;
 use UCSC\Blocks\Hooks\News_Blocks_Hooks;
 use UCSC\Blocks\Hooks\Taxonomies_Hooks;
 use UCSC\Blocks\Integrations\Integrations_Subscriber;
@@ -28,12 +29,13 @@ class Core {
 	];
 
 	public const BLOCKS_NEWS_ONLY = [
-		Featured_News_Block::class  => '/src/views/featured_news_block',
-		Media_Coverage_Block::class => '/src/views/media_coverage_block',
-		self::PHOTOS_LOOP           => '/src/views/photos_week_loop',
-		Magazine_Block::class       => '/src/views/magazine_block',
-		self::POST_OVERLINE         => '/src/views/post_overline_block',
-		self::PRESS_INQUIRIES_BLOCk => '/src/views/press_inquiries_block',
+		Featured_News_Block::class   => '/src/views/featured_news_block',
+		Media_Coverage_Block::class  => '/src/views/media_coverage_block',
+		self::PHOTOS_LOOP            => '/src/views/photos_week_loop',
+		Magazine_Block::class        => '/src/views/magazine_block',
+		self::POST_OVERLINE          => '/src/views/post_overline_block',
+		self::PRESS_INQUIRIES_BLOCk  => '/src/views/press_inquiries_block',
+		Related_Stories_Block::class => '/src/views/related_stories_block',
 	];
 
 	private static self $instance;

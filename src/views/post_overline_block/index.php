@@ -2,13 +2,13 @@
 
 use UCSC\Blocks\Object_Meta\Posts_Meta;
 
-if ( is_admin() ) {
-	echo esc_html__( 'This block will display post overline meta.', 'ucsc' );
-	
-	return;
-}
-
 $overline = get_field( Posts_Meta::POST_OVERLINE, get_the_ID() );
+
+if ( is_admin() && empty( $overline ) ) {
+    echo esc_html__( 'This block will display post overline meta.', 'ucsc' );
+
+    return;
+}
 
 if ( empty( $overline ) ) {
 	return;

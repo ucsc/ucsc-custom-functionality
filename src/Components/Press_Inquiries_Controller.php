@@ -13,7 +13,13 @@ class Press_Inquiries_Controller {
 	}
 	
 	public function get_press_contacts(): array {
-		return (array) get_field( Posts_Meta::PRESS_INQUIRIES, get_the_ID() );
+		$contacts = get_field( Posts_Meta::PRESS_INQUIRIES, get_the_ID() );
+        
+        if ( empty( $contacts ) ) {
+            return [];
+        }
+        
+        return $contacts;
 	}
 	
 	public function get_media_text(): string {

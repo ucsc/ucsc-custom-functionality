@@ -9,9 +9,7 @@ abstract class Pattern {
 	
 	abstract public function get_args(): array;
 
-	public function register(): void {
-		register_block_pattern( '/home-link', $this->get_args() );
-	}
+	abstract public function register(): void;
 	
 	protected function build_pattern_name(): string {
 		return sprintf( '%s/%s', self::NAMESPACE, static::SLUG );

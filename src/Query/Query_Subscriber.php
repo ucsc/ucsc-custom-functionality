@@ -3,7 +3,6 @@
 namespace UCSC\Blocks\Query;
 
 use UCSC\Blocks\Post_Types\Photo_Of_The_Week\Photo_Of_The_Week;
-use UCSC\Blocks\Template\Photo_Of_The_Week_Archive;
 
 class Query_Subscriber {
 	
@@ -14,7 +13,7 @@ class Query_Subscriber {
 			}
 
 			wp_safe_redirect( get_post_type_archive_link( Photo_Of_The_Week::NAME ) );
-            exit;
+			exit;
 		}, 10, 0 );
 	}
 

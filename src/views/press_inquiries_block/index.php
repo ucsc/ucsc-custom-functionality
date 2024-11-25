@@ -3,12 +3,6 @@
 use UCSC\Blocks\Components\Press_Inquiries_Controller;
 use UCSC\Blocks\Object_Meta\Posts_Meta;
 
-if ( is_admin() ) {
-	echo esc_html__( 'This block will display post press inquiries section.', 'ucsc' );
-	
-	return;
-}
-
 /**
  * @var array $block current block attributes
  */
@@ -18,7 +12,15 @@ $media_text  = $c->get_media_text();
 $media_image = $c->get_media_image();
 $media_file  = $c->get_media_file();
 
-if ( empty( $contacts ) && empty( $media_image ) && empty( $media_file ) && empty( $media_text ) ) {
+$is_empty = empty( $contacts ) && empty( $media_image ) && empty( $media_file ) && empty( $media_text );
+
+if ( is_admin() && $is_empty ) {
+    echo esc_html__( 'This block will display post press inquiries section.', 'ucsc' );
+
+    return;
+}
+
+if ( $is_empty ) {
 	return;
 }
 ?>

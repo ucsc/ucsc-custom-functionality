@@ -104,15 +104,6 @@ abstract class Template {
 			return null;
 		}
 
-		$template_version = get_post_meta( $post->ID, self::TEMPLATE_VERSION, true );
-
-		// Check if there is a newer stored version of the template;
-		if ( $template_version !== static::VERSION ) {
-			wp_delete_post( $post->ID );
-
-			return null;
-		}
-
 		return $this->hydrate_block_template_by_post( $post );
 	}
 	
