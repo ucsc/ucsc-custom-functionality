@@ -12,7 +12,8 @@
 		"renderTemplate": "index.php"
 	},
 	"supports": {
-		"jsx": true
+		"jsx": true,
+		"inserter": false
 	},
     "editorStyle": [ "file:./style-index.css", "file:./index.css" ],
     "style": [ "file:./style-index.css" ],

@@ -1,3 +1,114 @@
+@import "../../../assets/scss/mixins";
+
 /**
  * Photo of the Week Block Styles
  */
+.ucsc-photo-of-the-week-block {
+  padding-top: var(--wp--preset--spacing--50);
+  padding-bottom: var(--wp--preset--spacing--50);
+}
+
+.ucsc-photo-of-the-week-block__inner {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: var(--wp--preset--spacing--40);
+
+	@include media-query($wp-columns-unstack) {
+		flex-direction: row-reverse;
+    align-items: flex-start;
+	}
+
+  img {
+    width: 100%;
+
+    @include media-query($wp-columns-unstack) {
+      width: 75%;
+      flex-shrink: 0;
+    }
+  }
+
+  figcaption {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-self: stretch;
+    gap: var(--wp--preset--spacing--20);
+  }
+
+  hr {
+    width: 100%;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    opacity: 0.6;
+  }
+
+  p {
+    margin-block-start: 0;
+    margin-block-end: 0;
+  }
+}
+
+.ucsc-photo-of-the-week-block__caption {
+  display: flex;
+  flex-direction: column;
+  gap: var(--wp--preset--spacing--20);
+}
+
+.ucsc-photo-of-the-week-block__title {
+  margin-block-start: 0;
+  margin-block-end: 0;
+  text-wrap: balance;
+  font-weight: 300;
+  line-height: normal;
+}
+
+.ucsc-photo-of-the-week-block__post-title {
+  margin-block-start: 0;
+  margin-block-end: 0;
+  font-weight: 700;
+}
+
+.ucsc-photo-of-the-week-block__post-author {
+  display: flex;
+  align-items: center;
+  font-style: italic;
+  gap: 8px;
+  margin-top: 4px;
+  
+  @include media-query($wp-columns-unstack) {
+    margin-top: 8px;
+  }
+
+  svg {
+    color: var(--wp--preset--color--dark-gray);
+    margin-top: -2px;
+  }
+}
+
+.ucsc-photo-of-the-week-block__download-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.ucsc-photo-of-the-week-block__cta {
+  align-self: flex-start;
+}
+
+.ucsc-photo-of-the-week-block__cta--mobile {
+  margin-block-start: var(--wp--preset--spacing--40);
+  margin-block-end: 0;
+  
+  @include media-query($wp-columns-unstack) {
+    display: none;
+  }
+}
+
+.ucsc-photo-of-the-week-block__cta--desktop {
+  display: none;
+  
+  @include media-query($wp-columns-unstack) {
+    display: block;
+  }
+}
