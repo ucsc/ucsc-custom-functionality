@@ -56,7 +56,7 @@ if ( empty( $items ) && is_admin() ) {
 		<?php endforeach; ?>
 		
 		<?php if ( $c->get_cta() ) : ?>
-			<div class="ucsc-featured-news-block__cta wp-block-button is-style-ucsc-blue">
+			<div class="ucsc-featured-news-block__cta is-style-ucsc-blue">
 				<?php echo $c->get_cta( [ 'wp-element-button' ] ); ?>
 			</div>
 		<?php endif; ?>
