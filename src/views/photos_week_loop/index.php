@@ -6,6 +6,7 @@ use UCSC\Blocks\Object_Meta\Photo_Of_The_Week_Meta;
 $c     = new Photo_Of_The_Week_Archive_Controller();
 $paged = get_query_var( 'paged' ) ? (int) get_query_var( 'paged' ) : 1;
 $posts = $c->get_query( $paged );
+$image = $c->get_image();
 ?>
 <div class="archive-query wp-block-template-part">
 	<div class="wp-block-query ucsc__post-query-loop has-global-padding is-layout-constrained wp-block-query-is-layout-constrained">
@@ -13,7 +14,7 @@ $posts = $c->get_query( $paged );
 			<?php while ( $posts->have_posts() ) : ?>
 				<?php $posts->the_post(); ?>
 			<figure class="wp-block-post post-<?php echo get_the_ID(); ?> photo-of-the-week type-photo_of_the_week status-publish hentry">
-				<?php echo $c->get_image(); ?>
+				<?php echo $c->render_image(); ?>
 				<figcaption>
 					<div class="photo-of-the-week__caption">
 						<h2 class="photo-of-the-week__title has-ucsc-primary-blue-color has-two-font-size">
@@ -30,7 +31,7 @@ $posts = $c->get_query( $paged );
 						</p>
 						<?php endif; ?>
 					</div>
-					<a class="photo-of-the-week__download-link" href="<?php echo get_the_permalink( get_the_ID() ); ?>" target="_blank">
+					<a class="photo-of-the-week__download-link" href="<?php echo $image['url'] ?? '#'; ?>" target="_blank">
 						<svg width="16" height="16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
 							<path d="M8 .5v11M3.5 7 8 11.5 12.5 7M.5 15.5h15" />
 						</svg>
