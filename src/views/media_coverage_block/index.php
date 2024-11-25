@@ -41,9 +41,9 @@ $title = $c->get_title();
 	</h3>
 	<?php endif; ?>
 
-	<?php if ( ! empty( $c->get_cta() ) ) : ?>
-	<div class="ucsc-media-coverage-block__cta">
-		<?php echo $c->get_cta(); ?>
-	</div>
+	<?php if ( $c->get_cta() ) : ?>
+		<div class="ucsc-media-coverage-block__cta is-style-ucsc-blue">
+			<?php echo $c->get_cta(); ?>
+		</div>
 	<?php endif; ?>
 </section>

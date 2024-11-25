@@ -41,7 +41,7 @@ $posts = $c->get_query( $paged );
 			<?php endwhile; ?>
 	
 			<!-- Pagination -->
-			<nav class="wp-block-query-pagination is-content-justification-center is-layout-flex wp-container-core-query-pagination-is-layout-1 wp-block-query-pagination-is-layout-flex">
+			<nav class="ucsc-pagination wp-block-query-pagination is-content-justification-center is-layout-flex wp-container-core-query-pagination-is-layout-1 wp-block-query-pagination-is-layout-flex">
 				<?php if ( $paged === 1 ) : ?>
 					<span class="page-numbers prev">
 						<?php echo esc_html__( 'Previous', 'ucsc' ); ?>
