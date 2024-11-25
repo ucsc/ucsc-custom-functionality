@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
 use UCSC\Blocks\Blocks\Magazine_Block;
-use UCSC\Blocks\Components\Magazine_Controller;
+use UCSC\Blocks\Components\Magazine_Block_Controller;
 
 /**
  * @var array $block current block attributes
  */
-$c         = new Magazine_Controller( $block );
+$c         = new Magazine_Block_Controller( $block );
 $title     = $c->get_title();
 $overline  = $c->get_overline();
 $magazines = $c->get_magazines();

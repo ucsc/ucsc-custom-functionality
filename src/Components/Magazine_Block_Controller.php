@@ -5,7 +5,7 @@ namespace UCSC\Blocks\Components;
 use UCSC\Blocks\Blocks\Magazine_Block;
 use UCSC\Blocks\Components\Traits\With_Image_Size;
 
-class Magazine_Controller {
+class Magazine_Block_Controller {
 
 	use With_Image_Size;
 
@@ -13,6 +13,18 @@ class Magazine_Controller {
 
 	public function __construct( $block ) {
 		$this->block = (array) $block;
+	}
+
+	public function get_attributes(): string {
+		return wp_kses_data( get_block_wrapper_attributes([
+			'class' => implode(' ', [
+				'ucsc-magazine-block',
+				'alignfull',
+				'has-light-gray-background-color',
+				'has-global-padding',
+				'is-layout-constrained',
+			]),
+		]) );
 	}
 	
 	public function get_title(): string {
