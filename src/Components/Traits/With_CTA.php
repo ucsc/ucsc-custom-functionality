@@ -9,7 +9,7 @@ trait With_CTA {
 			return '';
 		}
 		
-		$classes = ! empty( $classes ) ? sprintf( 'classes="%s"', implode( ' ', $classes ) ) : '';
+		$classes = ! empty( $classes ) ? sprintf( 'class="%s"', implode( ' ', $classes ) ) : '';
 
 		return sprintf( '<a href="%s"%s target="%s">%s</a>', $this->cta['url'], $classes, $this->cta['target'] ?: '_self', $this->cta['title'] );
 	}
