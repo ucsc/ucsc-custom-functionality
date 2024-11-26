@@ -11,7 +11,12 @@
 
 .ucsc-magazine-block__inner {
   display: flex;
-  column-gap: 48px;
+  flex-direction: column;
+
+  @include media-query($wp-columns-unstack) {
+    flex-direction: row;
+    gap: var(--wp--preset--spacing--30);
+  }
 }
 
 .ucsc-magazine-block__title {
@@ -21,35 +26,67 @@
 }
 
 .ucsc-magazine-block__title-line-1 {
+  display: block;
   font-weight: 300;
 }
 
 .ucsc-magazine-block__subtitle {
   margin-block-start: 0;
-  margin-block-end: var(--wp--preset--spacing--20);
+  margin-block-end: var(--wp--preset--spacing--30);
+  
+  @include media-query($wp-columns-unstack) {
+    margin-block-end: var(--wp--preset--spacing--20);
+  }
 }
 
 .ucsc-magazine-block__tabs {
   display: flex;
-  flex-direction: column;
+  column-gap: 20px;
+  width: 100%;
+  overflow: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: var(--wp--preset--spacing--30);
+
+  &::after {
+    content: '';
+    display: block;
+    flex: 1 0 calc(30% - 20px);
+  }
+  
+  @include media-query($wp-columns-unstack) {
+    flex-direction: column;
+
+    &::after {
+      display: none;
+    }
+  }
 }
 
 .ucsc-magazine-block__tab {
-  padding: 0;
-  border: 0 solid var(--wp--preset--color--light-gray);
-  border-top-width: 1px;
+  padding: 0 0 0 var(--wp--preset--spacing--20);
+  border-style: solid;
+  border-color: var(--wp--preset--color--light-gray);
+  border-width: 0 0 0 1px;
   outline: 0 none;
   text-align: left;
   cursor: pointer;
   position: relative;
   background: none;
+  flex: 1 0 70%;
+  scroll-snap-align: start;
 
   @include media-query($wp-columns-unstack) {
+    border-width: 1px 0 0 0;
     padding: var(--wp--preset--spacing--30) 0;
+    width: auto;
   }
 
   &:last-child {
-    border-bottom-width: 1px;
+    border-width: 0 1px;
+
+    @include media-query($wp-columns-unstack) {
+      border-width: 1px 0;
+    }
   }
 
   &::before,
@@ -75,15 +112,23 @@
   &::after {
     bottom: 0;
     left: 0;
-    height: 4px;
-    width: 100%;
+    height: 100%;
+    width: 4px;
     background-color: var(--wp--preset--color--ucsc-primary-blue);
+
+    @include media-query($wp-columns-unstack) {
+      height: 4px;
+      width: 100%;
+    }
   }
 
   &[aria-selected="true"] {
     &::before {
-      opacity: 1;
-      transform: translateX(0) rotate(45deg) ;
+
+      @include media-query($wp-columns-unstack) {
+        opacity: 1;
+        transform: translateX(0) rotate(45deg) ;
+      }
     }
 
     &::after {
@@ -117,38 +162,59 @@
 }
 
 .ucsc-magazine-block__panels {
-  width: 75%;
-  aspect-ratio: 4/3;
+  width: 100%;
   position: relative;
+  
+  @include media-query($wp-columns-unstack) {
+    aspect-ratio: 4/3;
+    width: 75%;
+  }
 }
 
 .ucsc-magazine-block__panel {
-  position: absolute;
-  inset: 0;
   transition: opacity 0.4s ease-in-out;
+
+  @include media-query($wp-columns-unstack) {
+    position: absolute;
+    inset: 0;
+  }
 
   img {
     display: block;
-    width: 100%;
-    height: 100%;
     object-fit: cover;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4/3;
+
+    @include media-query($wp-columns-unstack) {
+      height: 100%;
+      aspect-ratio: auto;
+    }
   }
 
   &[inert] {
     opacity: 0;
+    position: absolute;
+
+    @include media-query($wp-columns-unstack) {
+      position: static;
+    }
   }
 }
 
 .ucsc-magazine-block__post-excerpt {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  background-color: var(--wp--preset--color--lightest-gray);
-  padding-top: var(--wp--preset--spacing--30);
-  padding-left: var(--wp--preset--spacing--30);
-  width: min-content;
-  min-width: 285px;
-  margin: 0;
+  padding-top: var(--wp--preset--spacing--20);
+
+  @include media-query($wp-columns-unstack) {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: var(--wp--preset--color--lightest-gray);
+    padding-top: var(--wp--preset--spacing--30);
+    padding-left: var(--wp--preset--spacing--30);
+    width: min-content;
+    min-width: 285px;
+  }
 
   p {
     margin: 0;
@@ -157,7 +223,7 @@
 
 .ucsc-magazine-block__post-cta {
   display: inline-block;
-  margin-block-start: var(--wp--preset--spacing--20);
+  margin-block-start: calc(var(--wp--preset--spacing--20) + 4px);
   margin-block-end: 4px;
   white-space: nowrap;
 
