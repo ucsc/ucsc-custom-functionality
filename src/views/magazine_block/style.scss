@@ -206,9 +206,11 @@
   &[inert] {
     opacity: 0;
     position: absolute;
+    transition: none;
 
     @include media-query($wp-columns-unstack) {
       position: static;
+      transition: opacity 0.4s ease-in-out;
     }
   }
 }
