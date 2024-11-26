@@ -66,17 +66,16 @@ class Magazine_Block_Controller {
 		);
 	}
 	
-	public function get_cta( array $magazine ): string {
+	public function get_cta( array $magazine ): array {
 		if ( empty( $magazine[ Magazine_Block::ITEM_CTA_FIELD ] ) || empty( $magazine[ Magazine_Block::ITEM_CTA_FIELD ]['title'] ) || empty( $magazine[ Magazine_Block::ITEM_CTA_FIELD ]['url'] ) ) {
-			return '';
+			return [];
 		}
 
-		return sprintf( 
-			'<a href="%s" target="%s">%s</a>', 
-			$magazine[ Magazine_Block::ITEM_CTA_FIELD ]['url'], 
-			$magazine[ Magazine_Block::ITEM_CTA_FIELD ]['target'] ?: '_self', 
-			$magazine[ Magazine_Block::ITEM_CTA_FIELD ]['title'] 
-		);
+		return [
+			'title'  => esc_html( $magazine[ Magazine_Block::ITEM_CTA_FIELD ]['title'] ),
+			'url'    => esc_attr( $magazine[ Magazine_Block::ITEM_CTA_FIELD ]['url'] ),
+			'target' => esc_attr( $magazine[ Magazine_Block::ITEM_CTA_FIELD ]['target'] ?: '_self' ),
+		];
 	}
 	
 	public function get_image( array $magazine ): string {
