@@ -85,6 +85,11 @@
     flex: 1;
   }
 
+  &:focus-visible {
+    outline: var(--wp--preset--color--black) auto 1px;
+    outline-offset: 1px;
+  }
+
   &:last-child {
     border-width: 0 1px;
 

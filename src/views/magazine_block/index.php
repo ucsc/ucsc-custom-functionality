@@ -40,6 +40,7 @@ $magazines = $c->get_magazines();
 				<button
 					class="ucsc-magazine-block__tab"
 					role="tab"
+					tabindex="-1"
 					data-key="<?php echo $c->make_tab_key( $magazine, $index )?>"
 					aria-labelledby="<?php echo $c->make_tab_key( $magazine, $index, 'label' )?>"
 					aria-selected="false"
@@ -63,6 +64,7 @@ $magazines = $c->get_magazines();
 				id="<?php echo $c->make_tab_key( $magazine, $index, 'panel' )?>"
 				role="tabpanel"
 				aria-labelledby="<?php echo $c->make_tab_key( $magazine, $index, 'label' )?>"
+				aria-hidden="true"
 				inert
 				class="ucsc-magazine-block__panel"
 			>
