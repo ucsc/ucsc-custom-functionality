@@ -21,16 +21,6 @@ class Magazine_Block extends ACF_Group {
 
 	public const ITEM_CTA_FIELD = 'item_cta';
 
-	public function get_image_field(): array {
-		return [
-			'label'         => esc_html__( 'Image', 'ucsc' ),
-			'key'           => $this->get_field_key( self::ITEM_IMAGE, self::ITEMS ),
-			'name'          => self::ITEM_IMAGE,
-			'type'          => 'image',
-			'return_format' => 'id',
-		];
-	}
-
 	protected function get_locations(): array {
 		return [
 			[
@@ -120,6 +110,16 @@ class Magazine_Block extends ACF_Group {
 			'name'  => self::ITEM_BYLINE,
 			'key'   => $this->get_field_key( self::ITEM_BYLINE, self::ITEMS ),
 			'label' => esc_html__( 'Byline', 'ucsc' ),
+		];
+	}
+
+	protected function get_image_field(): array {
+		return [
+			'label'         => esc_html__( 'Image', 'ucsc' ),
+			'key'           => $this->get_field_key( self::ITEM_IMAGE, self::ITEMS ),
+			'name'          => self::ITEM_IMAGE,
+			'type'          => 'image',
+			'return_format' => 'id',
 		];
 	}
 
