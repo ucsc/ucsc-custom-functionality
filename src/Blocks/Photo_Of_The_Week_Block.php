@@ -28,7 +28,7 @@ class Photo_Of_The_Week_Block extends ACF_Group implements CTA_Field {
 	}
 
 	protected function get_title(): string {
-		return esc_html__( 'UCSC Photo Of The Week Block', 'ucsc' );
+		return esc_html__( 'UCSC Photo of the Week Block', 'ucsc' );
 	}
 
 	protected function get_key(): string {
@@ -38,7 +38,7 @@ class Photo_Of_The_Week_Block extends ACF_Group implements CTA_Field {
 	protected function get_fields(): array {
 		return [
 			$this->get_title_field(),
-			$this->get_cta_field( self::NAME, esc_html__( 'Button URL', 'ucsc' ) ),
+			$this->get_cta_field( self::NAME, esc_html__( 'All Photos Link', 'ucsc' ) ),
 			$this->get_photo_field(),
 		];
 	}
@@ -57,7 +57,7 @@ class Photo_Of_The_Week_Block extends ACF_Group implements CTA_Field {
 			'type'          => 'post_object',
 			'name'          => self::PHOTO,
 			'key'           => $this->get_field_key( self::PHOTO, self::NAME ),
-			'label'         => esc_html__( 'Photo Of The Week', 'ucsc' ),
+			'label'         => esc_html__( 'Photo of the Week', 'ucsc' ),
 			'post_type'     => [
 				Photo_Of_The_Week::NAME,
 			],
