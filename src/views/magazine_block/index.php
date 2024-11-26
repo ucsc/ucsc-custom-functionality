@@ -49,10 +49,12 @@ $magazines = $c->get_magazines();
 					<span id="<?php echo $c->make_tab_key( $magazine, $index, 'label' )?>" class="ucsc-magazine-block__post-title">
 						<?php echo $magazine[ Magazine_Block::ITEM_TITLE ];?>
 					</span>
+					<?php if ( $magazine[ Magazine_Block::ITEM_BYLINE ] ) : ?>
 					<span class="ucsc-magazine-block__post-author has-base-font-size">
 						<?php echo esc_html( 'By', 'ucsc' ); ?>
-						<?php echo $magazine[ Magazine_Block::ITEM_BYLINE ];?>
+						<?php echo $magazine[ Magazine_Block::ITEM_BYLINE ]; ?>
 					</span>
+					<?php endif; ?>
 				</button>
 				<?php endforeach; ?>
 			</div>
@@ -69,11 +71,17 @@ $magazines = $c->get_magazines();
 				class="ucsc-magazine-block__panel"
 			>
 				<?php echo $c->get_image( $magazine ); ?>
+
+				<?php  $cta = $c->get_cta( $magazine ); ?>
+				<?php  $description = $c->get_description( $magazine ); ?>
+				<?php if ( $description || $cta ) : ?>
 				<div class="ucsc-magazine-block__post-excerpt">
+					<?php if ( $description ) : ?>
 					<p>
-						<?php echo $c->get_description( $magazine ); ?>
+						<?php echo $description; ?>
 					</p>
-					<?php  $cta = $c->get_cta( $magazine ); ?>
+					<?php endif;?>
+
 					<?php if ( $cta ) : ?>
 					<div class="ucsc-magazine-block__post-cta is-style-ucsc-blue">
 						<a href="<?php echo $cta['href'] ?>" target="<?php echo $cta['target'] ?>" class="wp-element-button">
@@ -85,6 +93,8 @@ $magazines = $c->get_magazines();
 					</div>
 					<?php endif;?>
 				</div>
+				<?php endif; ?>
+
 			</div>
 			<?php endforeach; ?>
 		</div>
