@@ -55,6 +55,9 @@
   
   @include media-query($wp-columns-unstack) {
     flex-direction: column;
+    overflow: visible;
+    padding-bottom: 0;
+    scroll-snap-type: none;
 
     &::after {
       display: none;
@@ -79,6 +82,7 @@
     border-width: 1px 0 0 0;
     padding: var(--wp--preset--spacing--30) 0;
     width: auto;
+    flex: 1;
   }
 
   &:last-child {
@@ -163,9 +167,10 @@
 
 .ucsc-magazine-block__panels {
   width: 100%;
-  position: relative;
   
   @include media-query($wp-columns-unstack) {
+    position: relative;
+    overflow: visible;
     aspect-ratio: 4/3;
     width: 75%;
   }
@@ -187,6 +192,7 @@
     aspect-ratio: 4/3;
 
     @include media-query($wp-columns-unstack) {
+      position: absolute;
       height: 100%;
       aspect-ratio: auto;
     }
