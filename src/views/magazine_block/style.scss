@@ -5,10 +5,48 @@
 .ucsc-magazine-block {
   padding-top: var(--wp--preset--spacing--50);
   padding-bottom: var(--wp--preset--spacing--50);
+}
+
+.ucsc-magazine-block__inner {
   display: flex;
   column-gap: 48px;
 }
 
-.ucsc-magazine-block__content {
+.ucsc-magazine-block__tabs {
+  display: flex;
+  flex-direction: column;
+
+  button {
+    padding: 0;
+    border-width: 1px 0 0 0;
+    border-color: var(--wp--preset--color--light-gray);
+    outline: 0 none;
+    text-align: left;
+    cursor: pointer;
+
+    &:last-child {
+      border-bottom-width: 1px;
+    }
+  }
+}
+
+.ucsc-magazine-block__panels {
   width: 75%;
+
+  img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+  }
+}
+
+.ucsc-magazine-block__panel {
+  transition: opacity 0.3s ease-in-out;
+
+  &[inert] {
+    transition: none;
+    opacity: 0;
+    position: absolute;
+  }
 }

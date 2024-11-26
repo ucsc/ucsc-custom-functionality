@@ -1,6 +1,6 @@
 {
 	"version": "1.0.0",
-    "name": "ucsc-custom-functionality/magazine-block",
+  "name": "ucsc-custom-functionality/magazine-block",
 	"title": "UCSC Magazine Block",
 	"description": "",
 	"category": "theme",
@@ -16,5 +16,5 @@
 	},
     "editorStyle": [ "file:./style-index.css", "file:./index.css" ],
     "style": [ "file:./style-index.css" ],
-    "viewScript": [ "file:./index.js" ]
+    "viewScript": [ "file:./index.js", "file:./view.js"  ]
 }
