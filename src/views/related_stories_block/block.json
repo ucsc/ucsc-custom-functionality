@@ -16,5 +16,5 @@
 	},
     "editorStyle": [ "file:./style-index.css", "file:./index.css" ],
     "style": [ "file:./style-index.css" ],
-    "viewScript": [ "file:./index.js" ]
+    "editorScript": "file:./index.js"
 }

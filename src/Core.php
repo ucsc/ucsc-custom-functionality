@@ -154,9 +154,10 @@ class Core {
 		}
 
 		foreach ( self::BLOCKS_NEWS_ONLY as $block_class => $block_path ) {
-			register_block_type( UCSC_DIR . $block_path );
-			
-			if ( ! class_exists( $block_class ) ) {
+//			register_block_type( UCSC_DIR . $block_path );
+            register_block_type_from_metadata( trailingslashit( UCSC_DIR . $block_path ) . '/block.json', [] );
+
+            if ( ! class_exists( $block_class ) ) {
 				continue;
 			}
 			( new $block_class )->init();

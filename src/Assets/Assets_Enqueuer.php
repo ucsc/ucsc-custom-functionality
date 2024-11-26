@@ -38,7 +38,7 @@ class Assets_Enqueuer {
 			);
 
 			wp_enqueue_script(
-				$handle_file,
+				$handle_file . '_' . $block_name ,
 				$this->assets_path_uri . $block_name . '/' . $handle_file . '.js',
 				$args['dependencies'] ?? [],
 				$args['version'] ?? false,
