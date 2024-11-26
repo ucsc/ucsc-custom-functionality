@@ -6,6 +6,7 @@ use UCSC\Blocks\Components\Media_Coverage_Controller;
  * @var array $block current block attributes
  */
 $c     = new Media_Coverage_Controller( $block );
+
 $items = $c->get_items();
 $title = $c->get_title();
 ?>

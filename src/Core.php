@@ -26,18 +26,18 @@ class Core {
 	public const PRESS_INQUIRIES_BLOCK = 'press_inquiries_block';
 
 	public const BLOCKS_PUBLIC = [
-		News_Block::class => '/src/views/news_block',
+		News_Block::class => '/build/views/news_block',
 	];
 
 	public const BLOCKS_NEWS_ONLY = [
-		self::PHOTOS_LOOP              => '/src/views/photos_week_loop',
-		self::POST_OVERLINE            => '/src/views/post_overline_block',
-		self::PRESS_INQUIRIES_BLOCK    => '/src/views/press_inquiries_block',
-		Photo_Of_The_Week_Block::class => '/src/views/photo_of_the_week_block',
-		Featured_News_Block::class     => '/src/views/featured_news_block',
-		Media_Coverage_Block::class    => '/src/views/media_coverage_block',
-		Magazine_Block::class          => '/src/views/magazine_block',
-		Related_Stories_Block::class   => '/src/views/related_stories_block',
+		self::PHOTOS_LOOP              => '/build/views/photos_week_loop',
+		self::POST_OVERLINE            => '/build/views/post_overline_block',
+		self::PRESS_INQUIRIES_BLOCK    => '/build/views/press_inquiries_block',
+		Photo_Of_The_Week_Block::class => '/build/views/photo_of_the_week_block',
+		Featured_News_Block::class     => '/build/views/featured_news_block',
+		Media_Coverage_Block::class    => '/build/views/media_coverage_block',
+		Magazine_Block::class          => '/build/views/magazine_block',
+		Related_Stories_Block::class   => '/build/views/related_stories_block',
 	];
 
 	private static self $instance;
@@ -59,6 +59,24 @@ class Core {
 		$this->templates();
 	}
 	
+	/**
+	 * @param array          $block      The block attributes.
+	 * @param string         $content    The block content.
+	 * @param bool           $is_preview Whether the block is being rendered for editing preview.
+	 * @param int            $post_id    The current post being edited or viewed.
+	 * @param \WP_Block|null $wp_block   The block instance (since WP 5.5).
+	 */
+	public function render_template( array $block, string $content = '', bool $is_preview = false, int $post_id = 0, ?\WP_Block $wp_block = null ): void {
+		$template = $block['render_template'];
+		$path     = str_replace( 'build/views/', 'src/views/', $block['path'] );
+
+		if ( ! file_exists( "$path/$template" ) ) {
+			return;
+		}
+
+		include "$path/$template"; // phpcs:ignore WordPressVIPMinimum.Files.IncludingFile.NotAbsolutePath
+	}
+
 	protected function templates(): void {
 		if ( ! $this->is_news_site() ) {
 			return;
@@ -154,8 +172,11 @@ class Core {
 		}
 
 		foreach ( self::BLOCKS_NEWS_ONLY as $block_class => $block_path ) {
-			register_block_type( UCSC_DIR . $block_path );
-			
+			$args = [
+				'render_callback' => [ $this, 'render_template' ],
+			];
+
+			register_block_type_from_metadata( trailingslashit( UCSC_DIR . $block_path ) . '/block.json', $args );
 			if ( ! class_exists( $block_class ) ) {
 				continue;
 			}
