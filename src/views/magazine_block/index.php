@@ -51,7 +51,6 @@ $magazines = $c->get_magazines();
 					</span>
 					<?php if ( $magazine[ Magazine_Block::ITEM_BYLINE ] ) : ?>
 					<span class="ucsc-magazine-block__post-author has-base-font-size">
-						<?php echo esc_html( 'By', 'ucsc' ); ?>
 						<?php echo $magazine[ Magazine_Block::ITEM_BYLINE ]; ?>
 					</span>
 					<?php endif; ?>
