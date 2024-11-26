@@ -84,7 +84,7 @@ $magazines = $c->get_magazines();
 
 					<?php if ( $cta ) : ?>
 					<div class="ucsc-magazine-block__post-cta is-style-ucsc-blue">
-						<a href="<?php echo $cta['href'] ?>" target="<?php echo $cta['target'] ?>" class="wp-element-button">
+						<a href="<?php echo $cta['url'] ?>" target="<?php echo $cta['target'] ?>" class="wp-element-button">
 							<?php echo $cta['title'] ?>
 							<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
 								<path d="M0.767045 9.84203L0 9.08138L7.86222 1.21277H1.57244L1.58523 0.158081H9.67756V8.2632H8.61009L8.62287 1.97981L0.767045 9.84203Z" fill="currentColor"/>
