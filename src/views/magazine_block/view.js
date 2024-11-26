@@ -75,6 +75,15 @@ const activateTab = (tab, block) => {
     panel.setAttribute('aria-hidden', 'false')
     panel.removeAttribute('inert')
   }
+
+  // Scroll to the current tab (only affects mobile).
+  const tabList = tab.closest('[role="tablist"]')
+  if (tabList) {
+    tabList.scrollTo({
+      left: tab.offsetLeft,
+      behavior: 'smooth',
+    })
+  }
 }
 
 /**
