@@ -53,7 +53,7 @@ class Magazine_Block_Controller {
 		}
 		
 		return array_filter($magazines, static function ($magazine) {
-			return is_array( $magazine );
+			return is_array( $magazine ) && ! empty( $magazine );
 		});
 	}
 	
