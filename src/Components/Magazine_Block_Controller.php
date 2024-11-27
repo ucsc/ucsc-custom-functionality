@@ -73,7 +73,7 @@ class Magazine_Block_Controller {
 
 		return [
 			'title'  => esc_html( $magazine[ Magazine_Block::ITEM_CTA_FIELD ]['title'] ),
-			'url'    => esc_attr( $magazine[ Magazine_Block::ITEM_CTA_FIELD ]['url'] ),
+			'url'    => esc_url( $magazine[ Magazine_Block::ITEM_CTA_FIELD ]['url'] ),
 			'target' => esc_attr( $magazine[ Magazine_Block::ITEM_CTA_FIELD ]['target'] ?: '_self' ),
 		];
 	}
