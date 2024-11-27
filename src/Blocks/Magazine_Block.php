@@ -55,7 +55,7 @@ class Magazine_Block extends ACF_Group {
 			'type'  => 'text',
 			'name'  => self::TITLE_LINE_1,
 			'key'   => $this->get_field_key( self::TITLE_LINE_1, self::NAME ),
-			'label' => esc_html__( 'Title Line 1', 'ucsc' ),
+			'label' => esc_html__( 'Title Line 1 (Light)', 'ucsc' ),
 		];
 	}
 
@@ -64,7 +64,7 @@ class Magazine_Block extends ACF_Group {
 			'type'  => 'text',
 			'name'  => self::TITLE_LINE_2,
 			'key'   => $this->get_field_key( self::TITLE_LINE_2, self::NAME ),
-			'label' => esc_html__( 'Title Line 2 Bold', 'ucsc' ),
+			'label' => esc_html__( 'Title Line 2 (Bold)', 'ucsc' ),
 		];
 	}
 
