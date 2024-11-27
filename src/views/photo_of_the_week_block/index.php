@@ -26,7 +26,9 @@ if ( empty( $photo ) ) {
 ?>
 <section <?php echo $c->get_attributes(); ?>>
 	<figure class="ucsc-photo-of-the-week-block__inner">
-		<?php echo $photo['image']; ?>
+		<a class="ucsc-photo-of-the-week-block__image-link" href="<?php echo $photo['download']; ?>" target="_blank">
+			<?php echo $photo['image']; ?>
+		</a>
 		<figcaption>
 			<div class="ucsc-photo-of-the-week-block__caption">
 				<h2 class="ucsc-photo-of-the-week-block__title has-six-font-size">
@@ -48,7 +50,7 @@ if ( empty( $photo ) ) {
 					<?php endif; ?>
 				</p>
 				<hr />
-				<a class="ucsc-photo-of-the-week-block__download-link has-ucsc-pacific-blue-color" href="<?php echo $photo['download'];?>" target="_blank">
+				<a class="ucsc-photo-of-the-week-block__download-link has-ucsc-pacific-blue-color" href="<?php echo $photo['download']; ?>" target="_blank">
 					<svg width="16" height="16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
 						<path d="M8 .5v11M3.5 7 8 11.5 12.5 7M.5 15.5h15" />
 					</svg>

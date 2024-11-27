@@ -18,15 +18,6 @@
     align-items: flex-start;
 	}
 
-  img {
-    width: 100%;
-
-    @include media-query($wp-columns-unstack) {
-      width: 75%;
-      flex-shrink: 0;
-    }
-  }
-
   figcaption {
     display: flex;
     flex-direction: column;
@@ -45,6 +36,22 @@
   p {
     margin-block-start: 0;
     margin-block-end: 0;
+  }
+}
+
+.ucsc-photo-of-the-week-block__image-link {
+  width: 100%;
+  display: block;
+  cursor: zoom-in;
+
+  @include media-query($wp-columns-unstack) {
+    width: 75%;
+    flex-shrink: 0;
+  }
+
+  img {
+    display: block;
+    width: 100%;
   }
 }
 
