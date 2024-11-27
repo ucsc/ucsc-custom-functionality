@@ -34,7 +34,9 @@ class Blocks_Render {
 		}
 		
 		$caption     = get_the_post_thumbnail_caption() ?? '';
-		$description = get_post( get_post_thumbnail_id() )->post_content ?? '';
+        if ( get_post_thumbnail_id() > 0 ) {
+            $description = get_post( get_post_thumbnail_id() )->post_content ?? '';
+        }
 		
 		if ( ! empty( $caption ) ) {
 			$block_content = sprintf( '%s<p>%s</p>', $block_content, $caption );

@@ -5,7 +5,8 @@
  * Categories: theme
  */
 ?>
-<!-- wp:post-terms {"term":"category"} /-->
+<!-- wp:group {"layout":{"type":"constrained","contentSize":"44rem","wideSize":"80rem"}} -->
+<div class="wp-block-group"><!-- wp:post-terms {"term":"category"} /-->
 
 <!-- wp:social-links -->
 <ul class="wp-block-social-links"><!-- wp:social-link {"url":"https://www.facebook.com/","service":"facebook"} /-->
@@ -16,3 +17,5 @@
 <!-- /wp:social-links -->
 
 <!-- wp:ucsc-custom-functionality/related-stories-block {"name":"ucsc-custom-functionality/related-stories-block","data":{"ucsc_related_stories_block_query_loop":{"ucsc_related_stories_block_query_type":"automatic","ucsc_related_stories_block_automatic_group":{"ucsc_related_stories_block_taxonomies_list":"category","ucsc_related_stories_block_taxonomy_list_items":"1468"}}},"mode":"preview"} /-->
+</div>
+<!-- /wp:group -->
