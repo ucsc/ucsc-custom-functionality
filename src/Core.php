@@ -23,8 +23,7 @@ use UCSC\Blocks\Template\Template_Subscriber;
 
 class Core {
 	
-	public const PHOTOS_LOOP   = 'photos_week_loop';
-	public const POST_OVERLINE = 'post_overline_block';
+	public const PHOTOS_LOOP = 'photos_week_loop';
 
 	public const BLOCKS_PUBLIC = [
 		News_Block::class => '/build/views/news_block',
@@ -32,7 +31,6 @@ class Core {
 
 	public const BLOCKS_NEWS_ONLY = [
 		self::PHOTOS_LOOP              => '/build/views/photos_week_loop',
-		self::POST_OVERLINE            => '/build/views/post_overline_block',
 		Photo_Of_The_Week_Block::class => '/build/views/photo_of_the_week_block',
 		Featured_News_Block::class     => '/build/views/featured_news_block',
 		Media_Coverage_Block::class    => '/build/views/media_coverage_block',
