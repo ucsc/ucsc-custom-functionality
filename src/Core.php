@@ -8,6 +8,8 @@ use UCSC\Blocks\Blocks\Magazine_Block;
 use UCSC\Blocks\Blocks\Media_Coverage_Block;
 use UCSC\Blocks\Blocks\News_Block;
 use UCSC\Blocks\Blocks\Photo_Of_The_Week_Block;
+use UCSC\Blocks\Blocks\Post_Header_Block;
+use UCSC\Blocks\Blocks\Press_Inquiries_Block;
 use UCSC\Blocks\Blocks\Related_Stories_Block;
 use UCSC\Blocks\Hooks\News_Blocks_Hooks;
 use UCSC\Blocks\Hooks\Taxonomies_Hooks;
@@ -21,9 +23,8 @@ use UCSC\Blocks\Template\Template_Subscriber;
 
 class Core {
 	
-	public const PHOTOS_LOOP           = 'photos_week_loop';
-	public const POST_OVERLINE         = 'post_overline_block';
-	public const PRESS_INQUIRIES_BLOCK = 'press_inquiries_block';
+	public const PHOTOS_LOOP   = 'photos_week_loop';
+	public const POST_OVERLINE = 'post_overline_block';
 
 	public const BLOCKS_PUBLIC = [
 		News_Block::class => '/build/views/news_block',
@@ -32,12 +33,13 @@ class Core {
 	public const BLOCKS_NEWS_ONLY = [
 		self::PHOTOS_LOOP              => '/build/views/photos_week_loop',
 		self::POST_OVERLINE            => '/build/views/post_overline_block',
-		self::PRESS_INQUIRIES_BLOCK    => '/build/views/press_inquiries_block',
 		Photo_Of_The_Week_Block::class => '/build/views/photo_of_the_week_block',
 		Featured_News_Block::class     => '/build/views/featured_news_block',
 		Media_Coverage_Block::class    => '/build/views/media_coverage_block',
 		Magazine_Block::class          => '/build/views/magazine_block',
 		Related_Stories_Block::class   => '/build/views/related_stories_block',
+		Press_Inquiries_Block::class   => '/build/views/press_inquiries_block',
+		Post_Header_Block::class       => '/build/views/post_header_block',
 	];
 
 	private static self $instance;

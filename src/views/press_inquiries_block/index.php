@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 
+use UCSC\Blocks\Blocks\Press_Inquiries_Block;
 use UCSC\Blocks\Components\Press_Inquiries_Controller;
-use UCSC\Blocks\Object_Meta\Posts_Meta;
 
 /**
  * @var array $block current block attributes
@@ -33,15 +33,15 @@ if ( $is_empty ) {
 			<?php if ( empty( $contact ) ) : ?>
 				<?php continue; ?>
 			<?php endif; ?>
-			<h5><?php echo $contact[ Posts_Meta::PRESS_NAME ]; ?></h5>
+			<h5><?php echo $contact[ Press_Inquiries_Block::PRESS_NAME ]; ?></h5>
 			<p>
-				<a href="mailto:<?php echo $contact[ Posts_Meta::PRESS_EMAIL ]; ?>">
-					<?php echo $contact[ Posts_Meta::PRESS_EMAIL ]; ?>
+				<a href="mailto:<?php echo $contact[ Press_Inquiries_Block::PRESS_EMAIL ]; ?>">
+					<?php echo $contact[ Press_Inquiries_Block::PRESS_EMAIL ]; ?>
 				</a>
 			</p>
 			<p>
-				<a href="tel:<?php echo $contact[ Posts_Meta::PRESS_PHONE ]; ?>">
-					<?php echo $contact[ Posts_Meta::PRESS_PHONE ]; ?>
+				<a href="tel:<?php echo $contact[ Press_Inquiries_Block::PRESS_PHONE ]; ?>">
+					<?php echo $contact[ Press_Inquiries_Block::PRESS_PHONE ]; ?>
 				</a>
 			</p>
 		<?php endforeach; ?>

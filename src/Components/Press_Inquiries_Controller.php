@@ -2,7 +2,7 @@
 
 namespace UCSC\Blocks\Components;
 
-use UCSC\Blocks\Object_Meta\Posts_Meta;
+use UCSC\Blocks\Blocks\Press_Inquiries_Block;
 
 class Press_Inquiries_Controller {
 
@@ -13,7 +13,7 @@ class Press_Inquiries_Controller {
 	}
 	
 	public function get_press_contacts(): array {
-		$contacts = get_field( Posts_Meta::PRESS_INQUIRIES, get_the_ID() );
+		$contacts = get_field( Press_Inquiries_Block::PRESS_INQUIRIES );
         
         if ( empty( $contacts ) ) {
             return [];
@@ -23,15 +23,15 @@ class Press_Inquiries_Controller {
 	}
 	
 	public function get_media_text(): string {
-		return (string) get_field( Posts_Meta::MEDIA_TEXT, get_the_ID() );
+		return (string) get_field( Press_Inquiries_Block::MEDIA_TEXT );
 	}
 
 	public function get_media_file(): string {
-		return (string) get_field( Posts_Meta::MEDIA_FILE, get_the_ID() );
+		return (string) get_field( Press_Inquiries_Block::MEDIA_FILE );
 	}
 
 	public function get_media_image(): string {
-		return (string) get_field( Posts_Meta::MEDIA_IMAGE, get_the_ID() );
+		return (string) get_field( Press_Inquiries_Block::MEDIA_IMAGE );
 	}
 	
 }
