@@ -2,6 +2,7 @@
 
 namespace UCSC\Blocks\Components;
 
+use UCSC\Blocks\Blocks\Post_Header_Block;
 use UCSC\Blocks\Components\Traits\With_Primary_Term;
 
 class Post_Header_Block_Controller {
@@ -12,6 +13,12 @@ class Post_Header_Block_Controller {
 
     public function __construct( $block ) {
         $this->block = (array) $block;
+    }
+    
+    public function get_layout() {
+        $layout = get_field( Post_Header_Block::LAYOUT ) ?? Post_Header_Block::LAYOUT_BIG;
+        
+        return $layout;
     }
     
     public function get_primary_category(): ?string {
