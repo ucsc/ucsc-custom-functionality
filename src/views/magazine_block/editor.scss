@@ -2,6 +2,18 @@
  * Magazine Block Editor Styles
  */
 
-.block-editor .edit-post-sidebar .acf-fields > .acf-field.acf-no-style {
-    padding: 0;
+.editor-styles-wrapper .ucsc-magazine-block__panels {
+    aspect-ratio: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--wp--preset--spacing--20);
+
+    .ucsc-magazine-block__panel {
+        position: relative;
+        aspect-ratio: 4/3;
+
+        &[inert] {
+            opacity: 1;
+        }
+    }
 }
