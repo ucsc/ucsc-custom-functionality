@@ -2,10 +2,6 @@
  
 namespace UCSC\Blocks\Template;
 
-use UCSC\Blocks\Template\Patterns\Home_Link;
-use UCSC\Blocks\Template\Patterns\Post_Footer;
-use UCSC\Blocks\Template\Patterns\Post_Header;
-
 class Template_Subscriber {
 
 	public function init(): void {
@@ -19,21 +15,15 @@ class Template_Subscriber {
 		}, 100, 2 );
 		
 		add_action( 'init', static function (): void {
-			( new Home_Link() )->register();
-			( new Post_Footer() )->register();
-			( new Post_Header() )->register();
-		}, 10, 0 );
-
-
-
-		add_action( 'init', static function (): void {
 			$post_type_object           = get_post_type_object( 'post' );
 			$post_type_object->template = [
 				[
-					'core/pattern',
-					[
-						'slug' => 'ucsc-custom-functionality/post-header',
-					],
+					'ucsc-custom-functionality/post-header-block',
+					[],
+				],
+				[
+					'ucsc-custom-functionality/press-inquiries',
+					[],
 				],
 				[
 					'core/paragraph',
@@ -42,10 +32,44 @@ class Template_Subscriber {
 					],
 				],
 				[
-					'core/pattern',
+					'core/post-terms',
 					[
-						'slug' => 'ucsc-custom-functionality/post-footer',
+						'term' => 'category',
 					],
+				],
+				[
+					'outermost/social-sharing',
+					[],
+					[
+						[
+							'outermost/social-sharing-link',
+							[
+								'service' => 'facebook',
+							],
+						],
+						[
+							'outermost/social-sharing-link',
+							[
+								'service' => 'linkedin',
+							],
+						],
+						[
+							'outermost/social-sharing-link',
+							[
+								'service' => 'reddit',
+							],
+						],
+						[
+							'outermost/social-sharing-link',
+							[
+								'service' => 'print',
+							],
+						],
+					],
+				],
+				[
+					'ucsc-custom-functionality/related-stories-block',
+					[],
 				],
 			];
 		}, 10, 0 );

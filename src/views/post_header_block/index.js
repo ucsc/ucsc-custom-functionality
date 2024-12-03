@@ -1,5 +1,5 @@
 /**
- * @module postOverlineBlock
+ * @module postHeaderBlock
  */
 
 import './style.scss';

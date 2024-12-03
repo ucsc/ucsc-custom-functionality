@@ -25,7 +25,7 @@ abstract class Query_Loop_Controller {
 	}
 
 	public function get_items(): array {
-		$query_type = $this->query_loop[ Query_Loop::QUERY_TYPE ];
+		$query_type = $this->query_loop[ Query_Loop::QUERY_TYPE ] ?? Query_Loop::AUTOMATIC;
 
 		if ( empty( $query_type ) || $query_type === Query_Loop::AUTOMATIC ) {
 			return $this->get_automatic_query_items();
@@ -35,7 +35,7 @@ abstract class Query_Loop_Controller {
 	}
 
 	protected function get_automatic_query_items(): array {
-		$category_id = $this->query_loop[ Query_Loop::QUERY_LOOP ][ Query_Loop::TAX_ITEMS ];
+		$category_id = $this->query_loop[ Query_Loop::QUERY_LOOP ][ Query_Loop::TAX_ITEMS ] ?? 0;
 
 		if ( (int) $category_id < 1 ) {
 			return [];

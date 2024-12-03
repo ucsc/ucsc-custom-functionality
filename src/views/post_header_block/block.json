@@ -1,11 +1,11 @@
 {
 	"version": "1.0.0",
-    "name": "ucsc-custom-functionality/post-overline",
-	"title": "Post Overline Block",
-	"description": "Displays Post Overline meta value set on single post",
+    "name": "ucsc-custom-functionality/post-header-block",
+	"title": "Post Header Block",
+	"description": "",
 	"category": "theme",
 	"icon": "text",
-	"keywords": ["overline", "post" ],
+	"keywords": ["post", "header" ],
     "example": {},
 	"acf": {
 		"mode": "preview",
