@@ -1,2 +1,12 @@
-// Bring in mixins from the theme.
-@import "../../../../themes/ucsc-2022/src/scss/utilities/mixins";
+// Screen width breakpoints
+
+// The breakpoint where WP block columns switch from being stacked for mobile to
+// being actual columns.
+$wp-columns-unstack: 782px;
+
+@mixin media-query($size) {
+
+	@media screen and (min-width: $size) {
+		@content;
+	}
+}
