@@ -1,3 +1,14 @@
 /**
  * Post Header Block Styles
  */
+
+.ucsc-post-header-block {
+  --real-margin: calc(max(100svw, var(--wp--style--global--content-size)) / 2 - var(--wp--style--global--content-size) / 2);
+
+  // width: 100svw;
+  // margin-left: calc(var(--real-margin) * -1) !important;
+  // display: flex;
+}
+
+// .ucsc-post-header-block__header {
+// }
