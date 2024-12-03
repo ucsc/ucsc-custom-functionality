@@ -13,11 +13,24 @@ class Photo_Of_The_Week_Block_Controller {
 	use With_CTA;
 
 	protected array $block;
-    protected array $cta;
+	protected array $cta;
 
 	public function __construct( $block ) {
 		$this->block = (array) $block;
-        $this->cta   = (array) get_field( Photo_Of_The_Week_Block::CTA );
+		$this->cta   = (array) get_field( Photo_Of_The_Week_Block::CTA );
+	}
+
+	public function get_attributes(): string {
+		return wp_kses_data( get_block_wrapper_attributes([
+			'class' => implode(' ', [
+				'ucsc-photo-of-the-week-block',
+				'alignfull',
+				'has-black-background-color',
+				'has-white-color',
+				'has-global-padding',
+				'is-layout-constrained',
+			]),
+		]) );
 	}
 	
 	public function get_title(): string {
@@ -32,24 +45,24 @@ class Photo_Of_The_Week_Block_Controller {
 		if ( empty( $photo ) ) {
 			return null;
 		}
-        
-        $image_data = $this->get_photo_image( $photo );
-        
-        if ( ! empty( $image_data ) ) {
-            $image = sprintf(
-                '<img src="%s" srcset="%s" alt="%s" class="photo-of-the-week__image" />',
-                $image_data['url'],
-                $this->build_srcset( $image_data ),
-                get_the_title( get_the_ID() )
-            );
-        }
+		
+		$image_data = $this->get_photo_image( $photo );
+		
+		if ( ! empty( $image_data ) ) {
+			$image = sprintf(
+				'<img src="%s" srcset="%s" alt="%s" class="photo-of-the-week__image" />',
+				$image_data['url'],
+				$this->build_srcset( $image_data ),
+				get_the_title( get_the_ID() )
+			);
+		}
 		
 		return [
 			'id'       => $photo,
 			'image'    => $image ?: '',
 			'download' => $image_data['url'] ?: '',
-            'title'    => get_the_title( $photo ),
-            'author'   => $this->get_photo_author( $photo ),
+			'title'    => get_the_title( $photo ),
+			'author'   => $this->get_photo_author( $photo ),
 		];
 	}
 	
