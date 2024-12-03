@@ -39,6 +39,7 @@ $magazines = $c->get_magazines();
 				<?php foreach ( $magazines as $index => $magazine ) : ?>
 				<button
 					class="ucsc-magazine-block__tab"
+					type="button"
 					role="tab"
 					tabindex="-1"
 					data-key="<?php echo $c->make_tab_key( $magazine, $index )?>"
