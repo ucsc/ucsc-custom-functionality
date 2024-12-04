@@ -91,6 +91,10 @@
   font-size: 1rem;
   line-height: 1.5;
 
+  > div {
+    flex: 1;
+  }
+
   @include media-query($wp-columns-unstack) {
     flex-direction: row;
     padding-block-start: var(--wp--preset--spacing--20);
@@ -124,7 +128,7 @@
 }
 
 .ucsc-press-inquiries-block__contact {
-  min-width: 284px;
+  flex: 1;
 
   h3 {
     font-size: inherit;
