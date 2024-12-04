@@ -13,6 +13,9 @@ $image        = $c->get_image();
 	<header class="ucsc-post-header-block__header">
 		<nav class="ucsc-post-header-block__breadcrumb">
 			<a href="<?php echo get_bloginfo( 'url' ); ?>">
+				<svg xmlns="http://www.w3.org/2000/svg" width="12" height="13" viewBox="0 0 12 13" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round">
+					<path d="M6 0.875L1.125 6.125V12.125H4.875V9.125H7.125V12.125H10.875V6.125L6 0.875Z" />
+				</svg>
 				<?php echo esc_html__( 'Home', 'ucsc' ); ?>
 			</a>
 		</nav>
