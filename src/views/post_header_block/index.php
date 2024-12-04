@@ -11,12 +11,7 @@ $image        = $c->get_image();
 ?>
 
 <section <?php echo $c->get_attributes(); ?>>
-	<?php if ( $c->is_horizontal_layout() ) : ?>
-	<div class="ucsc-post-header-block__columns-container alignfull is-layout-constrained has-global-padding has-ucsc-primary-blue-background-color has-white-color">
-	<?php else : ?>
-	<div class="alignfull is-layout-constrained has-global-padding has-ucsc-primary-blue-background-color has-white-color">
-	<?php endif; ?>
-
+	<div class="ucsc-post-header-block__container alignfull is-layout-constrained has-global-padding has-ucsc-primary-blue-background-color has-white-color">
 		<nav class="ucsc-post-header-block__breadcrumb">
 			<a href="<?php echo get_bloginfo( 'url' ); ?>">
 				<svg xmlns="http://www.w3.org/2000/svg" width="12" height="13" viewBox="0 0 12 13" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round">
@@ -37,7 +32,7 @@ $image        = $c->get_image();
 			<?php if ( ! empty( $primary_term ) ) : ?>
 				<p class="ucsc-post-header-block__eyebrow has-one-font-size has-ucsc-primary-yellow-color">
 					<?php echo $primary_term ?>
-				</span>
+				</p>
 			<?php endif; ?>
 			<h1 class="ucsc-post-header-block__title has-seven-font-size">
 				<?php echo get_the_title( get_the_ID() ); ?>

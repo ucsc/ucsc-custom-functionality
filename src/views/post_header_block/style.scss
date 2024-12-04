@@ -14,12 +14,15 @@
   }
 }
 
-.ucsc-post-header-block__columns-container {
-  padding-block-end: var(--wp--preset--spacing--50);
+.ucsc-post-header-block__container {
 
-  .has-global-padding {
-    padding-left: 0;
-    padding-right: 0;
+  .ucsc-post-header-block--horizontal & {
+    padding-block-end: var(--wp--preset--spacing--50);
+
+    .has-global-padding {
+      padding-left: 0;
+      padding-right: 0;
+    }
   }
 }
 
