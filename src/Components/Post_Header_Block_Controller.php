@@ -20,10 +20,10 @@ class Post_Header_Block_Controller {
 			'class' => implode(' ', [
 				'ucsc-post-header-block',
 				'alignfull',
-				'has-ucsc-primary-blue-background-color',
-				'has-white-color',
-				'has-global-padding',
-				'is-layout-constrained',
+				// 'has-ucsc-primary-blue-background-color',
+				// 'has-white-color',
+				// 'has-global-padding',
+				// 'is-layout-constrained',
 			]),
 		]) );
 	}

@@ -10,7 +10,7 @@ $primary_term = $c->get_primary_category();
 $image        = $c->get_image();
 ?>
 <section <?php echo $c->get_attributes(); ?>>
-	<header class="ucsc-post-header-block__header">
+	<header class="ucsc-post-header-block__header alignfull is-layout-constrained has-global-padding  has-ucsc-primary-blue-background-color has-white-color">
 		<nav class="ucsc-post-header-block__breadcrumb">
 			<a href="<?php echo get_bloginfo( 'url' ); ?>">
 				<svg xmlns="http://www.w3.org/2000/svg" width="12" height="13" viewBox="0 0 12 13" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round">
@@ -47,16 +47,29 @@ $image        = $c->get_image();
 	</header>
 
 	<?php if ( $image ) : ?>
-	<figure class="ucsc-post-header-block__image">
-		<?php echo $image['image']; ?>
+	<figure class="ucsc-post-header-block__figure">
+		<div class="ucsc-post-header-block__image-container">
+			<div class="alignfull is-layout-constrained has-global-padding">
+				<div>
+					<?php echo $image['image']; ?>
+				</div>
+			</div>
+		</div>
 
 		<?php if ( $image['description'] || $image['attribution'] ) : ?>
-		<figcaption>
+		<figcaption class="is-layout-constrained has-global-padding has-dark-gray-color">
 			<?php if ( $image['description'] ) : ?>
 				<p><?php echo esc_html( $image['description'] ); ?></p>
 			<?php endif; ?>
 			<?php if ( $image['attribution'] ) : ?>
-				<p><?php echo esc_html( $image['attribution'] ); ?></p>
+				<p class="ucsc-post-header-block__attribution">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round">
+						<path d="M2.5 1H6.5" />
+						<path d="M9.5 13C11.1569 13 12.5 11.6569 12.5 10C12.5 8.34315 11.1569 7 9.5 7C7.84315 7 6.5 8.34315 6.5 10C6.5 11.6569 7.84315 13 9.5 13Z" />
+						<path d="M14.5 16H1.5C0.948 16 0.5 15.552 0.5 15V5C0.5 4.448 0.948 4 1.5 4H14.5C15.052 4 15.5 4.448 15.5 5V15C15.5 15.552 15.052 16 14.5 16Z" />
+					</svg>
+					<?php echo esc_html( $image['attribution'] ); ?>
+				</p>
 			<?php endif; ?>
 		</figcaption>
 		<?php endif; ?>
