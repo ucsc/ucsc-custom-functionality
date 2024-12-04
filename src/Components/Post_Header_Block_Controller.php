@@ -16,20 +16,22 @@ class Post_Header_Block_Controller {
 	}
 
 	public function get_attributes(): string {
+		$classes = [
+			'ucsc-post-header-block',
+			'alignfull',
+		];
+
+		if ( $this->is_horizontal_layout() ) {
+			$classes[] = 'ucsc-post-header-block--horizontal';
+		}
+
 		return wp_kses_data( get_block_wrapper_attributes([
-			'class' => implode(' ', [
-				'ucsc-post-header-block',
-				'alignfull',
-				// 'has-ucsc-primary-blue-background-color',
-				// 'has-white-color',
-				// 'has-global-padding',
-				// 'is-layout-constrained',
-			]),
+			'class' => implode( ' ', $classes ),
 		]) );
 	}
-	
-	public function get_layout() {
-		return get_field( Post_Header_Block::LAYOUT ) ?? Post_Header_Block::LAYOUT_BIG;
+
+	public function is_horizontal_layout(): bool {
+		return $this->get_layout() === Post_Header_Block::LAYOUT_SMALL;
 	}
 	
 	public function get_primary_category(): ?string {
@@ -55,6 +57,10 @@ class Post_Header_Block_Controller {
 			'description' => $thumbnail->post_excerpt,
 			'attribution' => $thumbnail->post_content,
 		];
+	}
+	
+	protected function get_layout() {
+		return get_field( Post_Header_Block::LAYOUT ) ?? Post_Header_Block::LAYOUT_BIG;
 	}
 	
 }

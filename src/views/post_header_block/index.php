@@ -9,17 +9,26 @@ $c            = new Post_Header_Block_Controller( $block );
 $primary_term = $c->get_primary_category();
 $image        = $c->get_image();
 ?>
-<section <?php echo $c->get_attributes(); ?>>
-	<header class="ucsc-post-header-block__header alignfull is-layout-constrained has-global-padding  has-ucsc-primary-blue-background-color has-white-color">
-		<nav class="ucsc-post-header-block__breadcrumb">
-			<a href="<?php echo get_bloginfo( 'url' ); ?>">
-				<svg xmlns="http://www.w3.org/2000/svg" width="12" height="13" viewBox="0 0 12 13" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round">
-					<path d="M6 0.875L1.125 6.125V12.125H4.875V9.125H7.125V12.125H10.875V6.125L6 0.875Z" />
-				</svg>
-				<?php echo esc_html__( 'Home', 'ucsc' ); ?>
-			</a>
-		</nav>
 
+<section <?php echo $c->get_attributes(); ?>>
+	<?php if ( $c->is_horizontal_layout() ) : ?>
+	<div class="ucsc-post-header-block__columns-container alignfull is-layout-constrained has-global-padding has-ucsc-primary-blue-background-color has-white-color">
+	<?php endif; ?>
+
+	<nav class="ucsc-post-header-block__breadcrumb">
+		<a href="<?php echo get_bloginfo( 'url' ); ?>">
+			<svg xmlns="http://www.w3.org/2000/svg" width="12" height="13" viewBox="0 0 12 13" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round">
+				<path d="M6 0.875L1.125 6.125V12.125H4.875V9.125H7.125V12.125H10.875V6.125L6 0.875Z" />
+			</svg>
+			<?php echo esc_html__( 'Home', 'ucsc' ); ?>
+		</a>
+	</nav>
+
+	<?php if ( $c->is_horizontal_layout() ) : ?>
+	<div class="ucsc-post-header-block__columns">
+	<?php endif; ?>
+
+	<header class="ucsc-post-header-block__header alignfull is-layout-constrained has-global-padding  has-ucsc-primary-blue-background-color has-white-color">
 		<hgroup>
 			<?php if ( ! empty( $primary_term ) ) : ?>
 				<p class="ucsc-post-header-block__eyebrow has-one-font-size has-ucsc-primary-yellow-color">
@@ -57,7 +66,7 @@ $image        = $c->get_image();
 		</div>
 
 		<?php if ( $image['description'] || $image['attribution'] ) : ?>
-		<figcaption class="is-layout-constrained has-global-padding has-dark-gray-color">
+		<figcaption class="alignfull is-layout-constrained has-global-padding">
 			<?php if ( $image['description'] ) : ?>
 				<p><?php echo esc_html( $image['description'] ); ?></p>
 			<?php endif; ?>
@@ -74,5 +83,10 @@ $image        = $c->get_image();
 		</figcaption>
 		<?php endif; ?>
 	</figure>
+	<?php endif; ?>
+
+	<?php if ( $c->is_horizontal_layout() ) : ?>
+	</div>
+	</div>
 	<?php endif; ?>
 </section>
