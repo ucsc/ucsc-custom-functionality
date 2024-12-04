@@ -15,7 +15,6 @@
 }
 
 .ucsc-post-header-block__columns-container {
-  padding-block-start: var(--wp--preset--spacing--50);
   padding-block-end: var(--wp--preset--spacing--50);
 
   .has-global-padding {
@@ -36,7 +35,8 @@
 }
 
 .ucsc-post-header-block__breadcrumb {
-  margin-block-end: var(--wp--preset--spacing--30);
+  padding-block-start: var(--wp--preset--spacing--50);
+  padding-block-end: var(--wp--preset--spacing--30);
 
   a {
     display: inline-flex;
