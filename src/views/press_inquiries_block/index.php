@@ -25,7 +25,7 @@ if ( $is_empty ) {
 }
 ?>
 <section <?php echo $c->get_attributes(); ?>>
-	<div>
+	<div class="ucsc-press-inquiries-block__inner">
 		<button class="ucsc-press-inquiries-block__toggle" type="button" aria-expanded="false" aria-controls="<?php echo $c->get_panel_id(); ?>">
 			<?php echo esc_html__( 'Press Inquiries', 'ucsc' ); ?>
 		</button>
