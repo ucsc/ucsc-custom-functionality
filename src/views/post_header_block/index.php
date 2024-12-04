@@ -22,22 +22,27 @@ $image        = $c->get_image();
 
 		<hgroup>
 			<?php if ( ! empty( $primary_term ) ) : ?>
-				<p class="ucsc-post-header-block__eyebrow">
+				<p class="ucsc-post-header-block__eyebrow has-one-font-size has-ucsc-primary-yellow-color">
 					<?php echo $primary_term ?>
 				</span>
 			<?php endif; ?>
-			<h1>
+			<h1 class="ucsc-post-header-block__title has-seven-font-size">
 				<?php echo get_the_title( get_the_ID() ); ?>
 			</h1>
 		</hgroup>
 
-		<p class="ucsc-post-header-block__excerpt">
+		<p class="ucsc-post-header-block__excerpt has-one-font-size">
 			<?php echo get_the_excerpt( get_the_ID() ); ?>
 		</p>
 
 		<div class="ucsc-post-header-block__meta">
-			<?php echo get_the_date( 'F j, Y', get_the_ID() ); ?>
-			<?php echo do_blocks( '<!-- wp:post-author-name /-->' ); ?>
+			<time datetime="<?php echo get_the_date( 'Y-m-d', get_the_ID() ); ?>">
+				<?php echo get_the_date( 'F j, Y', get_the_ID() ); ?>
+			</time>
+			<span role="separator"></span>
+			<p class="ucsc-post-header-block__authors">
+				<?php echo do_blocks( '<!-- wp:post-author-name /-->' ); ?>
+			</p>
 		</div>
 	</header>
 
