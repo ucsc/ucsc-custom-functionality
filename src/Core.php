@@ -162,8 +162,12 @@ class Core {
 	}
 	
 	protected function init_blocks(): void {
+        $args = [
+            'render_callback' => [ $this, 'render_template' ],
+        ];
+        
 		foreach ( self::BLOCKS_PUBLIC as $block_class => $block_path ) {
-			register_block_type( UCSC_DIR . $block_path );
+            register_block_type_from_metadata( trailingslashit( UCSC_DIR . $block_path ) . '/block.json', $args );
 			( new $block_class )->init();
 		}
 		
@@ -172,10 +176,6 @@ class Core {
 		}
 
 		foreach ( self::BLOCKS_NEWS_ONLY as $block_class => $block_path ) {
-			$args = [
-				'render_callback' => [ $this, 'render_template' ],
-			];
-
 			register_block_type_from_metadata( trailingslashit( UCSC_DIR . $block_path ) . '/block.json', $args );
 			if ( ! class_exists( $block_class ) ) {
 				continue;
