@@ -1,3 +1,17 @@
 /**
  * Press Inquiries Block Styles
  */
+
+.ucsc-press-inquiries-block__container {
+  display: grid;
+  transition: grid-template-rows 0.5s ease-in-out;
+  grid-template-rows: 1fr;
+  
+  &[inert] {
+    grid-template-rows: 0fr;
+  }
+}
+
+.ucsc-press-inquiries-block__content {
+  overflow: hidden;
+}
