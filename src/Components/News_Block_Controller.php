@@ -25,19 +25,19 @@ class News_Block_Controller {
 	private array|string $more_news_link;
 
 	public function __construct($block) {
-        $this->block          = (array) $block;
-        $this->title          = get_field( News_Block::TITLE ) ?? '';
-        $this->description    = get_field( News_Block::DESCRIPTION ) ?? '';
-        $this->layout         = get_field( News_Block::LAYOUT ) ?? News_Block::LAYOUT_CENTRE;
-        $this->more_news_link = get_field( News_Block::MORE_NEWS_LINK ) ?? [];
-        $this->taxonomy       = get_field( News_Block::TAXONOMIES ) ?? '';
-        $this->taxonomy_ids   = get_field( News_Block::TAX_ITEMS ) ?? [];
-        $this->hide_excerpt   = (bool) get_field( News_Block::HIDE_EXCERPT );
-        $this->hide_author    = (bool) get_field( News_Block::HIDE_AUTHOR );
-        $this->hide_image     = (bool) get_field( News_Block::HIDE_IMAGE );
-        $this->hide_date      = (bool) get_field( News_Block::HIDE_DATE );
-        $this->hide_tags      = (bool) get_field( News_Block::HIDE_TAGS );
-        $this->hide_category  = (bool) get_field( News_Block::HIDE_CATEGORY );
+		$this->block          = (array) $block;
+		$this->title          = get_field( News_Block::TITLE ) ?? '';
+		$this->description    = get_field( News_Block::DESCRIPTION ) ?? '';
+		$this->layout         = get_field( News_Block::LAYOUT ) ?? News_Block::LAYOUT_CENTRE;
+		$this->more_news_link = get_field( News_Block::MORE_NEWS_LINK ) ?? [];
+		$this->taxonomy       = get_field( News_Block::TAXONOMIES ) ?? '';
+		$this->taxonomy_ids   = get_field( News_Block::TAX_ITEMS ) ?? [];
+		$this->hide_excerpt   = (bool) get_field( News_Block::HIDE_EXCERPT );
+		$this->hide_author    = (bool) get_field( News_Block::HIDE_AUTHOR );
+		$this->hide_image     = (bool) get_field( News_Block::HIDE_IMAGE );
+		$this->hide_date      = (bool) get_field( News_Block::HIDE_DATE );
+		$this->hide_tags      = (bool) get_field( News_Block::HIDE_TAGS );
+		$this->hide_category  = (bool) get_field( News_Block::HIDE_CATEGORY );
 	}
 
 	public function get_title(): string {
@@ -52,17 +52,17 @@ class News_Block_Controller {
 		return $this->layout !== News_Block::LAYOUT_CENTRE ? ' align-header-left' : '';
 	}
 
-    public function get_more_news_link(): array {
-        $link = [];
+	public function get_more_news_link(): array {
+		$link = [];
 
-        if ( ! empty( $this->more_news_link['url'] ) ) {
-            $link['url']    = $this->more_news_link['url'];
-            $link['title']  = $this->more_news_link['title'] ?? __( 'More News', 'ucsc' );
-            $link['target'] = $this->more_news_link['target'] ?? '';
-        }
+		if ( ! empty( $this->more_news_link['url'] ) ) {
+			$link['url']    = $this->more_news_link['url'];
+			$link['title']  = $this->more_news_link['title'] ?? __( 'More News', 'ucsc' );
+			$link['target'] = $this->more_news_link['target'] ?? '';
+		}
 
-        return $link;
-    }
+		return $link;
+	}
 
 	public function build_srcset(array $sizes = []): string {
 		if ( empty( $sizes ) ) {
@@ -99,15 +99,15 @@ class News_Block_Controller {
 
 		foreach ( $response as $item ) {
 			$items[] = [
-                'title'        => $item['title']['rendered'] ?? '',
-                'excerpt'      => ! $this->hide_excerpt ? $item['excerpt']['rendered'] ?? '' : '',
-                'permalink'    => $item['link'] ?? '',
-                'image'        => ! $this->hide_image ? $this->get_item_attachment( $item ) : [],
-                'raw_date'     => ! $this->hide_date ? $item['date'] : '',
-                'publish_date' => ! $this->hide_date ? wp_date( get_option( 'date_format', 'F j, Y' ), strtotime( $item['date'] ) ) : '',
-                'authors'       => ! $this->hide_author ? $this->get_authors( $item ) : '',
-                'tags'         => ! $this->hide_tags ? $this->get_taxonomies( $item, true ) : [],
-                'categories'   => ! $this->hide_category ? $this->get_taxonomies( $item ) : [],
+				'title'        => $item['title']['rendered'] ?? '',
+				'excerpt'      => ! $this->hide_excerpt ? $item['excerpt']['rendered'] ?? '' : '',
+				'permalink'    => $item['link'] ?? '',
+				'image'        => ! $this->hide_image ? $this->get_item_attachment( $item ) : [],
+				'raw_date'     => ! $this->hide_date ? $item['date'] : '',
+				'publish_date' => ! $this->hide_date ? wp_date( get_option( 'date_format', 'F j, Y' ), strtotime( $item['date'] ) ) : '',
+				'authors'      => ! $this->hide_author ? $this->get_authors( $item ) : '',
+				'tags'         => ! $this->hide_tags ? $this->get_taxonomies( $item, true ) : [],
+				'categories'   => ! $this->hide_category ? $this->get_taxonomies( $item ) : [],
 			];
 		}
 
@@ -194,22 +194,24 @@ class News_Block_Controller {
 		if ( empty( $item[ $this->taxonomy ] ) ) {
 			return [];
 		}
+		
+		$taxonomy = $is_tag ? 'tags' : $this->taxonomy;
 
-		$endpoint = ! $is_tag ? News_Request::ENDPOINT_BASE . $this->taxonomy : News_Request::ENDPOINT_BASE . 'tags';
+		$endpoint = News_Request::ENDPOINT_BASE . $taxonomy;
 
-		$items = get_transient( $this->get_cache_key( $this->taxonomy . '_' . $item['id'] ) );
+		$items = get_transient( $this->get_cache_key( $taxonomy . '_' . $item['id'] ) );
 		if ( empty( $items ) ) {
-			$items = (new News_Request())->request($endpoint, [
-                'post'     => $item['id'],
-                'per_page' => 3,
-			]);
+			$items = ( new News_Request() )->request($endpoint, [
+				'post'     => $item['id'],
+				'per_page' => 3,
+			] );
 		}
 
 		if ( empty( $items ) ) {
 			return [];
 		}
 
-		set_transient( $this->get_cache_key( $this->taxonomy . '_' . $item['id'] ), $items, MINUTE_IN_SECONDS * 20 );
+		set_transient( $this->get_cache_key( $taxonomy . '_' . $item['id'] ), $items, MINUTE_IN_SECONDS * 20 );
 
 		foreach ( $items as $category ) {
 			$categories[] = $category['name'];
