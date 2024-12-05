@@ -1,6 +1,6 @@
 .ucsc-social-sharing-wrapper {
   padding-block-start: var(--wp--preset--spacing--20);
-  margin-block-end: var(--wp--preset--spacing--30);
+  margin-block-start: var(--wp--preset--spacing--30);
 
   h2 {
     font-size: var(--wp--preset--font-size--one);
@@ -16,5 +16,28 @@
   .wp-block-outermost-social-sharing {
     margin-block-start: 0;
     margin-block-end: 0;
+
+
+    .wp-block-outermost-social-sharing-link {
+      background-color: transparent;
+
+      .wp-block-outermost-social-sharing-link-anchor {
+        padding: 0;
+        color: var(--wp--preset--color--dark-gray);
+        opacity: 0.6;
+        
+        &:hover,
+        &:focus-visible {
+          opacity: 1;
+          color: var(--wp--preset--color--ucsc-secondary-blue);
+        }
+
+        svg {
+          height: 2rem;
+          width: 2rem;
+        }
+      }
+    }
+
   }
 }
