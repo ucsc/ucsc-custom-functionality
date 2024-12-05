@@ -1,0 +1,41 @@
+.ucsc-post-terms-wrapper {
+  border-top: 1px solid var(--wp--preset--color--light-gray);
+  padding-block-start: var(--wp--preset--spacing--20);
+  margin-block-end: var(--wp--preset--spacing--30);
+
+  h2 {
+    font-size: var(--wp--preset--font-size--one);
+    text-transform: uppercase;
+    color: var(--wp--preset--color--ucsc-primary-blue);
+    line-height: 1.25;
+    letter-spacing: 0.2em;
+    font-weight: 600;
+    margin-block-end: 1rem;
+    margin-block-start: 0;
+  }
+
+  .wp-block-post-terms {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .wp-block-post-terms__separator {
+    display: none;
+  }
+
+  a {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--wp--preset--color--almost-black);
+    background-color: var(--wp--preset--color--lightest-gray);
+    padding: 0.25rem 1rem;
+    border-radius: 30px;
+    text-decoration: none;
+
+    &:hover,
+    &:focus-visible {
+      color: var(--wp--preset--color--ucsc-rubine-blue);
+    }
+  }
+}
