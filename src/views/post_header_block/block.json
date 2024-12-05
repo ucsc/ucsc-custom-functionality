@@ -1,10 +1,10 @@
 {
 	"version": "1.0.0",
     "name": "ucsc-custom-functionality/post-header-block",
-	"title": "Post Header Block",
+	"title": "Post Header",
 	"description": "",
 	"category": "theme",
-	"icon": "text",
+	"icon": "<svg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' xml:space='preserve' fill-rule='evenodd' clip-rule='evenodd' stroke-linejoin='round' stroke-miterlimit='2'><path d='M21 6v11.5h-8V6h8ZM10 9H3V7.5h7V9Zm-7 3.5h7V11H3v1.5Zm7 3.5H3v-1.5h7V16Z' fill-rule='nonzero'/></svg>",
 	"keywords": ["post", "header" ],
     "example": {},
 	"acf": {
