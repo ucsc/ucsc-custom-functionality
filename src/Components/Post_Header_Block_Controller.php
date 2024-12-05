@@ -46,7 +46,7 @@ class Post_Header_Block_Controller {
 
 	public function get_image(): array {
 		$thumbnail_id = get_post_thumbnail_id( get_the_ID() );
-		if ( $thumbnail_id === false ) {
+		if ( empty( $thumbnail_id ) ) {
 			return [];
 		}
 
