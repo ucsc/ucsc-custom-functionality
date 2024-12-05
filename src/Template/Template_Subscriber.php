@@ -40,6 +40,12 @@ class Template_Subscriber {
 					],
 				],
 				[
+					'core/pattern',
+					[
+						'slug' => 'ucsc-custom-functionality/social-sharing',
+					],
+				],
+				[
 					'outermost/social-sharing',
 					[],
 					[
