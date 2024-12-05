@@ -13,7 +13,20 @@ class Related_Stories_Block_Controller extends Query_Loop_Controller {
 	use With_Primary_Term;
 
 	protected int $number_of_posts_display = 3;
-    
+
+	public function get_attributes(): string {
+		$classes = [
+			'ucsc-related-stories-block',
+			'alignfull',
+			'is-layout-constrained',
+			'has-global-padding',
+		];
+
+		return wp_kses_data( get_block_wrapper_attributes([
+			'class' => implode( ' ', $classes ),
+		]) );
+	}
+	
 	protected function prepare_posts_for_display( array $posts = [], bool $is_auto_query = false ): array {
 		$items = [];
 
