@@ -1,3 +1,16 @@
 /**
  * Press Inquiries Block Editor Styles
  */
+
+.block-editor {
+  .ucsc-press-inquiries-block {
+    border-top: 1px solid var(--wp--preset--color--light-gray);
+  }
+  
+  .ucsc-press-inquiries-block__container {
+    
+    &[inert] {
+      grid-template-rows: 1fr;
+    }
+  }
+}

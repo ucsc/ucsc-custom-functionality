@@ -17,8 +17,8 @@ use UCSC\Blocks\Integrations\Integrations_Subscriber;
 use UCSC\Blocks\Object_Meta\Object_Meta_Definer;
 use UCSC\Blocks\Post_Types\Photo_Of_The_Week\Photo_Of_The_Week;
 use UCSC\Blocks\Query\Query_Subscriber;
-use UCSC\Blocks\Template\Default_Image_Header_Template;
 use UCSC\Blocks\Template\Photo_Of_The_Week_Archive;
+use UCSC\Blocks\Template\Post_Single;
 use UCSC\Blocks\Template\Template_Subscriber;
 
 class Core {
@@ -84,7 +84,7 @@ class Core {
 		
 		$templates = [
 			Photo_Of_The_Week_Archive::class,
-			Default_Image_Header_Template::class,
+			Post_Single::class,
 		];
 		
 		add_action( 'after_setup_theme', static function () use ( $templates ): void {
@@ -162,12 +162,12 @@ class Core {
 	}
 	
 	protected function init_blocks(): void {
-        $args = [
-            'render_callback' => [ $this, 'render_template' ],
-        ];
-        
+		$args = [
+			'render_callback' => [ $this, 'render_template' ],
+		];
+		
 		foreach ( self::BLOCKS_PUBLIC as $block_class => $block_path ) {
-            register_block_type_from_metadata( trailingslashit( UCSC_DIR . $block_path ) . '/block.json', $args );
+			register_block_type_from_metadata( trailingslashit( UCSC_DIR . $block_path ) . '/block.json', $args );
 			( new $block_class )->init();
 		}
 		

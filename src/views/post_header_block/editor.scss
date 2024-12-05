@@ -1,3 +1,13 @@
 /**
  * Post Header Block Editor Styles
  */
+
+.block-editor {
+  .ucsc-post-header-block__container {
+    width: 100%;
+  }
+
+  .ucsc-post-header-block__header {
+    padding-block-end: var(--wp--preset--spacing--30);
+  }
+}

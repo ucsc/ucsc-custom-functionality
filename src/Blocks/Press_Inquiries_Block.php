@@ -31,7 +31,7 @@ class Press_Inquiries_Block extends ACF_Group {
 	}
 
 	protected function get_title(): string {
-		return esc_html__( 'UCSC Press Inquiries Block', 'ucsc' );
+		return esc_html__( 'Press Inquiries', 'ucsc' );
 	}
 
 	protected function get_key(): string {
@@ -39,12 +39,12 @@ class Press_Inquiries_Block extends ACF_Group {
 	}
 
 	protected function get_fields(): array {
-        return [
-            $this->get_post_inquiries(),
-            $this->get_media(),
-            $this->get_image(),
-            $this->get_text_field(),
-        ];
+		return [
+			$this->get_post_inquiries(),
+			$this->get_media(),
+			$this->get_image(),
+			$this->get_text_field(),
+		];
 	}
 
 	protected function get_post_inquiries(): array {
