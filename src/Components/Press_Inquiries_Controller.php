@@ -7,11 +7,9 @@ use UCSC\Blocks\Blocks\Press_Inquiries_Block;
 class Press_Inquiries_Controller {
 
 	protected array $block;
-	protected string $panel_id;
 
 	public function __construct( $block ) {
-		$this->block    = (array) $block;
-		$this->panel_id = wp_unique_id( 'press-inquiries-block-' );
+		$this->block = (array) $block;
 	}
 
 	public function get_attributes(): string {
@@ -36,7 +34,7 @@ class Press_Inquiries_Controller {
 	}
 
 	public function get_panel_id(): string {
-		return esc_attr( $this->panel_id );
+		return esc_attr( 'press-inquiries-block-' . $this->block['id'] );
 	}
 	
 	public function get_media_text(): string {
