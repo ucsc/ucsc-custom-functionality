@@ -77,6 +77,12 @@
 
 .ucsc-post-header-block__excerpt {
   margin-block-start: 1rem;
+
+  p {
+    max-width: 50em;
+    margin-inline-start: 0;
+    margin-inline-end: auto;
+  }
 }
 
 .ucsc-post-header-block__meta {
@@ -128,6 +134,7 @@
   }
 
   img {
+    display: block;
     width: 100%;
     height: auto;
   }
