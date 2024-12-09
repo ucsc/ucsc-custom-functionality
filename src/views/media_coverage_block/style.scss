@@ -89,9 +89,12 @@
 }
 
 .ucsc-media-coverage-block__cta {
-  margin-block-start: 32px;
+  margin-block-start: 1rem;
+  padding-block-start: 1rem;
+  padding-block-end: 1rem;
 
   @media (min-width: 1060px) {
     margin-block-start: 48px;
+    padding-block-end: 0;
   }
 }
