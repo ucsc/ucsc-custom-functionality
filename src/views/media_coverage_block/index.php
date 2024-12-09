@@ -5,7 +5,7 @@ use UCSC\Blocks\Components\Media_Coverage_Controller;
 /**
  * @var array $block current block attributes
  */
-$c     = new Media_Coverage_Controller( $block );
+$c = new Media_Coverage_Controller( $block );
 
 $items = $c->get_items();
 $title = $c->get_title();
@@ -29,9 +29,15 @@ $title = $c->get_title();
 			/>
 			<?php endif; ?>
 
-			<h3 class="has-two-font-size">
-				<small class="has-base-font-size has-dark-gray-color"><?php echo $item['source_title']; ?></small>
-				<?php echo $item['title']; ?>
+			<h3>
+				<small class="ucsc-media-coverage-block__post-source has-base-font-size has-dark-gray-color">
+					<?php echo $item['source_title']; ?>
+				</small>
+				<span class="ucsc-media-coverage-block__post-title has-two-font-size">
+					<?php echo $item['title']; ?><svg width="16" height="16" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+						<path d="M4 3h9v9M3 13 13 3"/>
+					</svg>
+				</span>
 			</h3>
 		</a>
 		<?php endforeach; ?>
