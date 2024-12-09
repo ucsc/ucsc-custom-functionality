@@ -36,19 +36,17 @@
   display: flex;
   align-items: flex-start;
   gap: 16px;
-  text-decoration: none;
+  
+  &,
+  &:hover,
+  &:focus-visible {
+    text-decoration: none;
+  }
 
   h3 {
     margin: 0;
     color: var(--wp--preset--color--black);
-
-    small {
-      display: block;
-      text-transform: uppercase;
-      font-weight: 600;
-      margin-bottom: 0.5em;
-      line-height: 1.2;
-    }
+    line-height: 1.13;
   }
 
   img {
@@ -61,19 +59,42 @@
       width: 80px;
     }
   }
+}
 
-  &:hover,
-  &:focus-visible {
-    h3 {
-      color: var(--wp--preset--color--ucsc-secondary-blue);
-    }
+.ucsc-media-coverage-block__post-source {
+  display: block;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 0.5em;
+  line-height: 1.2;
+}
+
+.ucsc-media-coverage-block__post-title {
+  color: var(--wp--preset--color--black);
+
+  .ucsc-media-coverage-block__post:hover &,
+  .ucsc-media-coverage-block__post:focus-visible & {
+    color: var(--wp--preset--color--ucsc-secondary-blue);
+    text-decoration: underline;
+    text-decoration-color: var(--wp--preset--color--ucsc-primary-yellow);
+  }
+
+  svg {
+    position: relative;
+    top: 2px;
+    margin-inline-start: 0.3em;
+    opacity: 0.5;
+    stroke-width: 1px;
   }
 }
 
 .ucsc-media-coverage-block__cta {
-  margin-block-start: 32px;
+  margin-block-start: 1rem;
+  padding-block-start: 1rem;
+  padding-block-end: 1rem;
 
   @media (min-width: 1060px) {
     margin-block-start: 48px;
+    padding-block-end: 0;
   }
 }

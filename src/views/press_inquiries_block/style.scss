@@ -5,15 +5,18 @@
 @import "../../../assets/scss/mixins";
 
 .ucsc-press-inquiries-block {
-  border-bottom: 1px solid var(--wp--preset--color--light-gray);
-  padding-block-start: var(--wp--preset--spacing--20);
-  padding-block-end: var(--wp--preset--spacing--20);
 
   .ucsc-post-header-block + & {
     margin-block-start: 0;
   }
+}
 
-  .ucsc-post-header-block:not(.ucsc-post-header-block--horizontal) + & {
+.ucsc-press-inquiries-block__container {
+  border-bottom: 1px solid var(--wp--preset--color--light-gray);
+  padding-block-start: var(--wp--preset--spacing--20);
+  padding-block-end: var(--wp--preset--spacing--20);
+
+  .ucsc-post-header-block:not(.ucsc-post-header-block--horizontal) + .ucsc-press-inquiries-block & {
     border-top: 1px solid var(--wp--preset--color--light-gray);
   }
 }
@@ -64,7 +67,7 @@
   }
 }
 
-.ucsc-press-inquiries-block__container {
+.ucsc-press-inquiries-block__inner-wrapper {
   display: grid;
   transition: grid-template-rows 0.3s ease-in-out;
   grid-template-rows: 1fr;
@@ -76,7 +79,7 @@
   }
 }
 
-.ucsc-press-inquiries-block__container-inner {
+.ucsc-press-inquiries-block__inner {
   overflow: hidden;
 }
 

@@ -42,9 +42,11 @@ $image        = $c->get_image();
 				</h1>
 			</hgroup>
 
-			<p class="ucsc-post-header-block__excerpt has-one-font-size">
-				<?php echo get_the_excerpt( get_the_ID() ); ?>
-			</p>
+			<div class="ucsc-post-header-block__excerpt has-one-font-size">
+				<p>
+					<?php echo get_the_excerpt( get_the_ID() ); ?>
+				</p>
+			</div>
 
 			<div class="ucsc-post-header-block__meta">
 				<time datetime="<?php echo get_the_date( 'Y-m-d', get_the_ID() ); ?>">

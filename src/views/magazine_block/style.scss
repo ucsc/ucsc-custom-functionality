@@ -23,6 +23,7 @@
   margin-block-start: 0;
   margin-block-end: var(--wp--preset--spacing--20);
   line-height: var(--wp--custom--line-height--small);
+  font-weight: 500;
 }
 
 .ucsc-magazine-block__title-line-1 {
@@ -148,7 +149,7 @@
 
 .ucsc-magazine-block__post-title {
   display: block;
-  font-size: var(--wp--preset--font-size--one);
+  font-size: var(--wp--preset--font-size--two);
   font-weight: 700;
   line-height: var(--wp--custom--line-height--medium);
   text-wrap: pretty;

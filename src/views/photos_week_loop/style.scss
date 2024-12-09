@@ -78,4 +78,16 @@
   gap: 8px;
   margin-top: var(--wp--preset--spacing--20);
   text-decoration: none;
+
+  &,
+  &:visited {
+    color: var(--wp--preset--color--ucsc-secondary-blue);
+  }
+
+  &:hover,
+  &:focus-visible {
+    color: var(--wp--preset--color--ucsc-primary-blue);
+    text-decoration-color: currentColor;
+    text-decoration-thickness: 1px;
+  }
 }

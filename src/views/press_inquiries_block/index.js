@@ -16,7 +16,7 @@ const el = {
  * @param {HTMLElement} block
  */
 const onToggleClick = ( button, block ) => {
-  const content = block.querySelector( '.ucsc-press-inquiries-block__container' )
+  const content = block.querySelector( '.ucsc-press-inquiries-block__inner-wrapper' )
   if (!content) {
     return
   }

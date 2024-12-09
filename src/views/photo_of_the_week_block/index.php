@@ -36,7 +36,7 @@ if ( empty( $photo ) ) {
 				</h2>
 				<hr />
 				<p>
-					<span class="ucsc-photo-of-the-week-block__post-title">
+					<span class="ucsc-photo-of-the-week-block__post-title has-three-font-size">
 						<?php echo $photo['title']; ?>
 					</span>
 					<?php if ( strlen( $photo['author'] ) > 1 ) : ?>
