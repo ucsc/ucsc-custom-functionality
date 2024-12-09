@@ -2,6 +2,9 @@
  * Related Stories Editor Styles
  */
 
-.block-editor .edit-post-sidebar .acf-fields > .acf-field.acf-no-style {
-    padding: 0;
+.block-editor {
+    .wp-block-ucsc-custom-functionality-related-stories-block {
+        max-width: none !important;
+        margin-left: calc(var(--wp--style--root--padding-right, 0) * -1) !important;
+    }
 }
