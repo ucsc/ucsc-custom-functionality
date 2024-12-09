@@ -46,15 +46,17 @@ if ( empty( $items ) ) {
 				</div>
 				<?php endif; ?>
 
-				<?php if ( ! empty( $item['category'] ) ) : ?>
-				<p class="ucsc-related-stories-block__category">
-					<?php echo $item['category']->name ?>
-				</p>
-				<?php endif; ?>
+				<hgroup>
+					<?php if ( ! empty( $item['category'] ) ) : ?>
+					<p class="ucsc-related-stories-block__card-category">
+						<?php echo $item['category']->name ?>
+					</p>
+					<?php endif; ?>
 
-				<h3 class="ucsc-related-stories-block__card-title has-two-font-size">
-					<?php echo esc_html( $item['title'] ); ?>
-				</h3>
+					<h3 class="ucsc-related-stories-block__card-title has-two-font-size">
+						<?php echo esc_html( $item['title'] ); ?>
+					</h3>
+				</hgroup>
 
 				<time class="ucsc-related-stories-block__card-date" datetime="<?php echo get_the_date( 'Y-m-d', $item['id'] ); ?>">
 					<?php echo get_the_date( 'F j, Y', $item['id'] ); ?>

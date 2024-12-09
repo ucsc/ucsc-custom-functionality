@@ -27,7 +27,8 @@
 .ucsc-related-stories-block__inner {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--wp--preset--spacing--40);
+  column-gap: var(--wp--preset--spacing--40);
+  row-gap: var(--wp--preset--spacing--50);
 
   @include media-query($wp-columns-unstack) {
     grid-template-columns: repeat(3, 1fr);
@@ -71,6 +72,15 @@
     aspect-ratio: 4/3;
     object-fit: cover;
   }
+}
+
+.ucsc-related-stories-block__card-category {
+  margin-block-start: 0;
+  margin-block-end: 0.5rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--wp--preset--color--ucsc-secondary-blue);
 }
 
 .ucsc-related-stories-block__card-date {
