@@ -130,7 +130,12 @@
     background: var(--wp--preset--color--ucsc-primary-blue);
     position: absolute;
     top: 0;
-    z-index: -1;
+    z-index: 0;
+  }
+
+  > div {
+    position: relative;
+    z-index: 1;
   }
 
   img {
