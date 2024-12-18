@@ -12,6 +12,7 @@ abstract class Query_Loop_Controller {
 	protected array $block;
 	protected array $cta;
 	protected array $query_loop;
+	protected bool $exclude_current_post_from_query = true;
 
 	protected int $number_of_posts_display = 4;
 	protected array $post_types            = [ 'post', ];
@@ -44,8 +45,8 @@ abstract class Query_Loop_Controller {
 		if ( is_array( $category_id ) ) {
 			$category_id = reset( $category_id );
 		}
-
-		$posts = get_posts( [
+		
+		$args = [
 			'fields'      => 'ids',
 			'post_type'   => $this->post_types,
 			'post_status' => 'published',
@@ -58,7 +59,13 @@ abstract class Query_Loop_Controller {
 					'terms'    => $category_id,
 				],
 			],
-		] );
+		];
+		
+		if ( $this->exclude_current_post_from_query ) {
+			$args['exclude'] = [ get_the_ID(), ];
+		}
+
+		$posts = get_posts( $args );
 
 		if ( empty( $posts ) ) {
 			return [];
