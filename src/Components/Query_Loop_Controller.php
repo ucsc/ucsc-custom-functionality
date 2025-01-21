@@ -26,13 +26,36 @@ abstract class Query_Loop_Controller {
 	}
 
 	public function get_items(): array {
-		$query_type = $this->query_loop[ Query_Loop::QUERY_TYPE ] ?? Query_Loop::AUTOMATIC;
+		$query_type = $this->query_loop[ Query_Loop::QUERY_TYPE ] ?? Query_Loop::LATEST;
 
-		if ( empty( $query_type ) || $query_type === Query_Loop::AUTOMATIC ) {
+		if ( empty( $query_type ) || $query_type === Query_Loop::LATEST ) {
+			return $this->get_latest_query_items();
+		}
+		
+		if ( $query_type === Query_Loop::AUTOMATIC ) {
 			return $this->get_automatic_query_items();
 		}
 
 		return $this->get_manual_query_items();
+	}
+	
+	protected function get_latest_query_items(): array {
+		$args = [
+			'fields'      => 'ids',
+			'post_type'   => $this->post_types,
+			'post_status' => 'published',
+			'order'       => 'DESC',
+			'orderby'     => 'date',
+			'numberposts' => $this->number_of_posts_display,
+		];
+
+		$posts = get_posts( $args );
+
+		if ( empty( $posts ) ) {
+			return [];
+		}
+
+		return $this->prepare_posts_for_display( $posts );
 	}
 
 	protected function get_automatic_query_items(): array {

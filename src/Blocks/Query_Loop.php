@@ -11,6 +11,7 @@ abstract class Query_Loop extends ACF_Group implements Taxonomies {
 	
 	public const QUERY_LOOP = 'query_loop';
 	public const QUERY_TYPE = 'query_type';
+	public const LATEST     = 'latest';
 	public const AUTOMATIC  = 'automatic';
 	public const MANUAL     = 'manual';
 	
@@ -86,10 +87,11 @@ abstract class Query_Loop extends ACF_Group implements Taxonomies {
 			'name'          => self::QUERY_TYPE,
 			'label'         => esc_html__( 'Curated Content', 'ucsc' ),
 			'choices'       => [
+				self::LATEST    => esc_html__( 'Most Recent Posts', 'ucsc' ),
 				self::AUTOMATIC => esc_html__( 'Pull from category', 'ucsc' ),
 				self::MANUAL    => esc_html__( 'Select manually', 'ucsc' ),
 			],
-			'default_value' => self::AUTOMATIC,
+			'default_value' => self::LATEST,
 		];
 	}
 	
@@ -149,8 +151,8 @@ abstract class Query_Loop extends ACF_Group implements Taxonomies {
 				[
 					[
 						'field'    => $this->get_field_key( self::QUERY_TYPE, $this->block_name ),
-						'operator' => '!=',
-						'value'    => self::AUTOMATIC,
+						'operator' => '==',
+						'value'    => self::MANUAL,
 					],
 				],
 			],
