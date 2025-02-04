@@ -22,15 +22,15 @@ class Assets_Enqueuer {
 		if ( empty( $ucsc_custom_blocks ) ) {
 			return;
 		}
-
+		
 		foreach ( $ucsc_custom_blocks as $block ) {
 			$path       = explode( '/', $block->path );
 			$block_name = end( $path );
 
 			$args = $this->get_asset_file_args( $this->assets_path . $block_name . '/' .$assets_file );
-
+			
 			wp_enqueue_style(
-                $css_handle,
+				$css_handle . '-' . $block_name,
 				$this->assets_path_uri . $block_name . '/' . $css_handle . '.css',
 				[],
 				$args['version'] ?? false,

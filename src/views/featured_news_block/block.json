@@ -1,0 +1,20 @@
+{
+	"version": "1.0.0",
+    "name": "ucsc-custom-functionality/featured-news-block",
+	"title": "Featured News Block",
+	"description": "Custom block for displaying featured posts. You can select posts from specified taxonomy or select 4 posts manually",
+	"category": "theme",
+	"icon": "text",
+	"keywords": ["featured", "query", "post"],
+    "example": {},
+	"acf": {
+		"mode": "preview",
+		"renderTemplate": "index.php"
+	},
+	"supports": {
+		"jsx": true
+	},
+    "editorStyle": [ "file:./style-index.css", "file:./index.css" ],
+    "style": [ "file:./style-index.css" ],
+    "viewScript": [ "file:./index.js" ]
+}

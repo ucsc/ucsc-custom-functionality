@@ -1,0 +1,97 @@
+/**
+ * Related Stories Block Styles
+ */
+
+@import "../../../assets/scss/mixins";
+
+.ucsc-related-stories-block {
+  margin-block-start: var(--wp--preset--spacing--50);
+}
+
+.ucsc-related-stories-block__title {
+  padding-block-start: var(--wp--preset--spacing--40);
+  border-top: 1px solid var(--wp--preset--color--light-gray);
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--wp--preset--spacing--30);
+
+  &::before {
+    content: '';
+    height: 0.65em;
+    aspect-ratio: 1;
+    background-color: var(--wp--preset--color--ucsc-orange);
+    margin-right: 0.44em;
+  }
+}
+
+.ucsc-related-stories-block__inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  column-gap: var(--wp--preset--spacing--40);
+  row-gap: var(--wp--preset--spacing--50);
+
+  @include media-query($wp-columns-unstack) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.ucsc-related-stories-block__card-link {
+  
+  &,
+  &:hover,
+  &:focus-visible {
+    text-decoration: none;
+  }
+
+  &:hover,
+  &:focus-visible {
+    .ucsc-related-stories-block__card-title {
+      background-size: 100% 3px;
+    }
+  }
+}
+
+.ucsc-related-stories-block__card {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+}
+
+.ucsc-related-stories-block__card-title {
+  margin-block-start: 0;
+  margin-block-end: 0;
+  display: inline;
+  background-image: linear-gradient(45deg, var(--wp--preset--color--ucsc-primary-yellow), var(--wp--preset--color--ucsc-primary-yellow));
+  background-size: 0 3px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  transition: background-size 0.5s, color 0.3s;
+}
+
+.ucsc-related-stories-block__card-image {
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+  }
+}
+
+.ucsc-related-stories-block__card-category {
+  margin-block-start: 0;
+  margin-block-end: 0.5rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--wp--preset--color--ucsc-secondary-blue);
+}
+
+.ucsc-related-stories-block__card-date {
+  border-top: 1px solid var(--wp--preset--color--light-gray);
+  padding-top: 1rem;
+  color: var(--wp--preset--color--black);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
