@@ -1,0 +1,9 @@
+/**
+ * News Feed Block Editor Styles
+ */
+
+.ucsc-news-block__card,
+.ucsc-news-block__more-news-link {
+    text-decoration: none !important;
+    pointer-events: none;
+}

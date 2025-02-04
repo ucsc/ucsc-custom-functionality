@@ -1,0 +1,186 @@
+/**
+ * Featured News Block Styles
+ */
+
+:root {
+    --featured-news-block-spacer-10: 8px;
+    --featured-news-block-spacer-20: 16px;
+    --featured-news-block-spacer-30: 24px;
+    --featured-news-block-spacer-50: 40px;
+    --featured-news-block-spacer-60: 48px;
+}
+
+.wp-block-ucsc-custom-functionality-featured-news-block {
+    position: relative;
+    max-width: 100% !important;
+    padding-top: var(--featured-news-block-spacer-20);
+    padding-bottom: var(--featured-news-block-spacer-50);
+    
+    &:before {
+        content: "";
+        display: block;
+        height: clamp(9.563rem, 61.658vw - 8.935rem, 31.875rem);
+        width: calc(100% + 2rem);
+        position: absolute;
+        top: 0;
+        left: -1rem;
+        z-index: -1;
+        background: var(--wp--preset--gradient--ucsc-header-gradient) no-repeat;
+
+        @media (min-width: 1060px) {
+            height: clamp(32.5rem, 10.465vw + 25.567rem, 38.125rem);
+        }
+    }
+
+    @media (min-width: 1060px) {
+        padding-top: var(--featured-news-block-spacer-60);
+        padding-bottom: var(--featured-news-block-spacer-60);
+    }
+}
+
+.ucsc-featured-news-block__inner {
+    max-width: var(--wp--style--global--content-size);
+    margin-left: auto;
+    margin-right: auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: var(--featured-news-block-spacer-50);
+    
+    @media (min-width: 1060px) {
+        grid-template-areas: "sticky cards";
+        grid-gap: var(--featured-news-block-spacer-60);
+        grid-template-columns: minmax(726px, 1fr) minmax(auto, 395px);
+        grid-template-rows: repeat(3, 1fr);
+    }
+}
+
+.ucsc-featured-news-block__card {
+    text-decoration: none;
+
+    @media (min-width: 1060px) {
+        grid-area: cards;
+
+        &:nth-child(2) {
+            grid-row: 1 / 2;
+            
+            .ucsc-featured-news-block__category,
+            .ucsc-featured-news-block__card-title,
+            .ucsc-featured-news-block__card-title--inner {
+               color: var(--wp--preset--color--white);
+            }
+            
+            &:hover,
+            &:focus,
+            &:visited {
+                .ucsc-featured-news-block__category,
+                .ucsc-featured-news-block__card-title,
+                .ucsc-featured-news-block__card-title--inner {
+                    color: var(--wp--preset--color--white);
+                }
+            }
+        }
+
+        &:nth-child(3) {
+            grid-row: 2 / 3;
+        }
+
+        &:nth-child(4) {
+            grid-row: 3 / 4;
+        }   
+    }
+    
+    &.ucsc-featured-news-block__card--sticky {
+        
+        @media (min-width: 1060px) {
+            grid-area: sticky;
+            grid-row: 1 / 4;
+            align-self: start;
+            position: sticky;
+            top: 184px;
+        }
+        
+        @media (min-width: 1296px) {
+            top: 172px;
+        }
+    }
+    
+    &:hover,
+    &:focus {
+        text-decoration: none;
+        
+        .ucsc-featured-news-block__card-title--inner {
+            background-size: 100% 4px;
+            color: var(--wp--preset--color--ucsc-primary-blue);
+        }
+    }
+}
+
+.ucsc-featured-news-block__card-image {
+    display: flex;
+    margin-bottom: var(--featured-news-block-spacer-20);
+    
+    img {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 4 / 3;
+        object-fit: cover;
+    }
+    
+    .ucsc-featured-news-block__card--sticky {
+        margin-bottom: var(--featured-news-block-spacer-30);
+    }
+}
+
+.ucsc-featured-news-block__category {
+    display: block;
+    margin-bottom: var(--featured-news-block-spacer-10);
+    color: var(--wp--preset--color--ucsc-secondary-blue);
+    text-transform: uppercase;
+    font-size: 15px;
+    font-weight: 700;
+
+    .ucsc-featured-news-block__card--sticky & {
+        font-size: var(--wp--preset--font-size--medium);
+    }
+}
+
+.ucsc-featured-news-block__card-title {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: var(--wp--preset--font-size--three);
+    line-height: var(--wp--custom--line-height--medium);
+    
+    .ucsc-featured-news-block__card--sticky & {
+        font-size: var(--wp--preset--font-size--four);
+    }
+    
+    &:has(+ .ucsc-featured-news-block__card-excerpt) {
+        margin-bottom: var(--featured-news-block-spacer-20);
+    }
+}
+
+.ucsc-featured-news-block__card-title--inner {
+    display: inline;
+    background-image: linear-gradient(45deg, var(--wp--preset--color--ucsc-primary-yellow), var(--wp--preset--color--ucsc-primary-yellow));
+    background-size: 0 4px;
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    transition: background-size 0.5s;
+}
+
+.ucsc-featured-news-block__card-excerpt {
+    display: block;
+    margin: 0;
+    color: var(--wp--preset--color--dark-gray);
+}
+
+.ucsc-featured-news-block__cta {
+    @media (min-width: 1060px) {
+        grid-area: cards;
+        grid-row: 4 / 5;
+    }
+}

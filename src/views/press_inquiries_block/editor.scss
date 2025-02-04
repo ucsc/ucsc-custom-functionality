@@ -1,0 +1,29 @@
+/**
+ * Press Inquiries Block Editor Styles
+ */
+
+.block-editor {
+  .wp-block-ucsc-custom-functionality-press-inquiries {
+    margin-block-start: 0 !important;
+  }
+
+  .wp-block-ucsc-custom-functionality-post-header-block:has(.ucsc-post-header-block:not(.ucsc-post-header-block--horizontal)) + .wp-block-ucsc-custom-functionality-press-inquiries {
+    margin-block-start: var(--wp--preset--spacing--20) !important;
+
+    .ucsc-press-inquiries-block__container {
+      border-top: 1px solid var(--wp--preset--color--light-gray);
+    }
+  }
+
+  .wp-block-ucsc-custom-functionality-press-inquiries {
+    max-width: none !important;
+    margin-left: calc(var(--wp--style--root--padding-right, 0) * -1) !important;
+  }
+  
+  .ucsc-press-inquiries-block__inner-wrapper {
+    
+    &[inert] {
+      grid-template-rows: 1fr;
+    }
+  }
+}
