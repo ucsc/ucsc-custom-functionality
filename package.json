@@ -40,5 +40,21 @@
         "README.md",
         "CHANGELOG.md",
         "LICENSE"
-    ]
+    ],
+    "standard-version": {
+        "bumpFiles": [
+            {
+                "filename": "package-lock.json",
+                "type": "json"
+            },
+            {
+                "filename": "package.json",
+                "type": "json"
+            },
+            {
+                "filename": "plugin.php",
+                "updater": "wp-plugin-version-updater.js"
+            }
+        ]
+    }
 }
