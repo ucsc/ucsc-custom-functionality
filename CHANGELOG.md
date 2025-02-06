@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.7.2](https://github.com/ucsc/ucsc-custom-functionality/compare/v1.7.1...v1.7.2) (2025-02-06)
+
+
+### Bug Fixes
+
+* 🚑️ Add webpack config to builds ([714e7f8](https://github.com/ucsc/ucsc-custom-functionality/commit/714e7f82f34be68d57038027735744b4c9c00c27))
+
 ### [1.7.1](https://github.com/ucsc/ucsc-custom-functionality/compare/v1.7.0...v1.7.1) (2025-02-06)
 
 
