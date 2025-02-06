@@ -39,7 +39,6 @@
         "lib",
         "plugin.php",
         "README.md",
-        "webpack.config.js",
         "CHANGELOG.md",
         "LICENSE"
     ],
