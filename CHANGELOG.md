@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.7.1](https://github.com/ucsc/ucsc-custom-functionality/compare/v1.7.0...v1.7.1) (2025-02-06)
+
+
+### Bug Fixes
+
+* 🚑️ Add `src` directory to the build manifest ([4acfec8](https://github.com/ucsc/ucsc-custom-functionality/commit/4acfec866c867235bcafdd0e9d5fddefa3a80e24))
+
 ## [1.7.0](https://github.com/ucsc/ucsc-custom-functionality/compare/v1.6.0...v1.7.0) (2025-02-06)
 
 ## [1.6.1]
