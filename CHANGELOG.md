@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.7.3](https://github.com/ucsc/ucsc-custom-functionality/compare/v1.7.2...v1.7.3) (2025-02-06)
+
+
+### Bug Fixes
+
+* 🚑️ Update node modules 🤞 ([92e9baf](https://github.com/ucsc/ucsc-custom-functionality/commit/92e9baff080ddcbd4be715f0292f97603caea33b))
+* 🚑️ Update node version in the Github release action ([c33766f](https://github.com/ucsc/ucsc-custom-functionality/commit/c33766f3105f32d0248d7e57181e1025532704ae))
+
 ### [1.7.2](https://github.com/ucsc/ucsc-custom-functionality/compare/v1.7.1...v1.7.2) (2025-02-06)
 
 
