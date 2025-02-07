@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.7.4](https://github.com/ucsc/ucsc-custom-functionality/compare/v1.7.3...v1.7.4) (2025-02-07)
+
+
+### Bug Fixes
+
+* 🚑️ Add assets folder to built plugin ([da1d761](https://github.com/ucsc/ucsc-custom-functionality/commit/da1d7611c2fef8c5af909bdc97e0bda6b24b49b6))
+
 ### [1.7.3](https://github.com/ucsc/ucsc-custom-functionality/compare/v1.7.2...v1.7.3) (2025-02-06)
 
 
