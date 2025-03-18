@@ -47,10 +47,10 @@ class Post_Header_Block extends ACF_Group {
 			'key'           => $this->get_field_key( self::LAYOUT, self::NAME ),
 			'label'         => esc_html__( 'Layout', 'ucsc' ),
 			'choices'       => [
-				self::LAYOUT_BIG   => esc_html__( 'Big image', 'ucsc' ),
 				self::LAYOUT_SMALL => esc_html__( 'Small image', 'ucsc' ),
+				self::LAYOUT_BIG   => esc_html__( 'Big image', 'ucsc' ),
 			],
-			'default_value' => self::LAYOUT_BIG,
+			'default_value' => self::LAYOUT_SMALL,
 		];
 	}
 
