@@ -15,7 +15,7 @@ abstract class Query_Loop_Controller {
 	protected bool $exclude_current_post_from_query = true;
 
 	protected int $number_of_posts_display = 4;
-	protected array $post_types            = [ 'post', ];
+	protected array $post_types = [ 'post', ];
 
 	abstract protected function prepare_posts_for_display( array $posts = [], bool $is_auto_query = false ): array;
 
@@ -43,7 +43,7 @@ abstract class Query_Loop_Controller {
 		$args = [
 			'fields'      => 'ids',
 			'post_type'   => $this->post_types,
-			'post_status' => 'published',
+			'post_status' => 'publish',
 			'order'       => 'DESC',
 			'orderby'     => 'date',
 			'numberposts' => $this->number_of_posts_display,
@@ -72,7 +72,7 @@ abstract class Query_Loop_Controller {
 		$args = [
 			'fields'      => 'ids',
 			'post_type'   => $this->post_types,
-			'post_status' => 'published',
+			'post_status' => 'publish',
 			'order'       => 'DESC',
 			'orderby'     => 'date',
 			'numberposts' => $this->number_of_posts_display,
