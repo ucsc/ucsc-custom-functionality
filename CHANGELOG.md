@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.8.1](https://github.com/ucsc/ucsc-custom-functionality/compare/v1.8.0...v1.8.1) (2025-04-03)
+
+
+### Bug Fixes
+
+* 🚑️ Update allowed taxonomies on News Block selector to include tags ([f1eb1bd](https://github.com/ucsc/ucsc-custom-functionality/commit/f1eb1bdae2a0a6ae2aa2619311259ffe981c2f03)), closes [#63](https://github.com/ucsc/ucsc-custom-functionality/issues/63)
+* 🚑️ Update allowed taxonomies on News Block selector to include tags ([bc4ff82](https://github.com/ucsc/ucsc-custom-functionality/commit/bc4ff82b34939bc4aea7a7bf9c58ab7569960aaa))
+
 ## [1.8.0](https://github.com/ucsc/ucsc-custom-functionality/compare/v1.7.5...v1.8.0) (2025-04-03)
 
 ### [1.7.5](https://github.com/ucsc/ucsc-custom-functionality/compare/v1.7.4...v1.7.5) (2025-03-18)
