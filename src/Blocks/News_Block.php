@@ -29,8 +29,8 @@ class News_Block extends ACF_Group {
 		'administration',
 		'category',
 		'colleges',
-        'people',
-		'tags',
+    'person',
+		'post_tag',
 	];
 
 	protected function get_locations(): array {
