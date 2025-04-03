@@ -17,7 +17,6 @@ class Taxonomies_Hooks {
         'wp_theme',
         'wp_template_part_area',
         'wp_pattern_category',
-        'post_tag',
         'author',
     ];
 
