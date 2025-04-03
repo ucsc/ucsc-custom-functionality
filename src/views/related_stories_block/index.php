@@ -13,7 +13,7 @@ if ( empty( $items ) && is_admin() ) {
 	?>
 	<section <?php echo wp_kses_data( get_block_wrapper_attributes() ); ?>>
 		<h3 class="ucsc-related-stories-block__header-title">
-			<?php echo esc_html__( 'Please configure the Related Stories block in order to populate content', 'ucsc' ); ?>
+			<?php echo esc_html__( 'Select stories or a taxonomy term in the Related Stories block settings', 'ucsc' ); ?>
 		</h3>
 	</section>
 	<?php
