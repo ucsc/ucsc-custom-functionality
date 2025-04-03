@@ -2,7 +2,7 @@
 	"version": "1.0.0",
     "name": "ucsc-custom-functionality/news-block",
 	"title": "News Block",
-	"description": "Custom block for displaying posts from news.ucsc.edu. YOU MUST SELECT A TYPE OF TAXONOMY AND TAXONOMY TERM(S).",
+	"description": "Block to display posts from news.ucsc.edu.",
 	"category": "theme",
 	"icon": "text",
 	"keywords": ["news", "query", "post"],
