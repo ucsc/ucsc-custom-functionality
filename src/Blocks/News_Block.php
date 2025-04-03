@@ -26,10 +26,11 @@ class News_Block extends ACF_Group {
 
 	public const ALLOWED_TAX = [
 		'academics',
-		'category',
 		'administration',
+		'category',
 		'colleges',
-		'section',
+        'people',
+		'tags',
 	];
 
 	protected function get_locations(): array {
