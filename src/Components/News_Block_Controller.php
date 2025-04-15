@@ -23,6 +23,7 @@ class News_Block_Controller {
 	private string $description;
 	private string $layout;
 	private array|string $more_news_link;
+	private int $posts_per_page;
 
 	public function __construct($block) {
 		$this->block          = (array) $block;
@@ -38,6 +39,9 @@ class News_Block_Controller {
 		$this->hide_date      = (bool) get_field( News_Block::HIDE_DATE );
 		$this->hide_tags      = (bool) get_field( News_Block::HIDE_TAGS );
 		$this->hide_category  = (bool) get_field( News_Block::HIDE_CATEGORY );
+
+		// Retrieve the number of posts per page from the dropdown field
+		$this->posts_per_page = (int) get_field( 'posts_per_page' ) ?? self::PER_PAGE;
 	}
 
 	public function get_title(): string {
@@ -86,7 +90,7 @@ class News_Block_Controller {
 
 		if ( empty( $response ) ) {
 			$response = ( new News_Request() )->request( News_Request::POSTS_ENDPOINT, [
-				'per_page'      => self::PER_PAGE,
+				'per_page'      => $this->posts_per_page, // Use the retrieved value here
 				$this->taxonomy => implode( ',', $this->taxonomy_ids ),
 			]);
 		}
