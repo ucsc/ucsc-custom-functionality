@@ -9,6 +9,7 @@ class News_Block_Controller {
 
 	public const POSTS    = 'news_posts';
 	public const PER_PAGE = 9; // can be moved to a separate field
+	private const CACHE_EXPIRY = MINUTE_IN_SECONDS * 20;
 
 	protected array $block;
 	private string $taxonomy;
@@ -119,7 +120,7 @@ class News_Block_Controller {
 		}
 
 		// Cache the response for 20 minutes
-		set_transient($this->get_cache_key(), $response, MINUTE_IN_SECONDS * 20);
+		set_transient($this->get_cache_key(), $response, self::CACHE_EXPIRY);
 
 		// Return only the number of items specified in the editor
 		return array_slice($items, 0, $this->posts_per_page);
@@ -148,7 +149,7 @@ class News_Block_Controller {
 			return [];
 		}
 
-		set_transient( $this->get_cache_key( 'attachment_' . $item['id'] ), $media, MINUTE_IN_SECONDS * 20 );
+		set_transient( $this->get_cache_key( 'attachment_' . $item['id'] ), $media, self::CACHE_EXPIRY );
 
 		return [
 			'raw_url'    => $media['guid']['rendered'] ?? '',
@@ -174,7 +175,7 @@ class News_Block_Controller {
 
 			if ( ! empty( $user ) ) {
 				$authors[] = $user['name'];
-				set_transient( $this->get_cache_key( 'user_' . $item['id'] ), $user, MINUTE_IN_SECONDS * 20 );
+				set_transient( $this->get_cache_key( 'user_' . $item['id'] ), $user, self::CACHE_EXPIRY );
 			}
 		}
 
@@ -189,7 +190,7 @@ class News_Block_Controller {
 					continue;
 				}
 
-				set_transient( $this->get_cache_key( 'coauthor_' . $author ), $user, MINUTE_IN_SECONDS * 20 );
+				set_transient( $this->get_cache_key( 'coauthor_' . $author ), $user, self::CACHE_EXPIRY );
 				$authors[] = $user['name'];
 			}
 		}
@@ -220,7 +221,7 @@ class News_Block_Controller {
 			return [];
 		}
 
-		set_transient( $this->get_cache_key( $taxonomy . '_' . $item['id'] ), $items, MINUTE_IN_SECONDS * 20 );
+		set_transient( $this->get_cache_key( $taxonomy . '_' . $item['id'] ), $items, self::CACHE_EXPIRY );
 
 		foreach ( $items as $category ) {
 			$categories[] = $category['name'];
