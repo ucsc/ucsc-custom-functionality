@@ -8,7 +8,7 @@ use UCSC\Blocks\Request\News_Request;
 class News_Block_Controller {
 
 	public const POSTS    = 'news_posts';
-	public const PER_PAGE = 6; // can be moved to a separate field
+	public const PER_PAGE = 9; // can be moved to a separate field
 
 	protected array $block;
 	private string $taxonomy;
@@ -86,11 +86,16 @@ class News_Block_Controller {
 			return [];
 		}
 
-		// Directly make the request without caching the posts_per_page value
-		$response = (new News_Request())->request(News_Request::POSTS_ENDPOINT, [
-			'per_page'      => $this->posts_per_page, // Use the retrieved value here
-			$this->taxonomy => implode(',', $this->taxonomy_ids),
-		]);
+		// Fetch the cached response
+		$response = get_transient($this->get_cache_key());
+
+		if (empty($response)) {
+			// Fetch data using the constant PER_PAGE for the API request
+			$response = (new News_Request())->request(News_Request::POSTS_ENDPOINT, [
+				'per_page'      => self::PER_PAGE, // Use the constant here
+				$this->taxonomy => implode(',', $this->taxonomy_ids),
+			]);
+		}
 
 		if (empty($response)) {
 			return [];
@@ -98,6 +103,7 @@ class News_Block_Controller {
 
 		$items = [];
 
+		// Process the response and format the items
 		foreach ($response as $item) {
 			$items[] = [
 				'title'        => $item['title']['rendered'] ?? '',
@@ -112,7 +118,11 @@ class News_Block_Controller {
 			];
 		}
 
-		return $items;
+		// Cache the response for 20 minutes
+		set_transient($this->get_cache_key(), $response, MINUTE_IN_SECONDS * 20);
+
+		// Return only the number of items specified in the editor
+		return array_slice($items, 0, $this->posts_per_page);
 	}
 
 	protected function get_cache_key(string $prefix = ''): string {
