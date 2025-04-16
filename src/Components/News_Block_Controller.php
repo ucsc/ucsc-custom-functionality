@@ -82,40 +82,35 @@ class News_Block_Controller {
 	}
 
 	public function get_items(): array {
-		if ( empty( $this->taxonomy_ids ) || empty( $this->taxonomy ) ) {
+		if (empty($this->taxonomy_ids) || empty($this->taxonomy)) {
 			return [];
 		}
 
-		$response = get_transient( $this->get_cache_key() );
+		// Directly make the request without caching the posts_per_page value
+		$response = (new News_Request())->request(News_Request::POSTS_ENDPOINT, [
+			'per_page'      => $this->posts_per_page, // Use the retrieved value here
+			$this->taxonomy => implode(',', $this->taxonomy_ids),
+		]);
 
-		if ( empty( $response ) ) {
-			$response = ( new News_Request() )->request( News_Request::POSTS_ENDPOINT, [
-				'per_page'      => $this->posts_per_page, // Use the retrieved value here
-				$this->taxonomy => implode( ',', $this->taxonomy_ids ),
-			]);
-		}
-
-		if ( empty( $response ) ) {
+		if (empty($response)) {
 			return [];
 		}
 
 		$items = [];
 
-		foreach ( $response as $item ) {
+		foreach ($response as $item) {
 			$items[] = [
 				'title'        => $item['title']['rendered'] ?? '',
-				'excerpt'      => ! $this->hide_excerpt ? $item['excerpt']['rendered'] ?? '' : '',
+				'excerpt'      => !$this->hide_excerpt ? $item['excerpt']['rendered'] ?? '' : '',
 				'permalink'    => $item['link'] ?? '',
-				'image'        => ! $this->hide_image ? $this->get_item_attachment( $item ) : [],
-				'raw_date'     => ! $this->hide_date ? $item['date'] : '',
-				'publish_date' => ! $this->hide_date ? wp_date( get_option( 'date_format', 'F j, Y' ), strtotime( $item['date'] ) ) : '',
-				'authors'      => ! $this->hide_author ? $this->get_authors( $item ) : '',
-				'tags'         => ! $this->hide_tags ? $this->get_taxonomies( $item, true ) : [],
-				'categories'   => ! $this->hide_category ? $this->get_taxonomies( $item ) : [],
+				'image'        => !$this->hide_image ? $this->get_item_attachment($item) : [],
+				'raw_date'     => !$this->hide_date ? $item['date'] : '',
+				'publish_date' => !$this->hide_date ? wp_date(get_option('date_format', 'F j, Y'), strtotime($item['date'])) : '',
+				'authors'      => !$this->hide_author ? $this->get_authors($item) : '',
+				'tags'         => !$this->hide_tags ? $this->get_taxonomies($item, true) : [],
+				'categories'   => !$this->hide_category ? $this->get_taxonomies($item) : [],
 			];
 		}
-
-		set_transient( $this->get_cache_key(), $response, MINUTE_IN_SECONDS * 20 );
 
 		return $items;
 	}
