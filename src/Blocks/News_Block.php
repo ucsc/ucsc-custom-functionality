@@ -171,7 +171,7 @@ class News_Block extends ACF_Group {
 				6  => '6 Posts',
 				9  => '9 Posts'
 			],
-			'default_value' => 6, // Default to  posts
+			'default_value' => 3, // Default to 3 posts
 			'ui'            => 1,
 			'return_format' => 'value',
 			'instructions'  => esc_html__( 'Select the number of posts to display in the block.', 'ucsc' ),
