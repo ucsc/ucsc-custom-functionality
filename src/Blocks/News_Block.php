@@ -6,7 +6,7 @@ class News_Block extends ACF_Group {
 
 	public const NAME = 'news_query_block';
 
-	public const TITLE 		   = 'news_title';
+	public const TITLE        = 'news_title';
 	public const DESCRIPTION   = 'news_desc';
 	public const LAYOUT        = 'layout';
 	public const LAYOUT_LEFT   = 'layout_left';
@@ -29,7 +29,7 @@ class News_Block extends ACF_Group {
 		'administration',
 		'category',
 		'colleges',
-    'person',
+		'person',
 		'post_tag',
 	];
 
@@ -171,7 +171,7 @@ class News_Block extends ACF_Group {
 				6  => '6 Posts',
 				9  => '9 Posts'
 			],
-			'default_value' => 6, // Default to 6 posts
+			'default_value' => 6, // Default to  posts
 			'ui'            => 1,
 			'return_format' => 'value',
 			'instructions'  => esc_html__( 'Select the number of posts to display in the block.', 'ucsc' ),

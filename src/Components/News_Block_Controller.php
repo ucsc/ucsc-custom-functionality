@@ -8,7 +8,7 @@ use UCSC\Blocks\Request\News_Request;
 class News_Block_Controller {
 
 	public const POSTS    = 'news_posts';
-	public const PER_PAGE = 9; // can be moved to a separate field
+	public const PER_PAGE = 9;
 	private const CACHE_EXPIRY = MINUTE_IN_SECONDS * 20;
 
 	protected array $block;
@@ -40,8 +40,6 @@ class News_Block_Controller {
 		$this->hide_date      = (bool) get_field( News_Block::HIDE_DATE );
 		$this->hide_tags      = (bool) get_field( News_Block::HIDE_TAGS );
 		$this->hide_category  = (bool) get_field( News_Block::HIDE_CATEGORY );
-
-		// Retrieve the number of posts per page from the dropdown field
 		$this->posts_per_page = (int) get_field( 'posts_per_page' ) ?? self::PER_PAGE;
 	}
 
@@ -87,7 +85,6 @@ class News_Block_Controller {
 			return [];
 		}
 
-		// Fetch the cached response
 		$response = get_transient($this->get_cache_key());
 
 		if (empty($response)) {
@@ -104,7 +101,6 @@ class News_Block_Controller {
 
 		$items = [];
 
-		// Process the response and format the items
 		foreach ($response as $item) {
 			$items[] = [
 				'title'        => $item['title']['rendered'] ?? '',
@@ -119,10 +115,8 @@ class News_Block_Controller {
 			];
 		}
 
-		// Cache the response for 20 minutes
 		set_transient($this->get_cache_key(), $response, self::CACHE_EXPIRY);
 
-		// Return only the number of items specified in the editor
 		return array_slice($items, 0, $this->posts_per_page);
 	}
 
