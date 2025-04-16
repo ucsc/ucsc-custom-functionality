@@ -23,7 +23,7 @@ class Related_Stories_Block extends Query_Loop {
 	}
 
 	protected function get_title(): string {
-		return esc_html__( 'Featured Stories', 'ucsc' );
+		return esc_html__( 'Related Stories', 'ucsc' );
 	}
 
 	protected function get_key(): string {
