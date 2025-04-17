@@ -50,7 +50,7 @@ class Blocks_Render {
 	}
 	
 	public function adjust_post_terms_block( $block_content = '', $block = [] ) {
-		if ( ! is_singular() || ! (  isset( $block['blockName'] ) && 'core/post-terms' === $block['blockName'] ) ) {
+		if ( ! is_single() || ! (  isset( $block['blockName'] ) && 'core/post-terms' === $block['blockName'] ) ) {
 			return $block_content;
 		}
 
