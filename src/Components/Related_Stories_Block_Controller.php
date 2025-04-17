@@ -28,21 +28,28 @@ class Related_Stories_Block_Controller extends Query_Loop_Controller {
 	}
 	
 	protected function prepare_posts_for_display( array $posts = [], bool $is_auto_query = false ): array {
-		$items = [];
+        
+        $items = [];
 
 		foreach ( $posts as $post_id ) {
 			if ( is_bool( $post_id ) || $post_id < 1 ) {
 				continue;
 			}
-			$image_id   = get_post_thumbnail_id( $post_id );
+			
+            $image_id   = get_post_thumbnail_id( $post_id );
 			$image_meta = $image_id > 0 ? wp_get_attachment_metadata( $image_id ) : [];
 			$image_url  = wp_get_attachment_url( $image_id );
-            $taxonomy   =  $this->query_loop[ Query_Loop::QUERY_LOOP ][ Taxonomies::TAXONOMIES ] ?: 'category';
+
+            $taxonomy = 'category'; // Default taxonomy
+            if (isset($this->query_loop[Query_Loop::QUERY_LOOP][Taxonomies::TAXONOMIES])) {
+                $taxonomy = $this->query_loop[Query_Loop::QUERY_LOOP][Taxonomies::TAXONOMIES];
+            }
+
 			$category   = $this->get_primary_term( $post_id, $taxonomy );
 			$args       = [
 				'id'       => $post_id,
 				'title'    => get_the_title( $post_id ),
-				'image'    => array_merge( [ 'id' => $image_id, 'url' => $image_url ], $image_meta ),
+				'image'    => array_merge( [ 'id' => $image_id, 'url' => $image_url ], $image_meta !== false ? $image_meta : [] ),
 				'category' => $category,
 			];
 
