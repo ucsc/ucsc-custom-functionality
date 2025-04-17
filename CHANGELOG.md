@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.8.2](https://github.com/ucsc/ucsc-custom-functionality/compare/v1.8.1...v1.8.2) (2025-04-17)
+
+
+### Features
+
+* 🎉 Add ability to choose 3, 6, or 9 posts to be displayed in the News Block ([#71](https://github.com/ucsc/ucsc-custom-functionality/issues/71)) ([b0472b9](https://github.com/ucsc/ucsc-custom-functionality/commit/b0472b9742cf496566805ce398193650c0ee490b)), closes [#66](https://github.com/ucsc/ucsc-custom-functionality/issues/66)
+
+
+### Bug Fixes
+
+* 🚑 Fix taxonomies available in the News Block settings. Fixes [#64](https://github.com/ucsc/ucsc-custom-functionality/issues/64) ([60449e1](https://github.com/ucsc/ucsc-custom-functionality/commit/60449e13e678602d58c9b2b86db3fbcde033f41d))
+* 🚑 Fix taxonomies available in the News Block settings. Fixes [#64](https://github.com/ucsc/ucsc-custom-functionality/issues/64) ([1734807](https://github.com/ucsc/ucsc-custom-functionality/commit/17348070d49bd05381090be82c422a7a4d17ef85))
+* 🛠 Sets styled 'related terms' to appear on single posts only. Resolves [#67](https://github.com/ucsc/ucsc-custom-functionality/issues/67) ([#73](https://github.com/ucsc/ucsc-custom-functionality/issues/73)) ([dd1dfe5](https://github.com/ucsc/ucsc-custom-functionality/commit/dd1dfe525b4d4d312e82dbe3d6524574dab7c02c))
+
 ### [1.8.1](https://github.com/ucsc/ucsc-custom-functionality/compare/v1.8.0...v1.8.1) (2025-04-03)
 
 
