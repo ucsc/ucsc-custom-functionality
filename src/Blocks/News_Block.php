@@ -6,7 +6,7 @@ class News_Block extends ACF_Group {
 
 	public const NAME = 'news_query_block';
 
-	public const TITLE 		   = 'news_title';
+	public const TITLE        = 'news_title';
 	public const DESCRIPTION   = 'news_desc';
 	public const LAYOUT        = 'layout';
 	public const LAYOUT_LEFT   = 'layout_left';
@@ -29,7 +29,7 @@ class News_Block extends ACF_Group {
 		'administration',
 		'category',
 		'colleges',
-    'person',
+		'person',
 		'post_tag',
 	];
 
@@ -75,6 +75,7 @@ class News_Block extends ACF_Group {
 			$this->get_more_news_link_field(),
 			$this->get_taxonomies_list(),
 			$this->get_taxonomies_items(),
+			$this->get_posts_per_page_field(), // Add the dropdown field here
 		], $fields );
 	}
 
@@ -156,6 +157,24 @@ class News_Block extends ACF_Group {
 			'label' => esc_html__( 'More News Link', 'ucsc' ),
 			'name'  => self::MORE_NEWS_LINK,
 			'type'  => 'link',
+		];
+	}
+
+	private function get_posts_per_page_field(): array {
+		return [
+			'key'           => $this->get_field_key( 'posts_per_page', self::NAME ),
+			'label'         => esc_html__( 'Number of Posts to Show', 'ucsc' ),
+			'name'          => 'posts_per_page',
+			'type'          => 'select',
+			'choices'       => [
+				3  => '3 Posts',
+				6  => '6 Posts',
+				9  => '9 Posts'
+			],
+			'default_value' => 3, // Default to 3 posts
+			'ui'            => 1,
+			'return_format' => 'value',
+			'instructions'  => esc_html__( 'Select the number of posts to display in the block.', 'ucsc' ),
 		];
 	}
 

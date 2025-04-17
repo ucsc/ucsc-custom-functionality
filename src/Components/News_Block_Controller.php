@@ -8,7 +8,8 @@ use UCSC\Blocks\Request\News_Request;
 class News_Block_Controller {
 
 	public const POSTS    = 'news_posts';
-	public const PER_PAGE = 6; // can be moved to a separate field
+	public const PER_PAGE = 9;
+	private const CACHE_EXPIRY = MINUTE_IN_SECONDS * 20;
 
 	protected array $block;
 	private string $taxonomy;
@@ -23,6 +24,7 @@ class News_Block_Controller {
 	private string $description;
 	private string $layout;
 	private array|string $more_news_link;
+	private int $posts_per_page;
 
 	public function __construct($block) {
 		$this->block          = (array) $block;
@@ -38,6 +40,7 @@ class News_Block_Controller {
 		$this->hide_date      = (bool) get_field( News_Block::HIDE_DATE );
 		$this->hide_tags      = (bool) get_field( News_Block::HIDE_TAGS );
 		$this->hide_category  = (bool) get_field( News_Block::HIDE_CATEGORY );
+		$this->posts_per_page = (int) get_field( 'posts_per_page' ) ?? self::PER_PAGE;
 	}
 
 	public function get_title(): string {
@@ -78,42 +81,43 @@ class News_Block_Controller {
 	}
 
 	public function get_items(): array {
-		if ( empty( $this->taxonomy_ids ) || empty( $this->taxonomy ) ) {
+		if (empty($this->taxonomy_ids) || empty($this->taxonomy)) {
 			return [];
 		}
 
-		$response = get_transient( $this->get_cache_key() );
+		$response = get_transient($this->get_cache_key());
 
-		if ( empty( $response ) ) {
-			$response = ( new News_Request() )->request( News_Request::POSTS_ENDPOINT, [
-				'per_page'      => self::PER_PAGE,
-				$this->taxonomy => implode( ',', $this->taxonomy_ids ),
+		if (empty($response)) {
+			// Fetch data using the constant PER_PAGE for the API request
+			$response = (new News_Request())->request(News_Request::POSTS_ENDPOINT, [
+				'per_page'      => self::PER_PAGE, // Use the constant here
+				$this->taxonomy => implode(',', $this->taxonomy_ids),
 			]);
 		}
 
-		if ( empty( $response ) ) {
+		if (empty($response)) {
 			return [];
 		}
 
 		$items = [];
 
-		foreach ( $response as $item ) {
+		foreach ($response as $item) {
 			$items[] = [
 				'title'        => $item['title']['rendered'] ?? '',
-				'excerpt'      => ! $this->hide_excerpt ? $item['excerpt']['rendered'] ?? '' : '',
+				'excerpt'      => !$this->hide_excerpt ? $item['excerpt']['rendered'] ?? '' : '',
 				'permalink'    => $item['link'] ?? '',
-				'image'        => ! $this->hide_image ? $this->get_item_attachment( $item ) : [],
-				'raw_date'     => ! $this->hide_date ? $item['date'] : '',
-				'publish_date' => ! $this->hide_date ? wp_date( get_option( 'date_format', 'F j, Y' ), strtotime( $item['date'] ) ) : '',
-				'authors'      => ! $this->hide_author ? $this->get_authors( $item ) : '',
-				'tags'         => ! $this->hide_tags ? $this->get_taxonomies( $item, true ) : [],
-				'categories'   => ! $this->hide_category ? $this->get_taxonomies( $item ) : [],
+				'image'        => !$this->hide_image ? $this->get_item_attachment($item) : [],
+				'raw_date'     => !$this->hide_date ? $item['date'] : '',
+				'publish_date' => !$this->hide_date ? wp_date(get_option('date_format', 'F j, Y'), strtotime($item['date'])) : '',
+				'authors'      => !$this->hide_author ? $this->get_authors($item) : '',
+				'tags'         => !$this->hide_tags ? $this->get_taxonomies($item, true) : [],
+				'categories'   => !$this->hide_category ? $this->get_taxonomies($item) : [],
 			];
 		}
 
-		set_transient( $this->get_cache_key(), $response, MINUTE_IN_SECONDS * 20 );
+		set_transient($this->get_cache_key(), $response, self::CACHE_EXPIRY);
 
-		return $items;
+		return array_slice($items, 0, $this->posts_per_page);
 	}
 
 	protected function get_cache_key(string $prefix = ''): string {
@@ -139,7 +143,7 @@ class News_Block_Controller {
 			return [];
 		}
 
-		set_transient( $this->get_cache_key( 'attachment_' . $item['id'] ), $media, MINUTE_IN_SECONDS * 20 );
+		set_transient( $this->get_cache_key( 'attachment_' . $item['id'] ), $media, self::CACHE_EXPIRY );
 
 		return [
 			'raw_url'    => $media['guid']['rendered'] ?? '',
@@ -165,7 +169,7 @@ class News_Block_Controller {
 
 			if ( ! empty( $user ) ) {
 				$authors[] = $user['name'];
-				set_transient( $this->get_cache_key( 'user_' . $item['id'] ), $user, MINUTE_IN_SECONDS * 20 );
+				set_transient( $this->get_cache_key( 'user_' . $item['id'] ), $user, self::CACHE_EXPIRY );
 			}
 		}
 
@@ -180,7 +184,7 @@ class News_Block_Controller {
 					continue;
 				}
 
-				set_transient( $this->get_cache_key( 'coauthor_' . $author ), $user, MINUTE_IN_SECONDS * 20 );
+				set_transient( $this->get_cache_key( 'coauthor_' . $author ), $user, self::CACHE_EXPIRY );
 				$authors[] = $user['name'];
 			}
 		}
@@ -211,7 +215,7 @@ class News_Block_Controller {
 			return [];
 		}
 
-		set_transient( $this->get_cache_key( $taxonomy . '_' . $item['id'] ), $items, MINUTE_IN_SECONDS * 20 );
+		set_transient( $this->get_cache_key( $taxonomy . '_' . $item['id'] ), $items, self::CACHE_EXPIRY );
 
 		foreach ( $items as $category ) {
 			$categories[] = $category['name'];
