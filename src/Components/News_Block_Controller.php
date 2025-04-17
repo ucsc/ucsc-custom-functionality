@@ -155,42 +155,28 @@ class News_Block_Controller {
 	}
 
 	protected function get_authors(array $item): array {
-		if ( empty( $item['author'] ) && empty( $item['coauthors'] ) ) {
-			return [];
-		}
-
-		$authors = [];
-
-		if ( ! empty( $item['author'] ) ) {
-			$user = get_transient( $this->get_cache_key( 'user_' . $item['id'] ) );
-			if ( empty( $user ) ) {
-				$user = (new News_Request())->request( News_Request::ENDPOINT_BASE . 'users/' . $item['author'] );
-			}
-
-			if ( ! empty( $user ) ) {
-				$authors[] = $user['name'];
-				set_transient( $this->get_cache_key( 'user_' . $item['id'] ), $user, self::CACHE_EXPIRY );
-			}
-		}
-
-		if ( ! empty( $item['coauthors'] ) ) {
-			foreach ( $item['coauthors'] as $author ) {
-				$user = get_transient( $this->get_cache_key( 'coauthor_' . $author ) );
-				if ( empty( $user ) ) {
-					$user = (new News_Request())->request( News_Request::ENDPOINT_BASE . 'coauthors/' . $author );
-				}
-
-				if ( empty( $user ) ) {
-					continue;
-				}
-
-				set_transient( $this->get_cache_key( 'coauthor_' . $author ), $user, self::CACHE_EXPIRY );
-				$authors[] = $user['name'];
-			}
-		}
-
-		return $authors;
+	if (empty($item['coauthors'])) {
+		return [];
 	}
+
+	$authors = [];
+
+	foreach ($item['coauthors'] as $author) {
+		$user = get_transient($this->get_cache_key('coauthor_' . $author));
+		if (empty($user)) {
+			$user = (new News_Request())->request(News_Request::ENDPOINT_BASE . 'coauthors/' . $author);
+		}
+
+		if (empty($user)) {
+			continue;
+		}
+
+		set_transient($this->get_cache_key('coauthor_' . $author), $user, self::CACHE_EXPIRY);
+		$authors[] = $user['name'];
+	}
+
+	return $authors;
+}
 
 	protected function get_taxonomies(array $item, bool $is_tag = false) {
 		$categories = [];
