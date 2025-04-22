@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.8.4](https://github.com/ucsc/ucsc-custom-functionality/compare/v1.8.3...v1.8.4) (2025-04-22)
+
+
+### Bug Fixes
+
+* 🚑 Set environment type accurately so news block fetches data from the correct source ([#75](https://github.com/ucsc/ucsc-custom-functionality/issues/75)) ([edf1a96](https://github.com/ucsc/ucsc-custom-functionality/commit/edf1a96ab87d8c1f275b87d1d1c68d8508d4f64e)), closes [#74](https://github.com/ucsc/ucsc-custom-functionality/issues/74)
+
 ### [1.8.3](https://github.com/ucsc/ucsc-custom-functionality/compare/v1.8.2...v1.8.3) (2025-04-17)
 
 ### [1.8.2](https://github.com/ucsc/ucsc-custom-functionality/compare/v1.8.1...v1.8.2) (2025-04-17)
