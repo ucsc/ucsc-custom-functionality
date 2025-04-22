@@ -45,14 +45,17 @@ class News_Request {
 		$env = wp_get_environment_type();
 
 		switch ( $env ) {
-			case 'test':
+            case 'production':
+                $base_url = 'https://news.ucsc.edu/';
+                break;
+			case 'staging':
 				$base_url = 'https://test-news-ucsc.pantheonsite.io/';
 				break;
-			case 'live':
-				$base_url = 'https://news.ucsc.edu/';
-				break;
+            case 'development':
+                $base_url = 'https://dev-news-ucsc.pantheonsite.io/';
+                break;    
 			default:
-				$base_url = 'https://dev-news-ucsc.pantheonsite.io/';
+				$base_url = 'https://news.ucsc.edu/';
 				break;
 		}
 
