@@ -1,6 +1,6 @@
 {
     "name": "ucsc-custom-functionality",
-    "version": "1.8.4",
+    "version": "1.9.0",
     "description": "Contains custom functionality for UCSC WordPress Websites.",
     "scripts": {
         "build": "wp-scripts build",

@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.9.0](https://github.com/ucsc/ucsc-custom-functionality/compare/v1.8.4...v1.9.0) (2025-05-12)
+
+
+### Features
+
+* ✨ Add block variation for aligned images ([#81](https://github.com/ucsc/ucsc-custom-functionality/issues/81)) ([0ba47a2](https://github.com/ucsc/ucsc-custom-functionality/commit/0ba47a2cc43e72ec73f10e1ee9195a03d158265c)), closes [#80](https://github.com/ucsc/ucsc-custom-functionality/issues/80)
+
 ### [1.8.4](https://github.com/ucsc/ucsc-custom-functionality/compare/v1.8.3...v1.8.4) (2025-04-22)
 
 
