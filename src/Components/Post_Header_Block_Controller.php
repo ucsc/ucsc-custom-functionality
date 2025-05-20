@@ -60,7 +60,7 @@ class Post_Header_Block_Controller {
 	}
 	
 	protected function get_layout() {
-		return get_field( Post_Header_Block::LAYOUT ) ?? Post_Header_Block::LAYOUT_BIG;
+		return get_field( Post_Header_Block::LAYOUT ) ?? Post_Header_Block::LAYOUT_SMALL;
 	}
 	
 }
