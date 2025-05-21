@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.9.2](https://github.com/ucsc/ucsc-custom-functionality/compare/v1.9.1...v1.9.2) (2025-05-21)
+
+
+### Bug Fixes
+
+* 🛠 Missing padding in post header when no featured image ([#77](https://github.com/ucsc/ucsc-custom-functionality/issues/77)) ([0d0c078](https://github.com/ucsc/ucsc-custom-functionality/commit/0d0c078bf893d2b1831fc785c74d9b308dadc95d)), closes [#76](https://github.com/ucsc/ucsc-custom-functionality/issues/76)
+
 ### [1.9.1](https://github.com/ucsc/ucsc-custom-functionality/compare/v1.9.0...v1.9.1) (2025-05-13)
 
 ## [1.9.0](https://github.com/ucsc/ucsc-custom-functionality/compare/v1.8.4...v1.9.0) (2025-05-12)
