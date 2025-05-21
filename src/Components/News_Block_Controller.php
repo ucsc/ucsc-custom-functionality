@@ -151,6 +151,7 @@ class News_Block_Controller {
 			'height'     => $media['media_details']['height'] ?? 0,
 			'image_meta' => $media['media_details']['image_meta'] ?? [],
 			'sizes'      => $media['media_details']['sizes'] ?? [],
+			'alt'        => $media['alt_text'] ?? '',
 		];
 	}
 
