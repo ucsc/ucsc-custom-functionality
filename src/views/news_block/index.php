@@ -40,7 +40,12 @@ if ( empty( $items ) ) {
         <?php foreach ( $items as $item ) : ?>
             <a href="<?php echo esc_url( $item['permalink'] );?>" class="ucsc-news-block__card">
                 <?php if ( ! empty( $item['image'] ) ) : ?>
-                    <img src="<?php echo esc_url( $item['image']['raw_url'] );?>" srcset="<?php echo $c->build_srcset( $item['image']['sizes']) ;?>" class="ucsc-news-block__card-image" />
+                    <img 
+    src="<?php echo esc_url( $item['image']['raw_url'] );?>" 
+    srcset="<?php echo $c->build_srcset( $item['image']['sizes']) ;?>" 
+    class="ucsc-news-block__card-image"
+    alt="<?php echo esc_attr( $item['image']['alt'] ?? '' ); ?>"
+/>
                 <?php endif; ?>
 
                 <?php if ( ! empty( $item['categories'] ) ) : ?>
