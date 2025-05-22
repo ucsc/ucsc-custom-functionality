@@ -13,7 +13,7 @@ class Post_Single extends Template {
 	public function register( $query_result, $query, $template_type ) {
 		$template = $this->register_template();
 		
-		if ( empty( $template ) || ! is_single() ) {
+		if ( empty( $template ) || ! is_single() || in_array('embed-post', $query['slug__in']) ) {
 			return $query_result;
 		}
 		
