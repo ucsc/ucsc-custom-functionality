@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.9.3](https://github.com/ucsc/ucsc-custom-functionality/compare/v1.9.2...v1.9.3) (2025-05-22)
+
+
+### Bug Fixes
+
+* 🛠️ Embeds on other sites get proper embed template ([#86](https://github.com/ucsc/ucsc-custom-functionality/issues/86)) ([1bafaab](https://github.com/ucsc/ucsc-custom-functionality/commit/1bafaab96a699c688ae83164a5bc03d63f40c89a)), closes [#83](https://github.com/ucsc/ucsc-custom-functionality/issues/83)
+
 ### [1.9.2](https://github.com/ucsc/ucsc-custom-functionality/compare/v1.9.1...v1.9.2) (2025-05-21)
 
 
