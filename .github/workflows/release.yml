@@ -20,7 +20,7 @@ jobs:
               with:
                   node-version: 20
                   cache: 'npm'
-            - uses: webfactory/ssh-agent@v0.8.0
+            - uses: webfactory/ssh-agent@v0.9.1
               with:
                   ssh-private-key: ${{ secrets.PANTHEON_SSH_KEY }}    
 
