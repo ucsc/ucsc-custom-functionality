@@ -5,12 +5,13 @@ on:
         tags:
             - 'v*.*.*'
             - 'v*.*.*-rc.*'
-
+    workflow_dispatch:
+        
 permissions:
     contents: write
 
 jobs:
-    deploy:
+    build:
         runs-on: ubuntu-latest
 
         steps:
@@ -19,7 +20,10 @@ jobs:
               with:
                   node-version: 20
                   cache: 'npm'
-                  
+            - uses: webfactory/ssh-agent@v0.8.0
+              with:
+                  ssh-private-key: ${{ secrets.PANTHEON_SSH_KEY }}    
+
             - name: Install Composer dependencies
               run: |
                   composer install --optimize-autoloader --ignore-platform-reqs --no-dev
@@ -38,3 +42,34 @@ jobs:
               with:
                   files: ucsc-custom-functionality.zip
                   generate_release_notes: true
+
+            - name: Create plugin archive
+              run: |  
+                # Create a clean copy of your plugin
+                mkdir -p deploy/ucsc-custom-functionality
+                rsync -av --exclude-from='.deployignore' . deploy/ucsc-custom-functionality/
+
+            - name: Clone Pantheon repository
+              run: |
+                git clone ssh://codeserver.dev.${{ secrets.PANTHEON_SITE_UUID }}@codeserver.dev.${{ secrets.PANTHEON_SITE_UUID }}.drush.in:2222/~/repository.git pantheon-site
+                cd pantheon-site
+                git checkout master # or your target branch
+          
+            - name: Deploy plugin to Pantheon
+              run: |
+                cd pantheon-site
+                
+                # Remove old plugin version if it exists
+                rm -rf wp-content/plugins/ucsc-custom-functionality
+                
+                # Copy new plugin version
+                cp -r ../deploy/ucsc-custom-functionality wp-content/plugins/
+                
+                # Configure git
+                git config user.email "action@github.com"
+                git config user.name "GitHub Action"
+                
+                # Commit and push changes
+                git add .
+                git commit -m "Deploy plugin ucsc-custom-functionality-${{ github.event.release.tag_name || github.sha }}" || exit 0
+                git push origin master
