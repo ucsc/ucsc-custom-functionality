@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.9.5](https://github.com/ucsc/ucsc-custom-functionality/compare/v1.9.4...v1.9.5) (2025-05-23)
+
+
+### Bug Fixes
+
+* Actions: deploy fix ([3befb9e](https://github.com/ucsc/ucsc-custom-functionality/commit/3befb9e8daaa703375b9cb89df96e084a24fa455))
+* Actions: deploy fix ssh ([eeb9696](https://github.com/ucsc/ucsc-custom-functionality/commit/eeb96966596c58c9d687bb01631ed1a22801ed4f))
+
 ### [1.9.4](https://github.com/ucsc/ucsc-custom-functionality/compare/v1.9.3...v1.9.4) (2025-05-23)
 
 ### [1.9.3](https://github.com/ucsc/ucsc-custom-functionality/compare/v1.9.2...v1.9.3) (2025-05-22)
