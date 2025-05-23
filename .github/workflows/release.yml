@@ -49,6 +49,11 @@ jobs:
                 mkdir -p deploy/ucsc-custom-functionality
                 rsync -av --exclude-from='.deployignore' . deploy/ucsc-custom-functionality/
 
+            - name: Add Pantheon to known hosts
+              run: |
+                mkdir -p ~/.ssh
+                ssh-keyscan -H codeserver.dev.${{ secrets.PANTHEON_SITE_UUID }}.drush.in >> ~/.ssh/known_hosts
+              
             - name: Clone Pantheon repository
               run: |
                 git clone ssh://codeserver.dev.${{ secrets.PANTHEON_SITE_UUID }}@codeserver.dev.${{ secrets.PANTHEON_SITE_UUID }}.drush.in:2222/~/repository.git pantheon-site
