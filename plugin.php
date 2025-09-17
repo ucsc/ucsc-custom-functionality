@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 /**
  * Plugin Name: UCSC Custom Functionality
- * Plugin URI: https://github.com/ucsc/ucsc-custom-functionality.git
+ * Plugin URI:  https://github.com/ucsc/ucsc-custom-functionality.git
  * Description: Adds custom functionality to UCSC WordPress Websites.
- * Version: 1.9.5
- * Author: UC Santa Cruz
- * Author URI: https://github.com/ucsc
- * License: GPL2
+ * Version:     1.9.5
+ * Author:      UC Santa Cruz
+ * Author URI:  https://github.com/ucsc
+ * License:     GPL2
  *
  * @package ucsc-custom-functionality
  */
