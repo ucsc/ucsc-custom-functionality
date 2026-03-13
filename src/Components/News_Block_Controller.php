@@ -171,7 +171,7 @@ class News_Block_Controller {
 				}
 
 				set_transient( $this->get_cache_key( 'coauthor_' . $author ), $user, self::CACHE_EXPIRY );
-				$authors[] = $user['name'];
+				$authors[] = $user['title']['rendered'] ?? $user['name'];
 			}
 
 			return $authors;
@@ -188,7 +188,7 @@ class News_Block_Controller {
 
 		set_transient( $this->get_cache_key( 'coauthor_' . self::DEFAULT_AUTHOR_ID ), $user, self::CACHE_EXPIRY );
 
-		return [ $user['name'] ];
+		return [ $user['title']['rendered'] ?? $user['name'] ];
 	}
 
 	protected function get_taxonomies(array $item, bool $is_tag = false) {
