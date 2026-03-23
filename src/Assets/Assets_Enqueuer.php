@@ -24,8 +24,8 @@ class Assets_Enqueuer {
 		}
 		
 		foreach ( $ucsc_custom_blocks as $block ) {
-			$path       = explode( '/', $block->path );
-			$block_name = end( $path );
+			$parts      = explode( '/', $block->name );
+			$block_name = end( $parts );
 
 			$args = $this->get_asset_file_args( $this->assets_path . $block_name . '/' .$assets_file );
 			
