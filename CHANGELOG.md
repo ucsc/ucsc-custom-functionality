@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.9.7](https://github.com/ucsc/ucsc-custom-functionality/compare/v1.9.5...v1.9.7) (2026-03-24)
+
+
+### Bug Fixes
+
+* 🐛 Use block name instead of path in Assets_Enqueuer to prevent PHP 8.1 fatal error ([#93](https://github.com/ucsc/ucsc-custom-functionality/issues/93)) ([f6100e8](https://github.com/ucsc/ucsc-custom-functionality/commit/f6100e8a2abd85dca52e061c9a5f48b7f79dea80))
+* 🚀 Revert release.yml file to previous ([832988e](https://github.com/ucsc/ucsc-custom-functionality/commit/832988e23a89ae14ce78765b2d76b0191cf2ec33))
+
 ### [1.9.6](https://github.com/ucsc/ucsc-custom-functionality/compare/v1.9.5...v1.9.6) (2026-03-24)
 
 
