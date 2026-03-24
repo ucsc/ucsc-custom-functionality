@@ -9,7 +9,8 @@ class News_Block_Controller {
 
 	public const POSTS    = 'news_posts';
 	public const PER_PAGE = 9;
-	private const CACHE_EXPIRY = MINUTE_IN_SECONDS * 20;
+	private const CACHE_EXPIRY       = MINUTE_IN_SECONDS * 20;
+	private const DEFAULT_AUTHOR_ID  = 11;
 
 	protected array $block;
 	private string $taxonomy;
@@ -156,25 +157,9 @@ class News_Block_Controller {
 	}
 
 	protected function get_authors(array $item): array {
-		if ( empty( $item['author'] ) && empty( $item['coauthors'] ) ) {
-			return [];
-		}
-
-		$authors = [];
-
-		if ( ! empty( $item['author'] ) ) {
-			$user = get_transient( $this->get_cache_key( 'user_' . $item['id'] ) );
-			if ( empty( $user ) ) {
-				$user = (new News_Request())->request( News_Request::ENDPOINT_BASE . 'users/' . $item['author'] );
-			}
-
-			if ( ! empty( $user ) ) {
-				$authors[] = $user['name'];
-				set_transient( $this->get_cache_key( 'user_' . $item['id'] ), $user, self::CACHE_EXPIRY );
-			}
-		}
-
 		if ( ! empty( $item['coauthors'] ) ) {
+			$authors = [];
+
 			foreach ( $item['coauthors'] as $author ) {
 				$user = get_transient( $this->get_cache_key( 'coauthor_' . $author ) );
 				if ( empty( $user ) ) {
@@ -186,11 +171,24 @@ class News_Block_Controller {
 				}
 
 				set_transient( $this->get_cache_key( 'coauthor_' . $author ), $user, self::CACHE_EXPIRY );
-				$authors[] = $user['name'];
+				$authors[] = $user['title']['rendered'] ?? $user['name'];
 			}
+
+			return $authors;
 		}
 
-		return $authors;
+		$user = get_transient( $this->get_cache_key( 'coauthor_' . self::DEFAULT_AUTHOR_ID ) );
+		if ( empty( $user ) ) {
+			$user = (new News_Request())->request( News_Request::ENDPOINT_BASE . 'coauthors/' . self::DEFAULT_AUTHOR_ID );
+		}
+
+		if ( empty( $user ) ) {
+			return [];
+		}
+
+		set_transient( $this->get_cache_key( 'coauthor_' . self::DEFAULT_AUTHOR_ID ), $user, self::CACHE_EXPIRY );
+
+		return [ $user['title']['rendered'] ?? $user['name'] ];
 	}
 
 	protected function get_taxonomies(array $item, bool $is_tag = false) {
