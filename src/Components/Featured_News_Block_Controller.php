@@ -30,6 +30,7 @@ class Featured_News_Block_Controller extends Query_Loop_Controller {
 			}
 			$image_id   = get_post_thumbnail_id( $post_id );
 			$image_meta = $image_id > 0 ? wp_get_attachment_metadata( $image_id ) : [];
+			$image_meta = is_array( $image_meta ) ? $image_meta : [];
 			$image_url  = wp_get_attachment_url( $image_id );
 			$taxonomy   =  $this->query_loop[ Query_Loop::QUERY_LOOP ][ Taxonomies::TAXONOMIES ] ?: 'category';
             $category   = $this->get_primary_term( $post_id, $taxonomy );
