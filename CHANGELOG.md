@@ -1,6 +1,13 @@
 # Changelog
 
-All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
+
+## [1.9.8](https://github.com/ucsc/ucsc-custom-functionality/compare/v1.9.7...v1.9.8) (2026-04-09)
+
+
+### Bug Fixes
+
+* ensure image_meta is always an array in Featured_News_Block_Controller ([d33874f](https://github.com/ucsc/ucsc-custom-functionality/commit/d33874f02916c3887e84ed5a1359eb8cdb100aa6))
 
 ### [1.9.7](https://github.com/ucsc/ucsc-custom-functionality/compare/v1.9.5...v1.9.7) (2026-03-24)
 
