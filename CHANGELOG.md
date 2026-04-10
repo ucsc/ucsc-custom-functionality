@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.0.1](https://github.com/ucsc/ucsc-custom-functionality/compare/v2.0.0...v2.0.1) (2026-04-10)
+
+
+### Bug Fixes
+
+* Typo in release script ([fec311b](https://github.com/ucsc/ucsc-custom-functionality/commit/fec311b69af2183e7ecb17fe8737d45105d6cf0a))
+
 ## [2.0.0](https://github.com/ucsc/ucsc-custom-functionality/compare/v1.10.1...v2.0.0) (2026-04-10)
 
 ## [1.10.1](https://github.com/ucsc/ucsc-custom-functionality/compare/v1.10.0...v1.10.1) (2026-04-10)
