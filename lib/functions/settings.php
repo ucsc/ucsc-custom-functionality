@@ -109,7 +109,7 @@ if (! function_exists('ucsc_render_plugin_settings_page')) {
         <div class="wrap cf-admin-settings-page">
             <h1><?php echo esc_html($plugin_data['Name']); ?></h1>
             <h2>Version: <?php echo esc_html($plugin_data['Version']); ?> <a href="https://github.com/ucsc/ucsc-custom-functionality/releases">(release notes)</a></h2>
-            <p><?php echo esc_html($plugin_data['Description']); ?></p>
+            <p><?php echo wp_kses_post($plugin_data['Description']); ?></p>
             <hr>
             <h3>Features added by this plugin:</h3>
             <ul>
