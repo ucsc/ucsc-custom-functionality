@@ -16,7 +16,7 @@ These features are active on every UCSC WordPress site using the plugin.
 ### Analytics & Security
 
 - **Google Tag Manager** integration for site analytics
-- **SiteImprove** analytics script
+- **SiteImprove** analytics and accessibility check script
 - **XML-RPC security** — disabled by default with an admin toggle to re-enable when external editing tools are needed
 
 ### Shortcodes
