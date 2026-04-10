@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.10.0](https://github.com/ucsc/ucsc-custom-functionality/compare/v1.9.8...v1.10.0) (2026-04-10)
+
+
+### Features
+
+* ✨ Add a toggle button in the admin dashboard for XMLRPC to enable external editing when needed ([#94](https://github.com/ucsc/ucsc-custom-functionality/issues/94)) ([a808f55](https://github.com/ucsc/ucsc-custom-functionality/commit/a808f5518075d25ffea9759663655a86b9332dc7)), closes [#91](https://github.com/ucsc/ucsc-custom-functionality/issues/91)
+
 ## [1.9.8](https://github.com/ucsc/ucsc-custom-functionality/compare/v1.9.7...v1.9.8) (2026-04-09)
 
 
