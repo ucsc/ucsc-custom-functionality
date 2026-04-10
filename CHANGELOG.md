@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.0.3](https://github.com/ucsc/ucsc-custom-functionality/compare/v2.0.2...v2.0.3) (2026-04-10)
+
+
+### Bug Fixes
+
+* 🐛 Resolve babel runtime issue introduced by the update to `wp-scripts` ([267d5cd](https://github.com/ucsc/ucsc-custom-functionality/commit/267d5cd64be3e7800fa7bc97236bfc374730cecd))
+
 ## [2.0.2](https://github.com/ucsc/ucsc-custom-functionality/compare/v2.0.1...v2.0.2) (2026-04-10)
 
 ## [2.0.1](https://github.com/ucsc/ucsc-custom-functionality/compare/v2.0.0...v2.0.1) (2026-04-10)
