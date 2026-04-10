@@ -27,6 +27,7 @@
     },
     "homepage": "https://github.com/ucsc/ucsc-custom-functionality#readme",
     "devDependencies": {
+        "@babel/runtime": "^7.29.2",
         "@stylelint/postcss-css-in-js": "^0.38.0",
         "@wordpress/scripts": "^29.0.0",
         "@wordpress/stylelint-config": "^22.7.0",
