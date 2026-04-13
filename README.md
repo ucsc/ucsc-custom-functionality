@@ -17,7 +17,6 @@ These features are active on every UCSC WordPress site using the plugin.
 
 - **Google Tag Manager** integration for site analytics
 - **SiteImprove** analytics and accessibility check script
-- **XML-RPC security** — disabled by default with an admin toggle to re-enable when external editing tools are needed
 
 ### Shortcodes
 
@@ -27,10 +26,7 @@ These features are active on every UCSC WordPress site using the plugin.
 
 ### Settings Page
 
-An admin settings page under **Settings > UCSC Custom Functionality** provides:
-
-- XML-RPC enable/disable toggle
-- Plugin version and feature overview
+An admin settings page under **Settings > UCSC Custom Functionality** provides plugin version and feature overview
 
 ### News Block
 
