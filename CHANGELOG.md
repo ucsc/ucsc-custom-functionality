@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.0.4](https://github.com/ucsc/ucsc-custom-functionality/compare/v2.0.3...v2.0.4) (2026-04-13)
+
+
+### Bug Fixes
+
+* 🔒️ Remove option to enable XML-RPC, since it is a security risk ([#95](https://github.com/ucsc/ucsc-custom-functionality/issues/95)) ([54ee38d](https://github.com/ucsc/ucsc-custom-functionality/commit/54ee38d6e4e910e69ddb7d903bc2b943f24e82db))
+
 ## [2.0.3](https://github.com/ucsc/ucsc-custom-functionality/compare/v2.0.2...v2.0.3) (2026-04-10)
 
 
