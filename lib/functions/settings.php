@@ -23,72 +23,7 @@ if (! function_exists('ucsc_add_settings_page')) {
 add_action('admin_menu', 'ucsc_add_settings_page');
 
 
-/** Register plugin settings via the Settings API */
-
-if (! function_exists('ucsc_register_plugin_settings')) {
-    function ucsc_register_plugin_settings()
-    {
-        register_setting(
-            'ucsc_custom_functionality',
-            'ucsc_enable_xmlrpc',
-            array(
-                'type'              => 'boolean',
-                'description'       => 'Whether XML-RPC is enabled on this site.',
-                'sanitize_callback' => static function ($value) {
-                    return ! empty($value);
-                },
-                'default'           => false,
-                'show_in_rest'      => false,
-            )
-        );
-
-        add_settings_section(
-            'ucsc_security_section',
-            'Security',
-            static function () {
-                echo '<p>Security features provided by this plugin.</p>';
-            },
-            'ucsc-custom-functionality-settings'
-        );
-
-        add_settings_field(
-            'ucsc_enable_xmlrpc',
-            'Enable XML-RPC',
-            'ucsc_render_enable_xmlrpc_field',
-            'ucsc-custom-functionality-settings',
-            'ucsc_security_section',
-            array('label_for' => 'ucsc_enable_xmlrpc')
-        );
-    }
-}
-add_action('admin_init', 'ucsc_register_plugin_settings');
-
-
-if (! function_exists('ucsc_render_enable_xmlrpc_field')) {
-    function ucsc_render_enable_xmlrpc_field()
-    {
-        $enabled = (bool) get_option('ucsc_enable_xmlrpc', false);
-?>
-        <label for="ucsc_enable_xmlrpc">
-            <input
-                type="checkbox"
-                id="ucsc_enable_xmlrpc"
-                name="ucsc_enable_xmlrpc"
-                value="1"
-                <?php checked($enabled); ?> />
-            Allow requests to <code>/xmlrpc.php</code> on this site.
-        </label>
-        <p class="description">
-            XML-RPC is disabled by default because <code>/xmlrpc.php</code> can be used as an attack vector.
-            Only enable this if a specific integration (for example, the Jetpack mobile app or a remote publishing tool) requires it.
-            See <a href="https://docs.pantheon.io/guides/wordpress-developer/xml-rpc-attacks" rel="noopener noreferrer">Pantheon&rsquo;s guidance on XML-RPC attacks</a>.
-        </p>
-    <?php
-    }
-}
-
-
-/** 
+/**
  * HTML output of Settings page 
  *
  * note: This page typically displays a form for displaying any settings options. 
@@ -123,13 +58,7 @@ if (! function_exists('ucsc_render_plugin_settings_page')) {
                 </li>
             </ul>
             <hr>
-            <form action="options.php" method="post">
-                <?php
-                settings_fields('ucsc_custom_functionality');
-                do_settings_sections('ucsc-custom-functionality-settings');
-                submit_button();
-                ?>
-            </form>
+            <p>XML-RPC is disabled by this plugin for security. See <a href="https://docs.pantheon.io/guides/wordpress-developer/xml-rpc-attacks" rel="noopener noreferrer">Pantheon&rsquo;s guidance on XML-RPC attacks</a>.</p>
         </div>
 <?php
     }
