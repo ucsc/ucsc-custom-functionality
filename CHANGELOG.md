@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.0.6](https://github.com/ucsc/ucsc-custom-functionality/compare/v2.0.4...v2.0.6) (2026-04-15)
+
+
+### Bug Fixes
+
+* **news:** 🚑️ Fix issue on news site where custom blocks failed to load their stylesheets ([dfd2295](https://github.com/ucsc/ucsc-custom-functionality/commit/dfd229589510e8e401201ef17b27beb027adf3ff))
+
+## [2.0.5](https://github.com/ucsc/ucsc-custom-functionality/compare/v2.0.4...v2.0.5) (2026-04-15)
+
+
+### Bug Fixes
+
+* **news:** 🚑️ Fix issue on news site where custom blocks failed to load their stylesheets ([dfd2295](https://github.com/ucsc/ucsc-custom-functionality/commit/dfd229589510e8e401201ef17b27beb027adf3ff))
+
 ## [2.0.4](https://github.com/ucsc/ucsc-custom-functionality/compare/v2.0.3...v2.0.4) (2026-04-13)
 
 
