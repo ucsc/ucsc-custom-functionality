@@ -23,21 +23,21 @@ use UCSC\Blocks\Template\Template_Subscriber;
 
 class Core {
 	
-	public const PHOTOS_LOOP = 'photos_week_loop';
+	public const PHOTOS_LOOP = 'photos-week-loop';
 
 	public const BLOCKS_PUBLIC = [
-		News_Block::class => '/build/views/news_block',
+		News_Block::class => '/build/views/news-block',
 	];
 
 	public const BLOCKS_NEWS_ONLY = [
-		self::PHOTOS_LOOP              => '/build/views/photos_week_loop',
-		Photo_Of_The_Week_Block::class => '/build/views/photo_of_the_week_block',
-		Featured_News_Block::class     => '/build/views/featured_news_block',
-		Media_Coverage_Block::class    => '/build/views/media_coverage_block',
-		Magazine_Block::class          => '/build/views/magazine_block',
-		Related_Stories_Block::class   => '/build/views/related_stories_block',
-		Press_Inquiries_Block::class   => '/build/views/press_inquiries_block',
-		Post_Header_Block::class       => '/build/views/post_header_block',
+		self::PHOTOS_LOOP              => '/build/views/photos-week-loop',
+		Photo_Of_The_Week_Block::class => '/build/views/photo-of-the-week-block',
+		Featured_News_Block::class     => '/build/views/featured-news-block',
+		Media_Coverage_Block::class    => '/build/views/media-coverage-block',
+		Magazine_Block::class          => '/build/views/magazine-block',
+		Related_Stories_Block::class   => '/build/views/related-stories-block',
+		Press_Inquiries_Block::class   => '/build/views/press-inquiries',
+		Post_Header_Block::class       => '/build/views/post-header-block',
 	];
 
 	private static self $instance;
