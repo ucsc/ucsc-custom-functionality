@@ -11,6 +11,7 @@ on:
         tags:
             - "v*.*.*"
             - "v*.*.*-rc.*"
+    workflow_dispatch:
 
 permissions:
     contents: write
