@@ -1,40 +1,33 @@
+# Caller workflow — drop this into each consuming repo at:
+#   .github/workflows/release.yml
+#
+# Update the `uses` path to match your shared-workflows repo and tag.
+# Update `zip-name` to match the package name in that repo's package.json.
+
 name: Build and release
 
 on:
     push:
         tags:
-            - 'v*.*.*'
-            - 'v*.*.*-rc.*'
-        
+            - "v*.*.*"
+            - "v*.*.*-rc.*"
+    workflow_dispatch:
+
 permissions:
     contents: write
 
 jobs:
-    build:
-        runs-on: ubuntu-latest
-
-        steps:
-            - uses: actions/checkout@v4.2.2
-            - uses: actions/setup-node@v3.9.1
-              with:
-                  node-version: 20
-                  cache: 'npm'
-
-            - name: Install Composer dependencies
-              run: |
-                  composer install --optimize-autoloader --ignore-platform-reqs --no-dev
-
-            - name: Install Node dependencies
-              run: npm install
-              
-            - name: Build plugin assets
-              run: ./node_modules/.bin/wp-scripts build
-
-            - name: Package plugin
-              run: ./node_modules/.bin/wp-scripts plugin-zip
-
-            - name: Release
-              uses: softprops/action-gh-release@v1
-              with:
-                  files: ucsc-custom-functionality.zip
-                  generate_release_notes: true
+    release:
+        # Point this at your shared repo. Pin to a tag for stability.
+        uses: ucsc/actions/.github/workflows/release.yml@v1
+        with:
+            zip-name: ${{ github.event.repository.name }}.zip
+            #
+            # DEFAULTS
+            # Uncomment the following lines to adjust the defaults:
+            #
+            # node-version: '24'
+            # build-command: 'build'
+            # use-composer: true
+            # composer-args: '--no-dev --no-progress --optimize-autoloader'
+            # generate-release-notes: true
