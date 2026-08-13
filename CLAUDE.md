@@ -58,7 +58,7 @@ ACF field *names* are class constants on the block class (`News_Block::TITLE`, e
 2. Field-group class in `src/Blocks/`, controller in `src/Components/`.
 3. Register in `Core::BLOCKS_PUBLIC` (all sites) or `Core::BLOCKS_NEWS_ONLY` (news only).
 
-The path in those constants **must match the `src/views/` directory name** — webpack mirrors the source directory into `build/views/<same-name>/`, not the block.json slug. A mismatch silently skips registration. (`Magazine_Block` currently maps to `/build/views/magazine-block` while the source dir is `src/views/magazine-lock` — likely broken.)
+The path in those constants **must match the `src/views/` directory name** — webpack mirrors the source directory into `build/views/<same-name>/`, not the block.json slug. A mismatch silently skips registration, with no error anywhere. This has bitten once already: a bulk `snake_case` → `kebab-case` rename produced `src/views/magazine-lock` against a `magazine-block` constant, and the Magazine block was unregistered for four releases before anyone noticed.
 
 ### Query-loop blocks
 
