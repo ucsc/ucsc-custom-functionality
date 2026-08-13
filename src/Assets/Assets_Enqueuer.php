@@ -50,14 +50,13 @@ class Assets_Enqueuer {
 	 *
 	 * Version and dependencies come from each block's generated asset file.
 	 *
-	 * Note: the style handle is suffixed per block, but the script handle is
-	 * not — every block enqueues its script under the same $handle_file, so
-	 * only the first one registered actually loads. Tracked in #102; left
-	 * as-is here so this stays a documentation-only change.
+	 * Both handles are suffixed with the block name: the built files all share
+	 * the same basename, so an unsuffixed handle would collide and WordPress
+	 * would silently drop every block after the first.
 	 *
 	 * @param string $assets_file Filename of the generated asset manifest, e.g. index.asset.php.
-	 * @param string $handle_file Script handle, also used as the .js basename.
-	 * @param string $css_handle  Stylesheet handle, also used as the .css basename.
+	 * @param string $handle_file Script handle prefix, also used as the .js basename.
+	 * @param string $css_handle  Stylesheet handle prefix, also used as the .css basename.
 	 *
 	 * @return void
 	 */
@@ -88,7 +87,7 @@ class Assets_Enqueuer {
 			);
 
 			wp_enqueue_script(
-				$handle_file,
+				$handle_file . '-' . $block_name,
 				$this->assets_path_uri . $block_name . '/' . $handle_file . '.js',
 				$args['dependencies'] ?? [],
 				$args['version'] ?? false,
