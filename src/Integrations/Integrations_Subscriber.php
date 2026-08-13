@@ -1,9 +1,28 @@
-<?php declare(strict_types=1);
+<?php
+/**
+ * Third-party plugin integrations.
+ *
+ * @package ucsc
+ */
+
+declare(strict_types=1);
 
 namespace UCSC\Blocks\Integrations;
 
+/**
+ * Registers integrations with Yoast SEO and ACF.
+ */
 class Integrations_Subscriber {
 
+	/**
+	 * Taxonomies intended to support a Yoast primary term.
+	 *
+	 * Note: only 'academics' is actually registered — the loop in init()
+	 * ignores its own iteration variable. Tracked in #105; left as-is here so
+	 * this stays a documentation-only change.
+	 *
+	 * @var string[]
+	 */
 	public const PRIMARY_TAX_SUPPORT = [
 		'academics',
 		'administration',
@@ -12,6 +31,11 @@ class Integrations_Subscriber {
 		'kind',
 	];
 
+	/**
+	 * Register the Yoast primary-term and ACF toolbar filters.
+	 *
+	 * @return void
+	 */
 	public function init(): void {
 		add_filter(
 			'wpseo_primary_term_taxonomies',

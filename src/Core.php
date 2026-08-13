@@ -1,4 +1,11 @@
-<?php declare(strict_types=1);
+<?php
+/**
+ * Plugin bootstrap.
+ *
+ * @package ucsc
+ */
+
+declare(strict_types=1);
 
 namespace UCSC\Blocks;
 
@@ -21,14 +28,48 @@ use UCSC\Blocks\Template\Photo_Of_The_Week_Archive;
 use UCSC\Blocks\Template\Post_Single;
 use UCSC\Blocks\Template\Template_Subscriber;
 
+/**
+ * Singleton bootstrap and block registry.
+ *
+ * Instantiated from plugin.php on plugins_loaded (priority 100), and only when
+ * ACF PRO is active. Nothing in src/ runs without it.
+ *
+ * Registration is split in two: BLOCKS_PUBLIC loads everywhere, while
+ * BLOCKS_NEWS_ONLY, the custom post type, templates and subscribers load only
+ * when UCSC_NEWS_SITE is defined true.
+ */
 class Core {
 
+	/**
+	 * Registry key for the Photos of the Week query loop.
+	 *
+	 * Unlike its siblings this is a plain string rather than a class constant,
+	 * because the block has no field-group class to instantiate.
+	 *
+	 * @var string
+	 */
 	public const PHOTOS_LOOP = 'photos-week-loop';
 
+	/**
+	 * Blocks registered on every site.
+	 *
+	 * Maps a field-group class to its build directory. The path must match the
+	 * src/views/ directory name, since webpack mirrors the source directory
+	 * rather than the block.json slug. A mismatch silently skips registration.
+	 *
+	 * @var array<string, string>
+	 */
 	public const BLOCKS_PUBLIC = [
 		News_Block::class => '/build/views/news-block',
 	];
 
+	/**
+	 * Blocks registered only when UCSC_NEWS_SITE is true.
+	 *
+	 * Same path contract as BLOCKS_PUBLIC.
+	 *
+	 * @var array<string, string>
+	 */
 	public const BLOCKS_NEWS_ONLY = [
 		self::PHOTOS_LOOP              => '/build/views/photos-week-loop',
 		Photo_Of_The_Week_Block::class => '/build/views/photo-of-the-week-block',
@@ -40,8 +81,18 @@ class Core {
 		Post_Header_Block::class       => '/build/views/post-header-block',
 	];
 
+	/**
+	 * The single instance.
+	 *
+	 * @var self
+	 */
 	private static self $instance;
 
+	/**
+	 * Get the singleton instance, creating it on first call.
+	 *
+	 * @return self
+	 */
 	public static function instance(): self {
 		if ( ! isset( self::$instance ) ) {
 			self::$instance = new self();
@@ -50,6 +101,14 @@ class Core {
 		return self::$instance;
 	}
 
+	/**
+	 * Register everything the plugin provides.
+	 *
+	 * Each step hooks its own WordPress action, so ordering here reflects
+	 * grouping rather than execution order.
+	 *
+	 * @return void
+	 */
 	public function init(): void {
 		$this->blocks();
 		$this->scripts();
@@ -60,11 +119,20 @@ class Core {
 	}
 
 	/**
+	 * Render an ACF block by including its view template.
+	 *
+	 * Registered as the render_callback for every block. The stored path points
+	 * into build/, but the PHP template is read from src/ so that view edits
+	 * take effect without a rebuild; the index.php copied into build/ is never
+	 * executed.
+	 *
 	 * @param array          $block      The block attributes.
 	 * @param string         $content    The block content.
 	 * @param bool           $is_preview Whether the block is being rendered for editing preview.
 	 * @param int            $post_id    The current post being edited or viewed.
 	 * @param \WP_Block|null $wp_block   The block instance (since WP 5.5).
+	 *
+	 * @return void
 	 */
 	public function render_template( array $block, string $content = '', bool $is_preview = false, int $post_id = 0, ?\WP_Block $wp_block = null ): void {
 		$template = $block['render_template'];
@@ -77,6 +145,14 @@ class Core {
 		include "$path/$template"; // phpcs:ignore WordPressVIPMinimum.Files.IncludingFile.NotAbsolutePath
 	}
 
+	/**
+	 * Inject the custom block templates on news sites.
+	 *
+	 * Deferred to after_setup_theme because the templates are tied to a
+	 * wp_theme term and need the active theme resolved first.
+	 *
+	 * @return void
+	 */
 	protected function templates(): void {
 		if ( ! $this->is_news_site() ) {
 			return;
@@ -99,6 +175,14 @@ class Core {
 		);
 	}
 
+	/**
+	 * Register the news-site event subscribers.
+	 *
+	 * Query modifications, third-party integrations and core-block output
+	 * filtering. All are news-only.
+	 *
+	 * @return void
+	 */
 	protected function subscribers(): void {
 		if ( ! $this->is_news_site() ) {
 			return;
@@ -108,6 +192,11 @@ class Core {
 		( new Template_Subscriber() )->init();
 	}
 
+	/**
+	 * Register the custom object meta fields. News sites only.
+	 *
+	 * @return void
+	 */
 	protected function object_meta(): void {
 		if ( ! $this->is_news_site() ) {
 			return;
@@ -116,6 +205,11 @@ class Core {
 		( new Object_Meta_Definer() )->register();
 	}
 
+	/**
+	 * Register the Photo of the Week post type. News sites only.
+	 *
+	 * @return void
+	 */
 	protected function post_types(): void {
 		if ( ! $this->is_news_site() ) {
 			return;
@@ -131,6 +225,14 @@ class Core {
 		);
 	}
 
+	/**
+	 * Register blocks and their editor hooks on init.
+	 *
+	 * The News block and its hooks register everywhere; the taxonomy hooks are
+	 * news-only.
+	 *
+	 * @return void
+	 */
 	protected function blocks(): void {
 		add_action(
 			'init',
@@ -150,6 +252,14 @@ class Core {
 		);
 	}
 
+	/**
+	 * Enqueue the editor-side helper scripts.
+	 *
+	 * The News block script loads on every site; the custom-blocks script is
+	 * news-only.
+	 *
+	 * @return void
+	 */
 	protected function scripts(): void {
 		add_action(
 			'admin_enqueue_scripts',
@@ -181,6 +291,15 @@ class Core {
 		);
 	}
 
+	/**
+	 * Register each block from its build-directory block.json.
+	 *
+	 * Every block shares one render_callback; the template is resolved per
+	 * block from the metadata. Field-group classes are instantiated after
+	 * registration so their ACF fields attach to the registered block name.
+	 *
+	 * @return void
+	 */
 	protected function init_blocks(): void {
 		$args = [
 			'render_callback' => [ $this, 'render_template' ],
@@ -204,6 +323,13 @@ class Core {
 		}
 	}
 
+	/**
+	 * Whether this install is the news site.
+	 *
+	 * Single gate for every news-only feature.
+	 *
+	 * @return bool
+	 */
 	private function is_news_site(): bool {
 		return defined( 'UCSC_NEWS_SITE' ) && UCSC_NEWS_SITE;
 	}

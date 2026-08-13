@@ -1,16 +1,31 @@
 <?php
-
 /**
  * Google Analytics and Tag Manager
-
- * This file contains the functions necessary to add the UC Santa Cruz Google Analytics and Tag Manager snippets to the site.
+ *
+ * This file contains the functions necessary to add the UC Santa Cruz Google
+ * Analytics and Tag Manager snippets to the site.
+ *
+ * The container ID is hardcoded, so every site sharing this plugin reports
+ * into the same container; making it configurable is tracked in #113.
+ *
+ * @package      ucsc
+ * @since        0.1.0
+ * @link         https://github.com/ucsc/ucsc-custom-functionality.git
+ * @author       UC Santa Cruz
+ * @license      http://opensource.org/licenses/gpl-2.0.php GNU Public License
  */
-
 
 add_action( 'wp_head', 'ucsc_google_tag_manager_head', 1 );
 
 add_action( 'wp_body_open', 'ucsc_google_tag_manager_body' );
 
+/**
+ * Print the Google Tag Manager snippet in the document head.
+ *
+ * Hooked early on wp_head so the container loads before other tracking.
+ *
+ * @return void
+ */
 function ucsc_google_tag_manager_head() {
 	?>
 <!-- Google Tag Manager -->
@@ -23,6 +38,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 	<?php
 }
 
+/**
+ * Print the Google Tag Manager noscript fallback after the opening body tag.
+ *
+ * Requires theme support for wp_body_open.
+ *
+ * @return void
+ */
 function ucsc_google_tag_manager_body() {
 	?>
 	<!-- Google Tag Manager (noscript) -->

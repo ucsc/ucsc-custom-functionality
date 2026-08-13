@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Disable XMLRPC
  *
@@ -8,6 +7,12 @@
  * see: https://pantheon.io/docs/wordpress-best-practices#avoid-xml-rpc-attacks
  *
  * XMLRPC is always disabled when this plugin is active.
+ *
+ * @package      ucsc
+ * @since        0.1.0
+ * @link         https://github.com/ucsc/ucsc-custom-functionality.git
+ * @author       UC Santa Cruz
+ * @license      http://opensource.org/licenses/gpl-2.0.php GNU Public License
  */
 
 add_filter(
@@ -19,5 +24,5 @@ add_filter(
 );
 
 // Removes the link from the <head>.
-// Avoids a11y issue with broken link
+// Avoids an accessibility issue with the broken link.
 remove_action( 'wp_head', 'rsd_link' );

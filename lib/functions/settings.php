@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Add Plugin settings and info page
  *
@@ -12,9 +11,12 @@
  * @license      http://opensource.org/licenses/gpl-2.0.php GNU Public License
  */
 
-/** Register new menu and page */
-
 if ( ! function_exists( 'ucsc_add_settings_page' ) ) {
+	/**
+	 * Register the plugin's page under the Settings menu.
+	 *
+	 * @return void
+	 */
 	function ucsc_add_settings_page() {
 		add_options_page( 'UCSC Custom Functionality plugin page', 'UCSC Custom Functionality', 'manage_options', 'ucsc-custom-functionality-settings', 'ucsc_render_plugin_settings_page' );
 	}
@@ -22,15 +24,18 @@ if ( ! function_exists( 'ucsc_add_settings_page' ) ) {
 add_action( 'admin_menu', 'ucsc_add_settings_page' );
 
 
-/**
- * HTML output of Settings page
- *
- * note: This page typically displays a form for displaying any settings options.
- * It is not needed at this point.
- * https://developer.wordpress.org/plugins/settings/custom-settings-page/
- */
-
 if ( ! function_exists( 'ucsc_render_plugin_settings_page' ) ) {
+	/**
+	 * Render the settings page.
+	 *
+	 * Note: this page is informational. It lists what the plugin provides and
+	 * links to the release notes; it deliberately registers no settings, so
+	 * there is no form and no Settings API usage.
+	 *
+	 * @link https://developer.wordpress.org/plugins/settings/custom-settings-page/
+	 *
+	 * @return void
+	 */
 	function ucsc_render_plugin_settings_page() {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return;

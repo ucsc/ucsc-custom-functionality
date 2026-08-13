@@ -1,9 +1,31 @@
-<?php declare(strict_types=1);
+<?php
+/**
+ * Asset hook registration.
+ *
+ * @package ucsc
+ */
+
+declare(strict_types=1);
 
 namespace UCSC\Blocks\Assets;
 
+/**
+ * Wires the asset enqueuers to their WordPress hooks.
+ *
+ * Also attaches the two standalone stylesheets that style *core* blocks rather
+ * than UCSC ones; those are compiled from assets/scss/blocks/ by extra webpack
+ * entries and have no block.json of their own.
+ */
 class Assets_Subscriber {
 
+	/**
+	 * Register the enqueue hooks and the core-block stylesheets.
+	 *
+	 * Public assets load on both the front end and in wp-admin; editor assets
+	 * load only in the block editor.
+	 *
+	 * @return void
+	 */
 	public function register(): void {
 		add_action(
 			'wp_enqueue_scripts',

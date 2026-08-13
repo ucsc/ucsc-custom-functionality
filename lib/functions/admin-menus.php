@@ -35,7 +35,7 @@ if ( ! function_exists( 'ucsc_custom_functionality_remove_from_admin_bar' ) ) {
 	/**
 	 * Remove items from Admin Bar
 	 *
-	 * @param mixed $wp_admin_bar
+	 * @param mixed $wp_admin_bar The WP_Admin_Bar instance being built.
 	 * @return void
 	 * Removes unwanted items from the WP Admin bar
 	 * @package
