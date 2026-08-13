@@ -1,9 +1,31 @@
-<?php declare(strict_types=1);
+<?php
+/**
+ * Template hook registration.
+ *
+ * @package ucsc
+ */
+
+declare(strict_types=1);
 
 namespace UCSC\Blocks\Template;
 
+/**
+ * Wires up the template-related filters on news sites.
+ *
+ * Two jobs: routing every rendered block through Blocks_Render, and giving
+ * new posts a starting block structure so editors begin from the intended
+ * layout rather than an empty canvas.
+ */
 class Template_Subscriber {
 
+	/**
+	 * Register the block render filter and the default post template.
+	 *
+	 * The render filter runs late, at priority 100, so it sees output other
+	 * filters have already produced.
+	 *
+	 * @return void
+	 */
 	public function init(): void {
 		$block_renderer = Blocks_Render::instance();
 

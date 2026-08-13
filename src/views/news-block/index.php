@@ -1,7 +1,21 @@
-<?php declare(strict_types=1);
+<?php
+/**
+ * News block view.
+ *
+ * Rendered by Core::render_template(). Although the block is registered
+ * from build/views/, that path is rewritten back to src/views/ before the
+ * template is included — so edits here take effect without a rebuild, and
+ * the copy webpack emits into build/ is never executed.
+ *
+ * @package ucsc
+ */
+
+declare(strict_types=1);
 
 /**
- * @var array $block current block attributes
+ * The block instance supplied by the render callback.
+ *
+ * @var array $block Current block attributes.
  */
 $c = new \UCSC\Blocks\Components\News_Block_Controller( $block );
 
