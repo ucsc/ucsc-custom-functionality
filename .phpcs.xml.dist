@@ -3,6 +3,24 @@
 
 	<description>A custom set of rules to check for a WPized WordPress project</description>
 
+	<!--
+	Files and directories to scan when phpcs is run with no path argument.
+	Without these, phpcs exits with "You must supply at least one file or
+	directory to process."
+	-->
+	<file>plugin.php</file>
+	<file>lib</file>
+	<file>src</file>
+
+	<!--
+	Only sniff PHP. WPCS 3.x dropped its JavaScript sniffs, so scanning .js
+	here produces meaningless noise; eslint owns those files.
+	-->
+	<arg name="extensions" value="php"/>
+
+	<!-- Report paths relative to the project root rather than absolute. -->
+	<arg name="basepath" value="."/>
+
 	<!-- Exclude WP Core folders and files from being checked. -->
 	<exclude-pattern>/docroot/wp-admin/*</exclude-pattern>
 	<exclude-pattern>/docroot/wp-includes/*</exclude-pattern>
@@ -38,6 +56,25 @@
 		<exclude name="WordPress.WhiteSpace.ControlStructureSpacing"/>
 		<exclude name="WordPress.Security.EscapeOutput"/>
 		-->
+	</rule>
+
+	<!--
+	src/ is PSR-4 (UCSC\Blocks\) and is autoloaded by class name, so its files
+	are named Foo_Block.php, not class-foo-block.php. The WordPress file-naming
+	convention cannot be satisfied there without breaking the autoloader.
+	lib/ does follow WP naming and stays fully checked.
+	-->
+	<rule ref="WordPress.Files.FileName">
+		<exclude-pattern>/src/*</exclude-pattern>
+	</rule>
+
+	<!--
+	src/ targets PHP 8.0+ (declare(strict_types=1), union types) and uses short
+	array syntax throughout, by convention. Enforcing long arrays there would
+	rewrite ~280 literals to no benefit. lib/ stays fully checked.
+	-->
+	<rule ref="Universal.Arrays.DisallowShortArraySyntax">
+		<exclude-pattern>/src/*</exclude-pattern>
 	</rule>
 
 	<!-- Let's also check that everything is properly documented. -->
