@@ -88,7 +88,7 @@ class Related_Stories_Block_Controller extends Query_Loop_Controller {
 						'id'  => $image_id,
 						'url' => $image_url,
 					],
-					$image_meta !== false ? $image_meta : []
+					false !== $image_meta ? $image_meta : []
 				),
 				'category' => $category,
 			];

@@ -22,7 +22,11 @@ const getBlockTabs = ( block ) => {
  *
  * @param {HTMLButtonElement} tab
  * @param {HTMLElement}       block
+ * @return {HTMLElement} The panel the tab controls.
  */
+// `block` is unused pending #127: the lookup should be scoped to it once tab
+// and panel ids are unique per block instance.
+// eslint-disable-next-line no-unused-vars
 const getTabPanel = ( tab, block ) => {
 	return document.getElementById( tab.getAttribute( 'aria-controls' ) );
 };
@@ -34,7 +38,7 @@ const getTabPanel = ( tab, block ) => {
  * @param {HTMLButtonElement}   fromTab
  * @param {HTMLButtonElement[]} tabs
  * @param {number}              offset
- * @return {HTMLButtonElement}
+ * @return {HTMLButtonElement} The tab at the offset position, wrapping around.
  */
 const getRelativeTab = ( fromTab, tabs, offset ) => {
 	const currentIndex = tabs.indexOf( fromTab );

@@ -46,7 +46,8 @@ class Media_Coverage_Controller extends Query_Loop_Controller {
 	public function __construct( $block ) {
 		parent::__construct( $block );
 
-		$this->cta = (array) get_field( Media_Coverage_Block::CTA_FIELD ) ?: [];
+		$cta_field = get_field( Media_Coverage_Block::CTA_FIELD );
+		$this->cta = is_array( $cta_field ) ? $cta_field : [];
 	}
 
 	/**

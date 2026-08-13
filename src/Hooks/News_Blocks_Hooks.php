@@ -77,7 +77,7 @@ class News_Blocks_Hooks {
 
 		$choices = [];
 		foreach ( $response as $taxonomy_name => $value ) {
-			if ( ! isset( $value['rest_base'] ) || ! in_array( $taxonomy_name, News_Block::ALLOWED_TAX ) ) {
+			if ( ! isset( $value['rest_base'] ) || ! in_array( $taxonomy_name, News_Block::ALLOWED_TAX, true ) ) {
 				continue;
 			}
 

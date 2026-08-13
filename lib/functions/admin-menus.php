@@ -65,7 +65,7 @@ if ( ! function_exists( 'ucsc_custom_functionality_remove_from_dash_panel' ) ) {
 	function ucsc_custom_functionality_remove_from_dash_panel() {
 		global $submenu;
 		foreach ( $submenu as $name => $items ) {
-			if ( $name === 'themes.php' ) {
+			if ( 'themes.php' === $name ) {
 				foreach ( $items as $i => $data ) {
 					if ( in_array( 'customize', $data, true ) ) {
 						unset( $submenu[ $name ][ $i ] );

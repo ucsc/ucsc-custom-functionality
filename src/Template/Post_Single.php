@@ -53,7 +53,7 @@ class Post_Single extends Template {
 	public function register( $query_result, $query, $template_type ) {
 		$template = $this->register_template();
 
-		if ( empty( $template ) || ! is_single() || in_array( 'embed-post', $query['slug__in'] ) ) {
+		if ( empty( $template ) || ! is_single() || in_array( 'embed-post', $query['slug__in'], true ) ) {
 			return $query_result;
 		}
 
@@ -74,6 +74,7 @@ class Post_Single extends Template {
 			'post_excerpt' => $post_excerpt,
 			'post_type'    => 'wp_template',
 			'post_status'  => 'publish',
+			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- reading a template shipped inside this plugin, not a remote or user-supplied file.
 			'post_content' => file_get_contents( UCSC_DIR . '/src/views/templates/post-single.html' ),
 			'tax_input'    => [
 				'wp_theme' => $this->get_namespace(),

@@ -21,7 +21,7 @@ if ( ! function_exists( 'ucsc_custom_functionality_google_search' ) ) {
 
 		// Configuration params to be added to the output string.
 		$script_source = 'https://cse.google.com/cse.js?cx=012090462228956765947:d0ywvq7bxee';
-		$site_url      = parse_url( get_site_url(), PHP_URL_HOST );
+		$site_url      = wp_parse_url( get_site_url(), PHP_URL_HOST );
 
 		// phpcs:disable WordPress.WP.CapitalPDangit -- lowercase hostname fragments matched case-sensitively, not the product name.
 		/**
@@ -37,6 +37,7 @@ if ( ! function_exists( 'ucsc_custom_functionality_google_search' ) ) {
 		// phpcs:enable WordPress.WP.CapitalPDangit
 
 		// Return the configured string for Google Search results to display on the page.
+		// phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript -- Google's CSE embed must load inline at the shortcode's position.
 		return sprintf( '<script async src="%s"></script><div class="gcse-searchresults-only" data-queryParameterName="s" data-as_sitesearch="%s"></div>', $script_source, $search_url );
 	}
 }

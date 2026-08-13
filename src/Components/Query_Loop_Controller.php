@@ -97,11 +97,11 @@ abstract class Query_Loop_Controller {
 	public function get_items(): array {
 		$query_type = $this->query_loop[ Query_Loop::QUERY_TYPE ] ?? Query_Loop::LATEST;
 
-		if ( empty( $query_type ) || $query_type === Query_Loop::LATEST ) {
+		if ( empty( $query_type ) || Query_Loop::LATEST === $query_type ) {
 			return $this->get_latest_query_items();
 		}
 
-		if ( $query_type === Query_Loop::AUTOMATIC ) {
+		if ( Query_Loop::AUTOMATIC === $query_type ) {
 			return $this->get_automatic_query_items();
 		}
 
