@@ -1,10 +1,24 @@
-<?php declare(strict_types=1);
+<?php
+/**
+ * Press Inquiries block view.
+ *
+ * Rendered by Core::render_template(). Although the block is registered
+ * from build/views/, that path is rewritten back to src/views/ before the
+ * template is included — so edits here take effect without a rebuild, and
+ * the copy webpack emits into build/ is never executed.
+ *
+ * @package ucsc
+ */
+
+declare(strict_types=1);
 
 use UCSC\Blocks\Blocks\Press_Inquiries_Block;
 use UCSC\Blocks\Components\Press_Inquiries_Controller;
 
 /**
- * @var array $block current block attributes
+ * The block instance supplied by the render callback.
+ *
+ * @var array $block Current block attributes.
  */
 $c           = new Press_Inquiries_Controller( $block );
 $contacts    = $c->get_press_contacts();

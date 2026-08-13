@@ -1,4 +1,16 @@
-<?php declare(strict_types=1);
+<?php
+/**
+ * Photo of the Week archive loop view.
+ *
+ * Rendered by Core::render_template(). Although the block is registered
+ * from build/views/, that path is rewritten back to src/views/ before the
+ * template is included — so edits here take effect without a rebuild, and
+ * the copy webpack emits into build/ is never executed.
+ *
+ * @package ucsc
+ */
+
+declare(strict_types=1);
 
 use UCSC\Blocks\Components\Photo_Of_The_Week_Archive_Controller;
 use UCSC\Blocks\Object_Meta\Photo_Of_The_Week_Meta;
