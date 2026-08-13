@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /**
  * Plugin Name: UCSC Custom Functionality
  * Plugin URI:  https://github.com/ucsc/ucsc-custom-functionality.git
@@ -8,8 +8,14 @@
  * Author URI:  https://github.com/ucsc
  * License:     GPL2
  *
- * @package ucsc-custom-functionality
+ * Entry point. Defines the plugin constants, includes the procedural
+ * lib/functions/ features, and boots the namespaced src/ layer through
+ * Core once ACF PRO is confirmed present.
+ *
+ * @package ucsc
  */
+
+declare(strict_types=1);
 
 // Set plugin directory.
 define( 'UCSC_DIR', __DIR__ );
@@ -53,6 +59,9 @@ if ( ! function_exists( 'ucsc_enqueue_admin_styles' ) ) {
 	 * @author UCSC
 	 *
 	 * @link https://developer.wordpress.org/reference/hooks/admin_enqueue_scripts/#Example:_Load_CSS_File_from_a_plugin_on_specific_Admin_Page
+	 *
+	 * @param string $hook The current admin page hook suffix. Unused; the screen
+	 *                     is resolved through get_current_screen() instead.
 	 */
 	function ucsc_enqueue_admin_styles( $hook ): void {
 		$settings_css   = plugin_dir_url( __FILE__ ) . 'lib/css/admin-settings.css';

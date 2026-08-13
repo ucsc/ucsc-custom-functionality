@@ -19,7 +19,7 @@ if ( ! function_exists( 'ucsc_custom_functionality_google_search' ) ) {
 	 */
 	function ucsc_custom_functionality_google_search() {
 
-		// Configuration params to be added to the output string
+		// Configuration params to be added to the output string.
 		$script_source = 'https://cse.google.com/cse.js?cx=012090462228956765947:d0ywvq7bxee';
 		$site_url      = parse_url( get_site_url(), PHP_URL_HOST );
 
@@ -36,7 +36,7 @@ if ( ! function_exists( 'ucsc_custom_functionality_google_search' ) ) {
 		}
 		// phpcs:enable WordPress.WP.CapitalPDangit
 
-		// Return the configured string for Google Search results to display on the page
+		// Return the configured string for Google Search results to display on the page.
 		return sprintf( '<script async src="%s"></script><div class="gcse-searchresults-only" data-queryParameterName="s" data-as_sitesearch="%s"></div>', $script_source, $search_url );
 	}
 }

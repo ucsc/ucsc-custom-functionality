@@ -1,13 +1,40 @@
-<?php declare(strict_types=1);
+<?php
+/**
+ * Photo of the Week post type.
+ *
+ * @package ucsc
+ */
+
+declare(strict_types=1);
 
 namespace UCSC\Blocks\Post_Types\Photo_Of_The_Week;
 
 use UCSC\Blocks\Post_Types\Post_Types;
 
+/**
+ * The Photo of the Week custom post type. News sites only.
+ *
+ * Individual photos have no standalone page — Query_Subscriber redirects
+ * single views to the archive — so the type exists to populate the archive
+ * template and the Photos of the Week block.
+ */
 class Photo_Of_The_Week extends Post_Types {
 
+	/**
+	 * The post type slug.
+	 *
+	 * @var string
+	 */
 	public const NAME = 'photo_of_the_week';
 
+	/**
+	 * Arguments passed to register_post_type().
+	 *
+	 * Registers an archive under the 'photo-of-the-week' rewrite slug and
+	 * supports only a title; the photograph and credit come from ACF meta.
+	 *
+	 * @return array
+	 */
 	public function get_args(): array {
 		return [
 			'labels'          => $this->get_labels(),
@@ -27,6 +54,11 @@ class Photo_Of_The_Week extends Post_Types {
 		];
 	}
 
+	/**
+	 * Admin-facing labels for the post type.
+	 *
+	 * @return array
+	 */
 	protected function get_labels(): array {
 		return [
 			'name'         => esc_html__( 'Photo of the Week', 'ucsc' ),
