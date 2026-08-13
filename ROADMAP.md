@@ -4,7 +4,7 @@ Audit of `ucsc-custom-functionality` @ 2.0.6. Ordered by severity. Items marked 
 
 Every item is tracked by a GitHub issue in the **Issue** column. Several issues cover more than one item where the fixes belong in a single PR.
 
-**Status: 6 of 27 items resolved.** The **Status** column reflects the code on `main`, not whether the tracking issue is closed — an issue covering several items stays open until all of them land. Items found *after* the audit are listed under [Found since the audit](#found-since-the-audit).
+**Status: 7 of 27 items resolved.** The **Status** column reflects the code on `main`, not whether the tracking issue is closed — an issue covering several items stays open until all of them land. Items found *after* the audit are listed under [Found since the audit](#found-since-the-audit).
 
 ## P0 — Broken now
 
@@ -26,7 +26,7 @@ Every item is tracked by a GitHub issue in the **Issue** column. Several issues 
 | 9 | Unguarded index `$this->query_loop[ MANUAL_CARDS ]` in manual query mode. | [Query_Loop_Controller.php](src/Components/Query_Loop_Controller.php) | [#104](https://github.com/ucsc/ucsc-custom-functionality/issues/104) | Open |
 | 10 | **Yoast integration is a no-op loop.** Iterates `PRIMARY_TAX_SUPPORT` (5 taxonomies) but `$tax` is never used — only `academics` is ever registered. **verified** | [Integrations_Subscriber.php:17-26](src/Integrations/Integrations_Subscriber.php#L17-L26) | [#105](https://github.com/ucsc/ucsc-custom-functionality/issues/105) | Open |
 | 11 | `esc_html__( '', 'ucsc' )` — translating the empty string returns the PO file's metadata header, not `''`. **verified** | [Query_Loop.php:102](src/Blocks/Query_Loop.php#L102) | [#106](https://github.com/ucsc/ucsc-custom-functionality/issues/106) | ✅ Done |
-| 12 | **Duplicate script handle.** `Assets_Enqueuer` loops every registered UCSC block but enqueues each script under the same constant handle (`index`); only the first block's JS loads. Styles are correctly suffixed per block. **verified** | [Assets_Enqueuer.php](src/Assets/Assets_Enqueuer.php) | [#102](https://github.com/ucsc/ucsc-custom-functionality/issues/102) | Open |
+| 12 | **Duplicate script handle.** `Assets_Enqueuer` loops every registered UCSC block but enqueues each script under the same constant handle (`index`); only the first block's JS loads. Styles are correctly suffixed per block. **verified** | [Assets_Enqueuer.php](src/Assets/Assets_Enqueuer.php) | [#102](https://github.com/ucsc/ucsc-custom-functionality/issues/102) | ✅ Done |
 | 13 | `(int) get_field('posts_per_page') ?? self::PER_PAGE` — `??` is dead (a cast never yields null). Missing field → `0` → `array_slice(…, 0, 0)` → empty block. Affects blocks inserted before the field existed. | [News_Block_Controller.php:42](src/Components/News_Block_Controller.php#L42) | [#106](https://github.com/ucsc/ucsc-custom-functionality/issues/106) | Open |
 
 ## P2 — Performance & lifecycle
