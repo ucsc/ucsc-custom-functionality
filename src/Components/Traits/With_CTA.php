@@ -24,6 +24,8 @@ trait With_CTA {
 	 * title or the URL is missing, so a partially filled field renders nothing
 	 * rather than a broken link.
 	 *
+	 * The returned markup is fully escaped, so callers may echo it directly.
+	 *
 	 * @param array $classes Classes to apply to the anchor.
 	 *
 	 * @return string The anchor markup, or an empty string.
@@ -33,8 +35,14 @@ trait With_CTA {
 			return '';
 		}
 
-		$classes = ! empty( $classes ) ? sprintf( 'class="%s"', implode( ' ', $classes ) ) : '';
+		$classes = ! empty( $classes ) ? sprintf( 'class="%s"', esc_attr( implode( ' ', $classes ) ) ) : '';
 
-		return sprintf( '<a href="%s"%s target="%s">%s</a>', $this->cta['url'], $classes, $this->cta['target'] ?: '_self', $this->cta['title'] );
+		return sprintf(
+			'<a href="%s"%s target="%s">%s</a>',
+			esc_url( $this->cta['url'] ),
+			$classes,
+			esc_attr( ! empty( $this->cta['target'] ) ? $this->cta['target'] : '_self' ),
+			esc_html( $this->cta['title'] )
+		);
 	}
 }

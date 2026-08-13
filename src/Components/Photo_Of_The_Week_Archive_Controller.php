@@ -62,6 +62,8 @@ class Photo_Of_The_Week_Archive_Controller {
 	/**
 	 * The current photo as responsive markup, or an empty string.
 	 *
+	 * The returned markup is fully escaped, so callers may echo it directly.
+	 *
 	 * @return string
 	 */
 	public function render_image(): string {
@@ -83,9 +85,9 @@ class Photo_Of_The_Week_Archive_Controller {
 
 		return sprintf(
 			'<img src="%s" srcset="%s" alt="%s" class="photo-of-the-week__image" />',
-			$image['url'],
-			$this->build_srcset( $image_data ),
-			get_the_title( get_the_ID() )
+			esc_url( $image['url'] ),
+			esc_attr( $this->build_srcset( $image_data ) ),
+			esc_attr( get_the_title( get_the_ID() ) )
 		);
 	}
 

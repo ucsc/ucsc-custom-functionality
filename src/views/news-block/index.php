@@ -38,17 +38,17 @@ if ( empty( $items ) ) {
 	<?php if ( ! empty( $c->get_title() ) || ! empty( $c->get_description() ) ) : ?>
 		<div class="ucsc-news-block__header<?php echo esc_attr( $c->get_alignment() ); ?>">
 			<?php if ( ! empty( $c->get_title() ) ) : ?>
-				<h2 class="ucsc-news-block__header-title"><?php echo $c->get_title(); ?></h2>
+				<h2 class="ucsc-news-block__header-title"><?php echo esc_html( $c->get_title() ); ?></h2>
 			<?php endif; ?>
 
 			<?php if ( ! empty( $c->get_description() ) ) : ?>
-				<div class="ucsc-news-block__header-description"><?php echo $c->get_description(); ?></div>
+				<div class="ucsc-news-block__header-description"><?php echo wp_kses_post( $c->get_description() ); ?></div>
 			<?php endif; ?>
 		</div>
 	<?php endif; ?>
 
 	<?php if ( count( $items ) < 1 ) { ?>
-		<p><?php echo _e( 'No articles found', 'ucsc' ); ?></p>
+		<p><?php esc_html_e( 'No articles found', 'ucsc' ); ?></p>
 	<?php } else { ?>
 		<div class="ucsc-news-block__cards-wrapper">
 		<?php foreach ( $items as $item ) : ?>
@@ -76,7 +76,7 @@ if ( empty( $items ) ) {
 	
 				<?php if ( ! empty( $item['excerpt'] ) ) : ?>
 					<div class="ucsc-news-block__card-excerpt">
-						<?php echo $item['excerpt']; ?>
+						<?php echo wp_kses_post( $item['excerpt'] ); ?>
 					</div>
 				<?php endif; ?>
 
@@ -94,7 +94,7 @@ if ( empty( $items ) ) {
 			
 						<?php if ( ! empty( $item['authors'] ) ) : ?>
 							<span class="ucsc-news-block__card-authors">
-								<?php echo count( $item['authors'] ) > 1 ? esc_html__( 'By', 'ucsc' ) . ' ' . implode( ' and ', $item['authors'] ) : reset( $item['authors'] ); ?>
+								<?php echo count( $item['authors'] ) > 1 ? esc_html__( 'By', 'ucsc' ) . ' ' . esc_html( implode( ' and ', $item['authors'] ) ) : esc_html( reset( $item['authors'] ) ); ?>
 							</span>
 						<?php endif; ?>
 	
