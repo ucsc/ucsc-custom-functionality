@@ -3,12 +3,12 @@
     "description": "UCSC Custom Functionality WordPress Plugin",
     "license": "GPL-2.0-or-later",
     "require-dev": {
-        "wp-coding-standards/wpcs": "^2.2",
-        "dealerdirect/phpcodesniffer-composer-installer": "^0.7.2"
+        "wp-coding-standards/wpcs": "^3.1",
+        "dealerdirect/phpcodesniffer-composer-installer": "^1.0"
     },
     "scripts": {
         "lint": "./vendor/bin/phpcs",
-        "lint-fix": "./vendor/bin/phpcbf --extensions=php ."
+        "lint-fix": "./vendor/bin/phpcbf"
     },
     "config": {
         "allow-plugins": {

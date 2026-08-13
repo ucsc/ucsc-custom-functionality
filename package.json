@@ -5,9 +5,12 @@
     "scripts": {
         "build": "wp-scripts build",
         "dev": "wp-scripts start",
-        "lint:css": "wp-scripts lint-style 'src/**/*.scss' --fix",
-        "lint:js": "wp-scripts lint-js 'src/**/*.js' --fix",
-        "lint": "npm run lint:css lint:js",
+        "lint:css": "wp-scripts lint-style 'src/**/*.scss'",
+        "lint:js": "wp-scripts lint-js 'src/**/*.js'",
+        "lint:css:fix": "wp-scripts lint-style 'src/**/*.scss' --fix",
+        "lint:js:fix": "wp-scripts lint-js 'src/**/*.js' --fix",
+        "lint": "npm run lint:css && npm run lint:js",
+        "lint:fix": "npm run lint:css:fix && npm run lint:js:fix",
         "release": "commit-and-tag-version",
         "zip": "wp-scripts plugin-zip",
         "packages-update": "wp-scripts packages-update"
