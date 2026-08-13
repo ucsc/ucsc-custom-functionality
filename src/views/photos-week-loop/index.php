@@ -25,12 +25,12 @@ $image = $c->get_image();
 		<?php if ( $posts->have_posts() ) : ?>
 			<?php while ( $posts->have_posts() ) : ?>
 				<?php $posts->the_post(); ?>
-			<figure class="wp-block-post post-<?php echo get_the_ID(); ?> photo-of-the-week type-photo_of_the_week status-publish hentry">
-				<?php echo $c->render_image(); ?>
+			<figure class="wp-block-post post-<?php echo esc_attr( (string) get_the_ID() ); ?> photo-of-the-week type-photo_of_the_week status-publish hentry">
+				<?php echo $c->render_image(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped markup built by Photo_Of_The_Week_Archive_Controller::render_image(). ?>
 				<figcaption>
 					<div class="photo-of-the-week__caption">
 						<h2 class="photo-of-the-week__title has-ucsc-primary-blue-color has-two-font-size">
-							<?php echo get_the_title(); ?>
+							<?php echo esc_html( get_the_title() ); ?>
 						</h2>
 						<?php $author = get_field( Photo_Of_The_Week_Meta::PHOTOGRAPHER, get_the_ID() ); ?>
 						<?php if ( ! empty( $author ) ) : ?>
@@ -39,11 +39,11 @@ $image = $c->get_image();
 								<path d="M2.5.5h4M9.5 12.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
 								<path d="M14.5 15.5h-13a1 1 0 0 1-1-1v-10a1 1 0 0 1 1-1h13a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1Z"/>
 							</svg>
-							<?php echo $author; ?>
+							<?php echo esc_html( $author ); ?>
 						</p>
 						<?php endif; ?>
 					</div>
-					<a class="photo-of-the-week__download-link" href="<?php echo $image['url'] ?? '#'; ?>" target="_blank">
+					<a class="photo-of-the-week__download-link" href="<?php echo esc_url( $image['url'] ?? '#' ); ?>" target="_blank">
 						<svg width="16" height="16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
 							<path d="M8 .5v11M3.5 7 8 11.5 12.5 7M.5 15.5h15" />
 						</svg>
@@ -61,7 +61,7 @@ $image = $c->get_image();
 					</span>
 				<?php endif; ?>
 				
-				<?php echo $c->get_pagination( $posts, $paged ); ?>
+				<?php echo $c->get_pagination( $posts, $paged ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- markup from paginate_links(). ?>
 
 				<?php if ( $paged === $posts->max_num_pages ) : ?>
 					<span class="page-numbers next">

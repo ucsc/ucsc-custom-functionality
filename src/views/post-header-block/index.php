@@ -24,10 +24,10 @@ $primary_term = $c->get_primary_category();
 $image        = $c->get_image();
 ?>
 
-<section <?php echo $c->get_attributes(); ?>>
+<section <?php echo $c->get_attributes(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped by Abstract_Controller::get_attributes(). ?>>
 	<div class="ucsc-post-header-block__container alignfull is-layout-constrained has-global-padding has-ucsc-primary-blue-background-color has-white-color">
 		<nav class="ucsc-post-header-block__breadcrumb">
-			<a href="<?php echo get_bloginfo( 'url' ); ?>">
+			<a href="<?php echo esc_url( get_bloginfo( 'url' ) ); ?>">
 				<svg xmlns="http://www.w3.org/2000/svg" width="12" height="13" viewBox="0 0 12 13" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round">
 					<path d="M6 0.875L1.125 6.125V12.125H4.875V9.125H7.125V12.125H10.875V6.125L6 0.875Z" />
 				</svg>
@@ -49,27 +49,27 @@ $image        = $c->get_image();
 			<hgroup>
 				<?php if ( ! empty( $primary_term ) ) : ?>
 					<p class="ucsc-post-header-block__eyebrow has-one-font-size has-ucsc-primary-yellow-color">
-						<?php echo $primary_term; ?>
+						<?php echo esc_html( $primary_term ); ?>
 					</p>
 				<?php endif; ?>
 				<h1 class="ucsc-post-header-block__title has-seven-font-size">
-					<?php echo get_the_title( get_the_ID() ); ?>
+					<?php echo esc_html( get_the_title( get_the_ID() ) ); ?>
 				</h1>
 			</hgroup>
 
 			<div class="ucsc-post-header-block__excerpt has-one-font-size">
 				<p>
-					<?php echo get_the_excerpt( get_the_ID() ); ?>
+					<?php echo wp_kses_post( get_the_excerpt( get_the_ID() ) ); ?>
 				</p>
 			</div>
 
 			<div class="ucsc-post-header-block__meta">
-				<time datetime="<?php echo get_the_date( 'Y-m-d', get_the_ID() ); ?>">
-					<?php echo get_the_date( 'F j, Y', get_the_ID() ); ?>
+				<time datetime="<?php echo esc_attr( get_the_date( 'Y-m-d', get_the_ID() ) ); ?>">
+					<?php echo esc_html( get_the_date( 'F j, Y', get_the_ID() ) ); ?>
 				</time>
 				<span role="separator"></span>
 				<p class="ucsc-post-header-block__authors">
-					<?php echo do_blocks( '<!-- wp:post-author-name /-->' ); ?>
+					<?php echo do_blocks( '<!-- wp:post-author-name /-->' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- core block output. ?>
 				</p>
 			</div>
 		</header>
@@ -79,7 +79,7 @@ $image        = $c->get_image();
 			<div class="ucsc-post-header-block__image-container">
 				<div class="alignfull is-layout-constrained has-global-padding">
 					<div>
-						<?php echo $image['image']; ?>
+						<?php echo $image['image']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- markup from get_the_post_thumbnail(). ?>
 					</div>
 				</div>
 			</div>

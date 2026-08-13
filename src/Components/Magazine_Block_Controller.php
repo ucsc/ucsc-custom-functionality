@@ -143,6 +143,10 @@ class Magazine_Block_Controller {
 	 *
 	 * Returns nothing unless both a title and a URL were entered.
 	 *
+	 * Values are returned raw; the view escapes them for its context. Escaping
+	 * here as well would double-encode entities, so a title like
+	 * "Arts & Sciences" would render as "Arts &amp; Sciences".
+	 *
 	 * @param array $magazine The item.
 	 *
 	 * @return array
@@ -153,14 +157,16 @@ class Magazine_Block_Controller {
 		}
 
 		return [
-			'title'  => esc_html( $magazine[ Magazine_Block::ITEM_CTA_FIELD ]['title'] ),
-			'url'    => esc_url( $magazine[ Magazine_Block::ITEM_CTA_FIELD ]['url'] ),
-			'target' => esc_attr( $magazine[ Magazine_Block::ITEM_CTA_FIELD ]['target'] ?: '_self' ),
+			'title'  => $magazine[ Magazine_Block::ITEM_CTA_FIELD ]['title'],
+			'url'    => $magazine[ Magazine_Block::ITEM_CTA_FIELD ]['url'],
+			'target' => ! empty( $magazine[ Magazine_Block::ITEM_CTA_FIELD ]['target'] ) ? $magazine[ Magazine_Block::ITEM_CTA_FIELD ]['target'] : '_self',
 		];
 	}
 
 	/**
 	 * An item's image as responsive markup, or an empty string.
+	 *
+	 * The returned markup is fully escaped, so callers may echo it directly.
 	 *
 	 * @param array $magazine The item.
 	 *
@@ -176,21 +182,20 @@ class Magazine_Block_Controller {
 		$image_url  = wp_get_attachment_url( $image_id );
 
 		return sprintf(
-			'<img 
-				src="%s" 
-				srcset="%s" 
-				class="" 
-			/>',
-			$image_url,
-			$this->build_srcset(
-				array_merge(
-					[
-						'id'  => $image_id,
-						'url' => $image_url,
-					],
-					$image_meta
+			'<img src="%s" srcset="%s" alt="%s" />',
+			esc_url( $image_url ),
+			esc_attr(
+				$this->build_srcset(
+					array_merge(
+						[
+							'id'  => $image_id,
+							'url' => $image_url,
+						],
+						$image_meta
+					)
 				)
-			)
+			),
+			esc_attr( (string) get_post_meta( $image_id, '_wp_attachment_image_alt', true ) )
 		);
 	}
 

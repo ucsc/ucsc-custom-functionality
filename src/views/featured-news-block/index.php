@@ -45,33 +45,33 @@ if ( empty( $items ) && is_admin() ) {
 						<?php $image_alt = get_post_meta( $item['image']['id'], '_wp_attachment_image_alt', true ); ?>
 						<img 
 							src="<?php echo esc_url( $item['image']['url'] ); ?>" 
-							srcset="<?php echo $c->build_srcset( $item['image'] ); ?>" 
+							srcset="<?php echo esc_attr( $c->build_srcset( $item['image'] ) ); ?>" 
 							class="ucsc-featured-news-block__featured-image"
-							alt="<?php echo ! empty( $image_alt ) ? esc_attr( get_post_meta( $item['image']['id'], '_wp_attachment_image_alt' )[0] ) : $item['title']; ?>"
+							alt="<?php echo esc_attr( ! empty( $image_alt ) ? $image_alt : $item['title'] ); ?>"
 						/>
 					</div>
 				<?php endif; ?>
 				<?php if ( ! empty( $item['category'] ) ) : ?>
 					<span class="ucsc-featured-news-block__category">
-						<?php echo $item['category']->name; ?>
+						<?php echo esc_html( $item['category']->name ); ?>
 					</span>
 				<?php endif; ?>
 	
 				<h2 class="ucsc-featured-news-block__card-title">
 					<span class="ucsc-featured-news-block__card-title--inner">
-						<?php echo $item['title']; ?>
+						<?php echo esc_html( $item['title'] ); ?>
 					</span>
 				</h2>
 	
 				<?php if ( $key === 0 && ! empty( $item['excerpt'] ) ) : ?>
-					<p class="ucsc-featured-news-block__card-excerpt"><?php echo $item['excerpt']; ?></p>
+					<p class="ucsc-featured-news-block__card-excerpt"><?php echo wp_kses_post( $item['excerpt'] ); ?></p>
 				<?php endif; ?>
 			</a>
 		<?php endforeach; ?>
 		
 		<?php if ( $c->get_cta() ) : ?>
 			<div class="ucsc-featured-news-block__cta is-style-ucsc-blue">
-				<?php echo $c->get_cta( [ 'wp-element-button' ] ); ?>
+				<?php echo $c->get_cta( [ 'wp-element-button' ] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped by With_CTA::get_cta(). ?>
 			</div>
 		<?php endif; ?>
 	</div>

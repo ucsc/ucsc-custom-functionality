@@ -40,7 +40,7 @@ if ( empty( $items ) ) {
 }
 
 ?>
-<aside <?php echo $c->get_attributes(); ?>>
+<aside <?php echo $c->get_attributes(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped by Abstract_Controller::get_attributes(). ?>>
 	<h2 class="ucsc-related-stories-block__title has-ucsc-primary-blue-color has-five-font-size">
 		<?php echo esc_html__( 'Related Stories', 'ucsc' ); ?>
 	</h2>
@@ -53,9 +53,9 @@ if ( empty( $items ) ) {
 					<?php $image_alt = get_post_meta( $item['image']['id'], '_wp_attachment_image_alt', true ); ?>
 					<img 
 						src="<?php echo esc_url( $item['image']['url'] ); ?>" 
-						srcset="<?php echo $c->build_srcset( $item['image'] ); ?>" 
+						srcset="<?php echo esc_attr( $c->build_srcset( $item['image'] ) ); ?>" 
 						class="ucsc-related-stories-block__featured-image"
-						alt="<?php echo ! empty( $image_alt ) ? esc_attr( get_post_meta( $item['image']['id'], '_wp_attachment_image_alt' )[0] ) : $item['title']; ?>"
+						alt="<?php echo esc_attr( ! empty( $image_alt ) ? $image_alt : $item['title'] ); ?>"
 					/>
 				</div>
 				<?php endif; ?>
@@ -63,7 +63,7 @@ if ( empty( $items ) ) {
 				<hgroup>
 					<?php if ( ! empty( $item['category'] ) ) : ?>
 					<p class="ucsc-related-stories-block__card-category">
-						<?php echo $item['category']->name; ?>
+						<?php echo esc_html( $item['category']->name ); ?>
 					</p>
 					<?php endif; ?>
 
