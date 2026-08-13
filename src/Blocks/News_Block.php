@@ -152,7 +152,7 @@ class News_Block extends ACF_Group {
 	 * Field group title.
 	 *
 	 * Note: reads "Modal Block", which looks like a copy-paste leftover
-	 * rather than a description of this block.
+	 * rather than a description of this block. Tracked in #122.
 	 *
 	 * @return string
 	 */

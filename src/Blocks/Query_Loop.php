@@ -181,7 +181,7 @@ abstract class Query_Loop extends ACF_Group implements Taxonomies {
 	 * The mode selector. Defaults to latest.
 	 *
 	 * Note: the method name is misspelled ("filed"); left as-is to avoid an
-	 * unrelated rename in a documentation change.
+	 * unrelated rename in a documentation change. Tracked in #123.
 	 *
 	 * @return array
 	 */
