@@ -21,6 +21,10 @@ declare(strict_types=1);
 define( 'UCSC_DIR', __DIR__ );
 define( 'UCSC_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
+// Read the version from this file's own header, so it always matches the
+// value the release tooling bumps and cannot drift out of sync.
+define( 'UCSC_VERSION', get_file_data( __FILE__, array( 'Version' => 'Version' ) )['Version'] );
+
 // Include Customization files.
 
 if ( file_exists( UCSC_DIR . '/vendor/autoload.php' ) ) {
@@ -63,7 +67,7 @@ if ( ! function_exists( 'ucsc_enqueue_admin_styles' ) ) {
 	 * @param string $hook The current admin page hook suffix. Unused; the screen
 	 *                     is resolved through get_current_screen() instead.
 	 */
-	function ucsc_enqueue_admin_styles( $hook ): void {
+	function ucsc_enqueue_admin_styles( $hook ): void { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter -- signature fixed by the admin_enqueue_scripts contract.
 		$settings_css   = plugin_dir_url( __FILE__ ) . 'lib/css/admin-settings.css';
 		$current_screen = get_current_screen();
 		// Check if it's "?page=ucsc-custom-functionality-settings." If not, just empty return.
@@ -72,7 +76,7 @@ if ( ! function_exists( 'ucsc_enqueue_admin_styles' ) ) {
 		}
 
 		// Load css.
-		wp_register_style( 'ucsc-cf-admin-settings', $settings_css, );
+		wp_register_style( 'ucsc-cf-admin-settings', $settings_css, array(), UCSC_VERSION );
 		wp_enqueue_style( 'ucsc-cf-admin-settings' );
 	}
 }

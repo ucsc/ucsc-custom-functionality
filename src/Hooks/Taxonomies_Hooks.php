@@ -83,7 +83,7 @@ class Taxonomies_Hooks {
 		 * @var \WP_Taxonomy[] $taxonomies
 		 */
 		foreach ( $taxonomies as $key => $taxonomy ) {
-			if ( in_array( $key, self::RESTRICTED_TAXONOMIES ) ) {
+			if ( in_array( $key, self::RESTRICTED_TAXONOMIES, true ) ) {
 				continue;
 			}
 

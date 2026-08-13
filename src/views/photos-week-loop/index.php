@@ -55,7 +55,7 @@ $image = $c->get_image();
 	
 			<!-- Pagination -->
 			<nav class="ucsc-pagination wp-block-query-pagination is-content-justification-center is-layout-flex wp-container-core-query-pagination-is-layout-1 wp-block-query-pagination-is-layout-flex">
-				<?php if ( $paged === 1 ) : ?>
+				<?php if ( 1 === $paged ) : ?>
 					<span class="page-numbers prev">
 						<?php echo esc_html__( 'Previous', 'ucsc' ); ?>
 					</span>

@@ -213,7 +213,7 @@ abstract class Query_Loop extends ACF_Group implements Taxonomies {
 		return [
 			'key'               => $this->get_field_key( self::AUTOMATIC_GROUP, $this->block_name ),
 			'type'              => 'group',
-			'label'             => esc_html__( '', 'ucsc' ),
+			'label'             => '',
 			'name'              => self::QUERY_LOOP,
 			'sub_fields'        => [
 				$this->get_taxonomies_list( $this->block_name ),

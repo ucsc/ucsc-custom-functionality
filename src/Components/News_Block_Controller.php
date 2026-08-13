@@ -192,7 +192,7 @@ class News_Block_Controller {
 	 * @return string
 	 */
 	public function get_alignment(): string {
-		return $this->layout !== News_Block::LAYOUT_CENTRE ? ' align-header-left' : '';
+		return News_Block::LAYOUT_CENTRE !== $this->layout ? ' align-header-left' : '';
 	}
 
 	/**

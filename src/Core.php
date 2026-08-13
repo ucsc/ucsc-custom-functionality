@@ -118,6 +118,7 @@ class Core {
 		$this->templates();
 	}
 
+	// phpcs:disable Generic.CodeAnalysis.UnusedFunctionParameter -- signature fixed by the block render_callback contract.
 	/**
 	 * Render an ACF block by including its view template.
 	 *
@@ -144,6 +145,7 @@ class Core {
 
 		include "$path/$template"; // phpcs:ignore WordPressVIPMinimum.Files.IncludingFile.NotAbsolutePath
 	}
+	// phpcs:enable Generic.CodeAnalysis.UnusedFunctionParameter
 
 	/**
 	 * Inject the custom block templates on news sites.
@@ -268,7 +270,7 @@ class Core {
 					'ucsc-news-block-scripts',
 					UCSC_PLUGIN_URL . '/assets/js/news-block.js',
 					[],
-					false,
+					UCSC_VERSION,
 					true
 				);
 				wp_enqueue_script( 'ucsc-news-block-scripts' );
@@ -281,7 +283,7 @@ class Core {
 					'ucsc-custom-block-scripts',
 					UCSC_PLUGIN_URL . '/assets/js/custom-blocks.js',
 					[],
-					false,
+					UCSC_VERSION,
 					true
 				);
 				wp_enqueue_script( 'ucsc-custom-block-scripts' );

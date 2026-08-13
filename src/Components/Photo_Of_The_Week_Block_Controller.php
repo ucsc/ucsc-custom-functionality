@@ -100,6 +100,7 @@ class Photo_Of_The_Week_Block_Controller {
 			return null;
 		}
 
+		$image      = '';
 		$image_data = $this->get_photo_image( $photo );
 
 		if ( ! empty( $image_data ) ) {
@@ -113,8 +114,8 @@ class Photo_Of_The_Week_Block_Controller {
 
 		return [
 			'id'       => $photo,
-			'image'    => $image ?: '',
-			'download' => $image_data['url'] ?: '',
+			'image'    => $image,
+			'download' => $image_data['url'] ?? '',
 			'title'    => get_the_title( $photo ),
 			'author'   => $this->get_photo_author( $photo ),
 		];

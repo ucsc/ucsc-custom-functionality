@@ -77,6 +77,23 @@
 		<exclude-pattern>/src/*</exclude-pattern>
 	</rule>
 
+	<!--
+	The block view templates in src/views/ are included from inside
+	Core::render_template(), so the variables they declare are method-local,
+	not global. phpcs analyses each file standalone and cannot see that, so it
+	reports every view variable as an unprefixed global and flags names like
+	$posts and $title as overriding WordPress globals. Neither is true here.
+
+	Both sniffs stay fully enforced everywhere else, including the rest of src/.
+	-->
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<exclude-pattern>/src/views/*</exclude-pattern>
+	</rule>
+
+	<rule ref="WordPress.WP.GlobalVariablesOverride">
+		<exclude-pattern>/src/views/*</exclude-pattern>
+	</rule>
+
 	<!-- Let's also check that everything is properly documented. -->
 	<rule ref="WordPress-Docs"/>
 

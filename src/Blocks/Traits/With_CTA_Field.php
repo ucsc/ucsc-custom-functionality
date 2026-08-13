@@ -29,7 +29,7 @@ trait With_CTA_Field {
 		return [
 			'label' => $label,
 			'type'  => 'link',
-			'name'  => $name ?: self::CTA,
+			'name'  => ! empty( $name ) ? $name : self::CTA,
 			'key'   => $this->get_field_key( $name, $group_name ),
 		];
 	}

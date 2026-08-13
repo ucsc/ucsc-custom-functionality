@@ -69,6 +69,7 @@ class Photo_Of_The_Week_Archive extends Template {
 			'post_excerpt' => $post_excerpt,
 			'post_type'    => 'wp_template',
 			'post_status'  => 'publish',
+			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- reading a template shipped inside this plugin, not a remote or user-supplied file.
 			'post_content' => file_get_contents( UCSC_DIR . '/src/views/templates/photo-of-the-week-archive.html' ),
 			'tax_input'    => [
 				'wp_theme' => $this->get_namespace(),
