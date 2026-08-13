@@ -1,9 +1,30 @@
-<?php declare(strict_types=1);
+<?php
+/**
+ * Shared taxonomy field definitions.
+ *
+ * @package ucsc
+ */
+
+declare(strict_types=1);
 
 namespace UCSC\Blocks\Blocks\Traits;
 
+/**
+ * Supplies the taxonomy and term picker fields for the Taxonomies contract.
+ *
+ * Both fields ship with empty choices: they are populated at edit time by the
+ * ACF load filters in src/Hooks/, which is why their names must match the
+ * contract's constants exactly.
+ */
 trait With_Taxonomies {
 
+	/**
+	 * The taxonomy selector field.
+	 *
+	 * @param string $name The owning group name, used to compose the field key.
+	 *
+	 * @return array
+	 */
 	public function get_taxonomies_list( string $name ): array {
 		return [
 			'key'           => $this->get_field_key( self::TAXONOMIES, $name ),
@@ -17,6 +38,16 @@ trait With_Taxonomies {
 		];
 	}
 
+	/**
+	 * The term selector field.
+	 *
+	 * AJAX-backed, so terms are searched remotely rather than rendered as a
+	 * full list up front.
+	 *
+	 * @param string $name The owning group name, used to compose the field key.
+	 *
+	 * @return array
+	 */
 	public function get_taxonomies_items( string $name ): array {
 		return [
 			'key'           => $this->get_field_key( self::TAX_ITEMS, $name ),

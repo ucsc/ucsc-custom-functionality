@@ -1,29 +1,127 @@
-<?php declare(strict_types=1);
+<?php
+/**
+ * News block field group.
+ *
+ * @package ucsc
+ */
+
+declare(strict_types=1);
 
 namespace UCSC\Blocks\Blocks;
 
+/**
+ * Field group for the News block.
+ *
+ * The only block registered on every site rather than news sites alone, and
+ * the only one whose posts come from a remote REST API instead of the local
+ * database. It therefore defines its own taxonomy fields rather than using the
+ * Taxonomies contract, because its choices are remote taxonomies.
+ */
 class News_Block extends ACF_Group {
 
+	/**
+	 * Field group name and key.
+	 *
+	 * @var string
+	 */
 	public const NAME = 'news_query_block';
 
-	public const TITLE         = 'news_title';
-	public const DESCRIPTION   = 'news_desc';
-	public const LAYOUT        = 'layout';
-	public const LAYOUT_LEFT   = 'layout_left';
+	/**
+	 * Heading field name.
+	 *
+	 * @var string
+	 */
+	public const TITLE = 'news_title';
+	/**
+	 * Description field name.
+	 *
+	 * @var string
+	 */
+	public const DESCRIPTION = 'news_desc';
+	/**
+	 * Header alignment field name.
+	 *
+	 * @var string
+	 */
+	public const LAYOUT = 'layout';
+	/**
+	 * Header alignment value: left.
+	 *
+	 * @var string
+	 */
+	public const LAYOUT_LEFT = 'layout_left';
+	/**
+	 * Header alignment value: centred. The default.
+	 *
+	 * @var string
+	 */
 	public const LAYOUT_CENTRE = 'layout_centre';
 
+	/**
+	 * "More news" link field name.
+	 *
+	 * @var string
+	 */
 	public const MORE_NEWS_LINK = 'more_news_link';
 
+	/**
+	 * Remote taxonomy selector field name.
+	 *
+	 * @var string
+	 */
 	public const TAXONOMIES = 'taxonomies';
-	public const TAX_ITEMS  = 'taxonomy_items';
+	/**
+	 * Remote term selector field name.
+	 *
+	 * @var string
+	 */
+	public const TAX_ITEMS = 'taxonomy_items';
 
-	public const HIDE_EXCERPT  = 'hide_excerpt';
-	public const HIDE_IMAGE    = 'hide_image';
-	public const HIDE_DATE     = 'hide_date';
-	public const HIDE_AUTHOR   = 'hide_author';
-	public const HIDE_TAGS     = 'hide_tags';
+	/**
+	 * Toggle field name: hide the excerpt.
+	 *
+	 * @var string
+	 */
+	public const HIDE_EXCERPT = 'hide_excerpt';
+	/**
+	 * Toggle field name: hide the featured image.
+	 *
+	 * @var string
+	 */
+	public const HIDE_IMAGE = 'hide_image';
+	/**
+	 * Toggle field name: hide the published date.
+	 *
+	 * @var string
+	 */
+	public const HIDE_DATE = 'hide_date';
+	/**
+	 * Toggle field name: hide the author.
+	 *
+	 * @var string
+	 */
+	public const HIDE_AUTHOR = 'hide_author';
+	/**
+	 * Toggle field name: hide tags.
+	 *
+	 * @var string
+	 */
+	public const HIDE_TAGS = 'hide_tags';
+	/**
+	 * Toggle field name: hide the category.
+	 *
+	 * @var string
+	 */
 	public const HIDE_CATEGORY = 'hide_category';
 
+	/**
+	 * Remote taxonomies an editor may query.
+	 *
+	 * Acts as the allow-list for the taxonomy dropdown, and is the list the
+	 * unsanitised AJAX handler should be validating against; see #103.
+	 *
+	 * @var string[]
+	 */
 	public const ALLOWED_TAX = [
 		'academics',
 		'administration',
@@ -33,6 +131,11 @@ class News_Block extends ACF_Group {
 		'post_tag',
 	];
 
+	/**
+	 * Attach the group to the News block.
+	 *
+	 * @return array
+	 */
 	protected function get_locations(): array {
 		return [
 			[
@@ -45,14 +148,32 @@ class News_Block extends ACF_Group {
 		];
 	}
 
+	/**
+	 * Field group title.
+	 *
+	 * Note: reads "Modal Block", which looks like a copy-paste leftover
+	 * rather than a description of this block. Tracked in #122.
+	 *
+	 * @return string
+	 */
 	protected function get_title(): string {
 		return esc_html__( 'Modal Block', 'ucsc' );
 	}
 
+	/**
+	 * Field group key.
+	 *
+	 * @return string
+	 */
 	protected function get_key(): string {
 		return self::NAME;
 	}
 
+	/**
+	 * The block's fields: content, query and display toggles.
+	 *
+	 * @return array
+	 */
 	protected function get_fields(): array {
 		$toggle_fields = [
 			self::HIDE_IMAGE    => esc_html__( 'Hide Featured Image', 'ucsc' ),
@@ -76,12 +197,17 @@ class News_Block extends ACF_Group {
 				$this->get_more_news_link_field(),
 				$this->get_taxonomies_list(),
 				$this->get_taxonomies_items(),
-				$this->get_posts_per_page_field(), // Add the dropdown field here
+				$this->get_posts_per_page_field(),
 			],
 			$fields
 		);
 	}
 
+	/**
+	 * Remote taxonomy selector. Choices are filled in by News_Blocks_Hooks.
+	 *
+	 * @return array
+	 */
 	private function get_taxonomies_list(): array {
 		return [
 			'key'           => $this->get_field_key( self::TAXONOMIES, self::NAME ),
@@ -95,6 +221,11 @@ class News_Block extends ACF_Group {
 		];
 	}
 
+	/**
+	 * Remote term selector. Multi-select, AJAX-backed.
+	 *
+	 * @return array
+	 */
 	private function get_taxonomies_items(): array {
 		return [
 			'key'           => $this->get_field_key( self::TAX_ITEMS, self::NAME ),
@@ -110,6 +241,14 @@ class News_Block extends ACF_Group {
 		];
 	}
 
+	/**
+	 * Build one display toggle.
+	 *
+	 * @param string $name  Field name.
+	 * @param string $label Editor-facing label.
+	 *
+	 * @return array
+	 */
 	private function get_toggle_field( string $name, string $label ): array {
 		return [
 			'key'           => $this->get_field_key( $name, self::NAME ),
@@ -121,6 +260,11 @@ class News_Block extends ACF_Group {
 		];
 	}
 
+	/**
+	 * Heading shown above the posts.
+	 *
+	 * @return array
+	 */
 	private function get_title_field(): array {
 		return [
 			'key'   => $this->get_field_key( self::TITLE, self::NAME ),
@@ -130,6 +274,11 @@ class News_Block extends ACF_Group {
 		];
 	}
 
+	/**
+	 * Header alignment, centred by default.
+	 *
+	 * @return array
+	 */
 	private function get_layout_field(): array {
 		return [
 			'key'           => $this->get_field_key( self::LAYOUT, self::NAME ),
@@ -145,6 +294,11 @@ class News_Block extends ACF_Group {
 		];
 	}
 
+	/**
+	 * Description shown beneath the heading.
+	 *
+	 * @return array
+	 */
 	private function get_desc_field(): array {
 		return [
 			'key'   => $this->get_field_key( self::DESCRIPTION, self::NAME ),
@@ -154,6 +308,11 @@ class News_Block extends ACF_Group {
 		];
 	}
 
+	/**
+	 * Optional link rendered after the posts.
+	 *
+	 * @return array
+	 */
 	private function get_more_news_link_field(): array {
 		return [
 			'key'   => $this->get_field_key( self::MORE_NEWS_LINK, self::NAME ),
@@ -163,6 +322,14 @@ class News_Block extends ACF_Group {
 		];
 	}
 
+	/**
+	 * How many posts to render.
+	 *
+	 * Blocks inserted before this field existed have no saved value; see #106
+	 * for the resulting empty-block behaviour.
+	 *
+	 * @return array
+	 */
 	private function get_posts_per_page_field(): array {
 		return [
 			'key'           => $this->get_field_key( 'posts_per_page', self::NAME ),
@@ -174,7 +341,7 @@ class News_Block extends ACF_Group {
 				6 => '6 Posts',
 				9 => '9 Posts',
 			],
-			'default_value' => 3, // Default to 3 posts
+			'default_value' => 3,
 			'ui'            => 1,
 			'return_format' => 'value',
 			'instructions'  => esc_html__( 'Select the number of posts to display in the block.', 'ucsc' ),
