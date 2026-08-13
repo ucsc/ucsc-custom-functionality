@@ -19,12 +19,12 @@ $title = $c->get_title();
 
 	<?php if ( ! empty( $items ) ) : ?>
 	<div class="ucsc-media-coverage-block__grid">
-		<?php foreach ( $items as $item ) :  ?>
-		<a class="ucsc-media-coverage-block__post" href="<?php echo $item['source_url'];?>"<?php echo ! $c->is_internal_url( $item['source_url'] ) ? ' target="_blank" rel="nofollow"' : '';?>>
+		<?php foreach ( $items as $item ) : ?>
+		<a class="ucsc-media-coverage-block__post" href="<?php echo $item['source_url']; ?>"<?php echo ! $c->is_internal_url( $item['source_url'] ) ? ' target="_blank" rel="nofollow"' : ''; ?>>
 			<?php if ( ! empty( $item['image'] ) && $item['image']['id'] > 0 ) : ?>
 			<img
-				src="<?php echo esc_url( $item['image']['url'] );?>"
-				srcset="<?php echo $c->build_srcset( $item['image'] );?>"
+				src="<?php echo esc_url( $item['image']['url'] ); ?>"
+				srcset="<?php echo $c->build_srcset( $item['image'] ); ?>"
 				class="ucsc-featured-block__card-image"
 			/>
 			<?php endif; ?>

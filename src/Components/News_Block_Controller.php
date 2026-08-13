@@ -7,10 +7,10 @@ use UCSC\Blocks\Request\News_Request;
 
 class News_Block_Controller {
 
-	public const POSTS    = 'news_posts';
-	public const PER_PAGE = 9;
-	private const CACHE_EXPIRY       = MINUTE_IN_SECONDS * 20;
-	private const DEFAULT_AUTHOR_ID  = 11;
+	public const POSTS              = 'news_posts';
+	public const PER_PAGE           = 9;
+	private const CACHE_EXPIRY      = MINUTE_IN_SECONDS * 20;
+	private const DEFAULT_AUTHOR_ID = 11;
 
 	protected array $block;
 	private string $taxonomy;
@@ -27,7 +27,7 @@ class News_Block_Controller {
 	private array|string $more_news_link;
 	private int $posts_per_page;
 
-	public function __construct($block) {
+	public function __construct( $block ) {
 		$this->block          = (array) $block;
 		$this->title          = get_field( News_Block::TITLE ) ?? '';
 		$this->description    = get_field( News_Block::DESCRIPTION ) ?? '';
@@ -51,7 +51,7 @@ class News_Block_Controller {
 	public function get_description(): string {
 		return $this->description;
 	}
-	
+
 	public function get_alignment(): string {
 		return $this->layout !== News_Block::LAYOUT_CENTRE ? ' align-header-left' : '';
 	}
@@ -68,7 +68,7 @@ class News_Block_Controller {
 		return $link;
 	}
 
-	public function build_srcset(array $sizes = []): string {
+	public function build_srcset( array $sizes = [] ): string {
 		if ( empty( $sizes ) ) {
 			return '';
 		}
@@ -82,46 +82,49 @@ class News_Block_Controller {
 	}
 
 	public function get_items(): array {
-		if (empty($this->taxonomy_ids) || empty($this->taxonomy)) {
+		if ( empty( $this->taxonomy_ids ) || empty( $this->taxonomy ) ) {
 			return [];
 		}
 
-		$response = get_transient($this->get_cache_key());
+		$response = get_transient( $this->get_cache_key() );
 
-		if (empty($response)) {
+		if ( empty( $response ) ) {
 			// Fetch data using the constant PER_PAGE for the API request
-			$response = (new News_Request())->request(News_Request::POSTS_ENDPOINT, [
-				'per_page'      => self::PER_PAGE, // Use the constant here
-				$this->taxonomy => implode(',', $this->taxonomy_ids),
-			]);
+			$response = ( new News_Request() )->request(
+				News_Request::POSTS_ENDPOINT,
+				[
+					'per_page'      => self::PER_PAGE, // Use the constant here
+					$this->taxonomy => implode( ',', $this->taxonomy_ids ),
+				]
+			);
 		}
 
-		if (empty($response)) {
+		if ( empty( $response ) ) {
 			return [];
 		}
 
 		$items = [];
 
-		foreach ($response as $item) {
+		foreach ( $response as $item ) {
 			$items[] = [
 				'title'        => $item['title']['rendered'] ?? '',
-				'excerpt'      => !$this->hide_excerpt ? $item['excerpt']['rendered'] ?? '' : '',
+				'excerpt'      => ! $this->hide_excerpt ? $item['excerpt']['rendered'] ?? '' : '',
 				'permalink'    => $item['link'] ?? '',
-				'image'        => !$this->hide_image ? $this->get_item_attachment($item) : [],
-				'raw_date'     => !$this->hide_date ? $item['date'] : '',
-				'publish_date' => !$this->hide_date ? wp_date(get_option('date_format', 'F j, Y'), strtotime($item['date'])) : '',
-				'authors'      => !$this->hide_author ? $this->get_authors($item) : '',
-				'tags'         => !$this->hide_tags ? $this->get_taxonomies($item, true) : [],
-				'categories'   => !$this->hide_category ? $this->get_taxonomies($item) : [],
+				'image'        => ! $this->hide_image ? $this->get_item_attachment( $item ) : [],
+				'raw_date'     => ! $this->hide_date ? $item['date'] : '',
+				'publish_date' => ! $this->hide_date ? wp_date( get_option( 'date_format', 'F j, Y' ), strtotime( $item['date'] ) ) : '',
+				'authors'      => ! $this->hide_author ? $this->get_authors( $item ) : '',
+				'tags'         => ! $this->hide_tags ? $this->get_taxonomies( $item, true ) : [],
+				'categories'   => ! $this->hide_category ? $this->get_taxonomies( $item ) : [],
 			];
 		}
 
-		set_transient($this->get_cache_key(), $response, self::CACHE_EXPIRY);
+		set_transient( $this->get_cache_key(), $response, self::CACHE_EXPIRY );
 
-		return array_slice($items, 0, $this->posts_per_page);
+		return array_slice( $items, 0, $this->posts_per_page );
 	}
 
-	protected function get_cache_key(string $prefix = ''): string {
+	protected function get_cache_key( string $prefix = '' ): string {
 		if ( ! empty( $prefix ) ) {
 			return sprintf( '%s_%s_%s', $prefix, self::POSTS, implode( '_', $this->taxonomy_ids ) );
 		}
@@ -129,7 +132,7 @@ class News_Block_Controller {
 		return sprintf( '%s_%s', self::POSTS, implode( '_', $this->taxonomy_ids ) );
 	}
 
-	protected function get_item_attachment(array $item): array {
+	protected function get_item_attachment( array $item ): array {
 		if ( ! isset( $item['featured_media'] ) || $item['featured_media'] <= 0 ) {
 			return [];
 		}
@@ -137,7 +140,7 @@ class News_Block_Controller {
 		$media = get_transient( $this->get_cache_key( 'attachment_' . $item['id'] ) );
 
 		if ( empty( $media ) ) {
-			$media = (new News_Request())->request( News_Request::ENDPOINT_BASE . 'media/' . $item['featured_media'] );
+			$media = ( new News_Request() )->request( News_Request::ENDPOINT_BASE . 'media/' . $item['featured_media'] );
 		}
 
 		if ( empty( $media ) ) {
@@ -156,14 +159,14 @@ class News_Block_Controller {
 		];
 	}
 
-	protected function get_authors(array $item): array {
+	protected function get_authors( array $item ): array {
 		if ( ! empty( $item['coauthors'] ) ) {
 			$authors = [];
 
 			foreach ( $item['coauthors'] as $author ) {
 				$user = get_transient( $this->get_cache_key( 'coauthor_' . $author ) );
 				if ( empty( $user ) ) {
-					$user = (new News_Request())->request( News_Request::ENDPOINT_BASE . 'coauthors/' . $author );
+					$user = ( new News_Request() )->request( News_Request::ENDPOINT_BASE . 'coauthors/' . $author );
 				}
 
 				if ( empty( $user ) ) {
@@ -179,7 +182,7 @@ class News_Block_Controller {
 
 		$user = get_transient( $this->get_cache_key( 'coauthor_' . self::DEFAULT_AUTHOR_ID ) );
 		if ( empty( $user ) ) {
-			$user = (new News_Request())->request( News_Request::ENDPOINT_BASE . 'coauthors/' . self::DEFAULT_AUTHOR_ID );
+			$user = ( new News_Request() )->request( News_Request::ENDPOINT_BASE . 'coauthors/' . self::DEFAULT_AUTHOR_ID );
 		}
 
 		if ( empty( $user ) ) {
@@ -191,23 +194,26 @@ class News_Block_Controller {
 		return [ $user['title']['rendered'] ?? $user['name'] ];
 	}
 
-	protected function get_taxonomies(array $item, bool $is_tag = false) {
+	protected function get_taxonomies( array $item, bool $is_tag = false ) {
 		$categories = [];
 
 		if ( empty( $item[ $this->taxonomy ] ) ) {
 			return [];
 		}
-		
+
 		$taxonomy = $is_tag ? 'tags' : $this->taxonomy;
 
 		$endpoint = News_Request::ENDPOINT_BASE . $taxonomy;
 
 		$items = get_transient( $this->get_cache_key( $taxonomy . '_' . $item['id'] ) );
 		if ( empty( $items ) ) {
-			$items = ( new News_Request() )->request($endpoint, [
-				'post'     => $item['id'],
-				'per_page' => 3,
-			] );
+			$items = ( new News_Request() )->request(
+				$endpoint,
+				[
+					'post'     => $item['id'],
+					'per_page' => 3,
+				]
+			);
 		}
 
 		if ( empty( $items ) ) {
@@ -222,5 +228,4 @@ class News_Block_Controller {
 
 		return $categories;
 	}
-
 }

@@ -124,5 +124,4 @@ class Press_Inquiries_Block extends ACF_Group {
 			'toolbar'      => ACF_Toolbars::SIMPLE,
 		];
 	}
-
 }

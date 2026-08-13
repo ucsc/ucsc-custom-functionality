@@ -5,11 +5,11 @@ namespace UCSC\Blocks\Blocks;
 use UCSC\Blocks\Blocks\Traits\With_CTA_Field;
 
 class Magazine_Block extends ACF_Group {
-	
+
 	use With_CTA_Field;
 
 	public const NAME = 'ucsc_magazine_block';
-	
+
 	public const TITLE_LINE_1 = 'title_1';
 	public const TITLE_LINE_2 = 'title_2';
 	public const SUBTITLE     = 'subtitle';
@@ -94,7 +94,7 @@ class Magazine_Block extends ACF_Group {
 			'layout'       => 'block',
 		];
 	}
-	
+
 	protected function get_item_title(): array {
 		return [
 			'type'  => 'text',
@@ -131,5 +131,4 @@ class Magazine_Block extends ACF_Group {
 			'label' => esc_html__( 'Description', 'ucsc' ),
 		];
 	}
-
 }

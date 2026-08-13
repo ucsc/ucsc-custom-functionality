@@ -3,7 +3,7 @@
 namespace UCSC\Blocks\Blocks\Traits;
 
 trait With_CTA_Field {
-	
+
 	public function get_cta_field( string $group_name, string $label, string $name = '' ): array {
 		return [
 			'label' => $label,
@@ -12,5 +12,4 @@ trait With_CTA_Field {
 			'key'   => $this->get_field_key( $name, $group_name ),
 		];
 	}
-
 }

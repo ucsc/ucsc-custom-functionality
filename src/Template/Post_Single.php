@@ -5,18 +5,18 @@ namespace UCSC\Blocks\Template;
 use WP_Block_Template;
 
 class Post_Single extends Template {
-	
+
 	public const NAME    = 'ucsc_post_single_template';
 	public const SLUG    = 'post-single';
 	public const VERSION = '1.0';
-	
+
 	public function register( $query_result, $query, $template_type ) {
 		$template = $this->register_template();
-		
-		if ( empty( $template ) || ! is_single() || in_array('embed-post', $query['slug__in']) ) {
+
+		if ( empty( $template ) || ! is_single() || in_array( 'embed-post', $query['slug__in'] ) ) {
 			return $query_result;
 		}
-		
+
 		return $template;
 	}
 
@@ -40,8 +40,7 @@ class Post_Single extends Template {
 		if ( ! $id ) {
 			return null;
 		}
-		
+
 		return $this->hydrate_block_template_by_post( get_post( $id ) );
 	}
-
 }

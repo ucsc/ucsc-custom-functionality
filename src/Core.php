@@ -22,7 +22,7 @@ use UCSC\Blocks\Template\Post_Single;
 use UCSC\Blocks\Template\Template_Subscriber;
 
 class Core {
-	
+
 	public const PHOTOS_LOOP = 'photos-week-loop';
 
 	public const BLOCKS_PUBLIC = [
@@ -49,7 +49,7 @@ class Core {
 
 		return self::$instance;
 	}
-	
+
 	public function init(): void {
 		$this->blocks();
 		$this->scripts();
@@ -58,7 +58,7 @@ class Core {
 		$this->subscribers();
 		$this->templates();
 	}
-	
+
 	/**
 	 * @param array          $block      The block attributes.
 	 * @param string         $content    The block content.
@@ -81,19 +81,24 @@ class Core {
 		if ( ! $this->is_news_site() ) {
 			return;
 		}
-		
+
 		$templates = [
 			Photo_Of_The_Week_Archive::class,
 			Post_Single::class,
 		];
-		
-		add_action( 'after_setup_theme', static function () use ( $templates ): void {
-			foreach ( $templates as $template ) {
-				( new $template )->init();
-			}
-		}, 10, 0 );
+
+		add_action(
+			'after_setup_theme',
+			static function () use ( $templates ): void {
+				foreach ( $templates as $template ) {
+					( new $template() )->init();
+				}
+			},
+			10,
+			0
+		);
 	}
-	
+
 	protected function subscribers(): void {
 		if ( ! $this->is_news_site() ) {
 			return;
@@ -102,7 +107,7 @@ class Core {
 		( new Integrations_Subscriber() )->init();
 		( new Template_Subscriber() )->init();
 	}
-	
+
 	protected function object_meta(): void {
 		if ( ! $this->is_news_site() ) {
 			return;
@@ -110,67 +115,82 @@ class Core {
 
 		( new Object_Meta_Definer() )->register();
 	}
-	
+
 	protected function post_types(): void {
 		if ( ! $this->is_news_site() ) {
 			return;
 		}
 
-		add_action( 'init', static function (): void {
-			( new Photo_Of_The_Week() )->register();
-		}, 10, 0 );
+		add_action(
+			'init',
+			static function (): void {
+				( new Photo_Of_The_Week() )->register();
+			},
+			10,
+			0
+		);
 	}
-	
+
 	protected function blocks(): void {
-		add_action( 'init', function (): void {
-			$this->init_blocks();
-			( new News_Blocks_Hooks() )->hooks();
-			( new Assets_Subscriber() )->register();
+		add_action(
+			'init',
+			function (): void {
+				$this->init_blocks();
+				( new News_Blocks_Hooks() )->hooks();
+				( new Assets_Subscriber() )->register();
 
-			if ( ! $this->is_news_site() ) {
-				return;
-			}
+				if ( ! $this->is_news_site() ) {
+					return;
+				}
 
-			( new Taxonomies_Hooks() )->hooks();
-		}, 10, 0 );
+				( new Taxonomies_Hooks() )->hooks();
+			},
+			10,
+			0
+		);
 	}
-	
+
 	protected function scripts(): void {
-		add_action( 'admin_enqueue_scripts', function (): void {
-			wp_register_script(
-				'ucsc-news-block-scripts',
-				UCSC_PLUGIN_URL . '/assets/js/news-block.js',
-				[],
-				false,
-				true
-			);
-			wp_enqueue_script( 'ucsc-news-block-scripts' );
+		add_action(
+			'admin_enqueue_scripts',
+			function (): void {
+				wp_register_script(
+					'ucsc-news-block-scripts',
+					UCSC_PLUGIN_URL . '/assets/js/news-block.js',
+					[],
+					false,
+					true
+				);
+				wp_enqueue_script( 'ucsc-news-block-scripts' );
 
-			if ( ! $this->is_news_site() ) {
-				return;
-			}
+				if ( ! $this->is_news_site() ) {
+					return;
+				}
 
-			wp_register_script(
-				'ucsc-custom-block-scripts',
-				UCSC_PLUGIN_URL . '/assets/js/custom-blocks.js',
-				[],
-				false,
-				true
-			);
-			wp_enqueue_script( 'ucsc-custom-block-scripts' );
-		}, 10, 0 );
+				wp_register_script(
+					'ucsc-custom-block-scripts',
+					UCSC_PLUGIN_URL . '/assets/js/custom-blocks.js',
+					[],
+					false,
+					true
+				);
+				wp_enqueue_script( 'ucsc-custom-block-scripts' );
+			},
+			10,
+			0
+		);
 	}
-	
+
 	protected function init_blocks(): void {
 		$args = [
 			'render_callback' => [ $this, 'render_template' ],
 		];
-		
+
 		foreach ( self::BLOCKS_PUBLIC as $block_class => $block_path ) {
 			register_block_type_from_metadata( trailingslashit( UCSC_DIR . $block_path ) . '/block.json', $args );
-			( new $block_class )->init();
+			( new $block_class() )->init();
 		}
-		
+
 		if ( ! $this->is_news_site() ) {
 			return;
 		}
@@ -180,12 +200,11 @@ class Core {
 			if ( ! class_exists( $block_class ) ) {
 				continue;
 			}
-			( new $block_class )->init();
+			( new $block_class() )->init();
 		}
 	}
-	
+
 	private function is_news_site(): bool {
 		return defined( 'UCSC_NEWS_SITE' ) && UCSC_NEWS_SITE;
 	}
-
 }

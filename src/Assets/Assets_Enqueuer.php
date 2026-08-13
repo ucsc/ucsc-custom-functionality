@@ -15,20 +15,23 @@ class Assets_Enqueuer {
 	}
 
 	public function register( string $assets_file, string $handle_file, string $css_handle ): void {
-		$ucsc_custom_blocks = array_filter( \WP_Block_Type_Registry::get_instance()->get_all_registered(), static function ( $block ) {
-			return stripos( $block->name, 'ucsc-custom-functionality/' ) !== false;
-		} );
+		$ucsc_custom_blocks = array_filter(
+			\WP_Block_Type_Registry::get_instance()->get_all_registered(),
+			static function ( $block ) {
+				return stripos( $block->name, 'ucsc-custom-functionality/' ) !== false;
+			}
+		);
 
 		if ( empty( $ucsc_custom_blocks ) ) {
 			return;
 		}
-		
+
 		foreach ( $ucsc_custom_blocks as $block ) {
 			$parts      = explode( '/', $block->name );
 			$block_name = end( $parts );
 
-			$args = $this->get_asset_file_args( $this->assets_path . $block_name . '/' .$assets_file );
-			
+			$args = $this->get_asset_file_args( $this->assets_path . $block_name . '/' . $assets_file );
+
 			wp_enqueue_style(
 				$css_handle . '-' . $block_name,
 				$this->assets_path_uri . $block_name . '/' . $css_handle . '.css',
@@ -46,5 +49,4 @@ class Assets_Enqueuer {
 			);
 		}
 	}
-
 }

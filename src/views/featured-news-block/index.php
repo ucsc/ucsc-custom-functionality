@@ -24,14 +24,14 @@ if ( empty( $items ) && is_admin() ) {
 ?>
 <section <?php echo wp_kses_data( get_block_wrapper_attributes() ); ?>>
 	<div class="ucsc-featured-news-block__inner">
-		<?php foreach ( $items as $key => $item ) :  ?>
+		<?php foreach ( $items as $key => $item ) : ?>
 			<a href="<?php echo esc_url( get_the_permalink( $item['id'] ) ); ?>" class="ucsc-featured-news-block__card<?php echo $key === 0 ? esc_attr( ' ucsc-featured-news-block__card--sticky' ) : ''; ?>">
 				<?php if ( ! empty( $item['image'] ) && $item['image']['id'] > 0 ) : ?>
 					<div class="ucsc-featured-news-block__card-image">
 						<?php $image_alt = get_post_meta( $item['image']['id'], '_wp_attachment_image_alt', true ); ?>
 						<img 
-							src="<?php echo esc_url( $item['image']['url'] );?>" 
-							srcset="<?php echo $c->build_srcset( $item['image'] );?>" 
+							src="<?php echo esc_url( $item['image']['url'] ); ?>" 
+							srcset="<?php echo $c->build_srcset( $item['image'] ); ?>" 
 							class="ucsc-featured-news-block__featured-image"
 							alt="<?php echo ! empty( $image_alt ) ? esc_attr( get_post_meta( $item['image']['id'], '_wp_attachment_image_alt' )[0] ) : $item['title']; ?>"
 						/>
@@ -39,7 +39,7 @@ if ( empty( $items ) && is_admin() ) {
 				<?php endif; ?>
 				<?php if ( ! empty( $item['category'] ) ) : ?>
 					<span class="ucsc-featured-news-block__category">
-						<?php echo $item['category']->name ?>
+						<?php echo $item['category']->name; ?>
 					</span>
 				<?php endif; ?>
 	

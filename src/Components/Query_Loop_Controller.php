@@ -6,7 +6,7 @@ use UCSC\Blocks\Blocks\Query_Loop;
 use UCSC\Blocks\Components\Traits\With_CTA;
 
 abstract class Query_Loop_Controller {
-	
+
 	use With_CTA;
 
 	protected array $block;
@@ -15,7 +15,7 @@ abstract class Query_Loop_Controller {
 	protected bool $exclude_current_post_from_query = true;
 
 	protected int $number_of_posts_display = 4;
-	protected array $post_types = [ 'post', ];
+	protected array $post_types            = [ 'post' ];
 
 	abstract protected function prepare_posts_for_display( array $posts = [], bool $is_auto_query = false ): array;
 
@@ -31,14 +31,14 @@ abstract class Query_Loop_Controller {
 		if ( empty( $query_type ) || $query_type === Query_Loop::LATEST ) {
 			return $this->get_latest_query_items();
 		}
-		
+
 		if ( $query_type === Query_Loop::AUTOMATIC ) {
 			return $this->get_automatic_query_items();
 		}
 
 		return $this->get_manual_query_items();
 	}
-	
+
 	protected function get_latest_query_items(): array {
 		$args = [
 			'fields'      => 'ids',
@@ -68,7 +68,7 @@ abstract class Query_Loop_Controller {
 		if ( is_array( $category_id ) ) {
 			$category_id = reset( $category_id );
 		}
-		
+
 		$args = [
 			'fields'      => 'ids',
 			'post_type'   => $this->post_types,
@@ -83,9 +83,9 @@ abstract class Query_Loop_Controller {
 				],
 			],
 		];
-		
+
 		if ( $this->exclude_current_post_from_query ) {
-			$args['exclude'] = [ get_the_ID(), ];
+			$args['exclude'] = [ get_the_ID() ];
 		}
 
 		$posts = get_posts( $args );
@@ -96,7 +96,7 @@ abstract class Query_Loop_Controller {
 
 		return $this->prepare_posts_for_display( $posts );
 	}
-	
+
 	protected function get_manual_query_items(): array {
 		$posts = $this->query_loop[ Query_Loop::MANUAL_CARDS ];
 
@@ -108,5 +108,4 @@ abstract class Query_Loop_Controller {
 
 		return $this->prepare_posts_for_display( $posts );
 	}
-
 }

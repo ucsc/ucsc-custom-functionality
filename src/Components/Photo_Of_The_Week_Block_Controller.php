@@ -21,33 +21,40 @@ class Photo_Of_The_Week_Block_Controller {
 	}
 
 	public function get_attributes(): string {
-		return wp_kses_data( get_block_wrapper_attributes([
-			'class' => implode(' ', [
-				'ucsc-photo-of-the-week-block',
-				'alignfull',
-				'has-black-background-color',
-				'has-white-color',
-				'has-global-padding',
-				'is-layout-constrained',
-			]),
-		]) );
+		return wp_kses_data(
+			get_block_wrapper_attributes(
+				[
+					'class' => implode(
+						' ',
+						[
+							'ucsc-photo-of-the-week-block',
+							'alignfull',
+							'has-black-background-color',
+							'has-white-color',
+							'has-global-padding',
+							'is-layout-constrained',
+						]
+					),
+				]
+			)
+		);
 	}
-	
+
 	public function get_title(): string {
 		$title = (string) get_field( Photo_Of_The_Week_Block::TITLE );
-		
+
 		return strlen( $title ) > 0 ? $title : '';
 	}
-	
+
 	public function get_photo(): ?array {
 		$photo = (string) get_field( Photo_Of_The_Week_Block::PHOTO );
-		
+
 		if ( empty( $photo ) ) {
 			return null;
 		}
-		
+
 		$image_data = $this->get_photo_image( $photo );
-		
+
 		if ( ! empty( $image_data ) ) {
 			$image = sprintf(
 				'<img src="%s" srcset="%s" alt="%s" class="photo-of-the-week__image" />',
@@ -56,7 +63,7 @@ class Photo_Of_The_Week_Block_Controller {
 				get_the_title( get_the_ID() )
 			);
 		}
-		
+
 		return [
 			'id'       => $photo,
 			'image'    => $image ?: '',
@@ -65,11 +72,11 @@ class Photo_Of_The_Week_Block_Controller {
 			'author'   => $this->get_photo_author( $photo ),
 		];
 	}
-	
+
 	public function get_photo_author( $photo_id ): string {
 		return (string) get_field( Photo_Of_The_Week_Meta::PHOTOGRAPHER, $photo_id );
 	}
-	
+
 	public function get_photo_image( $photo_id ): array {
 		$image = get_field( Photo_Of_The_Week_Meta::IMAGE, $photo_id );
 
@@ -79,10 +86,12 @@ class Photo_Of_The_Week_Block_Controller {
 
 		$image_meta = wp_get_attachment_metadata( $image['ID'] );
 
-		return array_merge( [
-			'id'  => $image['ID'],
-			'url' => $image['url'],
-		], $image_meta );
+		return array_merge(
+			[
+				'id'  => $image['ID'],
+				'url' => $image['url'],
+			],
+			$image_meta
+		);
 	}
-
 }

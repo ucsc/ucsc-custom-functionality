@@ -4,7 +4,7 @@ namespace UCSC\Blocks\Assets;
 
 trait Assets {
 
-	public function get_asset_file_args(string $file_path): array {
+	public function get_asset_file_args( string $file_path ): array {
 		if ( ! file_exists( $file_path ) ) {
 			return [];
 		}
@@ -12,5 +12,4 @@ trait Assets {
 
 		return is_array( $args ) ? $args : [];
 	}
-
 }

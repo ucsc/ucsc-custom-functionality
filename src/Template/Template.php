@@ -7,20 +7,25 @@ use WP_Post;
 use WP_Query;
 
 abstract class Template {
-	
+
 	public const NAME      = '';
 	public const SLUG      = '';
 	public const NAMESPACE = 'ucsc-2022';
-	
+
 	public const VERSION          = '';
 	public const TEMPLATE_VERSION = 'ucsc_template_version';
-	
+
 	abstract protected function create_wp_block_template(): ?WP_Block_Template;
-	
+
 	public function init(): void {
-		add_filter( 'get_block_templates', function ( $query_result, $query, $template_type ) {
-			return $this->register( $query_result, $query, $template_type );
-		}, 10, 3 );
+		add_filter(
+			'get_block_templates',
+			function ( $query_result, $query, $template_type ) {
+				return $this->register( $query_result, $query, $template_type );
+			},
+			10,
+			3
+		);
 	}
 
 	public function get_slug(): string {
@@ -30,8 +35,8 @@ abstract class Template {
 	public function get_namespace(): string {
 		return static::NAMESPACE;
 	}
-    
-    abstract public function register( $query_result, $query, $template_type );
+
+	abstract public function register( $query_result, $query, $template_type );
 
 	public function register_template() {
 		$wp_block_template = $this->find_block_template_by_post( $this->get_slug(), $this->get_namespace() );
@@ -106,5 +111,4 @@ abstract class Template {
 
 		return $this->hydrate_block_template_by_post( $post );
 	}
-	
 }

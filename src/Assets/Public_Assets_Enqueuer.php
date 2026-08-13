@@ -7,5 +7,4 @@ class Public_Assets_Enqueuer extends Assets_Enqueuer {
 	public const PUBLIC      = 'index';
 	public const PUBLIC_CSS  = 'style-index';
 	public const ASSETS_FILE = self::PUBLIC . '.asset.php';
-
 }

@@ -13,12 +13,15 @@ class News_Request {
 
 	public function request( string $endpoint, array $args = [], bool $with_pagination = false ): array {
 		try {
-			$url 		   = add_query_arg( $args, $this->get_endpoint_url( $endpoint ) );
-			$response 	   = wp_remote_get( $url, [
-				'headers' => [
-					'Accept' => 'application/json',
-				],
-			] );
+			$url           = add_query_arg( $args, $this->get_endpoint_url( $endpoint ) );
+			$response      = wp_remote_get(
+				$url,
+				[
+					'headers' => [
+						'Accept' => 'application/json',
+					],
+				]
+			);
 			$response_code = wp_remote_retrieve_response_code( $response );
 			$total_pages   = (int) wp_remote_retrieve_header( $response, 'X-Wp-Totalpages' );
 			if ( empty( $response_code ) || ! ( $response_code >= 200 && $response_code < 300 ) ) {
@@ -31,11 +34,18 @@ class News_Request {
 				return $this->data;
 			}
 
-			$this->page++;
+			++$this->page;
 
-			return $this->request( $endpoint, array_merge( $args, [
-				'page' => $this->page,
-			] ), true );
+			return $this->request(
+				$endpoint,
+				array_merge(
+					$args,
+					[
+						'page' => $this->page,
+					]
+				),
+				true
+			);
 		} catch ( \Throwable $exception ) {
 			return [];
 		}
@@ -45,15 +55,15 @@ class News_Request {
 		$env = wp_get_environment_type();
 
 		switch ( $env ) {
-            case 'production':
-                $base_url = 'https://news.ucsc.edu/';
-                break;
+			case 'production':
+				$base_url = 'https://news.ucsc.edu/';
+				break;
 			case 'staging':
 				$base_url = 'https://test-news-ucsc.pantheonsite.io/';
 				break;
-            case 'development':
-                $base_url = 'https://dev-news-ucsc.pantheonsite.io/';
-                break;    
+			case 'development':
+				$base_url = 'https://dev-news-ucsc.pantheonsite.io/';
+				break;
 			default:
 				$base_url = 'https://news.ucsc.edu/';
 				break;
@@ -61,5 +71,4 @@ class News_Request {
 
 		return sprintf( '%s%s', $base_url, $endpoint );
 	}
-
 }

@@ -31,15 +31,15 @@ if ( empty( $items ) ) {
 		<?php echo esc_html__( 'Related Stories', 'ucsc' ); ?>
 	</h2>
 	<div class="ucsc-related-stories-block__inner">
-		<?php foreach ( $items as $key => $item ) :  ?>
+		<?php foreach ( $items as $key => $item ) : ?>
 		<a href="<?php echo esc_url( get_the_permalink( $item['id'] ) ); ?>" class="ucsc-related-stories-block__card-link">
 			<article class="ucsc-related-stories-block__card">
 				<?php if ( ! empty( $item['image'] ) && $item['image']['id'] > 0 ) : ?>
 				<div class="ucsc-related-stories-block__card-image">
 					<?php $image_alt = get_post_meta( $item['image']['id'], '_wp_attachment_image_alt', true ); ?>
 					<img 
-						src="<?php echo esc_url( $item['image']['url'] );?>" 
-						srcset="<?php echo $c->build_srcset( $item['image'] );?>" 
+						src="<?php echo esc_url( $item['image']['url'] ); ?>" 
+						srcset="<?php echo $c->build_srcset( $item['image'] ); ?>" 
 						class="ucsc-related-stories-block__featured-image"
 						alt="<?php echo ! empty( $image_alt ) ? esc_attr( get_post_meta( $item['image']['id'], '_wp_attachment_image_alt' )[0] ) : $item['title']; ?>"
 					/>
@@ -49,7 +49,7 @@ if ( empty( $items ) ) {
 				<hgroup>
 					<?php if ( ! empty( $item['category'] ) ) : ?>
 					<p class="ucsc-related-stories-block__card-category">
-						<?php echo $item['category']->name ?>
+						<?php echo $item['category']->name; ?>
 					</p>
 					<?php endif; ?>
 
