@@ -1,4 +1,11 @@
-<?php declare(strict_types=1);
+<?php
+/**
+ * Photo of the Week archive controller.
+ *
+ * @package ucsc
+ */
+
+declare(strict_types=1);
 
 namespace UCSC\Blocks\Components;
 
@@ -6,10 +13,24 @@ use UCSC\Blocks\Components\Traits\With_Image_Size;
 use UCSC\Blocks\Object_Meta\Photo_Of_The_Week_Meta;
 use UCSC\Blocks\Post_Types\Photo_Of_The_Week\Photo_Of_The_Week;
 
+/**
+ * Supplies the paginated query and markup for the Photo of the Week archive.
+ *
+ * Used by the archive template rather than by a block.
+ */
 class Photo_Of_The_Week_Archive_Controller {
 
 	use With_Image_Size;
 
+	/**
+	 * Query one page of published photos.
+	 *
+	 * Honours the site's posts-per-page setting.
+	 *
+	 * @param mixed $paged The page number being viewed.
+	 *
+	 * @return \WP_Query
+	 */
 	public function get_query( $paged ): \WP_Query {
 		return new \WP_Query(
 			[
@@ -23,6 +44,11 @@ class Photo_Of_The_Week_Archive_Controller {
 		);
 	}
 
+	/**
+	 * The current photo's attachment data, or an empty array.
+	 *
+	 * @return array
+	 */
 	public function get_image(): array {
 		$image = get_field( Photo_Of_The_Week_Meta::IMAGE, get_the_ID() );
 
@@ -33,6 +59,11 @@ class Photo_Of_The_Week_Archive_Controller {
 		return $image;
 	}
 
+	/**
+	 * The current photo as responsive markup, or an empty string.
+	 *
+	 * @return string
+	 */
 	public function render_image(): string {
 		$image = $this->get_image();
 
@@ -58,6 +89,14 @@ class Photo_Of_The_Week_Archive_Controller {
 		);
 	}
 
+	/**
+	 * Pagination links for the archive.
+	 *
+	 * @param \WP_Query $query The archive query.
+	 * @param int       $paged The page number being viewed.
+	 *
+	 * @return array|string|null
+	 */
 	public function get_pagination( \WP_Query $query, int $paged ) {
 		return paginate_links(
 			[

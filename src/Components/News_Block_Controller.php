@@ -1,32 +1,156 @@
-<?php declare(strict_types=1);
+<?php
+/**
+ * News block controller.
+ *
+ * @package ucsc
+ */
+
+declare(strict_types=1);
 
 namespace UCSC\Blocks\Components;
 
 use UCSC\Blocks\Blocks\News_Block;
 use UCSC\Blocks\Request\News_Request;
 
+/**
+ * Prepares the News block's posts for rendering.
+ *
+ * The only controller that sources its content remotely: posts, media,
+ * authors and terms are all fetched from the news site over REST rather than
+ * queried locally. Everything is cached in transients for 20 minutes.
+ *
+ * Note: a cold render issues one request for the posts and then a further
+ * request per featured image, per author and per taxonomy, which can mean
+ * well over a dozen sequential blocking calls. Batching these via _embed is
+ * tracked in #107.
+ */
 class News_Block_Controller {
 
-	public const POSTS              = 'news_posts';
-	public const PER_PAGE           = 9;
-	private const CACHE_EXPIRY      = MINUTE_IN_SECONDS * 20;
+	/**
+	 * Transient key prefix for cached responses.
+	 *
+	 * @var string
+	 */
+	public const POSTS = 'news_posts';
+	/**
+	 * Posts requested from the API.
+	 *
+	 * Fixed at the maximum the block offers; the editor's chosen count is
+	 * applied by slicing the result rather than by narrowing the request.
+	 *
+	 * @var int
+	 */
+	public const PER_PAGE = 9;
+	/**
+	 * How long fetched data stays cached.
+	 *
+	 * @var int
+	 */
+	private const CACHE_EXPIRY = MINUTE_IN_SECONDS * 20;
+	/**
+	 * Author used when a post has no coauthors.
+	 *
+	 * A remote author ID on the news site, hardcoded here.
+	 *
+	 * @var int
+	 */
 	private const DEFAULT_AUTHOR_ID = 11;
 
+	/**
+	 * The block instance passed to the render callback.
+	 *
+	 * @var array
+	 */
 	protected array $block;
+	/**
+	 * REST base of the taxonomy being queried.
+	 *
+	 * @var string
+	 */
 	private string $taxonomy;
+	/**
+	 * Remote term IDs to filter posts by.
+	 *
+	 * @var int[]
+	 */
 	private array $taxonomy_ids;
+	/**
+	 * Whether to omit the excerpt.
+	 *
+	 * @var bool
+	 */
 	private bool $hide_excerpt;
+	/**
+	 * Whether to omit the author.
+	 *
+	 * @var bool
+	 */
 	private bool $hide_author;
+	/**
+	 * Whether to omit the featured image.
+	 *
+	 * @var bool
+	 */
 	private bool $hide_image;
+	/**
+	 * Whether to omit the published date.
+	 *
+	 * @var bool
+	 */
 	private bool $hide_date;
+	/**
+	 * Whether to omit tags.
+	 *
+	 * @var bool
+	 */
 	private bool $hide_tags;
+	/**
+	 * Whether to omit the category.
+	 *
+	 * @var bool
+	 */
 	private bool $hide_category;
+	/**
+	 * Heading shown above the posts.
+	 *
+	 * @var string
+	 */
 	private string $title;
+	/**
+	 * Description shown beneath the heading.
+	 *
+	 * @var string
+	 */
 	private string $description;
+	/**
+	 * Header alignment.
+	 *
+	 * @var string
+	 */
 	private string $layout;
+	/**
+	 * The optional "more news" link.
+	 *
+	 * @var array|string
+	 */
 	private array|string $more_news_link;
+	/**
+	 * How many posts to render.
+	 *
+	 * Blocks saved before this field existed resolve to 0, which renders an
+	 * empty block; tracked in #106.
+	 *
+	 * @var int
+	 */
 	private int $posts_per_page;
 
+	/**
+	 * Read every saved field value into typed properties.
+	 *
+	 * @param mixed $block The block instance supplied by the render callback.
+	 *
+	 * @return void
+	 */
 	public function __construct( $block ) {
 		$this->block          = (array) $block;
 		$this->title          = get_field( News_Block::TITLE ) ?? '';
@@ -44,18 +168,40 @@ class News_Block_Controller {
 		$this->posts_per_page = (int) get_field( 'posts_per_page' ) ?? self::PER_PAGE;
 	}
 
+	/**
+	 * The block heading.
+	 *
+	 * @return string
+	 */
 	public function get_title(): string {
 		return $this->title;
 	}
 
+	/**
+	 * The block description.
+	 *
+	 * @return string
+	 */
 	public function get_description(): string {
 		return $this->description;
 	}
 
+	/**
+	 * Header alignment modifier class, empty when centred.
+	 *
+	 * @return string
+	 */
 	public function get_alignment(): string {
 		return $this->layout !== News_Block::LAYOUT_CENTRE ? ' align-header-left' : '';
 	}
 
+	/**
+	 * The "more news" link, or an empty array when unset.
+	 *
+	 * Falls back to a default title when a URL was given without one.
+	 *
+	 * @return array
+	 */
 	public function get_more_news_link(): array {
 		$link = [];
 
@@ -68,6 +214,13 @@ class News_Block_Controller {
 		return $link;
 	}
 
+	/**
+	 * Build a srcset from the sizes in a remote media payload.
+	 *
+	 * @param array $sizes Size descriptors from the REST media response.
+	 *
+	 * @return string
+	 */
 	public function build_srcset( array $sizes = [] ): string {
 		if ( empty( $sizes ) ) {
 			return '';
@@ -81,6 +234,16 @@ class News_Block_Controller {
 		return implode( ', ', $urls );
 	}
 
+	/**
+	 * Fetch and shape the posts for rendering.
+	 *
+	 * Returns an empty array unless both a taxonomy and at least one term are
+	 * selected, so an unconfigured block renders nothing rather than an
+	 * arbitrary post list. Hidden fields are omitted here rather than in the
+	 * view, so the view does no conditional work.
+	 *
+	 * @return array
+	 */
 	public function get_items(): array {
 		if ( empty( $this->taxonomy_ids ) || empty( $this->taxonomy ) ) {
 			return [];
@@ -89,11 +252,10 @@ class News_Block_Controller {
 		$response = get_transient( $this->get_cache_key() );
 
 		if ( empty( $response ) ) {
-			// Fetch data using the constant PER_PAGE for the API request
 			$response = ( new News_Request() )->request(
 				News_Request::POSTS_ENDPOINT,
 				[
-					'per_page'      => self::PER_PAGE, // Use the constant here
+					'per_page'      => self::PER_PAGE,
 					$this->taxonomy => implode( ',', $this->taxonomy_ids ),
 				]
 			);
@@ -124,6 +286,17 @@ class News_Block_Controller {
 		return array_slice( $items, 0, $this->posts_per_page );
 	}
 
+	/**
+	 * Compose a transient key.
+	 *
+	 * Note: every key embeds the selected term IDs, so the same attachment or
+	 * author is cached separately for each block configuration that references
+	 * it. Keying per-object caches by object ID alone is tracked in #107.
+	 *
+	 * @param string $prefix Optional prefix identifying what is cached.
+	 *
+	 * @return string
+	 */
 	protected function get_cache_key( string $prefix = '' ): string {
 		if ( ! empty( $prefix ) ) {
 			return sprintf( '%s_%s_%s', $prefix, self::POSTS, implode( '_', $this->taxonomy_ids ) );
@@ -132,6 +305,13 @@ class News_Block_Controller {
 		return sprintf( '%s_%s', self::POSTS, implode( '_', $this->taxonomy_ids ) );
 	}
 
+	/**
+	 * Fetch a post's featured image.
+	 *
+	 * @param array $item A post from the REST response.
+	 *
+	 * @return array
+	 */
 	protected function get_item_attachment( array $item ): array {
 		if ( ! isset( $item['featured_media'] ) || $item['featured_media'] <= 0 ) {
 			return [];
@@ -159,6 +339,16 @@ class News_Block_Controller {
 		];
 	}
 
+	/**
+	 * Resolve a post's author names.
+	 *
+	 * Uses Co-Authors Plus data when the post has it, and falls back to a
+	 * single default author otherwise.
+	 *
+	 * @param array $item A post from the REST response.
+	 *
+	 * @return array
+	 */
 	protected function get_authors( array $item ): array {
 		if ( ! empty( $item['coauthors'] ) ) {
 			$authors = [];
@@ -194,6 +384,14 @@ class News_Block_Controller {
 		return [ $user['title']['rendered'] ?? $user['name'] ];
 	}
 
+	/**
+	 * Fetch up to three term names for a post.
+	 *
+	 * @param array $item   A post from the REST response.
+	 * @param bool  $is_tag Read tags rather than the selected taxonomy.
+	 *
+	 * @return array
+	 */
 	protected function get_taxonomies( array $item, bool $is_tag = false ) {
 		$categories = [];
 
