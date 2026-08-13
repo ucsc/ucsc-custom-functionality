@@ -6,12 +6,12 @@ class News_Block extends ACF_Group {
 
 	public const NAME = 'news_query_block';
 
-	public const TITLE        = 'news_title';
+	public const TITLE         = 'news_title';
 	public const DESCRIPTION   = 'news_desc';
 	public const LAYOUT        = 'layout';
 	public const LAYOUT_LEFT   = 'layout_left';
 	public const LAYOUT_CENTRE = 'layout_centre';
-	
+
 	public const MORE_NEWS_LINK = 'more_news_link';
 
 	public const TAXONOMIES = 'taxonomies';
@@ -55,12 +55,12 @@ class News_Block extends ACF_Group {
 
 	protected function get_fields(): array {
 		$toggle_fields = [
-			self::HIDE_IMAGE 	=> esc_html__( 'Hide Featured Image', 'ucsc' ),
+			self::HIDE_IMAGE    => esc_html__( 'Hide Featured Image', 'ucsc' ),
 			self::HIDE_CATEGORY => esc_html__( 'Hide Category', 'ucsc' ),
 			self::HIDE_EXCERPT  => esc_html__( 'Hide Excerpt', 'ucsc' ),
-			self::HIDE_DATE 	=> esc_html__( 'Hide Published Date', 'ucsc' ),
-			self::HIDE_AUTHOR 	=> esc_html__( 'Hide Author', 'ucsc' ),
-			self::HIDE_TAGS 	=> esc_html__( 'Hide Tags', 'ucsc' ),
+			self::HIDE_DATE     => esc_html__( 'Hide Published Date', 'ucsc' ),
+			self::HIDE_AUTHOR   => esc_html__( 'Hide Author', 'ucsc' ),
+			self::HIDE_TAGS     => esc_html__( 'Hide Tags', 'ucsc' ),
 		];
 
 		$fields = [];
@@ -68,15 +68,18 @@ class News_Block extends ACF_Group {
 			$fields[] = $this->get_toggle_field( $name, $label );
 		}
 
-		return array_merge( [
-			$this->get_title_field(),
-			$this->get_desc_field(),
-			$this->get_layout_field(),
-			$this->get_more_news_link_field(),
-			$this->get_taxonomies_list(),
-			$this->get_taxonomies_items(),
-			$this->get_posts_per_page_field(), // Add the dropdown field here
-		], $fields );
+		return array_merge(
+			[
+				$this->get_title_field(),
+				$this->get_desc_field(),
+				$this->get_layout_field(),
+				$this->get_more_news_link_field(),
+				$this->get_taxonomies_list(),
+				$this->get_taxonomies_items(),
+				$this->get_posts_per_page_field(), // Add the dropdown field here
+			],
+			$fields
+		);
 	}
 
 	private function get_taxonomies_list(): array {
@@ -86,7 +89,7 @@ class News_Block extends ACF_Group {
 			'name'          => self::TAXONOMIES,
 			'type'          => 'select',
 			'choices'       => [],
-			'ui'       		=> 1,
+			'ui'            => 1,
 			'return_format' => 'value',
 			'instructions'  => esc_html__( 'Select a taxonomy to query.', 'ucsc' ),
 		];
@@ -99,8 +102,8 @@ class News_Block extends ACF_Group {
 			'name'          => self::TAX_ITEMS,
 			'type'          => 'select',
 			'multiple'      => 1,
-			'ui'      		=> 1,
-			'ajax'			=> 1,
+			'ui'            => 1,
+			'ajax'          => 1,
 			'choices'       => [],
 			'return_format' => 'value',
 			'instructions'  => esc_html__( 'Select the taxonomy term(s) to query.', 'ucsc' ),
@@ -150,7 +153,7 @@ class News_Block extends ACF_Group {
 			'type'  => 'textarea',
 		];
 	}
-	
+
 	private function get_more_news_link_field(): array {
 		return [
 			'key'   => $this->get_field_key( self::MORE_NEWS_LINK, self::NAME ),
@@ -167,9 +170,9 @@ class News_Block extends ACF_Group {
 			'name'          => 'posts_per_page',
 			'type'          => 'select',
 			'choices'       => [
-				3  => '3 Posts',
-				6  => '6 Posts',
-				9  => '9 Posts'
+				3 => '3 Posts',
+				6 => '6 Posts',
+				9 => '9 Posts',
 			],
 			'default_value' => 3, // Default to 3 posts
 			'ui'            => 1,
@@ -177,5 +180,4 @@ class News_Block extends ACF_Group {
 			'instructions'  => esc_html__( 'Select the number of posts to display in the block.', 'ucsc' ),
 		];
 	}
-
 }

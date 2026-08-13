@@ -6,9 +6,9 @@ use UCSC\Blocks\Blocks\Post_Header_Block;
 use UCSC\Blocks\Components\Traits\With_Primary_Term;
 
 class Post_Header_Block_Controller {
-	
+
 	use With_Primary_Term;
-	
+
 	protected array $block;
 
 	public function __construct( $block ) {
@@ -25,22 +25,26 @@ class Post_Header_Block_Controller {
 			$classes[] = 'ucsc-post-header-block--horizontal';
 		}
 
-		return wp_kses_data( get_block_wrapper_attributes([
-			'class' => implode( ' ', $classes ),
-		]) );
+		return wp_kses_data(
+			get_block_wrapper_attributes(
+				[
+					'class' => implode( ' ', $classes ),
+				]
+			)
+		);
 	}
 
 	public function is_horizontal_layout(): bool {
 		return $this->get_layout() === Post_Header_Block::LAYOUT_SMALL;
 	}
-	
+
 	public function get_primary_category(): ?string {
 		$category = $this->get_primary_term( get_the_ID() );
-		
+
 		if ( empty( $category ) ) {
 			return null;
 		}
-		
+
 		return (string) $category->name;
 	}
 
@@ -58,9 +62,8 @@ class Post_Header_Block_Controller {
 			'attribution' => $thumbnail->post_content,
 		];
 	}
-	
+
 	protected function get_layout() {
 		return get_field( Post_Header_Block::LAYOUT ) ?? Post_Header_Block::LAYOUT_SMALL;
 	}
-	
 }

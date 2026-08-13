@@ -33,16 +33,16 @@ if ( empty( $items ) ) {
 		</div>
 	<?php endif; ?>
 
-	<?php if ( count($items) < 1 ) { ?>
+	<?php if ( count( $items ) < 1 ) { ?>
 		<p><?php echo _e( 'No articles found', 'ucsc' ); ?></p>
 	<?php } else { ?>
 		<div class="ucsc-news-block__cards-wrapper">
 		<?php foreach ( $items as $item ) : ?>
-			<a href="<?php echo esc_url( $item['permalink'] );?>" class="ucsc-news-block__card">
+			<a href="<?php echo esc_url( $item['permalink'] ); ?>" class="ucsc-news-block__card">
 				<?php if ( ! empty( $item['image'] ) ) : ?>
 					<img 
-	src="<?php echo esc_url( $item['image']['raw_url'] );?>" 
-	srcset="<?php echo esc_attr( $c->build_srcset( $item['image']['sizes']) );?>" 
+	src="<?php echo esc_url( $item['image']['raw_url'] ); ?>" 
+	srcset="<?php echo esc_attr( $c->build_srcset( $item['image']['sizes'] ) ); ?>" 
 	class="ucsc-news-block__card-image"
 	alt="<?php echo esc_attr( $item['image']['alt'] ?? '' ); ?>"
 />
@@ -56,7 +56,7 @@ if ( empty( $items ) ) {
 				
 				<h3 class="ucsc-news-block__card-title">
 					<span class="ucsc-news-block__card-title--inner">
-						<?php echo esc_html( $item['title'] );?>
+						<?php echo esc_html( $item['title'] ); ?>
 					</span>
 				</h3>
 	
@@ -69,7 +69,7 @@ if ( empty( $items ) ) {
 				<?php if ( ! empty( $item['publish_date'] ) || ! empty( $item['authors'] ) || ! empty( $item['tags'] ) ) : ?>
 					<div class="ucsc-news-block__card-meta">
 						<?php if ( ! empty( $item['publish_date'] ) ) : ?>
-							<time class="ucsc-news-block__card-date" datetime="<?php echo esc_attr( $item['raw_date']); ?>">
+							<time class="ucsc-news-block__card-date" datetime="<?php echo esc_attr( $item['raw_date'] ); ?>">
 								<?php echo esc_html( $item['publish_date'] ); ?>
 							</time>
 						<?php endif; ?>
@@ -86,7 +86,7 @@ if ( empty( $items ) ) {
 	
 						<?php if ( ! empty( $item['tags'] ) ) : ?>
 							<span class="ucsc-news-block__card-tags">
-							<?php foreach ($item['tags'] as $tag ) { ?>
+							<?php foreach ( $item['tags'] as $tag ) { ?>
 								<span class="ucsc-news-block__card-tag">
 									<?php echo esc_html( $tag ); ?>
 								</span>

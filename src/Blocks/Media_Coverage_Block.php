@@ -6,18 +6,18 @@ use UCSC\Blocks\Blocks\Contracts\CTA_Field;
 use UCSC\Blocks\Blocks\Traits\With_CTA_Field;
 
 class Media_Coverage_Block extends Query_Loop implements CTA_Field {
-	
+
 	use With_CTA_Field;
 
 	public const NAME = 'ucsc_media_coverage_block';
 
 	public const CTA_FIELD   = 'media_coverage_cta';
 	public const TITLE_FIELD = 'media_coverage_title';
-	
+
 	protected string $default_manual_card_label = 'Media Coverage';
-	protected array $allowed_post_types         = [ 'media_coverage', ];
+	protected array $allowed_post_types         = [ 'media_coverage' ];
 	protected int $max_manual_cards             = 6;
-	
+
 	protected function get_locations(): array {
 		return [
 			[
@@ -45,7 +45,7 @@ class Media_Coverage_Block extends Query_Loop implements CTA_Field {
 			$this->get_cta_field( self::NAME, 'All Coverage Link', self::CTA_FIELD ),
 		];
 	}
-	
+
 	protected function get_block_title_field(): array {
 		return [
 			'type'  => 'text',
@@ -54,5 +54,4 @@ class Media_Coverage_Block extends Query_Loop implements CTA_Field {
 			'label' => esc_html__( 'Title', 'ucsc' ),
 		];
 	}
-	
 }

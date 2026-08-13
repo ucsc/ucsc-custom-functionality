@@ -40,5 +40,4 @@ class Photo_Of_The_Week extends Post_Types {
 			'search_items' => esc_html__( 'Search Photos Of The Week', 'ucsc' ),
 		];
 	}
-
 }

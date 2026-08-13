@@ -42,13 +42,13 @@ $magazines = $c->get_magazines();
 					type="button"
 					role="tab"
 					tabindex="-1"
-					data-key="<?php echo $c->make_tab_key( $magazine, $index )?>"
-					aria-labelledby="<?php echo $c->make_tab_key( $magazine, $index, 'label' )?>"
+					data-key="<?php echo $c->make_tab_key( $magazine, $index ); ?>"
+					aria-labelledby="<?php echo $c->make_tab_key( $magazine, $index, 'label' ); ?>"
 					aria-selected="false"
-					aria-controls="<?php echo $c->make_tab_key( $magazine, $index, 'panel' )?>"
+					aria-controls="<?php echo $c->make_tab_key( $magazine, $index, 'panel' ); ?>"
 				>
-					<span id="<?php echo $c->make_tab_key( $magazine, $index, 'label' )?>" class="ucsc-magazine-block__post-title">
-						<?php echo $magazine[ Magazine_Block::ITEM_TITLE ];?>
+					<span id="<?php echo $c->make_tab_key( $magazine, $index, 'label' ); ?>" class="ucsc-magazine-block__post-title">
+						<?php echo $magazine[ Magazine_Block::ITEM_TITLE ]; ?>
 					</span>
 					<?php if ( $magazine[ Magazine_Block::ITEM_BYLINE ] ) : ?>
 					<span class="ucsc-magazine-block__post-author has-base-font-size">
@@ -63,35 +63,35 @@ $magazines = $c->get_magazines();
 		<div class="ucsc-magazine-block__panels">
 			<?php foreach ( $magazines as $index => $magazine ) : ?>
 			<div
-				id="<?php echo $c->make_tab_key( $magazine, $index, 'panel' )?>"
+				id="<?php echo $c->make_tab_key( $magazine, $index, 'panel' ); ?>"
 				role="tabpanel"
-				aria-labelledby="<?php echo $c->make_tab_key( $magazine, $index, 'label' )?>"
+				aria-labelledby="<?php echo $c->make_tab_key( $magazine, $index, 'label' ); ?>"
 				aria-hidden="true"
 				inert
 				class="ucsc-magazine-block__panel"
 			>
 				<?php echo $c->get_image( $magazine ); ?>
 
-				<?php  $cta = $c->get_cta( $magazine ); ?>
-				<?php  $description = $c->get_description( $magazine ); ?>
+				<?php $cta = $c->get_cta( $magazine ); ?>
+				<?php $description = $c->get_description( $magazine ); ?>
 				<?php if ( $description || $cta ) : ?>
 				<div class="ucsc-magazine-block__post-excerpt">
 					<?php if ( $description ) : ?>
 					<p>
 						<?php echo $description; ?>
 					</p>
-					<?php endif;?>
+					<?php endif; ?>
 
 					<?php if ( $cta ) : ?>
 					<div class="ucsc-magazine-block__post-cta is-style-ucsc-blue">
-						<a href="<?php echo $cta['url'] ?>" target="<?php echo $cta['target'] ?>" class="wp-element-button">
-							<?php echo $cta['title'] ?>
+						<a href="<?php echo $cta['url']; ?>" target="<?php echo $cta['target']; ?>" class="wp-element-button">
+							<?php echo $cta['title']; ?>
 							<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
 								<path d="M0.767045 9.84203L0 9.08138L7.86222 1.21277H1.57244L1.58523 0.158081H9.67756V8.2632H8.61009L8.62287 1.97981L0.767045 9.84203Z" fill="currentColor"/>
 							</svg>
 						</a>
 					</div>
-					<?php endif;?>
+					<?php endif; ?>
 				</div>
 				<?php endif; ?>
 

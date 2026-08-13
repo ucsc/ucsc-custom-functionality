@@ -7,11 +7,11 @@ use UCSC\Blocks\Request\News_Request;
 use UCSC\Blocks\Traits\With_Get_Field_Key;
 
 class News_Blocks_Hooks {
-	
+
 	use With_Get_Field_Key;
-	
+
 	private News_Request $request;
-	
+
 	public function __construct() {
 		$this->request = new News_Request();
 	}
@@ -60,7 +60,7 @@ class News_Blocks_Hooks {
 			$selected_tax = 'categories';
 		}
 
-		$choices = get_transient( $this->get_field_key( News_Block::TAX_ITEMS, News_Block::NAME ). '_' . $selected_tax );
+		$choices = get_transient( $this->get_field_key( News_Block::TAX_ITEMS, News_Block::NAME ) . '_' . $selected_tax );
 
 		if ( ! empty( $choices ) ) {
 			$field['choices'] = $choices;
@@ -70,7 +70,7 @@ class News_Blocks_Hooks {
 
 		$field['choices'] = $this->get_taxonomies_item_by_type( $selected_tax );
 
-		set_transient( $this->get_field_key( News_Block::TAX_ITEMS, News_Block::NAME ). '_' . $selected_tax, $field['choices'], MINUTE_IN_SECONDS * 20 );
+		set_transient( $this->get_field_key( News_Block::TAX_ITEMS, News_Block::NAME ) . '_' . $selected_tax, $field['choices'], MINUTE_IN_SECONDS * 20 );
 
 		return $field;
 	}
@@ -86,7 +86,7 @@ class News_Blocks_Hooks {
 			return $shortcut;
 		}
 
-		$choices = get_transient( $this->get_field_key( News_Block::TAX_ITEMS, News_Block::NAME ). '_' . $selected_taxonomy . '_shortcat' );
+		$choices = get_transient( $this->get_field_key( News_Block::TAX_ITEMS, News_Block::NAME ) . '_' . $selected_taxonomy . '_shortcat' );
 
 		if ( ! empty( $choices ) ) {
 			$shortcut['results'] = $choices;
@@ -113,7 +113,7 @@ class News_Blocks_Hooks {
 			];
 		}
 
-		set_transient( $this->get_field_key( News_Block::TAX_ITEMS, News_Block::NAME ). '_' . $selected_taxonomy . '_shortcat', $shortcut['results'], MINUTE_IN_SECONDS * 20 );
+		set_transient( $this->get_field_key( News_Block::TAX_ITEMS, News_Block::NAME ) . '_' . $selected_taxonomy . '_shortcat', $shortcut['results'], MINUTE_IN_SECONDS * 20 );
 
 		return $shortcut;
 	}
@@ -137,5 +137,4 @@ class News_Blocks_Hooks {
 
 		return $choices;
 	}
-
 }

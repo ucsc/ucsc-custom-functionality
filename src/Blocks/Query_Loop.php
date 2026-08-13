@@ -6,18 +6,18 @@ use UCSC\Blocks\Blocks\Contracts\Taxonomies;
 use UCSC\Blocks\Blocks\Traits\With_Taxonomies;
 
 abstract class Query_Loop extends ACF_Group implements Taxonomies {
-	
+
 	use With_Taxonomies;
-	
+
 	public const QUERY_LOOP = 'query_loop';
 	public const QUERY_TYPE = 'query_type';
 	public const LATEST     = 'latest';
 	public const AUTOMATIC  = 'automatic';
 	public const MANUAL     = 'manual';
-	
+
 	public const AUTOMATIC_GROUP = 'automatic_group';
 	public const CATEGORIES      = 'categories';
-	
+
 	public const MANUAL_CARDS = 'manual_cards';
 	public const MANUAL_CARD  = 'manual_card';
 
@@ -50,18 +50,18 @@ abstract class Query_Loop extends ACF_Group implements Taxonomies {
 	 * Add/Change in Block class in order to override
 	 */
 	protected string $block_name = '';
-	
+
 	protected array $allowed_post_types = [
 		'post',
 	];
-	
+
 	public function get_query_loop_group( string $name, array $allowed_post_types = [] ): array {
 		$this->block_name = $name;
-		
+
 		if ( ! empty( $allowed_post_types ) ) {
 			$this->allowed_post_types = $allowed_post_types;
 		}
-		
+
 		return [
 			'key'        => $this->get_field_key( self::QUERY_LOOP, $name ),
 			'type'       => 'group',
@@ -70,7 +70,7 @@ abstract class Query_Loop extends ACF_Group implements Taxonomies {
 			'sub_fields' => $this->get_sub_fields(),
 		];
 	}
-	
+
 	protected function get_sub_fields(): array {
 		return [
 			$this->get_query_type_filed(),
@@ -78,7 +78,7 @@ abstract class Query_Loop extends ACF_Group implements Taxonomies {
 			$this->get_manual_query(),
 		];
 	}
-	
+
 	protected function get_query_type_filed(): array {
 		return [
 			'key'           => $this->get_field_key( self::QUERY_TYPE, $this->block_name ),
@@ -94,7 +94,7 @@ abstract class Query_Loop extends ACF_Group implements Taxonomies {
 			'default_value' => self::LATEST,
 		];
 	}
-	
+
 	protected function get_automatic_query(): array {
 		return [
 			'key'               => $this->get_field_key( self::AUTOMATIC_GROUP, $this->block_name ),
@@ -119,7 +119,7 @@ abstract class Query_Loop extends ACF_Group implements Taxonomies {
 			],
 		];
 	}
-	
+
 	protected function get_categories_field(): array {
 		return [
 			'key'           => $this->get_field_key( self::CATEGORIES, self::AUTOMATIC_GROUP ),
@@ -133,7 +133,7 @@ abstract class Query_Loop extends ACF_Group implements Taxonomies {
 			'instructions'  => esc_html__( 'Select the category to query.', 'ucsc' ),
 		];
 	}
-	
+
 	protected function get_manual_query(): array {
 		return [
 			'key'               => $this->get_field_key( self::MANUAL_CARDS, $this->block_name ),
@@ -158,7 +158,7 @@ abstract class Query_Loop extends ACF_Group implements Taxonomies {
 			],
 		];
 	}
-	
+
 	protected function get_manual_card(): array {
 		return [
 			'key'           => $this->get_field_key( self::MANUAL_CARD, $this->block_name ),
@@ -171,5 +171,4 @@ abstract class Query_Loop extends ACF_Group implements Taxonomies {
 			'required'      => 0,
 		];
 	}
-
 }

@@ -7,11 +7,11 @@ use UCSC\Blocks\Blocks\Traits\With_CTA_Field;
 use UCSC\Blocks\Post_Types\Photo_Of_The_Week\Photo_Of_The_Week;
 
 class Photo_Of_The_Week_Block extends ACF_Group implements CTA_Field {
-	
+
 	use With_CTA_Field;
 
 	public const NAME = 'ucsc_photo_of_the_week';
-	
+
 	public const TITLE = 'title';
 	public const PHOTO = 'ucsc_photo_single';
 
@@ -51,7 +51,7 @@ class Photo_Of_The_Week_Block extends ACF_Group implements CTA_Field {
 			'label' => esc_html__( 'Title', 'ucsc' ),
 		];
 	}
-	
+
 	protected function get_photo_field(): array {
 		return [
 			'type'          => 'post_object',
@@ -68,5 +68,4 @@ class Photo_Of_The_Week_Block extends ACF_Group implements CTA_Field {
 			],
 		];
 	}
-
 }

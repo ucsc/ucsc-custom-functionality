@@ -45,5 +45,4 @@ trait With_Primary_Term {
 	protected function has_yoast(): bool {
 		return function_exists( 'yoast_get_primary_term_id' );
 	}
-
 }

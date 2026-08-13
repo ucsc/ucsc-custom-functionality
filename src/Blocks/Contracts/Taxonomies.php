@@ -10,5 +10,4 @@ interface Taxonomies {
 	public function get_taxonomies_list( string $name ): array;
 
 	public function get_taxonomies_items( string $name ): array;
-	
 }

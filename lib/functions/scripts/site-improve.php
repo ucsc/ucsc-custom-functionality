@@ -7,7 +7,8 @@
 
 add_action( 'wp_footer', 'ucsc_site_improve_analytics' );
 
-function ucsc_site_improve_analytics() {    ?>
+function ucsc_site_improve_analytics() {
+	?>
 <!-- Siteimprove -->
 <script type="text/javascript">
 /*<![CDATA[*/

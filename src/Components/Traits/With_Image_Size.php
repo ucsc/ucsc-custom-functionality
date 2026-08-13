@@ -11,16 +11,15 @@ trait With_Image_Size {
 
 		$urls  = [];
 		$sizes = $image['sizes'] ?? [];
-		
+
 		if ( empty( $sizes ) ) {
 			return '';
 		}
-		
+
 		foreach ( $sizes as $size ) {
 			$urls[] = $image['url'] . ' ' . $size['width'] . 'w ' . $size['height'] . 'h';
 		}
 
 		return implode( ', ', $urls );
 	}
-	
 }

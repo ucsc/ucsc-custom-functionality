@@ -44,5 +44,4 @@ class Photo_Of_The_Week_Archive extends Template {
 
 		return $this->hydrate_block_template_by_post( get_post( $id ) );
 	}
-
 }

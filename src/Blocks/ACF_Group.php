@@ -5,7 +5,7 @@ namespace UCSC\Blocks\Blocks;
 use UCSC\Blocks\Traits\With_Get_Field_Key;
 
 abstract class ACF_Group {
-	
+
 	use With_Get_Field_Key;
 
 	public bool $enabled = true;
@@ -22,7 +22,7 @@ abstract class ACF_Group {
 		if ( ! $this->enabled ) {
 			return;
 		}
-		
+
 		acf_add_local_field_group( $this->get_group_args() );
 	}
 
@@ -40,5 +40,4 @@ abstract class ACF_Group {
 			'location'              => $this->get_locations(),
 		];
 	}
-	
 }

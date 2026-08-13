@@ -5,11 +5,11 @@ namespace UCSC\Blocks\Blocks;
 class Related_Stories_Block extends Query_Loop {
 
 	public const NAME = 'ucsc_related_stories_block';
-    
-    protected int $max_manual_cards = 3;
-	
+
+	protected int $max_manual_cards = 3;
+
 	protected string $default_manual_card_label = 'Story';
-	
+
 	protected function get_locations(): array {
 		return [
 			[
@@ -35,5 +35,4 @@ class Related_Stories_Block extends Query_Loop {
 			$this->get_query_loop_group( self::NAME ),
 		];
 	}
-	
 }

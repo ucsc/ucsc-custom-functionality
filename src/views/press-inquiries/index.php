@@ -79,7 +79,7 @@ if ( $is_empty ) {
 								<path d="M9.5 0.5V5.5H14.5" />
 								<path d="M9.5 0.5H1.5V15.5H14.5V5.5L9.5 0.5Z" />
 							</svg>
-							<a href="<?php echo $media_file ?>" target="_blank">
+							<a href="<?php echo $media_file; ?>" target="_blank">
 								<?php echo esc_html__( 'Access Paper', 'ucsc' ); ?>
 							</a>
 						</p>
@@ -92,14 +92,14 @@ if ( $is_empty ) {
 									<path d="M14 15.5H2C1.60218 15.5 1.22064 15.342 0.93934 15.0607C0.658035 14.7794 0.5 14.3978 0.5 14V2C0.5 1.60218 0.658035 1.22064 0.93934 0.93934C1.22064 0.658035 1.60218 0.5 2 0.5H14C14.3978 0.5 14.7794 0.658035 15.0607 0.93934C15.342 1.22064 15.5 1.60218 15.5 2V14C15.5 14.3978 15.342 14.7794 15.0607 15.0607C14.7794 15.342 14.3978 15.5 14 15.5Z" />
 									<path d="M5 6.5C5.82843 6.5 6.5 5.82843 6.5 5C6.5 4.17157 5.82843 3.5 5 3.5C4.17157 3.5 3.5 4.17157 3.5 5C3.5 5.82843 4.17157 6.5 5 6.5Z" />
 								</svg>
-								<a href="<?php echo $media_image ?>" target="_blank">
+								<a href="<?php echo $media_image; ?>" target="_blank">
 									<?php echo esc_html__( 'Image Download', 'ucsc' ); ?>
 								</a>
 							</p>
 						<?php endif; ?>
 
 						<?php if ( ! empty( $media_text ) ) : ?>
-							<?php echo $media_text ?>
+							<?php echo $media_text; ?>
 						<?php endif; ?>
 					</div>
 					<?php endif; ?>

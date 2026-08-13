@@ -33,14 +33,13 @@ if ( file_exists( UCSC_DIR . '/lib/functions/scripts/site-improve.php' ) ) {
  * @author UCSC
  * @link  https://developer.wordpress.org/news/2024/08/how-to-extend-a-wordpress-block/#adding-custom-functionality
  */
-function ucsc_cf_enqueue_block_variations()
-{
-    wp_enqueue_script(
-        'ucsc-cf-enqueue-block-variations',
-        UCSC_PLUGIN_URL . 'assets/js/variations.js',
-        array('wp-blocks', 'wp-dom-ready'),
-        wp_get_theme()->get('Version'),
-        false
-    );
+function ucsc_cf_enqueue_block_variations() {
+	wp_enqueue_script(
+		'ucsc-cf-enqueue-block-variations',
+		UCSC_PLUGIN_URL . 'assets/js/variations.js',
+		array( 'wp-blocks', 'wp-dom-ready' ),
+		wp_get_theme()->get( 'Version' ),
+		false
+	);
 }
-add_action('enqueue_block_editor_assets', 'ucsc_cf_enqueue_block_variations');
+add_action( 'enqueue_block_editor_assets', 'ucsc_cf_enqueue_block_variations' );

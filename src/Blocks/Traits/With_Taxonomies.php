@@ -11,7 +11,7 @@ trait With_Taxonomies {
 			'name'          => self::TAXONOMIES,
 			'type'          => 'select',
 			'choices'       => [],
-			'ui'       		=> 1,
+			'ui'            => 1,
 			'return_format' => 'value',
 			'instructions'  => esc_html__( 'Select a taxonomy to query.', 'ucsc' ),
 		];
@@ -24,12 +24,11 @@ trait With_Taxonomies {
 			'name'          => self::TAX_ITEMS,
 			'type'          => 'select',
 			'multiple'      => 0,
-			'ui'      		=> 1,
-			'ajax'			=> 1,
+			'ui'            => 1,
+			'ajax'          => 1,
 			'choices'       => [],
 			'return_format' => 'value',
 			'instructions'  => esc_html__( 'Select the taxonomy term(s) to query.', 'ucsc' ),
 		];
 	}
-
 }

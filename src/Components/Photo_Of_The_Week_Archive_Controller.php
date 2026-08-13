@@ -11,23 +11,25 @@ class Photo_Of_The_Week_Archive_Controller {
 	use With_Image_Size;
 
 	public function get_query( $paged ): \WP_Query {
-		return new \WP_Query([
-			'post_type'      => Photo_Of_The_Week::NAME,
-			'post_status'    => 'publish',
-			'posts_per_page' => get_option( 'posts_per_page' ),
-			'orderby'        => 'date',
-			'order'          => 'DESC',
-			'paged'          => $paged,
-		]);
+		return new \WP_Query(
+			[
+				'post_type'      => Photo_Of_The_Week::NAME,
+				'post_status'    => 'publish',
+				'posts_per_page' => get_option( 'posts_per_page' ),
+				'orderby'        => 'date',
+				'order'          => 'DESC',
+				'paged'          => $paged,
+			]
+		);
 	}
-	
+
 	public function get_image(): array {
 		$image = get_field( Photo_Of_The_Week_Meta::IMAGE, get_the_ID() );
 
 		if ( empty( $image ) || $image['ID'] < 1 ) {
 			return [];
 		}
-		
+
 		return $image;
 	}
 
@@ -40,10 +42,13 @@ class Photo_Of_The_Week_Archive_Controller {
 
 		$image_meta = wp_get_attachment_metadata( $image['ID'] );
 
-		$image_data = array_merge( [ 
-			'id'  => $image['ID'], 
-			'url' => $image['url'],
-		], $image_meta );
+		$image_data = array_merge(
+			[
+				'id'  => $image['ID'],
+				'url' => $image['url'],
+			],
+			$image_meta
+		);
 
 		return sprintf(
 			'<img src="%s" srcset="%s" alt="%s" class="photo-of-the-week__image" />',
@@ -54,14 +59,15 @@ class Photo_Of_The_Week_Archive_Controller {
 	}
 
 	public function get_pagination( \WP_Query $query, int $paged ) {
-		return paginate_links([
-			'total'     => $query->max_num_pages,
-			'current'   => $paged,
-			'format'    => 'page/%#%',
-			'base'      => get_pagenum_link( 1 ) . '%_%',
-			'prev_text' => __( 'Previous', 'ucsc' ),
-			'next_text' => __( 'Next', 'ucsc' ),
-		]);
+		return paginate_links(
+			[
+				'total'     => $query->max_num_pages,
+				'current'   => $paged,
+				'format'    => 'page/%#%',
+				'base'      => get_pagenum_link( 1 ) . '%_%',
+				'prev_text' => __( 'Previous', 'ucsc' ),
+				'next_text' => __( 'Next', 'ucsc' ),
+			]
+		);
 	}
-
 }

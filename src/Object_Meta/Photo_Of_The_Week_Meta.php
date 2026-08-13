@@ -6,9 +6,9 @@ use UCSC\Blocks\Blocks\ACF_Group;
 use UCSC\Blocks\Post_Types\Photo_Of_The_Week\Photo_Of_The_Week;
 
 class Photo_Of_The_Week_Meta extends ACF_Group {
-	
+
 	public const NAME = 'photo_of_the_week_post';
-	
+
 	public const PHOTOGRAPHER = 'photographer';
 	public const IMAGE        = 'image';
 
@@ -38,7 +38,7 @@ class Photo_Of_The_Week_Meta extends ACF_Group {
 			$this->get_image(),
 		];
 	}
-	
+
 	protected function get_photographer(): array {
 		return [
 			'label' => esc_html__( 'Photographer', 'ucsc' ),
@@ -58,5 +58,4 @@ class Photo_Of_The_Week_Meta extends ACF_Group {
 			'return_format' => 'array',
 		];
 	}
-
 }

@@ -24,7 +24,8 @@ $image        = $c->get_image();
 		<?php
 		// The horizontal layout now opens a columns wrapper inside the container,
 		// while the vertical layout closes the container and continues on.
-		if ( $c->is_horizontal_layout() ) : ?>
+		if ( $c->is_horizontal_layout() ) :
+			?>
 		<div class="ucsc-post-header-block__columns">
 		<?php else : ?>
 		</div>
@@ -34,7 +35,7 @@ $image        = $c->get_image();
 			<hgroup>
 				<?php if ( ! empty( $primary_term ) ) : ?>
 					<p class="ucsc-post-header-block__eyebrow has-one-font-size has-ucsc-primary-yellow-color">
-						<?php echo $primary_term ?>
+						<?php echo $primary_term; ?>
 					</p>
 				<?php endif; ?>
 				<h1 class="ucsc-post-header-block__title has-seven-font-size">
@@ -92,7 +93,8 @@ $image        = $c->get_image();
 		<?php
 		// The horizontal layout needs to close both the columns wrapper and the
 		// container element.
-		if ( $c->is_horizontal_layout() ) : ?>
+		if ( $c->is_horizontal_layout() ) :
+			?>
 		</div>
 		</div>
 		<?php endif; ?>
