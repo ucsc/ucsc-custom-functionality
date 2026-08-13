@@ -204,8 +204,9 @@ abstract class Query_Loop extends ACF_Group implements Taxonomies {
 	/**
 	 * Fields shown in automatic mode: taxonomy and term pickers.
 	 *
-	 * Note: the label is esc_html__( '', 'ucsc' ), which returns the PO file's
-	 * metadata header rather than an empty string. Tracked in #106.
+	 * The group is deliberately unlabelled; the sub-fields carry their own
+	 * labels. The empty string is written literally rather than passed through
+	 * a translation function, which would return the PO file's metadata header.
 	 *
 	 * @return array
 	 */
