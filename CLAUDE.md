@@ -2,6 +2,14 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Project overview
+
+See @README for project overview
+
+## Roadmap management
+
+Always check @ROADMAP.md first to understand current priorities and progress.
+
 ## Commands
 
 ```bash
@@ -26,31 +34,31 @@ Release CI delegates to the shared reusable workflow `ucsc/actions/.github/workf
 
 ## Runtime requirements
 
-- **ACF PRO is a hard dependency.** `plugin.php` only calls `Core::instance()->init()` on `plugins_loaded` (priority 100) if `acf_add_local_field_group()` exists. Without ACF, nothing in `src/` runs.
-- **`UCSC_NEWS_SITE`** — when defined `true`, unlocks the news-only blocks, the Photo of the Week post type, custom templates, query/integration subscribers, and object meta. Every gate routes through `Core::is_news_site()`. Only the News block and the `lib/` procedural features are active on non-news sites.
+-   **ACF PRO is a hard dependency.** `plugin.php` only calls `Core::instance()->init()` on `plugins_loaded` (priority 100) if `acf_add_local_field_group()` exists. Without ACF, nothing in `src/` runs.
+-   **`UCSC_NEWS_SITE`** — when defined `true`, unlocks the news-only blocks, the Photo of the Week post type, custom templates, query/integration subscribers, and object meta. Every gate routes through `Core::is_news_site()`. Only the News block and the `lib/` procedural features are active on non-news sites.
 
 ## Architecture
 
 Two layers coexist:
 
-- **`lib/functions/`** — legacy procedural code (admin menus, settings page, shortcodes, GTM/SiteImprove/xmlrpc scripts), included directly by [plugin.php](plugin.php). Global functions here must be `ucsc_`-prefixed and wrapped in `function_exists()` guards (phpcs enforces the prefix).
-- **`src/`** — PSR-4 `UCSC\Blocks\` (note: namespace root is `Blocks`, so `src/Blocks/Foo.php` is `UCSC\Blocks\Blocks\Foo`). [src/Core.php](src/Core.php) is the singleton bootstrap and the registry of every block.
+-   **`lib/functions/`** — legacy procedural code (admin menus, settings page, shortcodes, GTM/SiteImprove/xmlrpc scripts), included directly by [plugin.php](plugin.php). Global functions here must be `ucsc_`-prefixed and wrapped in `function_exists()` guards (phpcs enforces the prefix).
+-   **`src/`** — PSR-4 `UCSC\Blocks\` (note: namespace root is `Blocks`, so `src/Blocks/Foo.php` is `UCSC\Blocks\Blocks\Foo`). [src/Core.php](src/Core.php) is the singleton bootstrap and the registry of every block.
 
 ### The ACF block triad
 
 Each custom block is three coordinated pieces:
 
-| Piece | Location | Role |
-|---|---|---|
-| Field group | `src/Blocks/<Name>_Block.php` | extends `ACF_Group` (or `Query_Loop`); defines ACF fields and the `block` location rule |
-| Controller | `src/Components/<Name>_Block_Controller.php` | reads `get_field()` into typed props, queries/prepares data for the view |
-| View | `src/views/<dir>/` | `block.json` + `index.php` render template + `index.js` + `style.scss`/`editor.scss` |
+| Piece       | Location                                     | Role                                                                                    |
+| ----------- | -------------------------------------------- | --------------------------------------------------------------------------------------- |
+| Field group | `src/Blocks/<Name>_Block.php`                | extends `ACF_Group` (or `Query_Loop`); defines ACF fields and the `block` location rule |
+| Controller  | `src/Components/<Name>_Block_Controller.php` | reads `get_field()` into typed props, queries/prepares data for the view                |
+| View        | `src/views/<dir>/`                           | `block.json` + `index.php` render template + `index.js` + `style.scss`/`editor.scss`    |
 
 `block.json` declares `"acf": { "mode": "preview", "renderTemplate": "index.php" }`. Registration happens in `Core::init_blocks()` via `register_block_type_from_metadata()` against **`build/views/<dir>/block.json`**, with `render_callback` pointed at `Core::render_template()`.
 
 `Core::render_template()` rewrites `build/views/` back to `src/views/` before including the template ([src/Core.php:69-78](src/Core.php#L69-L78)). Consequence: **PHP view edits take effect immediately; JS/SCSS edits require a build.** The `index.php` in `build/` is never executed.
 
-ACF field *names* are class constants on the block class (`News_Block::TITLE`, etc.) and are referenced by both the field group and the controller — never hardcode the string in one place and the constant in the other. Field *keys* are composed by `With_Get_Field_Key::get_field_key( $name, $group_name )` → `"{group}_{name}"`; ACF filters like `acf/fields/select/query/key=…` in `src/Hooks/` depend on that exact composition.
+ACF field _names_ are class constants on the block class (`News_Block::TITLE`, etc.) and are referenced by both the field group and the controller — never hardcode the string in one place and the constant in the other. Field _keys_ are composed by `With_Get_Field_Key::get_field_key( $name, $group_name )` → `"{group}_{name}"`; ACF filters like `acf/fields/select/query/key=…` in `src/Hooks/` depend on that exact composition.
 
 ### Adding a block
 
@@ -72,7 +80,7 @@ Unlike every other block, `News_Block_Controller` pulls posts over REST from the
 
 `Assets\Assets_Enqueuer` does not enqueue per registered class — it scans `WP_Block_Type_Registry` for names containing `ucsc-custom-functionality/`, then loads `build/views/<last-segment-of-block-name>/index.asset.php` for version/deps. So the block.json slug's last segment must also match the build directory name.
 
-Two extra webpack entries in [webpack.config.js](webpack.config.js) compile `assets/scss/blocks/*.scss` into `build/css/`, attached to *core* blocks via `wp_enqueue_block_style()` in `Assets_Subscriber` (`core/post-terms`, `outermost/social-sharing`).
+Two extra webpack entries in [webpack.config.js](webpack.config.js) compile `assets/scss/blocks/*.scss` into `build/css/`, attached to _core_ blocks via `wp_enqueue_block_style()` in `Assets_Subscriber` (`core/post-terms`, `outermost/social-sharing`).
 
 ### Templates and core-block filtering (news sites only)
 
@@ -82,7 +90,7 @@ Two extra webpack entries in [webpack.config.js](webpack.config.js) compile `ass
 
 ## Conventions
 
-- `declare(strict_types=1)` on all `src/` files; `lib/` files need a file-level docblock.
-- Text domain is `ucsc`; phpcs `minimum_supported_wp_version` is 4.9.
-- `build/` and `vendor/` are gitignored but both ship in the release zip (`package.json` `files`, `.deployignore`).
-- Branches: `feature/…`, `fix/…`, `chore/…` off `main`; commit messages follow Conventional Commits (CHANGELOG is generated from them).
+-   `declare(strict_types=1)` on all `src/` files; `lib/` files need a file-level docblock.
+-   Text domain is `ucsc`; phpcs `minimum_supported_wp_version` is 4.9.
+-   `build/` and `vendor/` are gitignored but both ship in the release zip (`package.json` `files`, `.deployignore`).
+-   Branches: `feature/…`, `fix/…`, `chore/…` off `main`; commit messages follow Conventional Commits (CHANGELOG is generated from them).
