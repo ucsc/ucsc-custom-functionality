@@ -12,6 +12,7 @@ namespace UCSC\Blocks\Hooks;
 use UCSC\Blocks\Blocks\News_Block;
 use UCSC\Blocks\Request\News_Request;
 use UCSC\Blocks\Traits\With_Get_Field_Key;
+use UCSC\Blocks\Traits\With_Posted_Input;
 
 /**
  * Populates the News block's taxonomy and term dropdowns from the news site.
@@ -26,6 +27,7 @@ use UCSC\Blocks\Traits\With_Get_Field_Key;
 class News_Blocks_Hooks {
 
 	use With_Get_Field_Key;
+	use With_Posted_Input;
 
 	/**
 	 * How long fetched choices stay cached.
@@ -134,9 +136,7 @@ class News_Blocks_Hooks {
 			return is_array( $shortcut ) ? $shortcut : [];
 		}
 
-		// Nonce is verified by ACF in acf_field_select::ajax_query() before this filter runs.
-		// phpcs:ignore WordPress.Security.NonceVerification.Missing
-		$selected_taxonomy = isset( $_POST['taxonomy_selected'] ) ? sanitize_key( wp_unslash( $_POST['taxonomy_selected'] ) ) : '';
+		$selected_taxonomy = $this->get_posted_key( 'taxonomy_selected' );
 		$search            = isset( $options['s'] ) ? sanitize_text_field( wp_unslash( (string) $options['s'] ) ) : '';
 
 		$results = [];
