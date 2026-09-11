@@ -12,6 +12,8 @@ webpack.config.js
 .phpcs.xml.dist
 .stylelintrc.json
 tests/
+phpunit.xml.dist
+.phpunit.cache/
 .nvmrc
 .editorconfig
 webpack.config.js
