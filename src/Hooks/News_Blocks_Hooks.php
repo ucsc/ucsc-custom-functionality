@@ -121,26 +121,39 @@ class News_Blocks_Hooks {
 			$selected_tax = 'categories';
 		}
 
-		$choices = get_transient( $this->get_field_key( News_Block::TAX_ITEMS, News_Block::NAME ) . '_' . $selected_tax );
-
-		if ( ! empty( $choices ) ) {
-			$field['choices'] = $choices;
-
-			return $field;
-		}
-
-		$field['choices'] = $this->get_taxonomies_item_by_type( $selected_tax );
-
-		set_transient( $this->get_field_key( News_Block::TAX_ITEMS, News_Block::NAME ) . '_' . $selected_tax, $field['choices'], MINUTE_IN_SECONDS * 20 );
+		$field['choices'] = $this->get_term_choices( $selected_tax );
 
 		return $field;
 	}
 
 	/**
-	 * Answer the editor's AJAX term search against the remote taxonomy.
+	 * Every term of a remote taxonomy, keyed by remote term ID.
 	 *
-	 * Filters the cached choice list in PHP rather than querying the news site
-	 * per keystroke.
+	 * Cached for 20 minutes per taxonomy. Shared by the dropdown and the AJAX
+	 * search, so the search filters this list in PHP rather than querying the
+	 * news site per keystroke.
+	 *
+	 * @param string $rest_base The taxonomy's REST base.
+	 *
+	 * @return array Term names keyed by remote term ID, or an empty array on failure.
+	 */
+	protected function get_term_choices( string $rest_base ): array {
+		$transient_key = $this->get_field_key( News_Block::TAX_ITEMS, News_Block::NAME ) . '_' . $rest_base;
+		$choices       = get_transient( $transient_key );
+
+		if ( ! empty( $choices ) && is_array( $choices ) ) {
+			return $choices;
+		}
+
+		$choices = $this->get_taxonomies_item_by_type( $rest_base );
+
+		set_transient( $transient_key, $choices, MINUTE_IN_SECONDS * 20 );
+
+		return $choices;
+	}
+
+	/**
+	 * Answer the editor's AJAX term search against the remote taxonomy.
 	 *
 	 * The posted taxonomy is accepted only if it is one of the REST bases this
 	 * class offered in the taxonomy dropdown, because it ends up in both the
@@ -161,22 +174,13 @@ class News_Blocks_Hooks {
 			return $shortcut;
 		}
 
-		$search = $this->get_posted_search();
-
-		$transient_key = $this->get_field_key( News_Block::TAX_ITEMS, News_Block::NAME ) . '_' . $selected_taxonomy . '_shortcat';
-		$choices       = get_transient( $transient_key );
-
-		if ( ! empty( $choices ) ) {
-			$shortcut['results'] = $choices;
-
-			return $shortcut;
-		}
-
-		$choices = $this->get_taxonomies_item_by_type( $selected_taxonomy );
+		$choices = $this->get_term_choices( $selected_taxonomy );
 
 		if ( empty( $choices ) ) {
 			return $shortcut;
 		}
+
+		$search = $this->get_posted_search();
 
 		$shortcut['results'] = [];
 
@@ -190,8 +194,6 @@ class News_Blocks_Hooks {
 				'text' => $choice,
 			];
 		}
-
-		set_transient( $transient_key, $shortcut['results'], MINUTE_IN_SECONDS * 20 );
 
 		return $shortcut;
 	}
