@@ -12,6 +12,7 @@ namespace UCSC\Blocks\Hooks;
 use UCSC\Blocks\Blocks\News_Block;
 use UCSC\Blocks\Request\News_Request;
 use UCSC\Blocks\Traits\With_Get_Field_Key;
+use UCSC\Blocks\Traits\With_Posted_Input;
 
 /**
  * Populates the News block's taxonomy and term dropdowns from the news site.
@@ -24,6 +25,7 @@ use UCSC\Blocks\Traits\With_Get_Field_Key;
 class News_Blocks_Hooks {
 
 	use With_Get_Field_Key;
+	use With_Posted_Input;
 
 	/**
 	 * Client for the news site's REST API.
@@ -201,40 +203,16 @@ class News_Blocks_Hooks {
 	/**
 	 * The taxonomy REST base posted by the editor, if it is one we offered.
 	 *
-	 * ACF verifies the AJAX nonce before this filter runs, so no nonce check
-	 * is repeated here.
-	 *
 	 * @return string The validated REST base, or '' when absent or not allowed.
 	 */
 	protected function get_posted_taxonomy(): string {
-		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- nonce verified by ACF's AJAX handler before the acf/fields/select/query filter fires.
-		if ( ! isset( $_POST['taxonomy_selected'] ) || ! is_string( $_POST['taxonomy_selected'] ) ) {
-			return '';
-		}
-
-		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- see above.
-		$selected_taxonomy = sanitize_key( wp_unslash( $_POST['taxonomy_selected'] ) );
+		$selected_taxonomy = $this->get_posted_key( 'taxonomy_selected' );
 
 		if ( '' === $selected_taxonomy || ! array_key_exists( $selected_taxonomy, $this->get_taxonomy_choices() ) ) {
 			return '';
 		}
 
 		return $selected_taxonomy;
-	}
-
-	/**
-	 * The search string posted by the editor.
-	 *
-	 * @return string The sanitised search string, or '' when absent.
-	 */
-	protected function get_posted_search(): string {
-		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- nonce verified by ACF's AJAX handler before the acf/fields/select/query filter fires.
-		if ( ! isset( $_POST['s'] ) || ! is_string( $_POST['s'] ) ) {
-			return '';
-		}
-
-		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- see above.
-		return sanitize_text_field( wp_unslash( $_POST['s'] ) );
 	}
 
 	/**
