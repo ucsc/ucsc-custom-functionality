@@ -289,20 +289,25 @@ class News_Block_Controller {
 	/**
 	 * Compose a transient key.
 	 *
-	 * Note: every key embeds the selected term IDs, so the same attachment or
-	 * author is cached separately for each block configuration that references
-	 * it. Keying per-object caches by object ID alone is tracked in #107.
+	 * The key embeds both the taxonomy and the selected term IDs, since term
+	 * IDs alone are not unique across taxonomies.
+	 *
+	 * Note: every key embeds the selection, so the same attachment or author
+	 * is cached separately for each block configuration that references it.
+	 * Keying per-object caches by object ID alone is tracked in #107.
 	 *
 	 * @param string $prefix Optional prefix identifying what is cached.
 	 *
 	 * @return string
 	 */
 	protected function get_cache_key( string $prefix = '' ): string {
+		$selection = sprintf( '%s_%s_%s', self::POSTS, $this->taxonomy, implode( '_', $this->taxonomy_ids ) );
+
 		if ( ! empty( $prefix ) ) {
-			return sprintf( '%s_%s_%s', $prefix, self::POSTS, implode( '_', $this->taxonomy_ids ) );
+			return sprintf( '%s_%s', $prefix, $selection );
 		}
 
-		return sprintf( '%s_%s', self::POSTS, implode( '_', $this->taxonomy_ids ) );
+		return $selection;
 	}
 
 	/**
@@ -421,7 +426,8 @@ class News_Block_Controller {
 		set_transient( $this->get_cache_key( $taxonomy . '_' . $item['id'] ), $items, self::CACHE_EXPIRY );
 
 		foreach ( $items as $category ) {
-			$categories[] = $category['name'];
+			// The REST API returns names HTML-encoded; decode so the view's esc_html() does not encode twice.
+			$categories[] = html_entity_decode( (string) $category['name'], ENT_QUOTES | ENT_HTML5, 'UTF-8' );
 		}
 
 		return $categories;

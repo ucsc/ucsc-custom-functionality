@@ -41,30 +41,22 @@ class News_Request {
 	public const ENDPOINT_BASE = 'wp-json/wp/v2/';
 
 	/**
-	 * Results accumulated across paginated requests.
-	 *
-	 * @var array
-	 */
-	private array $data = [];
-
-	/**
-	 * Page currently being fetched.
+	 * Request timeout, in seconds.
 	 *
 	 * @var int
 	 */
-	private int $page = 1;
+	private const TIMEOUT = 10;
 
 	/**
 	 * Fetch a REST endpoint, optionally following pagination.
 	 *
-	 * With $with_pagination the method recurses, accumulating every page into
-	 * $data before returning. Any non-2xx response or thrown error yields an
-	 * empty array, so a failed fetch renders an empty block rather than an
-	 * error.
+	 * With $with_pagination every page reported by X-WP-TotalPages is fetched
+	 * and the results are concatenated. Any non-2xx response, transport error
+	 * or undecodable body yields an empty array, so a failed fetch renders an
+	 * empty block rather than an error.
 	 *
-	 * Note: no explicit timeout is set, and the pagination recursion has no
-	 * page cap, so a slow or very large response can stall a page render.
-	 * Both are tracked in #107.
+	 * Each call starts from a clean slate: nothing is carried over from a
+	 * previous call on the same instance.
 	 *
 	 * @param string $endpoint        Endpoint path, relative to the environment base URL.
 	 * @param array  $args            Query arguments to append.
@@ -73,42 +65,63 @@ class News_Request {
 	 * @return array The decoded response body, or an empty array on failure.
 	 */
 	public function request( string $endpoint, array $args = [], bool $with_pagination = false ): array {
+		$data = [];
+		$page = 1;
+
+		do {
+			$page_args = $page > 1 ? array_merge( $args, [ 'page' => $page ] ) : $args;
+			$response  = $this->fetch_page( $endpoint, $page_args );
+
+			if ( null === $response ) {
+				return [];
+			}
+
+			[ $body, $total_pages ] = $response;
+
+			$data = array_merge( $data, $body );
+			++$page;
+		} while ( $with_pagination && $page <= $total_pages );
+
+		return $data;
+	}
+
+	/**
+	 * Fetch a single page of an endpoint.
+	 *
+	 * @param string $endpoint Endpoint path, relative to the environment base URL.
+	 * @param array  $args     Query arguments to append.
+	 *
+	 * @return array{0: array, 1: int}|null The decoded body and the reported page count, or null on failure.
+	 */
+	private function fetch_page( string $endpoint, array $args ): ?array {
 		try {
-			$url           = add_query_arg( $args, $this->get_endpoint_url( $endpoint ) );
-			$response      = wp_remote_get(
-				$url,
+			$response = wp_remote_get(
+				add_query_arg( $args, $this->get_endpoint_url( $endpoint ) ),
 				[
+					'timeout' => self::TIMEOUT,
 					'headers' => [
 						'Accept' => 'application/json',
 					],
 				]
 			);
-			$response_code = wp_remote_retrieve_response_code( $response );
-			$total_pages   = (int) wp_remote_retrieve_header( $response, 'X-Wp-Totalpages' );
-			if ( empty( $response_code ) || ! ( $response_code >= 200 && $response_code < 300 ) ) {
-				return [];
+
+			$response_code = (int) wp_remote_retrieve_response_code( $response );
+
+			if ( $response_code < 200 || $response_code >= 300 ) {
+				return null;
 			}
 
-			$this->data = array_merge( $this->data, json_decode( wp_remote_retrieve_body( $response ), true ) );
+			$body = json_decode( wp_remote_retrieve_body( $response ), true );
 
-			if ( ! $with_pagination || $total_pages <= 1 || $this->page >= $total_pages ) {
-				return $this->data;
+			if ( ! is_array( $body ) ) {
+				return null;
 			}
 
-			++$this->page;
+			$total_pages = (int) wp_remote_retrieve_header( $response, 'X-WP-TotalPages' );
 
-			return $this->request(
-				$endpoint,
-				array_merge(
-					$args,
-					[
-						'page' => $this->page,
-					]
-				),
-				true
-			);
+			return [ $body, max( 1, $total_pages ) ];
 		} catch ( \Throwable $exception ) {
-			return [];
+			return null;
 		}
 	}
 
