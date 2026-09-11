@@ -53,26 +53,42 @@ class News_Blocks_Hooks {
 	/**
 	 * Fill the taxonomy dropdown from the news site.
 	 *
-	 * Only taxonomies listed in News_Block::ALLOWED_TAX are offered. Choices
-	 * are keyed by REST base, since that is what the posts query needs.
-	 *
 	 * @param array $field The ACF field definition.
 	 *
 	 * @return array The field, with its choices populated.
 	 */
 	public function load_taxonomies( array $field ): array {
-		$choices = get_transient( $this->get_field_key( News_Block::TAXONOMIES, News_Block::NAME ) );
+		$choices = $this->get_taxonomy_choices();
 
 		if ( ! empty( $choices ) ) {
 			$field['choices'] = $choices;
+		}
 
-			return $field;
+		return $field;
+	}
+
+	/**
+	 * The remote taxonomies offered to the editor, keyed by REST base.
+	 *
+	 * Only taxonomies listed in News_Block::ALLOWED_TAX are included. Choices
+	 * are keyed by REST base, since that is what the posts query needs, and the
+	 * same keys are what the editor posts back as taxonomy_selected — so this
+	 * list doubles as the allow-list for load_search_tax_items().
+	 *
+	 * @return array Taxonomy labels keyed by REST base, or an empty array on failure.
+	 */
+	protected function get_taxonomy_choices(): array {
+		$transient_key = $this->get_field_key( News_Block::TAXONOMIES, News_Block::NAME );
+		$choices       = get_transient( $transient_key );
+
+		if ( ! empty( $choices ) && is_array( $choices ) ) {
+			return $choices;
 		}
 
 		$response = $this->request->request( News_Request::TAXONOMY_ENDPOINT, [ 'type' => 'post' ] );
 
 		if ( empty( $response ) ) {
-			return $field;
+			return [];
 		}
 
 		$choices = [];
@@ -84,11 +100,9 @@ class News_Blocks_Hooks {
 			$choices[ $value['rest_base'] ] = $value['name'];
 		}
 
-		set_transient( $this->get_field_key( News_Block::TAXONOMIES, News_Block::NAME ), $choices, MINUTE_IN_SECONDS * 20 );
+		set_transient( $transient_key, $choices, MINUTE_IN_SECONDS * 20 );
 
-		$field['choices'] = $choices;
-
-		return $field;
+		return $choices;
 	}
 
 	/**
@@ -128,9 +142,9 @@ class News_Blocks_Hooks {
 	 * Filters the cached choice list in PHP rather than querying the news site
 	 * per keystroke.
 	 *
-	 * Note: $_POST['taxonomy_selected'] is read without isset(), wp_unslash()
-	 * or sanitisation, and is concatenated into both the outbound REST path and
-	 * the transient key. Tracked in #103.
+	 * The posted taxonomy is accepted only if it is one of the REST bases this
+	 * class offered in the taxonomy dropdown, because it ends up in both the
+	 * outbound request path and a transient key.
 	 *
 	 * @param mixed $shortcut The response ACF will return, if short-circuited.
 	 *
@@ -141,13 +155,16 @@ class News_Blocks_Hooks {
 			return $shortcut;
 		}
 
-		$selected_taxonomy = $_POST['taxonomy_selected'];
+		$selected_taxonomy = $this->get_posted_taxonomy();
 
 		if ( empty( $selected_taxonomy ) ) {
 			return $shortcut;
 		}
 
-		$choices = get_transient( $this->get_field_key( News_Block::TAX_ITEMS, News_Block::NAME ) . '_' . $selected_taxonomy . '_shortcat' );
+		$search = $this->get_posted_search();
+
+		$transient_key = $this->get_field_key( News_Block::TAX_ITEMS, News_Block::NAME ) . '_' . $selected_taxonomy . '_shortcat';
+		$choices       = get_transient( $transient_key );
 
 		if ( ! empty( $choices ) ) {
 			$shortcut['results'] = $choices;
@@ -164,7 +181,7 @@ class News_Blocks_Hooks {
 		$shortcut['results'] = [];
 
 		foreach ( $choices as $id => $choice ) {
-			if ( ! empty( $_POST['s'] ) && ! ( stripos( $choice, sanitize_title_for_query( $_POST['s'] ) ) !== false ) ) {
+			if ( '' !== $search && stripos( $choice, $search ) === false ) {
 				continue;
 			}
 
@@ -174,9 +191,48 @@ class News_Blocks_Hooks {
 			];
 		}
 
-		set_transient( $this->get_field_key( News_Block::TAX_ITEMS, News_Block::NAME ) . '_' . $selected_taxonomy . '_shortcat', $shortcut['results'], MINUTE_IN_SECONDS * 20 );
+		set_transient( $transient_key, $shortcut['results'], MINUTE_IN_SECONDS * 20 );
 
 		return $shortcut;
+	}
+
+	/**
+	 * The taxonomy REST base posted by the editor, if it is one we offered.
+	 *
+	 * ACF verifies the AJAX nonce before this filter runs, so no nonce check
+	 * is repeated here.
+	 *
+	 * @return string The validated REST base, or '' when absent or not allowed.
+	 */
+	protected function get_posted_taxonomy(): string {
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- nonce verified by ACF's AJAX handler before the acf/fields/select/query filter fires.
+		if ( ! isset( $_POST['taxonomy_selected'] ) || ! is_string( $_POST['taxonomy_selected'] ) ) {
+			return '';
+		}
+
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- see above.
+		$selected_taxonomy = sanitize_key( wp_unslash( $_POST['taxonomy_selected'] ) );
+
+		if ( '' === $selected_taxonomy || ! array_key_exists( $selected_taxonomy, $this->get_taxonomy_choices() ) ) {
+			return '';
+		}
+
+		return $selected_taxonomy;
+	}
+
+	/**
+	 * The search string posted by the editor.
+	 *
+	 * @return string The sanitised search string, or '' when absent.
+	 */
+	protected function get_posted_search(): string {
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- nonce verified by ACF's AJAX handler before the acf/fields/select/query filter fires.
+		if ( ! isset( $_POST['s'] ) || ! is_string( $_POST['s'] ) ) {
+			return '';
+		}
+
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- see above.
+		return sanitize_text_field( wp_unslash( $_POST['s'] ) );
 	}
 
 	/**
