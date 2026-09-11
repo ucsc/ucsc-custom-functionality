@@ -34,6 +34,9 @@ local.properties
 # PDT-specific
 .buildpath
 
+# Claude Code — personal files (do not commit)
+CLAUDE.local.md
+.claude/settings.local.json
 
 #################
 ## Visual Studio
