@@ -11,6 +11,7 @@
 	<file>plugin.php</file>
 	<file>lib</file>
 	<file>src</file>
+	<file>tests</file>
 
 	<!--
 	Only sniff PHP. WPCS 3.x dropped its JavaScript sniffs, so scanning .js
@@ -62,10 +63,12 @@
 	src/ is PSR-4 (UCSC\Blocks\) and is autoloaded by class name, so its files
 	are named Foo_Block.php, not class-foo-block.php. The WordPress file-naming
 	convention cannot be satisfied there without breaking the autoloader.
-	lib/ does follow WP naming and stays fully checked.
+	tests/ mirrors that layout. lib/ does follow WP naming and stays fully
+	checked.
 	-->
 	<rule ref="WordPress.Files.FileName">
 		<exclude-pattern>/src/*</exclude-pattern>
+		<exclude-pattern>/tests/*</exclude-pattern>
 	</rule>
 
 	<!--
@@ -75,6 +78,7 @@
 	-->
 	<rule ref="Universal.Arrays.DisallowShortArraySyntax">
 		<exclude-pattern>/src/*</exclude-pattern>
+		<exclude-pattern>/tests/*</exclude-pattern>
 	</rule>
 
 	<!--
@@ -92,6 +96,20 @@
 
 	<rule ref="WordPress.WP.GlobalVariablesOverride">
 		<exclude-pattern>/src/views/*</exclude-pattern>
+	</rule>
+
+	<!--
+	tests/ runs without WordPress, so tests/bootstrap.php declares stand-ins
+	for the handful of WordPress constants and classes the code under test
+	touches, and the tests define the DOING_AJAX constant to reach the AJAX
+	branches. Those names are WordPress's, not ours, and cannot be prefixed.
+	-->
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<exclude-pattern>/tests/*</exclude-pattern>
+	</rule>
+
+	<rule ref="Generic.Files.OneObjectStructurePerFile">
+		<exclude-pattern>/tests/bootstrap.php</exclude-pattern>
 	</rule>
 
 	<!-- Let's also check that everything is properly documented. -->
