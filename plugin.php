@@ -70,6 +70,11 @@ if ( ! function_exists( 'ucsc_enqueue_admin_styles' ) ) {
 	function ucsc_enqueue_admin_styles( $hook ): void { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter -- signature fixed by the admin_enqueue_scripts contract.
 		$settings_css   = plugin_dir_url( __FILE__ ) . 'lib/css/admin-settings.css';
 		$current_screen = get_current_screen();
+		// get_current_screen() is null before current_screen is set and on requests with no admin screen.
+		if ( ! $current_screen instanceof WP_Screen ) {
+			return;
+		}
+
 		// Check if it's "?page=ucsc-custom-functionality-settings." If not, just empty return.
 		if ( strpos( $current_screen->base, 'ucsc-custom-functionality-settings' ) === false ) {
 			return;
