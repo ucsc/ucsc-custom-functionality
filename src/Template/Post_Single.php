@@ -41,8 +41,8 @@ class Post_Single extends Template {
 	/**
 	 * Return this template when a single post is being viewed.
 	 *
-	 * Note: $query['slug__in'] is read unguarded, and callers frequently omit
-	 * it. Tracked in #104.
+	 * Callers of get_block_templates frequently omit slug__in, so it is only
+	 * consulted when present.
 	 *
 	 * @param mixed  $query_result  Templates found so far.
 	 * @param array  $query         The template query.
@@ -53,11 +53,26 @@ class Post_Single extends Template {
 	public function register( $query_result, $query, $template_type ) {
 		$template = $this->register_template();
 
-		if ( empty( $template ) || ! is_single() || in_array( 'embed-post', $query['slug__in'], true ) ) {
+		if ( empty( $template ) || ! is_single() || $this->is_embed_query( $query ) ) {
 			return $query_result;
 		}
 
 		return $template;
+	}
+
+	/**
+	 * Whether the template query is for the post embed template.
+	 *
+	 * @param mixed $query The template query.
+	 *
+	 * @return bool
+	 */
+	protected function is_embed_query( $query ): bool {
+		if ( ! is_array( $query ) || empty( $query['slug__in'] ) || ! is_array( $query['slug__in'] ) ) {
+			return false;
+		}
+
+		return in_array( 'embed-post', $query['slug__in'], true );
 	}
 
 	/**
