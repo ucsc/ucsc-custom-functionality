@@ -1,6 +1,17 @@
 # Changelog
 
-All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+## [2.5.0](https://github.com/ucsc/ucsc-custom-functionality/compare/v2.0.6...v2.5.0) (2026-09-16)
+
+
+### Bug Fixes
+
+* **block:** 🐛 Fix failure to load taxonomies and terms in News Block ([#136](https://github.com/ucsc/ucsc-custom-functionality/issues/136)) ([e7d7840](https://github.com/ucsc/ucsc-custom-functionality/commit/e7d78405864f0270d56454e73673262ab620b481)), closes [#135](https://github.com/ucsc/ucsc-custom-functionality/issues/135)
+* escape all block view output ([#126](https://github.com/ucsc/ucsc-custom-functionality/issues/126)) ([9a9bacf](https://github.com/ucsc/ucsc-custom-functionality/commit/9a9bacf92d2e04b7e1b1e92a0ab4ed7905f19fda)), closes [#116](https://github.com/ucsc/ucsc-custom-functionality/issues/116) [#106](https://github.com/ucsc/ucsc-custom-functionality/issues/106) [#116](https://github.com/ucsc/ucsc-custom-functionality/issues/116)
+* give each block's script a unique handle ([#102](https://github.com/ucsc/ucsc-custom-functionality/issues/102)) ([#130](https://github.com/ucsc/ucsc-custom-functionality/issues/130)) ([9f565a0](https://github.com/ucsc/ucsc-custom-functionality/commit/9f565a0bb5196233c4c97d21ff8752318e31ef50))
+* register magazine block by correcting its view directory name ([#115](https://github.com/ucsc/ucsc-custom-functionality/issues/115)) ([e050cb5](https://github.com/ucsc/ucsc-custom-functionality/commit/e050cb5840b1aeb733ec85f676e4e438de2ec8be)), closes [#100](https://github.com/ucsc/ucsc-custom-functionality/issues/100)
+* restore working phpcs and npm lint gates ([#117](https://github.com/ucsc/ucsc-custom-functionality/issues/117)) ([088a33c](https://github.com/ucsc/ucsc-custom-functionality/commit/088a33c8c376465ac88ae91eb003959c176d9f6f)), closes [#101](https://github.com/ucsc/ucsc-custom-functionality/issues/101)
 
 ## [2.0.6](https://github.com/ucsc/ucsc-custom-functionality/compare/v2.0.4...v2.0.6) (2026-04-15)
 
