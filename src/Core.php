@@ -110,12 +110,41 @@ class Core {
 	 * @return void
 	 */
 	public function init(): void {
+		$this->field_keys();
 		$this->blocks();
 		$this->scripts();
 		$this->post_types();
 		$this->object_meta();
 		$this->subscribers();
 		$this->templates();
+	}
+
+	/**
+	 * Teach ACF that this plugin's field keys are field keys.
+	 *
+	 * With_Get_Field_Key composes keys as "{group}_{name}" rather than ACF's
+	 * "field_…" convention, so acf_is_field_key() rejects them. Since ACF 6.3
+	 * that matters for AJAX-backed selects: the term search request is only
+	 * accepted from users who can manage ACF (manage_options) unless the key
+	 * is recognised, so ordinary editors get an empty dropdown. Recognising
+	 * every key registered through acf_add_local_field_group() lets ACF issue
+	 * and verify the per-field nonce instead.
+	 *
+	 * @return void
+	 */
+	protected function field_keys(): void {
+		add_filter(
+			'acf/is_field_key',
+			static function ( bool $is_field_key, $id ): bool {
+				if ( $is_field_key || ! is_string( $id ) || ! function_exists( 'acf_is_local_field' ) ) {
+					return $is_field_key;
+				}
+
+				return acf_is_local_field( $id );
+			},
+			10,
+			2
+		);
 	}
 
 	// phpcs:disable Generic.CodeAnalysis.UnusedFunctionParameter -- signature fixed by the block render_callback contract.
