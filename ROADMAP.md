@@ -90,5 +90,5 @@ Issues discovered while working the audit items. None were part of the original 
 | Issue | Item | Found during |
 |---|---|---|
 | [#122](https://github.com/ucsc/ucsc-custom-functionality/issues/122) | News block's ACF field group is titled "Modal Block" — a copy-paste leftover visible to editors since the block shipped | docblock pass |
-| [#123](https://github.com/ucsc/ucsc-custom-functionality/issues/123) | `Query_Loop::get_query_type_filed()` is misspelled | docblock pass |
+| [#123](https://github.com/ucsc/ucsc-custom-functionality/issues/123) | `Query_Loop::get_query_type_field()` is misspelled | docblock pass |
 | [#127](https://github.com/ucsc/ucsc-custom-functionality/issues/127) | Magazine tab and panel ids are not unique per block instance, so two blocks sharing an item title emit duplicate ids and cross-trigger each other's panels | lint backlog, step 5 |
