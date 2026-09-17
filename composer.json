@@ -4,11 +4,14 @@
     "license": "GPL-2.0-or-later",
     "require-dev": {
         "wp-coding-standards/wpcs": "^3.1",
-        "dealerdirect/phpcodesniffer-composer-installer": "^1.0"
+        "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+        "phpunit/phpunit": "^11",
+        "brain/monkey": "^2.6"
     },
     "scripts": {
         "lint": "./vendor/bin/phpcs",
-        "lint-fix": "./vendor/bin/phpcbf"
+        "lint-fix": "./vendor/bin/phpcbf",
+        "test": "./vendor/bin/phpunit"
     },
     "config": {
         "allow-plugins": {
@@ -18,6 +21,11 @@
     "autoload": {
         "psr-4": {
             "UCSC\\Blocks\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "UCSC\\Blocks\\Tests\\": "tests"
         }
     }
 }

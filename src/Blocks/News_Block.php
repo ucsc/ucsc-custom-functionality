@@ -117,8 +117,9 @@ class News_Block extends ACF_Group {
 	/**
 	 * Remote taxonomies an editor may query.
 	 *
-	 * Acts as the allow-list for the taxonomy dropdown, and is the list the
-	 * unsanitised AJAX handler should be validating against; see #103.
+	 * Acts as the allow-list for the taxonomy dropdown. Note these are taxonomy
+	 * names; the dropdown's values, and what the editor posts back, are the
+	 * taxonomies' REST bases — News_Blocks_Hooks validates against those.
 	 *
 	 * @var string[]
 	 */
