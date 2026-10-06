@@ -77,7 +77,7 @@ The path in those constants **must match the `src/views/` directory name** — w
 
 ### The News block is remote
 
-Unlike every other block, `News_Block_Controller` pulls posts over REST from the news site via `Request\News_Request`, which picks its base URL from `wp_get_environment_type()` (production → `news.ucsc.edu`, staging/development → the Pantheon envs). Taxonomy/term choices for the editor are loaded through `Hooks\News_Blocks_Hooks` and cached in transients for 20 minutes, keyed by field key. When editor dropdowns look stale, delete those transients.
+Unlike every other block, `News_Block_Controller` pulls posts over REST from the news site via `Request\News_Request`, which picks its base URL from `wp_get_environment_type()` (production → `news.ucsc.edu`, staging/development → the Pantheon envs). Taxonomy/term choices for the editor are loaded through `Hooks\News_Blocks_Hooks` and cached in transients for 30 minutes, keyed by field key. When editor dropdowns look stale, delete those transients.
 
 ### Assets
 

@@ -241,7 +241,7 @@ class News_Blocks_Hooks_Test extends Test_Case {
 					1 => 'Arts',
 					2 => 'Biology',
 				],
-				20 * MINUTE_IN_SECONDS
+				30 * MINUTE_IN_SECONDS
 			);
 
 		$result = $this->make_hooks( $request )->load_search_tax_items( [], [ 's' => 'bio' ] );
@@ -281,7 +281,7 @@ class News_Blocks_Hooks_Test extends Test_Case {
 
 		Functions\expect( 'set_transient' )
 			->once()
-			->with( self::TAXONOMIES_KEY, self::CHOICES, 20 * MINUTE_IN_SECONDS );
+			->with( self::TAXONOMIES_KEY, self::CHOICES, 30 * MINUTE_IN_SECONDS );
 
 		$field = $this->make_hooks( $request )->load_taxonomies( [ 'choices' => [] ] );
 

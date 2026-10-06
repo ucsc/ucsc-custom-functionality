@@ -32,6 +32,8 @@ An admin settings page under **Settings > UCSC Custom Functionality** provides p
 
 The **News** block is available on all sites. It displays news articles with configurable layout, taxonomy filtering, and visibility toggles for image, date, excerpt, author, and tags. Built with Advanced Custom Fields and registered via `block.json`.
 
+Articles are fetched from news.ucsc.edu over its REST API and cached in transients for 30 minutes. If the news site can't be reached, the block shows the last articles it fetched, and editors see a notice in the block editor.
+
 ## News Sites Only
 
 The following features require the `UCSC_NEWS_SITE` constant to be defined as `true`. They provide content management tools tailored to the UCSC news site.
@@ -48,7 +50,7 @@ The following features require the `UCSC_NEWS_SITE` constant to be defined as `t
 | **Related Stories** | Displays up to 3 manually selected or automatically queried related posts |
 | **Post Header** | Configurable post header layout (small or large image) |
 
-Query-based blocks support three query modes: **latest posts**, **automatic** (pull from a taxonomy), or **manual** (select posts individually). Results are cached with 20-minute transients.
+Query-based blocks support three query modes: **latest posts**, **automatic** (pull from a taxonomy), or **manual** (select posts individually).
 
 ### Custom Post Types
 
