@@ -54,6 +54,16 @@ class News_Block_Controller {
 	 */
 	private const EMBED = 'wp:featuredmedia,wp:term';
 	/**
+	 * Post fields requested from the API.
+	 *
+	 * The selected taxonomy's REST base is added per request. `_links` must
+	 * stay, since the API drops the embeds without it. Like EMBED, this is
+	 * not narrowed by the hide flags.
+	 *
+	 * @var string[]
+	 */
+	private const FIELDS = [ 'id', 'title', 'excerpt', 'link', 'date', 'featured_media', 'coauthors', 'tags', '_links', '_embedded' ];
+	/**
 	 * Most terms shown per post, per taxonomy.
 	 *
 	 * @var int
@@ -275,6 +285,7 @@ class News_Block_Controller {
 				[
 					'per_page'      => self::PER_PAGE,
 					'_embed'        => self::EMBED,
+					'_fields'       => implode( ',', array_unique( array_merge( self::FIELDS, [ $this->taxonomy ] ) ) ),
 					$this->taxonomy => implode( ',', $this->taxonomy_ids ),
 				]
 			);
