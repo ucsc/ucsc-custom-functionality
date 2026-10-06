@@ -37,7 +37,33 @@
 		});
 
 		fetchIndicator();
+		resetTermsOnTaxonomyChange();
 	});
+
+	/**
+	 * Clear the selected terms when the block's taxonomy changes.
+	 *
+	 * Term IDs belong to one taxonomy, so terms chosen under the old taxonomy
+	 * would otherwise linger in the field and filter the new query.
+	 */
+	function resetTermsOnTaxonomyChange() {
+		// Fires each time ACF renders a block form, once per taxonomy field.
+		acf.addAction( 'new_field/key=news_query_block_taxonomies', function ( field ) {
+			// Only user changes reach this: ACF sets the saved value without a change event.
+			field.$el.on( 'change', 'select', function () {
+				// Same sibling lookup as select2_ajax_data above, so only this block is touched.
+				var $terms = field.$el.siblings( '.acf-field[data-key="news_query_block_taxonomy_items"]' ).first();
+
+				if ( ! $terms.length ) {
+					return;
+				}
+
+				// AJAX select2 keeps its selections as <option>s, so remove them rather than
+				// only resetting the value. The change event lets ACF save and re-render.
+				$terms.find( 'select' ).empty().trigger( 'change' );
+			} );
+		} );
+	}
 
 	/**
 	 * Show a "Loading stories" state on the News block preview while ACF
