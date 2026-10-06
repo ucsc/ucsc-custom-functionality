@@ -76,6 +76,18 @@ class News_Block_Controller {
 	 */
 	private const CACHE_EXPIRY = MINUTE_IN_SECONDS * 20;
 	/**
+	 * How long the last good items are kept for serving during an outage.
+	 *
+	 * @var int
+	 */
+	private const STALE_EXPIRY = DAY_IN_SECONDS;
+	/**
+	 * How long to wait after a failed fetch before trying again.
+	 *
+	 * @var int
+	 */
+	private const FAILURE_BACKOFF = MINUTE_IN_SECONDS * 5;
+	/**
 	 * Author used when a post has no coauthors.
 	 *
 	 * A remote author ID on the news site, hardcoded here.
@@ -171,6 +183,15 @@ class News_Block_Controller {
 	 * @var int
 	 */
 	private int $posts_per_page;
+	/**
+	 * Whether the news site could not be reached for this render.
+	 *
+	 * Set while a failure or its backoff is in effect, whether the block then
+	 * shows the stale items or nothing. Read by the view to notify editors.
+	 *
+	 * @var bool
+	 */
+	private bool $fetch_failed = false;
 
 	/**
 	 * Read every saved field value into typed properties.
@@ -194,6 +215,26 @@ class News_Block_Controller {
 		$this->hide_tags      = (bool) get_field( News_Block::HIDE_TAGS );
 		$this->hide_category  = (bool) get_field( News_Block::HIDE_CATEGORY );
 		$this->posts_per_page = (int) get_field( 'posts_per_page' ) ?? self::PER_PAGE;
+	}
+
+	/**
+	 * Whether a taxonomy and at least one term are selected.
+	 *
+	 * @return bool
+	 */
+	public function is_configured(): bool {
+		return ! empty( $this->taxonomy ) && ! empty( $this->taxonomy_ids );
+	}
+
+	/**
+	 * Whether the news site could not be reached for this render.
+	 *
+	 * Only meaningful after get_items() has run.
+	 *
+	 * @return bool
+	 */
+	public function has_fetch_failed(): bool {
+		return $this->fetch_failed;
 	}
 
 	/**
@@ -273,7 +314,7 @@ class News_Block_Controller {
 	 * @return array
 	 */
 	public function get_items(): array {
-		if ( empty( $this->taxonomy_ids ) || empty( $this->taxonomy ) ) {
+		if ( ! $this->is_configured() ) {
 			return [];
 		}
 
@@ -290,16 +331,27 @@ class News_Block_Controller {
 	 * own expiry. The hide flags are not applied, so every block with the same
 	 * taxonomy selection shares one entry.
 	 *
+	 * A failed fetch is not retried on every render: it serves the last good
+	 * items (empty if there are none) and backs off for FAILURE_BACKOFF.
+	 *
 	 * @return array
 	 */
 	protected function get_cached_items(): array {
 		$items = get_transient( $this->get_cache_key() );
 
+		// An empty array is a cached "no posts" result, so test for an array rather than emptiness.
 		if ( is_array( $items ) ) {
 			return $items;
 		}
 
-		$response = ( new News_Request() )->request(
+		// A recent fetch failed; wait out the backoff rather than retrying on every render.
+		if ( get_transient( $this->get_cache_key( 'failed' ) ) ) {
+			$this->fetch_failed = true;
+
+			return $this->get_stale_items();
+		}
+
+		$response = ( new News_Request() )->try_request(
 			News_Request::POSTS_ENDPOINT,
 			[
 				'per_page'      => self::PER_PAGE,
@@ -309,15 +361,34 @@ class News_Block_Controller {
 			]
 		);
 
-		if ( empty( $response ) ) {
-			return [];
+		if ( null === $response ) {
+			$this->fetch_failed = true;
+			set_transient( $this->get_cache_key( 'failed' ), true, self::FAILURE_BACKOFF );
+
+			return $this->get_stale_items();
 		}
 
+		// No matching posts is a real result, so it is cached like any other.
 		$items = array_map( [ $this, 'shape_item' ], $response );
 
 		set_transient( $this->get_cache_key(), $items, self::CACHE_EXPIRY );
+		set_transient( $this->get_cache_key( 'stale' ), $items, self::STALE_EXPIRY );
 
 		return $items;
+	}
+
+	/**
+	 * The last good items for this selection, kept for STALE_EXPIRY.
+	 *
+	 * Served while the news site is failing, so the block keeps showing recent
+	 * posts instead of going empty.
+	 *
+	 * @return array
+	 */
+	protected function get_stale_items(): array {
+		$items = get_transient( $this->get_cache_key( 'stale' ) );
+
+		return is_array( $items ) ? $items : [];
 	}
 
 	/**
@@ -382,10 +453,6 @@ class News_Block_Controller {
 	 *
 	 * The key embeds both the taxonomy and the selected term IDs, since term
 	 * IDs alone are not unique across taxonomies.
-	 *
-	 * Note: every key embeds the selection, so the default author is cached
-	 * separately for each block configuration. Keying it by ID alone is
-	 * tracked in #107.
 	 *
 	 * @param string $prefix Optional prefix identifying what is cached.
 	 *
@@ -457,7 +524,9 @@ class News_Block_Controller {
 			return $authors;
 		}
 
-		$user = get_transient( $this->get_cache_key( 'coauthor_' . self::DEFAULT_AUTHOR_ID ) );
+		// Keyed by author ID alone, so every block configuration shares one entry.
+		$cache_key = 'news_coauthor_' . self::DEFAULT_AUTHOR_ID;
+		$user      = get_transient( $cache_key );
 
 		if ( empty( $user ) ) {
 			$user = ( new News_Request() )->request( News_Request::ENDPOINT_BASE . 'coauthors/' . self::DEFAULT_AUTHOR_ID );
@@ -466,7 +535,7 @@ class News_Block_Controller {
 				return [];
 			}
 
-			set_transient( $this->get_cache_key( 'coauthor_' . self::DEFAULT_AUTHOR_ID ), $user, self::CACHE_EXPIRY );
+			set_transient( $cache_key, $user, self::CACHE_EXPIRY );
 		}
 
 		return [ $user['title']['rendered'] ?? $user['name'] ];

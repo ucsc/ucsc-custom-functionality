@@ -43,15 +43,30 @@ class News_Request {
 	/**
 	 * Request timeout, in seconds.
 	 *
+	 * Applies per page. Long enough for a healthy but uncached response (the
+	 * news site's REST responses bypass its CDN cache), since a paginated
+	 * fetch fails as a whole if any one page times out.
+	 *
 	 * @var int
 	 */
-	private const TIMEOUT = 10;
+	private const TIMEOUT = 5;
+
+	/**
+	 * Most pages fetched by one paginated request.
+	 *
+	 * At 100 terms per page this allows 2,000 terms. The largest taxonomy the
+	 * News block offers, tags, had 579 in October 2026; pages past the cap are
+	 * silently dropped, so raise this before tags approach it.
+	 *
+	 * @var int
+	 */
+	private const MAX_PAGES = 20;
 
 	/**
 	 * Fetch a REST endpoint, optionally following pagination.
 	 *
-	 * With $with_pagination every page reported by X-WP-TotalPages is fetched
-	 * and the results are concatenated. Any non-2xx response, transport error
+	 * With $with_pagination every page reported by X-WP-TotalPages, up to
+	 * MAX_PAGES, is fetched and the results are concatenated. Any non-2xx response, transport error
 	 * or undecodable body yields an empty array, so a failed fetch renders an
 	 * empty block rather than an error.
 	 *
@@ -65,6 +80,22 @@ class News_Request {
 	 * @return array The decoded response body, or an empty array on failure.
 	 */
 	public function request( string $endpoint, array $args = [], bool $with_pagination = false ): array {
+		return $this->try_request( $endpoint, $args, $with_pagination ) ?? [];
+	}
+
+	/**
+	 * Fetch a REST endpoint, reporting failure distinctly from an empty result.
+	 *
+	 * Behaves like request(), except that a failed fetch returns null, so a
+	 * caller can tell "the request failed" apart from "nothing matched".
+	 *
+	 * @param string $endpoint        Endpoint path, relative to the environment base URL.
+	 * @param array  $args            Query arguments to append.
+	 * @param bool   $with_pagination Whether to follow X-WP-TotalPages and fetch every page.
+	 *
+	 * @return array|null The decoded response body, or null on failure.
+	 */
+	public function try_request( string $endpoint, array $args = [], bool $with_pagination = false ): ?array {
 		$data = [];
 		$page = 1;
 
@@ -73,14 +104,14 @@ class News_Request {
 			$response  = $this->fetch_page( $endpoint, $page_args );
 
 			if ( null === $response ) {
-				return [];
+				return null;
 			}
 
 			[ $body, $total_pages ] = $response;
 
 			$data = array_merge( $data, $body );
 			++$page;
-		} while ( $with_pagination && $page <= $total_pages );
+		} while ( $with_pagination && $page <= min( $total_pages, self::MAX_PAGES ) );
 
 		return $data;
 	}
