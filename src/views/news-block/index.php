@@ -21,10 +21,17 @@ $c = new \UCSC\Blocks\Components\News_Block_Controller( $block );
 
 $items = $c->get_items();
 
+// Editor-only messages: visitors see nothing when there are no items.
 if ( is_admin() && empty( $items ) ) {
 	?>
 	<section <?php echo wp_kses_data( get_block_wrapper_attributes() ); ?>>
-		<h3><?php echo esc_html__( 'Select a taxonomy and term(s) in the News Block settings', 'ucsc' ); ?></h3>
+		<?php if ( ! $c->is_configured() ) : ?>
+			<h3><?php echo esc_html__( 'Select a taxonomy and terms in the News Block settings', 'ucsc' ); ?></h3>
+		<?php elseif ( $c->has_fetch_failed() ) : ?>
+			<p class="ucsc-news-block__notice"><?php esc_html_e( 'The news site could not be reached, so there are no posts to show. The block will try again in a few minutes, and is hidden from visitors until then.', 'ucsc' ); ?></p>
+		<?php else : ?>
+			<p class="ucsc-news-block__notice"><?php esc_html_e( 'No posts match the selected terms. The block is hidden from visitors until some do.', 'ucsc' ); ?></p>
+		<?php endif; ?>
 	</section>
 	<?php
 	return;
@@ -45,6 +52,11 @@ if ( empty( $items ) ) {
 				<div class="ucsc-news-block__header-description"><?php echo wp_kses_post( $c->get_description() ); ?></div>
 			<?php endif; ?>
 		</div>
+	<?php endif; ?>
+
+	<?php // Editor-only: the posts below are the stale copy kept for outages. ?>
+	<?php if ( is_admin() && $c->has_fetch_failed() ) : ?>
+		<p class="ucsc-news-block__notice"><?php esc_html_e( 'The news site could not be reached. These posts were saved earlier.', 'ucsc' ); ?></p>
 	<?php endif; ?>
 
 	<?php if ( count( $items ) < 1 ) { ?>

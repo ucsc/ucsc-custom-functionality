@@ -7,6 +7,19 @@
     text-decoration: none !important;
     pointer-events: none;
 }
+
+/**
+ * Editor-only notices for fetch failures and empty results, rendered by
+ * index.php when is_admin().
+ */
+.ucsc-news-block__notice {
+    margin: 0 0 1em;
+    padding: 0.75em 1em;
+    border-left: 4px solid #dba617;
+    background: #fcf9e8;
+    color: #1e1e1e;
+    font: 14px/1.5 system-ui, sans-serif;
+}
 /**
  * Fetching state.
  *
