@@ -4,7 +4,7 @@ Audit of `ucsc-custom-functionality` @ 2.0.6. Ordered by severity. Items marked 
 
 Every item is tracked by a GitHub issue in the **Issue** column. Several issues cover more than one item where the fixes belong in a single PR.
 
-**Status: 12 of 27 items resolved.** The **Status** column reflects the code on `main`, not whether the tracking issue is closed — an issue covering several items stays open until all of them land. Items found *after* the audit are listed under [Found since the audit](#found-since-the-audit).
+**Status: 16 of 27 items resolved.** The **Status** column reflects the code on `main`, not whether the tracking issue is closed — an issue covering several items stays open until all of them land. Items found *after* the audit are listed under [Found since the audit](#found-since-the-audit).
 
 ## P0 — Broken now
 
@@ -33,12 +33,12 @@ Every item is tracked by a GitHub issue in the **Issue** column. Several issues 
 
 | # | Item | Location | Issue | Status |
 |---|---|---|---|---|
-| 14 | **N+1 blocking HTTP on cold render.** One `wp_remote_get` per featured image *plus* one per coauthor, on top of the posts request — up to ~19 sequential calls for a 9-post block. Batch via `_embed` on the posts request. **verified** | [News_Block_Controller.php:132-190](src/Components/News_Block_Controller.php#L132-L190) | [#107](https://github.com/ucsc/ucsc-custom-functionality/issues/107) | Open |
-| 15 | **No `timeout` on any remote request** — defaults to 5s each, so #14 can stall a page render for tens of seconds. Set an explicit short timeout. | [News_Request.php:17](src/Request/News_Request.php#L17) | [#107](https://github.com/ucsc/ucsc-custom-functionality/issues/107) | Open |
-| 16 | **Cache keys embed `taxonomy_ids`,** so the same media/coauthor is cached separately per block configuration. Key those by object ID only. **verified** | [News_Block_Controller.php:125-130](src/Components/News_Block_Controller.php#L125-L130) | [#107](https://github.com/ucsc/ucsc-custom-functionality/issues/107) | Open |
+| 14 | **N+1 blocking HTTP on cold render.** One `wp_remote_get` per featured image *plus* one per coauthor, on top of the posts request — up to ~19 sequential calls for a 9-post block. Batch via `_embed` on the posts request. **verified** | [News_Block_Controller.php:132-190](src/Components/News_Block_Controller.php#L132-L190) | [#107](https://github.com/ucsc/ucsc-custom-functionality/issues/107) | ✅ Done |
+| 15 | **No `timeout` on any remote request** — defaults to 5s each, so #14 can stall a page render for tens of seconds. Set an explicit short timeout. | [News_Request.php:17](src/Request/News_Request.php#L17) | [#107](https://github.com/ucsc/ucsc-custom-functionality/issues/107) | ✅ Done |
+| 16 | **Cache keys embed `taxonomy_ids`,** so the same media/coauthor is cached separately per block configuration. Key those by object ID only. **verified** | [News_Block_Controller.php:125-130](src/Components/News_Block_Controller.php#L125-L130) | [#107](https://github.com/ucsc/ucsc-custom-functionality/issues/107) | ✅ Done |
 | 17 | **No activation/deactivation/uninstall hooks at all.** CPT registers a `photo-of-the-week` rewrite with no flush (404s until permalinks are re-saved); `wp_template` posts are created but never removed; transients never cleaned. **verified** | plugin-wide | [#108](https://github.com/ucsc/ucsc-custom-functionality/issues/108) | Open |
 | 18 | Custom templates are bound to the `wp_theme` term `ucsc-2022`. Theme rename/switch orphans them silently. | [Template.php:14](src/Template/Template.php#L14) | [#109](https://github.com/ucsc/ucsc-custom-functionality/issues/109) | Open |
-| 19 | `News_Request::request()` recurses over paginated results with no page cap. A large `X-WP-TotalPages` means unbounded sequential fetches. | [News_Request.php:30-40](src/Request/News_Request.php#L30-L40) | [#107](https://github.com/ucsc/ucsc-custom-functionality/issues/107) | Open |
+| 19 | `News_Request::request()` recurses over paginated results with no page cap. A large `X-WP-TotalPages` means unbounded sequential fetches. | [News_Request.php:30-40](src/Request/News_Request.php#L30-L40) | [#107](https://github.com/ucsc/ucsc-custom-functionality/issues/107) | ✅ Done |
 
 ## P3 — Tooling, packaging, docs
 
@@ -58,12 +58,12 @@ Every item is tracked by a GitHub issue in the **Issue** column. Several issues 
 1. ✅ **Unblock quality gates** — #2, #3, #4 ([#101](https://github.com/ucsc/ucsc-custom-functionality/issues/101)). Nothing else is safely verifiable until linting runs.
 2. ✅ **Ship the visible fix** — #1 ([#100](https://github.com/ucsc/ucsc-custom-functionality/issues/100)), #12 ([#102](https://github.com/ucsc/ucsc-custom-functionality/issues/102)) — both were "the block doesn't work" bugs.
 3. ✅ **Harden** — #5, #6 ([#103](https://github.com/ucsc/ucsc-custom-functionality/issues/103)); #7, #8, #9 ([#104](https://github.com/ucsc/ucsc-custom-functionality/issues/104)).
-4. **Lifecycle** — #17 ([#108](https://github.com/ucsc/ucsc-custom-functionality/issues/108)), then #14/#15/#16/#19 as one caching pass ([#107](https://github.com/ucsc/ucsc-custom-functionality/issues/107)).
+4. **Lifecycle** — ✅ #14/#15/#16/#19 as one caching pass ([#107](https://github.com/ucsc/ucsc-custom-functionality/issues/107)); still open: #17 ([#108](https://github.com/ucsc/ucsc-custom-functionality/issues/108)).
 5. **Gate it** — #23, #24 ([#111](https://github.com/ucsc/ucsc-custom-functionality/issues/111)), so P0 regressions can't recur.
 
 Remaining items not on the critical path: [#105](https://github.com/ucsc/ucsc-custom-functionality/issues/105), [#106](https://github.com/ucsc/ucsc-custom-functionality/issues/106), [#109](https://github.com/ucsc/ucsc-custom-functionality/issues/109), [#110](https://github.com/ucsc/ucsc-custom-functionality/issues/110), [#112](https://github.com/ucsc/ucsc-custom-functionality/issues/112), [#113](https://github.com/ucsc/ucsc-custom-functionality/issues/113).
 
-Steps 1, 2 and 3 are done. **Step 4 is now the front of the queue.** `composer lint` exits 0 with no errors at all: the six `WordPress.Security.NonceVerification` findings were resolved with items #5 and #6. ACF verifies the nonce before the `acf/fields/select/query` filter fires, so the sniff is silenced with that justification wherever the handlers read the request — the shared readers in `Traits\With_Posted_Input`, and `News_Blocks_Hooks::is_term_search_request()`, which checks `$_POST['action']` directly because `sanitize_key()` would mangle ACF's action name.
+Steps 1, 2 and 3 are done, and step 4 is down to #17. `composer lint` exits 0 with no errors at all: the six `WordPress.Security.NonceVerification` findings were resolved with items #5 and #6. ACF verifies the nonce before the `acf/fields/select/query` filter fires, so the sniff is silenced with that justification wherever the handlers read the request — the shared readers in `Traits\With_Posted_Input`, and `News_Blocks_Hooks::is_term_search_request()`, which checks `$_POST['action']` directly because `sanitize_key()` would mangle ACF's action name.
 
 Step 5 was written on the assumption that a CI gate would have to run report-only until the lint backlog cleared. That backlog is gone (see below), and step 3 added a PHPUnit suite (`composer test`) that a gate can also run, so a gate that fails the build is now viable; [#111](https://github.com/ucsc/ucsc-custom-functionality/issues/111) should be re-read before it is picked up.
 
