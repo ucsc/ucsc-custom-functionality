@@ -19,19 +19,22 @@ use UCSC\Blocks\Request\News_Request;
  * authors and terms are all fetched from the news site over REST rather than
  * queried locally. Everything is cached in transients for 20 minutes.
  *
- * Note: a cold render issues one request for the posts and then a further
- * request per featured image, per author and per taxonomy, which can mean
- * well over a dozen sequential blocking calls. Batching these via _embed is
- * tracked in #107.
+ * Featured images and terms (including Co-Authors Plus authors, which are
+ * terms of the remote `author` taxonomy) are embedded in the posts response,
+ * so a cold render is a single request. The one exception is a post with no
+ * coauthors, which costs one cached request for the default author.
  */
 class News_Block_Controller {
 
 	/**
 	 * Transient key prefix for cached responses.
 	 *
+	 * Changed whenever the shape of the cached posts response changes, so a
+	 * response cached in the old shape is never read back as the new one.
+	 *
 	 * @var string
 	 */
-	public const POSTS = 'news_posts';
+	public const POSTS = 'news_posts_embed';
 	/**
 	 * Posts requested from the API.
 	 *
@@ -41,6 +44,21 @@ class News_Block_Controller {
 	 * @var int
 	 */
 	public const PER_PAGE = 9;
+	/**
+	 * Resources embedded in the posts response.
+	 *
+	 * Always requested in full, whatever the hide flags, because the cached
+	 * response is shared by every block with the same taxonomy selection.
+	 *
+	 * @var string
+	 */
+	private const EMBED = 'wp:featuredmedia,wp:term';
+	/**
+	 * Most terms shown per post, per taxonomy.
+	 *
+	 * @var int
+	 */
+	private const TERMS_PER_ITEM = 3;
 	/**
 	 * How long fetched data stays cached.
 	 *
@@ -256,6 +274,7 @@ class News_Block_Controller {
 				News_Request::POSTS_ENDPOINT,
 				[
 					'per_page'      => self::PER_PAGE,
+					'_embed'        => self::EMBED,
 					$this->taxonomy => implode( ',', $this->taxonomy_ids ),
 				]
 			);
@@ -292,9 +311,9 @@ class News_Block_Controller {
 	 * The key embeds both the taxonomy and the selected term IDs, since term
 	 * IDs alone are not unique across taxonomies.
 	 *
-	 * Note: every key embeds the selection, so the same attachment or author
-	 * is cached separately for each block configuration that references it.
-	 * Keying per-object caches by object ID alone is tracked in #107.
+	 * Note: every key embeds the selection, so the default author is cached
+	 * separately for each block configuration. Keying it by ID alone is
+	 * tracked in #107.
 	 *
 	 * @param string $prefix Optional prefix identifying what is cached.
 	 *
@@ -311,7 +330,7 @@ class News_Block_Controller {
 	}
 
 	/**
-	 * Fetch a post's featured image.
+	 * Read a post's featured image from the embedded media.
 	 *
 	 * @param array $item A post from the REST response.
 	 *
@@ -322,20 +341,16 @@ class News_Block_Controller {
 			return [];
 		}
 
-		$media = get_transient( $this->get_cache_key( 'attachment_' . $item['id'] ) );
+		$media = $item['_embedded']['wp:featuredmedia'][0] ?? [];
 
-		if ( empty( $media ) ) {
-			$media = ( new News_Request() )->request( News_Request::ENDPOINT_BASE . 'media/' . $item['featured_media'] );
-		}
-
-		if ( empty( $media ) ) {
+		// Media the news site will not expose embeds as an error object with no ID.
+		if ( ! is_array( $media ) || empty( $media['id'] ) ) {
 			return [];
 		}
 
-		set_transient( $this->get_cache_key( 'attachment_' . $item['id'] ), $media, self::CACHE_EXPIRY );
-
+		// The embed context omits guid, so the file URL comes from source_url.
 		return [
-			'raw_url'    => $media['guid']['rendered'] ?? '',
+			'raw_url'    => $media['source_url'] ?? '',
 			'width'      => $media['media_details']['width'] ?? 0,
 			'height'     => $media['media_details']['height'] ?? 0,
 			'image_meta' => $media['media_details']['image_meta'] ?? [],
@@ -347,8 +362,10 @@ class News_Block_Controller {
 	/**
 	 * Resolve a post's author names.
 	 *
-	 * Uses Co-Authors Plus data when the post has it, and falls back to a
-	 * single default author otherwise.
+	 * Co-Authors Plus authors are terms of the remote `author` taxonomy, and
+	 * the post's `coauthors` IDs are their term IDs, so their names are read
+	 * from the embedded terms in coauthor order. A post with no coauthors
+	 * falls back to a single default author, fetched separately.
 	 *
 	 * @param array $item A post from the REST response.
 	 *
@@ -356,20 +373,13 @@ class News_Block_Controller {
 	 */
 	protected function get_authors( array $item ): array {
 		if ( ! empty( $item['coauthors'] ) ) {
+			$terms   = $this->get_embedded_terms( $item );
 			$authors = [];
 
-			foreach ( $item['coauthors'] as $author ) {
-				$user = get_transient( $this->get_cache_key( 'coauthor_' . $author ) );
-				if ( empty( $user ) ) {
-					$user = ( new News_Request() )->request( News_Request::ENDPOINT_BASE . 'coauthors/' . $author );
+			foreach ( (array) $item['coauthors'] as $author ) {
+				if ( isset( $terms[ (int) $author ] ) ) {
+					$authors[] = $terms[ (int) $author ]['name'];
 				}
-
-				if ( empty( $user ) ) {
-					continue;
-				}
-
-				set_transient( $this->get_cache_key( 'coauthor_' . $author ), $user, self::CACHE_EXPIRY );
-				$authors[] = $user['title']['rendered'] ?? $user['name'];
 			}
 
 			return $authors;
@@ -390,7 +400,10 @@ class News_Block_Controller {
 	}
 
 	/**
-	 * Fetch up to three term names for a post.
+	 * Read up to three term names for a post from the embedded terms.
+	 *
+	 * The embedded terms arrive in the REST API's default name order, which
+	 * is kept.
 	 *
 	 * @param array $item   A post from the REST response.
 	 * @param bool  $is_tag Read tags rather than the selected taxonomy.
@@ -398,38 +411,52 @@ class News_Block_Controller {
 	 * @return array
 	 */
 	protected function get_taxonomies( array $item, bool $is_tag = false ) {
+		$rest_base = $is_tag ? 'tags' : $this->taxonomy;
+
+		if ( empty( $item[ $rest_base ] ) || ! is_array( $item[ $rest_base ] ) ) {
+			return [];
+		}
+
+		$term_ids   = array_map( 'intval', $item[ $rest_base ] );
 		$categories = [];
 
-		if ( empty( $item[ $this->taxonomy ] ) ) {
-			return [];
-		}
+		foreach ( $this->get_embedded_terms( $item ) as $term_id => $term ) {
+			if ( ! in_array( $term_id, $term_ids, true ) ) {
+				continue;
+			}
 
-		$taxonomy = $is_tag ? 'tags' : $this->taxonomy;
-
-		$endpoint = News_Request::ENDPOINT_BASE . $taxonomy;
-
-		$items = get_transient( $this->get_cache_key( $taxonomy . '_' . $item['id'] ) );
-		if ( empty( $items ) ) {
-			$items = ( new News_Request() )->request(
-				$endpoint,
-				[
-					'post'     => $item['id'],
-					'per_page' => 3,
-				]
-			);
-		}
-
-		if ( empty( $items ) ) {
-			return [];
-		}
-
-		set_transient( $this->get_cache_key( $taxonomy . '_' . $item['id'] ), $items, self::CACHE_EXPIRY );
-
-		foreach ( $items as $category ) {
 			// The REST API returns names HTML-encoded; decode so the view's esc_html() does not encode twice.
-			$categories[] = html_entity_decode( (string) $category['name'], ENT_QUOTES | ENT_HTML5, 'UTF-8' );
+			$categories[] = html_entity_decode( (string) $term['name'], ENT_QUOTES | ENT_HTML5, 'UTF-8' );
+
+			if ( count( $categories ) >= self::TERMS_PER_ITEM ) {
+				break;
+			}
 		}
 
 		return $categories;
+	}
+
+	/**
+	 * Every term embedded in a post, across all taxonomies, keyed by term ID.
+	 *
+	 * Term IDs are unique across taxonomies, so one flat map serves every
+	 * lookup.
+	 *
+	 * @param array $item A post from the REST response.
+	 *
+	 * @return array<int, array> Embedded terms keyed by term ID.
+	 */
+	protected function get_embedded_terms( array $item ): array {
+		$terms = [];
+
+		foreach ( (array) ( $item['_embedded']['wp:term'] ?? [] ) as $taxonomy_terms ) {
+			foreach ( (array) $taxonomy_terms as $term ) {
+				if ( isset( $term['id'], $term['name'] ) ) {
+					$terms[ (int) $term['id'] ] = $term;
+				}
+			}
+		}
+
+		return $terms;
 	}
 }
