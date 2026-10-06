@@ -27,14 +27,14 @@ use UCSC\Blocks\Request\News_Request;
 class News_Block_Controller {
 
 	/**
-	 * Transient key prefix for cached responses.
+	 * Transient key prefix for cached items.
 	 *
-	 * Changed whenever the shape of the cached posts response changes, so a
-	 * response cached in the old shape is never read back as the new one.
+	 * Changed whenever the shape of the cached items changes, so items cached
+	 * in an old shape are never read back as the new one.
 	 *
 	 * @var string
 	 */
-	public const POSTS = 'news_posts_embed';
+	public const POSTS = 'news_items';
 	/**
 	 * Posts requested from the API.
 	 *
@@ -48,7 +48,7 @@ class News_Block_Controller {
 	 * Resources embedded in the posts response.
 	 *
 	 * Always requested in full, whatever the hide flags, because the cached
-	 * response is shared by every block with the same taxonomy selection.
+	 * items are shared by every block with the same taxonomy selection.
 	 *
 	 * @var string
 	 */
@@ -263,11 +263,11 @@ class News_Block_Controller {
 	}
 
 	/**
-	 * Fetch and shape the posts for rendering.
+	 * The posts to render, with hidden fields blanked.
 	 *
 	 * Returns an empty array unless both a taxonomy and at least one term are
 	 * selected, so an unconfigured block renders nothing rather than an
-	 * arbitrary post list. Hidden fields are omitted here rather than in the
+	 * arbitrary post list. Hidden fields are blanked here rather than in the
 	 * view, so the view does no conditional work.
 	 *
 	 * @return array
@@ -277,43 +277,104 @@ class News_Block_Controller {
 			return [];
 		}
 
-		$response = get_transient( $this->get_cache_key() );
+		$items = array_slice( $this->get_cached_items(), 0, $this->posts_per_page );
 
-		if ( empty( $response ) ) {
-			$response = ( new News_Request() )->request(
-				News_Request::POSTS_ENDPOINT,
-				[
-					'per_page'      => self::PER_PAGE,
-					'_embed'        => self::EMBED,
-					'_fields'       => implode( ',', array_unique( array_merge( self::FIELDS, [ $this->taxonomy ] ) ) ),
-					$this->taxonomy => implode( ',', $this->taxonomy_ids ),
-				]
-			);
+		return array_map( [ $this, 'apply_display_options' ], $items );
+	}
+
+	/**
+	 * Every field of the selection's posts, shaped and cached.
+	 *
+	 * The cache holds the shaped items rather than the raw response, and is
+	 * written only after a successful fetch, so a cache hit never extends its
+	 * own expiry. The hide flags are not applied, so every block with the same
+	 * taxonomy selection shares one entry.
+	 *
+	 * @return array
+	 */
+	protected function get_cached_items(): array {
+		$items = get_transient( $this->get_cache_key() );
+
+		if ( is_array( $items ) ) {
+			return $items;
 		}
+
+		$response = ( new News_Request() )->request(
+			News_Request::POSTS_ENDPOINT,
+			[
+				'per_page'      => self::PER_PAGE,
+				'_embed'        => self::EMBED,
+				'_fields'       => implode( ',', array_unique( array_merge( self::FIELDS, [ $this->taxonomy ] ) ) ),
+				$this->taxonomy => implode( ',', $this->taxonomy_ids ),
+			]
+		);
 
 		if ( empty( $response ) ) {
 			return [];
 		}
 
-		$items = [];
+		$items = array_map( [ $this, 'shape_item' ], $response );
 
-		foreach ( $response as $item ) {
-			$items[] = [
-				'title'        => $item['title']['rendered'] ?? '',
-				'excerpt'      => ! $this->hide_excerpt ? $item['excerpt']['rendered'] ?? '' : '',
-				'permalink'    => $item['link'] ?? '',
-				'image'        => ! $this->hide_image ? $this->get_item_attachment( $item ) : [],
-				'raw_date'     => ! $this->hide_date ? $item['date'] : '',
-				'publish_date' => ! $this->hide_date ? wp_date( get_option( 'date_format', 'F j, Y' ), strtotime( $item['date'] ) ) : '',
-				'authors'      => ! $this->hide_author ? $this->get_authors( $item ) : '',
-				'tags'         => ! $this->hide_tags ? $this->get_taxonomies( $item, true ) : [],
-				'categories'   => ! $this->hide_category ? $this->get_taxonomies( $item ) : [],
-			];
+		set_transient( $this->get_cache_key(), $items, self::CACHE_EXPIRY );
+
+		return $items;
+	}
+
+	/**
+	 * Shape a post from the REST response into the fields the view reads.
+	 *
+	 * @param array $item A post from the REST response.
+	 *
+	 * @return array
+	 */
+	protected function shape_item( array $item ): array {
+		return [
+			'title'        => $item['title']['rendered'] ?? '',
+			'excerpt'      => $item['excerpt']['rendered'] ?? '',
+			'permalink'    => $item['link'] ?? '',
+			'image'        => $this->get_item_attachment( $item ),
+			'raw_date'     => $item['date'] ?? '',
+			'publish_date' => isset( $item['date'] ) ? wp_date( get_option( 'date_format', 'F j, Y' ), strtotime( $item['date'] ) ) : '',
+			'authors'      => $this->get_authors( $item ),
+			'tags'         => $this->get_taxonomies( $item, true ),
+			'categories'   => $this->get_taxonomies( $item ),
+		];
+	}
+
+	/**
+	 * Blank the fields this block hides.
+	 *
+	 * @param array $item A shaped item.
+	 *
+	 * @return array
+	 */
+	protected function apply_display_options( array $item ): array {
+		if ( $this->hide_excerpt ) {
+			$item['excerpt'] = '';
 		}
 
-		set_transient( $this->get_cache_key(), $response, self::CACHE_EXPIRY );
+		if ( $this->hide_image ) {
+			$item['image'] = [];
+		}
 
-		return array_slice( $items, 0, $this->posts_per_page );
+		if ( $this->hide_date ) {
+			$item['raw_date']     = '';
+			$item['publish_date'] = '';
+		}
+
+		if ( $this->hide_author ) {
+			$item['authors'] = '';
+		}
+
+		if ( $this->hide_tags ) {
+			$item['tags'] = [];
+		}
+
+		if ( $this->hide_category ) {
+			$item['categories'] = [];
+		}
+
+		return $item;
 	}
 
 	/**
@@ -397,15 +458,16 @@ class News_Block_Controller {
 		}
 
 		$user = get_transient( $this->get_cache_key( 'coauthor_' . self::DEFAULT_AUTHOR_ID ) );
+
 		if ( empty( $user ) ) {
 			$user = ( new News_Request() )->request( News_Request::ENDPOINT_BASE . 'coauthors/' . self::DEFAULT_AUTHOR_ID );
-		}
 
-		if ( empty( $user ) ) {
-			return [];
-		}
+			if ( empty( $user ) ) {
+				return [];
+			}
 
-		set_transient( $this->get_cache_key( 'coauthor_' . self::DEFAULT_AUTHOR_ID ), $user, self::CACHE_EXPIRY );
+			set_transient( $this->get_cache_key( 'coauthor_' . self::DEFAULT_AUTHOR_ID ), $user, self::CACHE_EXPIRY );
+		}
 
 		return [ $user['title']['rendered'] ?? $user['name'] ];
 	}
