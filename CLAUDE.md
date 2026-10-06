@@ -22,13 +22,16 @@ npm run lint:js      # eslint + --fix on src/**/*.js
 npm run lint:css     # stylelint + --fix on src/**/*.scss
 composer lint        # phpcs (WordPress-Extra + WordPress-Docs, .phpcs.xml.dist)
 composer lint-fix    # phpcbf
+composer test        # phpunit (tests/, phpunit.xml.dist) — needs PHP mbstring
 
 npm run release      # commit-and-tag-version: bumps package.json, package-lock.json,
                      # plugin.php header (via wp-plugin-version-updater.js), CHANGELOG.md
 git push --follow-tags origin main   # tag push triggers .github/workflows/release.yml
 ```
 
-There is **no test suite**. Verification is: `composer lint`, `npm run lint:js`/`lint:css`, `npm run build`, then manual check in a WordPress install.
+Verification is: `composer lint`, `composer test`, `npm run lint:js`/`lint:css`, `npm run build`, then manual check in a WordPress install.
+
+The PHPUnit suite in `tests/Unit/` runs without WordPress: Brain Monkey stubs the hook API, each test declares the WordPress functions it needs with `Functions\when()`/`expect()`, and `tests/bootstrap.php` holds the few WordPress constants and classes referenced at load time. `tests/Unit/Test_Case.php` gives `wp_unslash()`/`sanitize_key()`/`sanitize_text_field()` working implementations so guard behaviour is exercised, not mocked. Coverage is narrow — it exists for the hardening fixes — so a green run is not a substitute for the manual check.
 
 Release CI delegates to the shared reusable workflow `ucsc/actions/.github/workflows/release.yml@v1` — build/packaging changes usually belong in that repo, not here. Tags: `v1.2.3` or `v1.2.3-rc.1`.
 

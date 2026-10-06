@@ -12,6 +12,7 @@ namespace UCSC\Blocks\Hooks;
 use UCSC\Blocks\Blocks\Contracts\Taxonomies;
 use UCSC\Blocks\Blocks\Featured_News_Block;
 use UCSC\Blocks\Traits\With_Get_Field_Key;
+use UCSC\Blocks\Traits\With_Posted_Input;
 
 /**
  * Populates the taxonomy and term dropdowns on query-loop blocks.
@@ -23,6 +24,7 @@ use UCSC\Blocks\Traits\With_Get_Field_Key;
 class Taxonomies_Hooks {
 
 	use With_Get_Field_Key;
+	use With_Posted_Input;
 
 	/**
 	 * Taxonomies hidden from the editor's taxonomy dropdown.
@@ -139,9 +141,8 @@ class Taxonomies_Hooks {
 	 * Runs only during an AJAX request; otherwise the value is passed straight
 	 * through so ACF performs its normal query.
 	 *
-	 * Note: $_POST['taxonomy_selected'] is read without isset(), wp_unslash()
-	 * or sanitisation. WordPress validates the taxonomy argument so the impact
-	 * is limited, but the missing guards are tracked in #103.
+	 * The posted taxonomy is accepted only if it is one load_taxonomies() would
+	 * have offered: registered, and not in RESTRICTED_TAXONOMIES.
 	 *
 	 * @param mixed $shortcut The response ACF will return, if short-circuited.
 	 *
@@ -152,7 +153,7 @@ class Taxonomies_Hooks {
 			return $shortcut;
 		}
 
-		$selected_taxonomy = $_POST['taxonomy_selected'];
+		$selected_taxonomy = $this->get_posted_taxonomy();
 
 		if ( empty( $selected_taxonomy ) ) {
 			return $shortcut;
@@ -162,7 +163,7 @@ class Taxonomies_Hooks {
 			[
 				'taxonomy'   => $selected_taxonomy,
 				'hide_empty' => false,
-				'search'     => isset( $_POST['s'] ) ? sanitize_title_for_query( $_POST['s'] ) : '',
+				'search'     => $this->get_posted_search(),
 			]
 		);
 
@@ -185,5 +186,24 @@ class Taxonomies_Hooks {
 		}
 
 		return $shortcut;
+	}
+
+	/**
+	 * The taxonomy posted by the editor, if it is one we offered.
+	 *
+	 * @return string The validated taxonomy name, or '' when absent or not allowed.
+	 */
+	protected function get_posted_taxonomy(): string {
+		$selected_taxonomy = $this->get_posted_key( 'taxonomy_selected' );
+
+		if (
+			'' === $selected_taxonomy
+			|| in_array( $selected_taxonomy, self::RESTRICTED_TAXONOMIES, true )
+			|| ! taxonomy_exists( $selected_taxonomy )
+		) {
+			return '';
+		}
+
+		return $selected_taxonomy;
 	}
 }

@@ -134,6 +134,7 @@ ucsc-custom-functionality/
 |---------|-------------|
 | `composer lint` | Run PHP CodeSniffer against the codebase |
 | `composer lint-fix` | Auto-fix PHP CodeSniffer violations with PHPCBF |
+| `composer test` | Run the PHPUnit suite in `tests/` (no WordPress install needed; requires PHP `mbstring`) |
 
 ---
 
@@ -197,9 +198,10 @@ git checkout -b feature/my-new-feature
 ## Submitting a Pull Request
 
 1. Ensure your branch is up to date with `main`.
-2. Run linters and fix any issues:
+2. Run linters and tests and fix any issues:
    ```bash
    composer lint
+   composer test
    npm run lint
    ```
 3. Build assets to confirm nothing is broken:

@@ -182,19 +182,19 @@ abstract class Query_Loop_Controller {
 	/**
 	 * The editor's hand-picked posts, in the order they were arranged.
 	 *
-	 * Note: the repeater index is read unguarded, so manual mode with no rows
-	 * saved raises a warning. Tracked in #104.
+	 * The repeater is absent from the saved group when no rows were added, and
+	 * ACF returns false for an empty repeater, so both read as no posts.
 	 *
 	 * @return array
 	 */
 	protected function get_manual_query_items(): array {
-		$posts = $this->query_loop[ Query_Loop::MANUAL_CARDS ];
+		$posts = $this->query_loop[ Query_Loop::MANUAL_CARDS ] ?? [];
 
-		if ( empty( $posts ) ) {
+		if ( empty( $posts ) || ! is_array( $posts ) ) {
 			return [];
 		}
 
-		$posts = array_column( $posts, 'manual_card' );
+		$posts = array_column( $posts, Query_Loop::MANUAL_CARD );
 
 		return $this->prepare_posts_for_display( $posts );
 	}

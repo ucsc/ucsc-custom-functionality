@@ -173,6 +173,9 @@ pip-log.txt
 .DS_Store
 /nbproject/private/
 
+# PHPUnit result cache
+.phpunit.cache/
+
 # ignore node  and composer dependency directories
 node_modules/
 vendor/
