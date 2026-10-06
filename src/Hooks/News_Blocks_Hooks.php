@@ -19,7 +19,7 @@ use UCSC\Blocks\Traits\With_Posted_Input;
  *
  * Unlike Taxonomies_Hooks, which reads local taxonomies, every choice here is
  * fetched over REST from the remote news site. Responses are cached in
- * transients for 20 minutes — the taxonomy list under the taxonomies field
+ * transients for 30 minutes — the taxonomy list under the taxonomies field
  * key, and each taxonomy's full, unfiltered term list under the terms field
  * key suffixed with the taxonomy's REST base. When the editor dropdowns look
  * stale, those transients are what to delete.
@@ -34,7 +34,7 @@ class News_Blocks_Hooks {
 	 *
 	 * @var int
 	 */
-	private const CACHE_EXPIRY = MINUTE_IN_SECONDS * 20;
+	private const CACHE_EXPIRY = MINUTE_IN_SECONDS * 30;
 
 	/**
 	 * Taxonomy assumed when a block has not chosen one yet.

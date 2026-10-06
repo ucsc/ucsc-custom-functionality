@@ -17,7 +17,7 @@ use UCSC\Blocks\Request\News_Request;
  *
  * The only controller that sources its content remotely: posts, media,
  * authors and terms are all fetched from the news site over REST rather than
- * queried locally. Everything is cached in transients for 20 minutes.
+ * queried locally. Everything is cached in transients for 30 minutes.
  *
  * Featured images and terms (including Co-Authors Plus authors, which are
  * terms of the remote `author` taxonomy) are embedded in the posts response,
@@ -74,7 +74,7 @@ class News_Block_Controller {
 	 *
 	 * @var int
 	 */
-	private const CACHE_EXPIRY = MINUTE_IN_SECONDS * 20;
+	private const CACHE_EXPIRY = MINUTE_IN_SECONDS * 30;
 	/**
 	 * How long the last good items are kept for serving during an outage.
 	 *
