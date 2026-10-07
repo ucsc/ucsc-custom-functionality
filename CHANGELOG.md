@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [26.10.7](https://github.com/ucsc/ucsc-custom-functionality/compare/v2.5.0...v26.10.7) (2026-10-07)
+
+
+### Bug Fixes
+
+* harden ACF AJAX input and PHP 8 dereferences ([#103](https://github.com/ucsc/ucsc-custom-functionality/issues/103), [#104](https://github.com/ucsc/ucsc-custom-functionality/issues/104)) ([#134](https://github.com/ucsc/ucsc-custom-functionality/issues/134)) ([faa70f0](https://github.com/ucsc/ucsc-custom-functionality/commit/faa70f0a00869d52cbe90f3212c930d7bf740fd6))
+* **news:** Add messages in UI for failure states. Save backup data for longer failures. ([afa8b15](https://github.com/ucsc/ucsc-custom-functionality/commit/afa8b157992c1903792b4ba0854dad0b10affc57))
+* **news:** Cache rendered block data instead of API response, and only set transient when data is fetched. ([982f57d](https://github.com/ucsc/ucsc-custom-functionality/commit/982f57d08e6509c955ddd8eed0a9501423d0792c))
+* **news:** reduce API requests by using `_embed` to fetch related data in a single call ([f54c41e](https://github.com/ucsc/ucsc-custom-functionality/commit/f54c41e891397f53985cc6b09b750c63b01df0e5))
+* **news:** Reduce requested data to just fields we need to render the block ([e253d15](https://github.com/ucsc/ucsc-custom-functionality/commit/e253d150be44661c6edd6c5e6cb69cbf8331f34d))
+* **news:** Reset terms field when a new taxonomy is selected ([61b0e22](https://github.com/ucsc/ucsc-custom-functionality/commit/61b0e22991bf38d2a99417e155ab5a5cf3039a05))
+
 ## [2.5.0](https://github.com/ucsc/ucsc-custom-functionality/compare/v2.0.6...v2.5.0) (2026-09-16)
 
 
