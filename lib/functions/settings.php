@@ -41,7 +41,7 @@ if ( ! function_exists( 'ucsc_render_plugin_settings_page' ) ) {
 			return;
 		}
 
-		$plugin_data = get_plugin_data( WP_PLUGIN_DIR . '/ucsc-custom-functionality/plugin.php' );
+		$plugin_data = get_plugin_data( UCSC_DIR . '/plugin.php' );
 		?>
 		<div class="wrap cf-admin-settings-page">
 			<h1><?php echo esc_html( $plugin_data['Name'] ); ?></h1>
