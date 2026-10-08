@@ -175,10 +175,7 @@ class News_Block_Controller {
 	 */
 	private array|string $more_news_link;
 	/**
-	 * How many posts to render.
-	 *
-	 * Blocks saved before this field existed resolve to 0, which renders an
-	 * empty block; tracked in #106.
+	 * How many posts to render, between 1 and PER_PAGE.
 	 *
 	 * @var int
 	 */
@@ -214,7 +211,28 @@ class News_Block_Controller {
 		$this->hide_date      = (bool) get_field( News_Block::HIDE_DATE );
 		$this->hide_tags      = (bool) get_field( News_Block::HIDE_TAGS );
 		$this->hide_category  = (bool) get_field( News_Block::HIDE_CATEGORY );
-		$this->posts_per_page = (int) get_field( 'posts_per_page' ) ?? self::PER_PAGE;
+		$this->posts_per_page = $this->resolve_posts_per_page( get_field( News_Block::POSTS_PER_PAGE ) );
+	}
+
+	/**
+	 * Turn the saved number-of-posts value into a usable count.
+	 *
+	 * Blocks inserted before the field existed have no saved value. Those
+	 * rendered every fetched post, so anything that is not a positive number
+	 * falls back to PER_PAGE rather than to 0, which would slice the items
+	 * down to an empty block. Counts above PER_PAGE are capped, since no
+	 * more than that are fetched.
+	 *
+	 * @param mixed $value The saved field value.
+	 *
+	 * @return int
+	 */
+	private function resolve_posts_per_page( $value ): int {
+		if ( ! is_numeric( $value ) || (int) $value < 1 ) {
+			return self::PER_PAGE;
+		}
+
+		return min( (int) $value, self::PER_PAGE );
 	}
 
 	/**
