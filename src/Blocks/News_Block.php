@@ -76,6 +76,12 @@ class News_Block extends ACF_Group {
 	 * @var string
 	 */
 	public const TAX_ITEMS = 'taxonomy_items';
+	/**
+	 * Number-of-posts selector field name.
+	 *
+	 * @var string
+	 */
+	public const POSTS_PER_PAGE = 'posts_per_page';
 
 	/**
 	 * Toggle field name: hide the excerpt.
@@ -326,16 +332,16 @@ class News_Block extends ACF_Group {
 	/**
 	 * How many posts to render.
 	 *
-	 * Blocks inserted before this field existed have no saved value; see #106
-	 * for the resulting empty-block behaviour.
+	 * Blocks inserted before this field existed have no saved value; the
+	 * controller falls back to News_Block_Controller::PER_PAGE for those.
 	 *
 	 * @return array
 	 */
 	private function get_posts_per_page_field(): array {
 		return [
-			'key'           => $this->get_field_key( 'posts_per_page', self::NAME ),
+			'key'           => $this->get_field_key( self::POSTS_PER_PAGE, self::NAME ),
 			'label'         => esc_html__( 'Number of Posts to Show', 'ucsc' ),
-			'name'          => 'posts_per_page',
+			'name'          => self::POSTS_PER_PAGE,
 			'type'          => 'select',
 			'choices'       => [
 				3 => '3 Posts',
