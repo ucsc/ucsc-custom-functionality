@@ -18,6 +18,16 @@ if ( ! defined( 'MINUTE_IN_SECONDS' ) ) {
 	define( 'MINUTE_IN_SECONDS', 60 );
 }
 
+if ( ! defined( 'DAY_IN_SECONDS' ) ) {
+	define( 'DAY_IN_SECONDS', 86400 );
+}
+
+// Deliberately not the checkout's parent directory, so code that builds the
+// plugin's path from WP_PLUGIN_DIR fails as it would on a renamed install.
+if ( ! defined( 'WP_PLUGIN_DIR' ) ) {
+	define( 'WP_PLUGIN_DIR', '/srv/www/wp-content/plugins' );
+}
+
 if ( ! class_exists( 'WP_Screen' ) ) {
 	/**
 	 * Minimal stand-in for the admin screen object.
