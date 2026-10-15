@@ -41,10 +41,3 @@ if ( ! class_exists( 'WP_Screen' ) ) {
 		public string $base = '';
 	}
 }
-
-if ( ! class_exists( 'WP_Block_Template' ) ) {
-	/**
-	 * Minimal stand-in for a block template.
-	 */
-	class WP_Block_Template {}
-}
