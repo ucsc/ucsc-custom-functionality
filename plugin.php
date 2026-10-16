@@ -7,6 +7,8 @@
  * Author:      UC Santa Cruz
  * Author URI:  https://github.com/ucsc
  * License:     GPL2
+ * Requires at least: 5.9
+ * Requires PHP: 8.0
  *
  * Entry point. Defines the plugin constants, includes the procedural
  * lib/functions/ features, and boots the namespaced src/ layer through
