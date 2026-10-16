@@ -11,6 +11,7 @@
  * Requires PHP: 8.0
  * Text Domain: ucsc
  * Domain Path: /languages
+ * Update URI: https://github.com/ucsc/ucsc-custom-functionality
  *
  * Entry point. Defines the plugin constants, includes the procedural
  * lib/functions/ features, and boots the namespaced src/ layer through
