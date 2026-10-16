@@ -100,7 +100,8 @@ class Plugin_Test extends Test_Case {
 
 	/**
 	 * The header declares the text domain WordPress uses for just-in-time
-	 * loading, and the requirements that block activation on older stacks.
+	 * loading, the requirements that block activation on older stacks, and
+	 * an Update URI that keeps WordPress.org updates off the plugin.
 	 *
 	 * @return void
 	 */
@@ -111,5 +112,6 @@ class Plugin_Test extends Test_Case {
 		$this->assertMatchesRegularExpression( '/^ \* Requires PHP: 8\.0$/m', $header );
 		$this->assertMatchesRegularExpression( '/^ \* Text Domain: ucsc$/m', $header );
 		$this->assertMatchesRegularExpression( '/^ \* Domain Path: \/languages$/m', $header );
+		$this->assertMatchesRegularExpression( '/^ \* Update URI: https:\/\/github\.com\/ucsc\/ucsc-custom-functionality$/m', $header );
 	}
 }
