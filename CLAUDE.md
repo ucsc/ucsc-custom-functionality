@@ -87,7 +87,7 @@ Two extra webpack entries in [webpack.config.js](webpack.config.js) compile `ass
 
 ### Templates and core-block filtering (news sites only)
 
-`Template\Template` subclasses (`Post_Single`, `Photo_Of_The_Week_Archive`) inject block templates through the `get_block_templates` filter, creating a `wp_template` post from `src/views/templates/*.html` on first load and tagging it with the `wp_theme` term `ucsc-2022` (`Template::NAMESPACE`). That namespace ties the templates to the UCSC theme; changing themes orphans them.
+`Template\Block_Templates` registers each `src/views/templates/<slug>.html` with `register_block_template()` as `ucsc-custom-functionality//<slug>` (WordPress 6.7+; does nothing on older versions). The slugs are template-hierarchy slugs (`single-post`, `archive-photo_of_the_week`), so core selects them, and the file name must match the slug. A theme file with the same slug overrides the plugin template. Site Editor edits are saved by core under the active theme. Sites upgraded from versions before #109 still have `wp_template` posts `post-single` and `photo-of-the-week-archive` under `ucsc-2022`, which no longer apply.
 
 `Template\Blocks_Render` (via `Template_Subscriber`) filters `render_block` to rewrite core block output — Co-Authors Plus in `core/post-author-name`, caption/description appended to `core/post-featured-image`, wrappers on `core/post-terms` and `outermost/social-sharing`.
 

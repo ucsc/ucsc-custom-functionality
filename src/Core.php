@@ -24,8 +24,7 @@ use UCSC\Blocks\Integrations\Integrations_Subscriber;
 use UCSC\Blocks\Object_Meta\Object_Meta_Definer;
 use UCSC\Blocks\Post_Types\Photo_Of_The_Week\Photo_Of_The_Week;
 use UCSC\Blocks\Query\Query_Subscriber;
-use UCSC\Blocks\Template\Photo_Of_The_Week_Archive;
-use UCSC\Blocks\Template\Post_Single;
+use UCSC\Blocks\Template\Block_Templates;
 use UCSC\Blocks\Template\Template_Subscriber;
 
 /**
@@ -177,10 +176,7 @@ class Core {
 	// phpcs:enable Generic.CodeAnalysis.UnusedFunctionParameter
 
 	/**
-	 * Inject the custom block templates on news sites.
-	 *
-	 * Deferred to after_setup_theme because the templates are tied to a
-	 * wp_theme term and need the active theme resolved first.
+	 * Register the custom block templates on news sites.
 	 *
 	 * @return void
 	 */
@@ -189,21 +185,7 @@ class Core {
 			return;
 		}
 
-		$templates = [
-			Photo_Of_The_Week_Archive::class,
-			Post_Single::class,
-		];
-
-		add_action(
-			'after_setup_theme',
-			static function () use ( $templates ): void {
-				foreach ( $templates as $template ) {
-					( new $template() )->init();
-				}
-			},
-			10,
-			0
-		);
+		( new Block_Templates() )->init();
 	}
 
 	/**
