@@ -125,7 +125,7 @@ ucsc-custom-functionality/
 | `npm run lint:js` | Lint and auto-fix JS files in `src/` |
 | `npm run lint` | Run both CSS and JS linters |
 | `npm run zip` | Package the plugin into a `.zip` for distribution |
-| `npm run release` | Bump version with `standard-version` and generate CHANGELOG entry |
+| `npm run release` | Bump version with `commit-and-tag-version` and generate CHANGELOG entry |
 | `npm run packages-update` | Update `@wordpress/scripts` and related packages |
 
 ### Composer / PHP
@@ -223,7 +223,7 @@ Releases are automated via the **Build and release** GitHub Actions workflow (`.
 
 ### Steps to release
 
-1. **Bump the version** using `standard-version` (updates `package.json`, `package-lock.json`, `plugin.php`, and `CHANGELOG.md`):
+1. **Bump the version** using `commit-and-tag-version` (updates `package.json`, `package-lock.json`, `plugin.php`, and `CHANGELOG.md`):
 
    ```bash
    npm run release
