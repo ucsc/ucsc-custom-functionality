@@ -33,6 +33,7 @@
     "devDependencies": {
         "@babel/runtime": "^7.29.2",
         "@stylelint/postcss-css-in-js": "^0.38.0",
+        "@ucsantacruz/wordpress-version-updater": "^1.1.1",
         "@wordpress/scripts": "^29.0.0",
         "@wordpress/stylelint-config": "^22.7.0",
         "commit-and-tag-version": "^12.7.1"
@@ -60,7 +61,7 @@
             },
             {
                 "filename": "plugin.php",
-                "updater": "wp-plugin-version-updater.js"
+                "updater": "node_modules/@ucsantacruz/wordpress-version-updater/index.js"
             }
         ]
     }
