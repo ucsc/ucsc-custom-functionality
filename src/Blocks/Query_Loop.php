@@ -171,7 +171,7 @@ abstract class Query_Loop extends ACF_Group implements Taxonomies {
 	 */
 	protected function get_sub_fields(): array {
 		return [
-			$this->get_query_type_filed(),
+			$this->get_query_type_field(),
 			$this->get_automatic_query(),
 			$this->get_manual_query(),
 		];
@@ -185,7 +185,7 @@ abstract class Query_Loop extends ACF_Group implements Taxonomies {
 	 *
 	 * @return array
 	 */
-	protected function get_query_type_filed(): array {
+	protected function get_query_type_field(): array {
 		return [
 			'key'           => $this->get_field_key( self::QUERY_TYPE, $this->block_name ),
 			'type'          => 'button_group',

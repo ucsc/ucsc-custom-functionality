@@ -90,7 +90,7 @@ Issues discovered while working the audit items. None were part of the original 
 | Issue | Item | Found during |
 |---|---|---|
 | [#122](https://github.com/ucsc/ucsc-custom-functionality/issues/122) | News block's ACF field group is titled "Modal Block" — a copy-paste leftover visible to editors since the block shipped | docblock pass |
-| [#123](https://github.com/ucsc/ucsc-custom-functionality/issues/123) | `Query_Loop::get_query_type_filed()` is misspelled | docblock pass |
+| [#123](https://github.com/ucsc/ucsc-custom-functionality/issues/123) | `Query_Loop::get_query_type_field()` is misspelled | docblock pass |
 | [#127](https://github.com/ucsc/ucsc-custom-functionality/issues/127) | Magazine tab and panel ids are not unique per block instance, so two blocks sharing an item title emit duplicate ids and cross-trigger each other's panels | lint backlog, step 5 |
 | [#135](https://github.com/ucsc/ucsc-custom-functionality/issues/135) | News block taxonomy and term dropdowns failed to load: ACF caches a loaded field for the request and may load it before block meta exists, and since ACF 6.3 an AJAX select query on an unrecognised field key needs `manage_options`, so non-admin editors got empty dropdowns | reported by editors |
 | [#140](https://github.com/ucsc/ucsc-custom-functionality/issues/140) | The News block's saved taxonomy reaches the outbound REST path and transient key unvalidated through `News_Blocks_Hooks::prepare_tax_items()`. Same defect as item 5, reached through block data instead of `$_POST` | closing [#103](https://github.com/ucsc/ucsc-custom-functionality/issues/103) |
