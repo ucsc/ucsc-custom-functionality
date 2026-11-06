@@ -52,16 +52,16 @@
     "commit-and-tag-version": {
         "bumpFiles": [
             {
+                "filename": "plugin.php",
+                "updater": "wordpress-version-updater.js"
+            },
+            {
                 "filename": "package-lock.json",
                 "type": "json"
             },
             {
                 "filename": "package.json",
                 "type": "json"
-            },
-            {
-                "filename": "plugin.php",
-                "updater": "node_modules/@ucsantacruz/wordpress-version-updater/index.js"
             }
         ]
     }
