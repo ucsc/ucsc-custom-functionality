@@ -17,7 +17,6 @@ phpunit.xml.dist
 .nvmrc
 .editorconfig
 webpack.config.js
-wp-plugin-version-updater.js
 .vscode
 *.code-workspace
 .gitattributes
