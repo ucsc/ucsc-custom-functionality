@@ -25,7 +25,7 @@ composer lint-fix    # phpcbf
 composer test        # phpunit (tests/, phpunit.xml.dist) — needs PHP mbstring
 
 npm run release      # commit-and-tag-version: bumps package.json, package-lock.json,
-                     # plugin.php header (via wordpress-version-updater.js), CHANGELOG.md
+                     # plugin.php header (via @ucsantacruz/wordpress-version-updater), CHANGELOG.md
 git push --follow-tags origin main   # tag push triggers .github/workflows/release.yml
 ```
 
