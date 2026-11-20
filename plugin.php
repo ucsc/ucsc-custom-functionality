@@ -7,6 +7,11 @@
  * Author:      UC Santa Cruz
  * Author URI:  https://github.com/ucsc
  * License:     GPL2
+ * Requires at least: 5.9
+ * Requires PHP: 8.0
+ * Text Domain: ucsc
+ * Domain Path: /languages
+ * Update URI: https://github.com/ucsc/ucsc-custom-functionality
  *
  * Entry point. Defines the plugin constants, includes the procedural
  * lib/functions/ features, and boots the namespaced src/ layer through
@@ -86,6 +91,23 @@ if ( ! function_exists( 'ucsc_enqueue_admin_styles' ) ) {
 	}
 }
 add_action( 'admin_enqueue_scripts', 'ucsc_enqueue_admin_styles' );
+
+if ( ! function_exists( 'ucsc_load_textdomain' ) ) {
+	/**
+	 * Load the plugin's translations.
+	 *
+	 * Runs on init, because WordPress 6.7+ reports a notice when a text
+	 * domain loads earlier. A .mo file in wp-content/languages/plugins/
+	 * takes precedence over the plugin's own languages/ directory, which
+	 * does not exist yet.
+	 *
+	 * @return void
+	 */
+	function ucsc_load_textdomain(): void {
+		load_plugin_textdomain( 'ucsc', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+	}
+}
+add_action( 'init', 'ucsc_load_textdomain' );
 
 add_action(
 	'plugins_loaded',

@@ -13,7 +13,8 @@ use Brain\Monkey\Functions;
 use WP_Screen;
 
 /**
- * Covers the current-screen guard in ucsc_enqueue_admin_styles() (#104).
+ * Covers the current-screen guard in ucsc_enqueue_admin_styles() (#104) and
+ * the text domain loader (#110).
  */
 class Plugin_Test extends Test_Case {
 
@@ -79,5 +80,38 @@ class Plugin_Test extends Test_Case {
 		Functions\expect( 'wp_enqueue_style' )->once()->with( 'ucsc-cf-admin-settings' );
 
 		ucsc_enqueue_admin_styles( 'settings_page_ucsc-custom-functionality-settings' );
+	}
+
+	/**
+	 * The ucsc text domain loads from the languages/ directory of the
+	 * plugin's own folder, resolved relative to WP_PLUGIN_DIR.
+	 *
+	 * @return void
+	 */
+	public function test_textdomain_loads_from_the_plugin_languages_directory(): void {
+		Functions\when( 'plugin_basename' )->justReturn( 'renamed-dir/plugin.php' );
+		Functions\expect( 'load_plugin_textdomain' )
+			->once()
+			->with( 'ucsc', false, 'renamed-dir/languages' )
+			->andReturn( true );
+
+		ucsc_load_textdomain();
+	}
+
+	/**
+	 * The header declares the text domain WordPress uses for just-in-time
+	 * loading, the requirements that block activation on older stacks, and
+	 * an Update URI that keeps WordPress.org updates off the plugin.
+	 *
+	 * @return void
+	 */
+	public function test_plugin_header_declares_requirements_and_text_domain(): void {
+		$header = file_get_contents( dirname( __DIR__, 2 ) . '/plugin.php', false, null, 0, 8192 ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- local file, read without WordPress loaded.
+
+		$this->assertMatchesRegularExpression( '/^ \* Requires at least: 5\.9$/m', $header );
+		$this->assertMatchesRegularExpression( '/^ \* Requires PHP: 8\.0$/m', $header );
+		$this->assertMatchesRegularExpression( '/^ \* Text Domain: ucsc$/m', $header );
+		$this->assertMatchesRegularExpression( '/^ \* Domain Path: \/languages$/m', $header );
+		$this->assertMatchesRegularExpression( '/^ \* Update URI: https:\/\/github\.com\/ucsc\/ucsc-custom-functionality$/m', $header );
 	}
 }
