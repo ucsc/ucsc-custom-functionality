@@ -1,6 +1,20 @@
 # Changelog
 
-All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
+
+## [2026.11.1](https://github.com/ucsc/ucsc-custom-functionality/compare/v26.10.7...v2026.11.1) (2026-11-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* **templates:** stop pinning template parts to ucsc-2022 (#143)
+
+### Bug Fixes
+
+* **news:** fall back to 9 posts when the saved count is unusable ([4b9bd57](https://github.com/ucsc/ucsc-custom-functionality/commit/4b9bd57050e67c1b74d44f239fab6a5b58586d6a)), closes [#106](https://github.com/ucsc/ucsc-custom-functionality/issues/106)
+* **release:** replace local version updater with npm package ([#147](https://github.com/ucsc/ucsc-custom-functionality/issues/147)) ([9b88c74](https://github.com/ucsc/ucsc-custom-functionality/commit/9b88c74bfa508d9c41c503b36b6e8d5727ab969b))
+* **settings:** read plugin header from UCSC_DIR, not a fixed path ([8e002ae](https://github.com/ucsc/ucsc-custom-functionality/commit/8e002ae90738edaea19292cd75d208dfbfae4112)), closes [#106](https://github.com/ucsc/ucsc-custom-functionality/issues/106)
+* **templates:** stop pinning template parts to ucsc-2022 ([#143](https://github.com/ucsc/ucsc-custom-functionality/issues/143)) ([ad5ac0a](https://github.com/ucsc/ucsc-custom-functionality/commit/ad5ac0a86eb4cf32eb11c3be36b8f691ad602266)), closes [#109](https://github.com/ucsc/ucsc-custom-functionality/issues/109)
 
 ### [26.10.7](https://github.com/ucsc/ucsc-custom-functionality/compare/v2.5.0...v26.10.7) (2026-10-07)
 
