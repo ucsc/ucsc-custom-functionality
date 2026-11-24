@@ -74,7 +74,7 @@ ucsc-custom-functionality/
 | **Composer** | 2.x | PHP dependency management |
 | **Node.js** | 20 (see `.nvmrc`) | JavaScript tooling |
 | **npm** | bundled with Node | Package management |
-| **WordPress** | 5.9+ | Matches the `Requires at least` plugin header |
+| **WordPress** | 6.9+ | Matches the `Requires at least` plugin header |
 | **ACF (Advanced Custom Fields)** | any | Required for custom blocks |
 
 > **Tip:** Use [nvm](https://github.com/nvm-sh/nvm) to manage Node versions. Run `nvm use` in the project root to automatically switch to the correct version specified in `.nvmrc`.
@@ -147,7 +147,7 @@ This project follows **WordPress Coding Standards** enforced via PHP CodeSniffer
 - Adhere to [WordPress PHP Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/php/).
 - All functions, classes, and globals **must** be prefixed with `ucsc_` or use the `UCSC\Blocks\` namespace.
 - All PHP files in `lib/` must include a proper file-level docblock (see existing files for examples).
-- Minimum supported versions: **PHP 8.0** and **WordPress 5.9**. These match the `Requires PHP` and `Requires at least` headers in `plugin.php` and the `minimum_supported_wp_version` value in `.phpcs.xml.dist`. Change all three together.
+- Minimum supported versions: **PHP 8.0** and **WordPress 6.9**. These match the `Requires PHP` and `Requires at least` headers in `plugin.php`, the `minimum_supported_wp_version` value in `.phpcs.xml.dist`, the Requirements section of `README.md`, and the header test in `tests/Unit/Plugin_Test.php`. Change them all together.
 - Use `strict_types=1` declarations in namespaced class files (see `src/Core.php`).
 
 Run the linter before committing:

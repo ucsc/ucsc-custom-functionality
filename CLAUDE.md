@@ -94,6 +94,6 @@ Two extra webpack entries in [webpack.config.js](webpack.config.js) compile `ass
 ## Conventions
 
 -   `declare(strict_types=1)` on all `src/` files; `lib/` files need a file-level docblock.
--   Text domain is `ucsc`, loaded on `init` by `ucsc_load_textdomain()` in plugin.php. Minimums are PHP 8.0 and WordPress 5.9: the plugin header, phpcs `minimum_supported_wp_version`, and .github/CONTRIBUTING.md must agree.
+-   Text domain is `ucsc`, loaded on `init` by `ucsc_load_textdomain()` in plugin.php. Minimums are PHP 8.0 and WordPress 6.9 (the same as the ucsc-2022 theme): the plugin header, phpcs `minimum_supported_wp_version`, .github/CONTRIBUTING.md, README.md, and the header test in tests/Unit/Plugin_Test.php must agree.
 -   `build/` and `vendor/` are gitignored but both ship in the release zip (`package.json` `files`, `.deployignore`).
 -   Branches: `feature/…`, `fix/…`, `chore/…` off `main`; commit messages follow Conventional Commits (CHANGELOG is generated from them).

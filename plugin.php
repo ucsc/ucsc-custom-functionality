@@ -7,7 +7,7 @@
  * Author:      UC Santa Cruz
  * Author URI:  https://github.com/ucsc
  * License:     GPL2
- * Requires at least: 5.9
+ * Requires at least: 6.9
  * Requires PHP: 8.0
  * Text Domain: ucsc
  * Domain Path: /languages

@@ -108,7 +108,7 @@ class Plugin_Test extends Test_Case {
 	public function test_plugin_header_declares_requirements_and_text_domain(): void {
 		$header = file_get_contents( dirname( __DIR__, 2 ) . '/plugin.php', false, null, 0, 8192 ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- local file, read without WordPress loaded.
 
-		$this->assertMatchesRegularExpression( '/^ \* Requires at least: 5\.9$/m', $header );
+		$this->assertMatchesRegularExpression( '/^ \* Requires at least: 6\.9$/m', $header );
 		$this->assertMatchesRegularExpression( '/^ \* Requires PHP: 8\.0$/m', $header );
 		$this->assertMatchesRegularExpression( '/^ \* Text Domain: ucsc$/m', $header );
 		$this->assertMatchesRegularExpression( '/^ \* Domain Path: \/languages$/m', $header );

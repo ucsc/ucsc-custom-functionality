@@ -69,7 +69,8 @@ Query-based blocks support three query modes: **latest posts**, **automatic** (p
 
 ## Requirements
 
-- WordPress 5.5+
+- WordPress 6.9+
+- PHP 8.0+
 - [Advanced Custom Fields PRO](https://www.advancedcustomfields.com/pro/)
 - Define `UCSC_NEWS_SITE` as `true` to enable news-specific blocks, post types, templates, and integrations
 
