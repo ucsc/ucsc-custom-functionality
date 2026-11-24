@@ -13,7 +13,7 @@ Always check @ROADMAP.md first to understand current priorities and progress.
 ## Commands
 
 ```bash
-nvm use              # Node 20.18.0 (.nvmrc)
+nvm use              # Node 24.21.0 (.nvmrc)
 npm install && composer install
 
 npm run dev          # webpack watch

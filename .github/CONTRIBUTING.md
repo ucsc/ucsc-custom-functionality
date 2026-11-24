@@ -72,7 +72,7 @@ ucsc-custom-functionality/
 |------|---------|-------|
 | **PHP** | 8.0+ | Matches the `Requires PHP` plugin header |
 | **Composer** | 2.x | PHP dependency management |
-| **Node.js** | 20 (see `.nvmrc`) | JavaScript tooling |
+| **Node.js** | 24 (see `.nvmrc`) | JavaScript tooling |
 | **npm** | bundled with Node | Package management |
 | **WordPress** | 6.9+ | Matches the `Requires at least` plugin header |
 | **ACF (Advanced Custom Fields)** | any | Required for custom blocks |
